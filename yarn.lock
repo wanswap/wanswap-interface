@@ -2837,6 +2837,58 @@
     "@walletconnect/utils" "^1.1.1-alpha.0"
     web3-provider-engine "15.0.12"
 
+"@wansproject/bytes@^5.0.5":
+  version "5.0.5"
+  resolved "https://registry.npmjs.org/@wansproject/bytes/-/bytes-5.0.5.tgz#e829a556492de4abbf88aaf32b0519aa0938541b"
+  integrity sha512-Hyics27DWqKHgEEBMHTgTUvwjwr3vyGgqIVri9sdavkSkWf00vWSb9TknEYuWxM658u2w5PeUrVUFElAvFuDng==
+  dependencies:
+    "@wansproject/logger" "^5.0.6"
+
+"@wansproject/keccak256@^5.0.0-beta.130":
+  version "5.0.4"
+  resolved "https://registry.npmjs.org/@wansproject/keccak256/-/keccak256-5.0.4.tgz#ba5c9442c647daffbda058a0331592a8e4c01304"
+  integrity sha512-ODdWBFcmakAOJLqnmVs2rJ6csmc5zK4bXneWbwlaFlz6zvr181Yek73h/S+firFe3Qd7tcv6m0H45K/3ioJ4+w==
+  dependencies:
+    "@wansproject/bytes" "^5.0.5"
+    js-sha3 "0.5.7"
+
+"@wansproject/logger@^5.0.6":
+  version "5.0.6"
+  resolved "https://registry.npmjs.org/@wansproject/logger/-/logger-5.0.6.tgz#46ad66cf844b7b17e2b3602d0a3773fde5c5dee0"
+  integrity sha512-Pi8Qa2UekEXiRhSNA5oEVnG68/Uh2CvGZotVCuSZUH5OgjDVQRf4jenUwZ63lFd+C41pvu/mUsRNZRkKHsH+VQ==
+
+"@web3-react-wan/abstract-connector@^6.1.7":
+  version "6.1.7"
+  resolved "https://registry.npmjs.org/@web3-react-wan/abstract-connector/-/abstract-connector-6.1.7.tgz#0b3e39c30c17bb77c00e6b1902a48b9f1c1d2a93"
+  integrity sha512-1/GxKaZE6vNCKdjnJTUN9LDodGFY8CZX/uE0k3n0hmmWssQ52JMFZEW3w+Y/JUViyugMaieo5bDSb8Z1Wl93KA==
+  dependencies:
+    "@web3-react-wan/types" "^6.1.7"
+
+"@web3-react-wan/core@^6.1.7":
+  version "6.1.7"
+  resolved "https://registry.npmjs.org/@web3-react-wan/core/-/core-6.1.7.tgz#e4f030c70f29b735667b58fd6a2b7aef1a5e75b1"
+  integrity sha512-Twmx+hIl7zNQ3bvzqb736rdiFEycb+K5R+otiW8R/D1Y4nbASeSW/ud6MAJ7NDIF1vySlUFWsYXEmiZX46IjVw==
+  dependencies:
+    "@wansproject/keccak256" "^5.0.0-beta.130"
+    "@web3-react-wan/abstract-connector" "^6.1.7"
+    "@web3-react-wan/types" "^6.1.7"
+    tiny-invariant "^1.0.6"
+    tiny-warning "^1.0.3"
+
+"@web3-react-wan/injected-connector@^6.1.9":
+  version "6.1.9"
+  resolved "https://registry.npmjs.org/@web3-react-wan/injected-connector/-/injected-connector-6.1.9.tgz#e3ff631ec850d7cb87a96db50474791d3cc4f7ec"
+  integrity sha512-ZTz5zpEk0YAxyPWM+uGWI3mNUxjpioVZGVGyd4UDkSDYVHs3OOvz6Idc1KZwt9R02hLxz67EMOaZ5Yvx5EGJ4w==
+  dependencies:
+    "@web3-react-wan/abstract-connector" "^6.1.7"
+    "@web3-react-wan/types" "^6.1.7"
+    tiny-warning "^1.0.3"
+
+"@web3-react-wan/types@^6.1.7":
+  version "6.1.7"
+  resolved "https://registry.npmjs.org/@web3-react-wan/types/-/types-6.1.7.tgz#6d26bad95e344abcf256ffb767be5c2487f1fd75"
+  integrity sha512-nKAWj3Gny8vAg/Dur/Znb1rG7D9p+6uqDeddjXeljfwYmOohr24pwicZMEfHoTIZsI8xXKXyOrXs6/g7Dw5r5w==
+
 "@web3-react/abstract-connector@^6.0.7":
   version "6.0.7"
   resolved "https://registry.yarnpkg.com/@web3-react/abstract-connector/-/abstract-connector-6.0.7.tgz#401b3c045f1e0fab04256311be49d5144e9badc6"

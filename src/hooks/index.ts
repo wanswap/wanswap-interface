@@ -1,7 +1,7 @@
 import { Web3Provider } from '@ethersproject/providers'
 import { ChainId } from '@uniswap/sdk'
-import { useWeb3React as useWeb3ReactCore } from '@web3-react/core'
-import { Web3ReactContextInterface } from '@web3-react/core/dist/types'
+import { useWeb3React as useWeb3ReactCore } from '@web3-react-wan/core'
+import { Web3ReactContextInterface } from '@web3-react-wan/core/dist/types'
 import { useEffect, useState } from 'react'
 import { isMobile } from 'react-device-detect'
 import { injected } from '../connectors'
@@ -24,7 +24,7 @@ export function useEagerConnect() {
           setTried(true)
         })
       } else {
-        if (isMobile && window.ethereum) {
+        if (isMobile && window.wanchain) {
           activate(injected, undefined, true).catch(() => {
             setTried(true)
           })
@@ -53,9 +53,9 @@ export function useInactiveListener(suppress = false) {
   const { active, error, activate } = useWeb3ReactCore() // specifically using useWeb3React because of what this hook does
 
   useEffect(() => {
-    const { ethereum } = window
+    const { wanchain } = window
 
-    if (ethereum && ethereum.on && !active && !error && !suppress) {
+    if (wanchain && wanchain.on && !active && !error && !suppress) {
       const handleChainChanged = () => {
         // eat errors
         activate(injected, undefined, true).catch(error => {
@@ -72,13 +72,13 @@ export function useInactiveListener(suppress = false) {
         }
       }
 
-      ethereum.on('chainChanged', handleChainChanged)
-      ethereum.on('accountsChanged', handleAccountsChanged)
+      wanchain.on('chainChanged', handleChainChanged)
+      wanchain.on('accountsChanged', handleAccountsChanged)
 
       return () => {
-        if (ethereum.removeListener) {
-          ethereum.removeListener('chainChanged', handleChainChanged)
-          ethereum.removeListener('accountsChanged', handleAccountsChanged)
+        if (wanchain.removeListener) {
+          wanchain.removeListener('chainChanged', handleChainChanged)
+          wanchain.removeListener('accountsChanged', handleAccountsChanged)
         }
       }
     }

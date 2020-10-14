@@ -117,5 +117,11 @@
       "last 1 safari version"
     ]
   },
-  "license": "GPL-3.0-or-later"
+  "license": "GPL-3.0-or-later",
+  "dependencies": {
+    "@web3-react-wan/abstract-connector": "^6.1.7",
+    "@web3-react-wan/core": "^6.1.7",
+    "@web3-react-wan/injected-connector": "^6.1.9",
+    "@web3-react-wan/types": "^6.1.7"
+  }
 }
