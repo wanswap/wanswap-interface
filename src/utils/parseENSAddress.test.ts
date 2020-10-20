@@ -8,7 +8,7 @@ describe('parseENSAddress', () => {
     expect(parseENSAddress('hello.world.eth/abcdef')).toEqual({ ensName: 'hello.world.eth', ensPath: '/abcdef' })
     expect(parseENSAddress('abso.lutely')).toEqual(undefined)
     expect(parseENSAddress('abso.lutely.eth')).toEqual({ ensName: 'abso.lutely.eth', ensPath: undefined })
-    expect(parseENSAddress('eth')).toEqual(undefined)
+    expect(parseENSAddress('wan')).toEqual(undefined)
     expect(parseENSAddress('eth/hello-world')).toEqual(undefined)
   })
 })

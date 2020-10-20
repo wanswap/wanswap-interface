@@ -1,5 +1,5 @@
 import { Web3Provider } from '@ethersproject/providers'
-import { ChainId } from '@uniswap/sdk'
+import { ChainId } from '@wanswap/sdk'
 import { useWeb3React as useWeb3ReactCore } from '@web3-react-wan/core'
 import { Web3ReactContextInterface } from '@web3-react-wan/core/dist/types'
 import { useEffect, useState } from 'react'
