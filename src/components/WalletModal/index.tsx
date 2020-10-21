@@ -1,5 +1,5 @@
-import { AbstractConnector } from '@web3-react/abstract-connector'
-import { UnsupportedChainIdError, useWeb3React } from '@web3-react/core'
+import { AbstractConnector } from '@web3-react-wan/abstract-connector'
+import { UnsupportedChainIdError, useWeb3React } from '@web3-react-wan/core'
 import { WalletConnectConnector } from '@web3-react/walletconnect-connector'
 import React, { useEffect, useState } from 'react'
 import { isMobile } from 'react-device-detect'
@@ -7,7 +7,7 @@ import ReactGA from 'react-ga'
 import styled from 'styled-components'
 import MetamaskIcon from '../../assets/images/metamask.png'
 import { ReactComponent as Close } from '../../assets/images/x.svg'
-import { fortmatic, injected, portis } from '../../connectors'
+import { fortmatic, injected } from '../../connectors'
 import { OVERLAY_READY } from '../../connectors/Fortmatic'
 import { SUPPORTED_WALLETS } from '../../constants'
 import usePrevious from '../../hooks/usePrevious'
@@ -204,17 +204,14 @@ export default function WalletModal({
 
   // get wallets user can switch too, depending on device/browser
   function getOptions() {
-    const isMetamask = window.ethereum && window.ethereum.isMetaMask
+    const isWanchainMask = window.wanchain && window.wanchain.isWanchainMask
     return Object.keys(SUPPORTED_WALLETS).map(key => {
       const option = SUPPORTED_WALLETS[key]
       // check for mobile options
       if (isMobile) {
         //disable portis on mobile for now
-        if (option.connector === portis) {
-          return null
-        }
 
-        if (!window.web3 && !window.ethereum && option.mobile) {
+        if (!window.wanWeb3 && !window.wanchain && option.mobile) {
           return (
             <Option
               onClick={() => {
@@ -237,7 +234,7 @@ export default function WalletModal({
       // overwrite injected when needed
       if (option.connector === injected) {
         // don't show injected if there's no injected provider
-        if (!(window.web3 || window.ethereum)) {
+        if (!(window.wanWeb3 || window.wanchain)) {
           if (option.name === 'MetaMask') {
             return (
               <Option
@@ -255,11 +252,11 @@ export default function WalletModal({
           }
         }
         // don't return metamask if injected provider isn't metamask
-        else if (option.name === 'MetaMask' && !isMetamask) {
+        else if (option.name === 'MetaMask' && !isWanchainMask) {
           return null
         }
         // likewise for generic
-        else if (option.name === 'Injected' && isMetamask) {
+        else if (option.name === 'Injected' && isWanchainMask) {
           return null
         }
       }

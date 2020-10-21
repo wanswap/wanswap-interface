@@ -11,7 +11,7 @@ import { useUserUnclaimedAmount } from '../claim/hooks'
 import { useTotalUniEarned } from '../stake/hooks'
 
 /**
- * Returns a map of the given addresses to their eventually consistent ETH balances.
+ * Returns a map of the given addresses to their eventually consistent WAN balances.
  */
 export function useETHBalances(
   uncheckedAddresses?: (string | undefined)[]
