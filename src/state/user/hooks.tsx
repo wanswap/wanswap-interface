@@ -1,4 +1,4 @@
-import { ChainId, Pair, Token } from '@wanswap/sdk'
+import { ChainId, FACTORY_ADDRESS, Pair, Token } from '@wanswap/sdk'
 import flatMap from 'lodash.flatmap'
 import { useCallback, useMemo } from 'react'
 import { shallowEqual, useDispatch, useSelector } from 'react-redux'
@@ -6,7 +6,9 @@ import { BASES_TO_TRACK_LIQUIDITY_FOR, PINNED_PAIRS } from '../../constants'
 
 import { useActiveWeb3React } from '../../hooks'
 import { useAllTokens } from '../../hooks/Tokens'
+import { useFactoryContract } from '../../hooks/useContract'
 import { AppDispatch, AppState } from '../index'
+import { useSingleContractMultipleData } from '../multicall/hooks'
 import {
   addSerializedPair,
   addSerializedToken,
@@ -194,22 +196,22 @@ export function useTrackedTokenPairs(): [Token, Token][] {
     () =>
       chainId
         ? flatMap(Object.keys(tokens), tokenAddress => {
-            const token = tokens[tokenAddress]
-            // for each token on the current chain,
-            return (
-              // loop though all bases on the current chain
-              (BASES_TO_TRACK_LIQUIDITY_FOR[chainId] ?? [])
-                // to construct pairs of the given token with each base
-                .map(base => {
-                  if (base.address === token.address) {
-                    return null
-                  } else {
-                    return [base, token]
-                  }
-                })
-                .filter((p): p is [Token, Token] => p !== null)
-            )
-          })
+          const token = tokens[tokenAddress]
+          // for each token on the current chain,
+          return (
+            // loop though all bases on the current chain
+            (BASES_TO_TRACK_LIQUIDITY_FOR[chainId] ?? [])
+              // to construct pairs of the given token with each base
+              .map(base => {
+                if (base.address === token.address) {
+                  return null
+                } else {
+                  return [base, token]
+                }
+              })
+              .filter((p): p is [Token, Token] => p !== null)
+          )
+        })
         : [],
     [tokens, chainId]
   )
@@ -246,3 +248,33 @@ export function useTrackedTokenPairs(): [Token, Token][] {
     return Object.keys(keyed).map(key => keyed[key])
   }, [combinedList])
 }
+
+
+export function useTokenPairsWithLiquidityTokens(trackedTokenPairs: [Token, Token][]): { liquidityToken: Token; tokens: [Token, Token] }[] {
+  const factory = useFactoryContract(FACTORY_ADDRESS)
+
+  const params = [] 
+
+  for (let i=0; i<trackedTokenPairs.length; i++) {
+    params.push([trackedTokenPairs[i][0].address, trackedTokenPairs[i][1].address])
+  }
+
+  const pairsFromFactory = useSingleContractMultipleData(factory, 'getPair', params);
+  console.debug('pairsFromFactory', pairsFromFactory);
+  const pairs = useMemo(() => {
+    const tmpPairs : { liquidityToken: Token; tokens: [Token, Token] }[] = []
+    for (let i=0; i<pairsFromFactory.length; i++) {
+      if (!pairsFromFactory[i].result) {
+        continue
+      }
+      tmpPairs.push({
+        liquidityToken: new Token(trackedTokenPairs[i][0].chainId, pairsFromFactory[i].result!.pair, 18, 'UNI-V2', 'Uniswap V2'),
+        tokens: trackedTokenPairs[i]
+      })
+    }
+    return tmpPairs
+  }, [trackedTokenPairs, pairsFromFactory]);
+  return pairs;
+}
+
+

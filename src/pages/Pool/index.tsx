@@ -16,7 +16,7 @@ import { AutoColumn } from '../../components/Column'
 
 import { useActiveWeb3React } from '../../hooks'
 import { usePairs } from '../../data/Reserves'
-import { toV2LiquidityToken, useTrackedTokenPairs } from '../../state/user/hooks'
+import { useTokenPairsWithLiquidityTokens, useTrackedTokenPairs } from '../../state/user/hooks'
 import { Dots } from '../../components/swap/styleds'
 import { CardSection, DataCard, CardNoise, CardBGImage } from '../../components/earn/styled'
 
@@ -78,13 +78,18 @@ export default function Pool() {
 
   // fetch the user's balances of all tracked V2 LP tokens
   const trackedTokenPairs = useTrackedTokenPairs()
-  const tokenPairsWithLiquidityTokens = useMemo(
-    () => trackedTokenPairs.map(tokens => ({ liquidityToken: toV2LiquidityToken(tokens), tokens })),
-    [trackedTokenPairs]
-  )
-  const liquidityTokens = useMemo(() => tokenPairsWithLiquidityTokens.map(tpwlt => tpwlt.liquidityToken), [
-    tokenPairsWithLiquidityTokens
-  ])
+  console.debug('trackedTokenPairs', trackedTokenPairs);
+  // const tokenPairsWithLiquidityTokens = useMemo(
+  //   () => trackedTokenPairs.map(tokens => ({ liquidityToken: toV2LiquidityToken(tokens), tokens })),
+  //   [trackedTokenPairs]
+  // )
+
+  const tokenPairsWithLiquidityTokens = useTokenPairsWithLiquidityTokens(trackedTokenPairs)
+
+  console.debug('tokenPairsWithLiquidityTokens', tokenPairsWithLiquidityTokens);
+  const liquidityTokens = useMemo(() => {
+    return tokenPairsWithLiquidityTokens.map(tpwlt => tpwlt.liquidityToken)
+  }, [ tokenPairsWithLiquidityTokens ])
   const [v2PairsBalances, fetchingV2PairBalances] = useTokenBalancesWithLoadingIndicator(
     account ?? undefined,
     liquidityTokens
@@ -105,6 +110,7 @@ export default function Pool() {
 
   const allV2PairsWithLiquidity = v2Pairs.map(([, pair]) => pair).filter((v2Pair): v2Pair is Pair => Boolean(v2Pair))
 
+  // TODO: Remove
   const hasV1Liquidity = useUserHasLiquidityInAllTokens()
 
   return (
