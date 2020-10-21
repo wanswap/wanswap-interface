@@ -78,7 +78,6 @@ export default function Pool() {
 
   // fetch the user's balances of all tracked V2 LP tokens
   const trackedTokenPairs = useTrackedTokenPairs()
-  console.debug('trackedTokenPairs', trackedTokenPairs);
   // const tokenPairsWithLiquidityTokens = useMemo(
   //   () => trackedTokenPairs.map(tokens => ({ liquidityToken: toV2LiquidityToken(tokens), tokens })),
   //   [trackedTokenPairs]
@@ -86,15 +85,16 @@ export default function Pool() {
 
   const tokenPairsWithLiquidityTokens = useTokenPairsWithLiquidityTokens(trackedTokenPairs)
 
-  console.debug('tokenPairsWithLiquidityTokens', tokenPairsWithLiquidityTokens);
+  // console.debug('tokenPairsWithLiquidityTokens', tokenPairsWithLiquidityTokens);
   const liquidityTokens = useMemo(() => {
     return tokenPairsWithLiquidityTokens.map(tpwlt => tpwlt.liquidityToken)
-  }, [ tokenPairsWithLiquidityTokens ])
+  }, [tokenPairsWithLiquidityTokens])
+  // console.debug('liquidityTokens', liquidityTokens);
   const [v2PairsBalances, fetchingV2PairBalances] = useTokenBalancesWithLoadingIndicator(
     account ?? undefined,
     liquidityTokens
   )
-
+  // console.debug('v2PairsBalances', v2PairsBalances['0x5DfEd2ACD09637C5A1a9a9a9afDBBD35Ff44390F']?.toFixed(10), fetchingV2PairBalances)
   // fetch the reserves for all V2 pools in which the user has a balance
   const liquidityTokensWithBalances = useMemo(
     () =>
@@ -104,10 +104,13 @@ export default function Pool() {
     [tokenPairsWithLiquidityTokens, v2PairsBalances]
   )
 
+  // console.debug('liquidityTokensWithBalances', liquidityTokensWithBalances);
+
   const v2Pairs = usePairs(liquidityTokensWithBalances.map(({ tokens }) => tokens))
+  console.debug('v2Pairs', v2Pairs);
   const v2IsLoading =
     fetchingV2PairBalances || v2Pairs?.length < liquidityTokensWithBalances.length || v2Pairs?.some(V2Pair => !V2Pair)
-
+  console.debug('v2IsLoading', v2IsLoading)
   const allV2PairsWithLiquidity = v2Pairs.map(([, pair]) => pair).filter((v2Pair): v2Pair is Pair => Boolean(v2Pair))
 
   // TODO: Remove
@@ -192,12 +195,12 @@ export default function Pool() {
                 ))}
               </>
             ) : (
-              <EmptyProposals>
-                <TYPE.body color={theme.text3} textAlign="center">
-                  No liquidity found.
+                    <EmptyProposals>
+                      <TYPE.body color={theme.text3} textAlign="center">
+                        No liquidity found.
                 </TYPE.body>
-              </EmptyProposals>
-            )}
+                    </EmptyProposals>
+                  )}
 
             <AutoColumn justify={'center'} gap="md">
               <Text textAlign="center" fontSize={14} style={{ padding: '.5rem 0 .5rem 0' }}>

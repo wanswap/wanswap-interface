@@ -260,7 +260,7 @@ export function useTokenPairsWithLiquidityTokens(trackedTokenPairs: [Token, Toke
   }
 
   const pairsFromFactory = useSingleContractMultipleData(factory, 'getPair', params);
-  console.debug('pairsFromFactory', pairsFromFactory);
+  // console.debug('pairsFromFactory', pairsFromFactory);
   const pairs = useMemo(() => {
     const tmpPairs : { liquidityToken: Token; tokens: [Token, Token] }[] = []
     for (let i=0; i<pairsFromFactory.length; i++) {
@@ -271,6 +271,7 @@ export function useTokenPairsWithLiquidityTokens(trackedTokenPairs: [Token, Toke
         liquidityToken: new Token(trackedTokenPairs[i][0].chainId, pairsFromFactory[i].result!.pair, 18, 'UNI-V2', 'Uniswap V2'),
         tokens: trackedTokenPairs[i]
       })
+      Pair.setAddress(trackedTokenPairs[i][0], trackedTokenPairs[i][1], pairsFromFactory[i].result!.pair)
     }
     return tmpPairs
   }, [trackedTokenPairs, pairsFromFactory]);

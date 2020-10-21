@@ -2837,6 +2837,303 @@
     "@walletconnect/utils" "^1.1.1-alpha.0"
     web3-provider-engine "15.0.12"
 
+"@wansproject/abi@^5.0.6":
+  version "5.0.6"
+  resolved "https://registry.npmjs.org/@wansproject/abi/-/abi-5.0.6.tgz#033784d19c7462eb2ad3d054bb8f05a5ab668f11"
+  integrity sha512-D8OuDnbmXJFLwD16sq7pszmON4rdLIChypbBoGbEHIxazKfNUgfa8HKRTnCSl9ExBxv+kc9HrxOEgURZ/f+RSA==
+  dependencies:
+    "@wansproject/address" "^5.0.5"
+    "@wansproject/bignumber" "^5.0.8"
+    "@wansproject/bytes" "^5.0.5"
+    "@wansproject/constants" "^5.0.5"
+    "@wansproject/hash" "^5.0.5"
+    "@wansproject/keccak256" "^5.0.4"
+    "@wansproject/logger" "^5.0.6"
+    "@wansproject/properties" "^5.0.4"
+    "@wansproject/strings" "^5.0.5"
+
+"@wansproject/abstract-provider@^5.0.6":
+  version "5.0.6"
+  resolved "https://registry.npmjs.org/@wansproject/abstract-provider/-/abstract-provider-5.0.6.tgz#2694aa38572ac2c7b458e9bf7e71140514034f69"
+  integrity sha512-seLhaeZmStKKeD8g4A5g0d/ya1Sgt+sdzbPy5swU9lWcJvPSmjCw7ClC4rVmiLldCzGsCTCfkydxlZQA7BukAA==
+  dependencies:
+    "@wansproject/bignumber" "^5.0.8"
+    "@wansproject/bytes" "^5.0.5"
+    "@wansproject/logger" "^5.0.6"
+    "@wansproject/networks" "^5.0.4"
+    "@wansproject/properties" "^5.0.4"
+    "@wansproject/transactions" "^5.0.7"
+    "@wansproject/web" "^5.0.8"
+
+"@wansproject/abstract-signer@^5.0.7":
+  version "5.0.7"
+  resolved "https://registry.npmjs.org/@wansproject/abstract-signer/-/abstract-signer-5.0.7.tgz#cbc93199e5871f58a41f232d0f9529cd9a233cef"
+  integrity sha512-B+1c3bfZYJYpzOya8dcY8diJpMw7SMMgl50d2rYl9CVOzVpLcifbEka8A1wJ6d6qJpXrt016JbGU8TZ23DUg1w==
+  dependencies:
+    "@wansproject/abstract-provider" "^5.0.6"
+    "@wansproject/bignumber" "^5.0.8"
+    "@wansproject/bytes" "^5.0.5"
+    "@wansproject/logger" "^5.0.6"
+    "@wansproject/properties" "^5.0.4"
+
+"@wansproject/address@^5.0.5":
+  version "5.0.5"
+  resolved "https://registry.npmjs.org/@wansproject/address/-/address-5.0.5.tgz#e5b09c46992db12b3ecfebc5fd4be05bd775b13c"
+  integrity sha512-4xGrfHgH+gEVupJDfCT3mRnugfF5nlCwbwDgEX64LpgTMMVoKWyWCPDw+LlOsTV6NifQPpL1YNPPP56eI+HehQ==
+  dependencies:
+    "@wansproject/bignumber" "^5.0.8"
+    "@wansproject/bytes" "^5.0.5"
+    "@wansproject/keccak256" "^5.0.4"
+    "@wansproject/logger" "^5.0.6"
+    "@wansproject/rlp" "^5.0.4"
+    bn.js "^4.4.0"
+
+"@wansproject/base64@^5.0.4":
+  version "5.0.4"
+  resolved "https://registry.npmjs.org/@wansproject/base64/-/base64-5.0.4.tgz#093774a1b5fe9fe27e055f3ef38576b44a93c72c"
+  integrity sha512-O6vFu7K2yBjBtNekZncEIP+BZ5kIuN5BhfU4AQIn24VsITDvSZt8I6+9mfXZecJau8LwOglJP3NdLdRucmJCyg==
+  dependencies:
+    "@wansproject/bytes" "^5.0.5"
+
+"@wansproject/basex@^5.0.4":
+  version "5.0.4"
+  resolved "https://registry.npmjs.org/@wansproject/basex/-/basex-5.0.4.tgz#2447d1e1926eb60b2690dfa5d9ca3cbdec37cb8a"
+  integrity sha512-CDF78adiDRdXBAsIkzDIKMMDqW78XKk+afyCl3MsTNm/TOZ7k2B8PVpQYcBtWrvRQTYAGt+YeUYpk/FOZSFeyg==
+  dependencies:
+    "@wansproject/bytes" "^5.0.5"
+    "@wansproject/properties" "^5.0.4"
+
+"@wansproject/bignumber@^5.0.8":
+  version "5.0.8"
+  resolved "https://registry.npmjs.org/@wansproject/bignumber/-/bignumber-5.0.8.tgz#810ccc8e453fac10d49d55554befee78852a75a9"
+  integrity sha512-pqTUeqnovlio+NXDTS3dK/olwrINtO3rdRQh0rK+fN1TBSpWsAHTpzt5J03HumgDrepHwoI4/LcYJ+KQYqkGyQ==
+  dependencies:
+    "@wansproject/bytes" "^5.0.5"
+    "@wansproject/logger" "^5.0.6"
+    bn.js "^4.4.0"
+
+"@wansproject/bytes@^5.0.5":
+  version "5.0.5"
+  resolved "https://registry.npmjs.org/@wansproject/bytes/-/bytes-5.0.5.tgz#e829a556492de4abbf88aaf32b0519aa0938541b"
+  integrity sha512-Hyics27DWqKHgEEBMHTgTUvwjwr3vyGgqIVri9sdavkSkWf00vWSb9TknEYuWxM658u2w5PeUrVUFElAvFuDng==
+  dependencies:
+    "@wansproject/logger" "^5.0.6"
+
+"@wansproject/constants@^5.0.5":
+  version "5.0.5"
+  resolved "https://registry.npmjs.org/@wansproject/constants/-/constants-5.0.5.tgz#18c1d10a9f7c72f4de73f92b2279d92b7c214ece"
+  integrity sha512-LHH3YDU7O1cd4TClrmj7obC+WNOx1loHLqY1NYCE2fl57+ATXioRt9TRCoDGzQaRNdMbGQYfQfkArVNQDsEtFw==
+  dependencies:
+    "@wansproject/bignumber" "^5.0.8"
+
+"@wansproject/contracts@^5.0.6":
+  version "5.0.6"
+  resolved "https://registry.npmjs.org/@wansproject/contracts/-/contracts-5.0.6.tgz#aedeafa1066024c99f3bd0488dbb06771473458e"
+  integrity sha512-Tg0lNDBXh/fWuCsb/LvyrTEsk35aSsOsUw2dMUEt4OnnKaTBTB7bA4vcv6B4RUMpqaE5gahdaLxGobg1IBr/Qg==
+  dependencies:
+    "@wansproject/abi" "^5.0.6"
+    "@wansproject/abstract-provider" "^5.0.6"
+    "@wansproject/abstract-signer" "^5.0.7"
+    "@wansproject/address" "^5.0.5"
+    "@wansproject/bignumber" "^5.0.8"
+    "@wansproject/bytes" "^5.0.5"
+    "@wansproject/constants" "^5.0.5"
+    "@wansproject/logger" "^5.0.6"
+    "@wansproject/properties" "^5.0.4"
+
+"@wansproject/hash@^5.0.5":
+  version "5.0.5"
+  resolved "https://registry.npmjs.org/@wansproject/hash/-/hash-5.0.5.tgz#be8e8712fa0f0578b9c8b644c4425b3bae38e10f"
+  integrity sha512-j6ds8QrXs2VG6JNgpzmYmbhrDZ5vV+6yVi8pnt6lwCG9n0otcEXKBzr8JKoctiax9Mo+uzTKpOpru5BYC+lPNg==
+  dependencies:
+    "@wansproject/bytes" "^5.0.5"
+    "@wansproject/keccak256" "^5.0.4"
+    "@wansproject/logger" "^5.0.6"
+    "@wansproject/strings" "^5.0.5"
+
+"@wansproject/keccak256@^5.0.0-beta.130", "@wansproject/keccak256@^5.0.4":
+  version "5.0.4"
+  resolved "https://registry.npmjs.org/@wansproject/keccak256/-/keccak256-5.0.4.tgz#ba5c9442c647daffbda058a0331592a8e4c01304"
+  integrity sha512-ODdWBFcmakAOJLqnmVs2rJ6csmc5zK4bXneWbwlaFlz6zvr181Yek73h/S+firFe3Qd7tcv6m0H45K/3ioJ4+w==
+  dependencies:
+    "@wansproject/bytes" "^5.0.5"
+    js-sha3 "0.5.7"
+
+"@wansproject/logger@^5.0.6":
+  version "5.0.6"
+  resolved "https://registry.npmjs.org/@wansproject/logger/-/logger-5.0.6.tgz#46ad66cf844b7b17e2b3602d0a3773fde5c5dee0"
+  integrity sha512-Pi8Qa2UekEXiRhSNA5oEVnG68/Uh2CvGZotVCuSZUH5OgjDVQRf4jenUwZ63lFd+C41pvu/mUsRNZRkKHsH+VQ==
+
+"@wansproject/networks@^5.0.4":
+  version "5.0.4"
+  resolved "https://registry.npmjs.org/@wansproject/networks/-/networks-5.0.4.tgz#ea4cf2c6b69edcdb1667c775df92483d2b1eea5f"
+  integrity sha512-SBBPvEfIXhIQjIb7Xi+OLLMBa5jzBtxbgrKsT1kOBlQcpkmScjFj7E4e271km0tB0JNZgbGkbZUEXdq+PNwEaA==
+  dependencies:
+    "@wansproject/logger" "^5.0.6"
+
+"@wansproject/properties@^5.0.4":
+  version "5.0.4"
+  resolved "https://registry.npmjs.org/@wansproject/properties/-/properties-5.0.4.tgz#33d35ab2c0f9c8b2ad6a70e09b31294a585dd10d"
+  integrity sha512-a9mivx4GH/Gl9aAnAPIkTRzfaks4X28Pr3x3Wd65Szg/E/R0tfrwcqURrA64OPSaJ7FySDjDPViF/M/6xznM4g==
+  dependencies:
+    "@wansproject/logger" "^5.0.6"
+
+"@wansproject/providers@^5.0.11":
+  version "5.0.11"
+  resolved "https://registry.npmjs.org/@wansproject/providers/-/providers-5.0.11.tgz#fc69da3e816a0d547bcdee53c8ed21bfc22a6115"
+  integrity sha512-SHX/Yw2XP1kJTmW8wM5Kw4WycqnUkkSAHblZ6UjbAlhM1CTuh3QjuHMF3k53NJ7/xOVR0RpYohbkdcmgUEG1lA==
+  dependencies:
+    "@wansproject/abstract-provider" "^5.0.6"
+    "@wansproject/abstract-signer" "^5.0.7"
+    "@wansproject/address" "^5.0.5"
+    "@wansproject/basex" "^5.0.4"
+    "@wansproject/bignumber" "^5.0.8"
+    "@wansproject/bytes" "^5.0.5"
+    "@wansproject/constants" "^5.0.5"
+    "@wansproject/hash" "^5.0.5"
+    "@wansproject/logger" "^5.0.6"
+    "@wansproject/networks" "^5.0.4"
+    "@wansproject/properties" "^5.0.4"
+    "@wansproject/random" "^5.0.4"
+    "@wansproject/rlp" "^5.0.4"
+    "@wansproject/sha2" "^5.0.4"
+    "@wansproject/strings" "^5.0.5"
+    "@wansproject/transactions" "^5.0.7"
+    "@wansproject/web" "^5.0.8"
+    bech32 "1.1.4"
+    ws "7.2.3"
+
+"@wansproject/random@^5.0.4":
+  version "5.0.4"
+  resolved "https://registry.npmjs.org/@wansproject/random/-/random-5.0.4.tgz#a1c2b81e5ab90607bdfd47ae0d2738e30c642f25"
+  integrity sha512-I6UNpGLBDiToQoQiRg4kulectUix7KYpWD2u+uRNdoptLUv8ARKLAp7ZymoVZJIhqJeNDuGXn9XbyILyT0DkXw==
+  dependencies:
+    "@wansproject/bytes" "^5.0.5"
+    "@wansproject/logger" "^5.0.6"
+
+"@wansproject/rlp@^5.0.4":
+  version "5.0.4"
+  resolved "https://registry.npmjs.org/@wansproject/rlp/-/rlp-5.0.4.tgz#14cda8a9aef0e206b801a11e9311a3de190d1a6a"
+  integrity sha512-LtP0s8dBZHCzs1unrt35pbdyKbV52G6VqimOwOIzx7CeNY3emZMwQOGvmzHuspfRpAlH+8OIdidL+5nMHDEfAw==
+  dependencies:
+    "@wansproject/bytes" "^5.0.5"
+    "@wansproject/logger" "^5.0.6"
+
+"@wansproject/sha2@^5.0.4":
+  version "5.0.4"
+  resolved "https://registry.npmjs.org/@wansproject/sha2/-/sha2-5.0.4.tgz#befe769a03f2a3bd26ef2e78e3936d79323e4863"
+  integrity sha512-/B63e3hFwn6VLB+f3z3rj8knC5sB0t5ZXjhYw+vggom6/SrGkBWCll+HiYijZ2+ML4DSFVonSCaoQcIl9x3h7Q==
+  dependencies:
+    "@wansproject/bytes" "^5.0.5"
+    "@wansproject/logger" "^5.0.6"
+    hash.js "1.1.3"
+
+"@wansproject/signing-key@^5.0.5":
+  version "5.0.5"
+  resolved "https://registry.npmjs.org/@wansproject/signing-key/-/signing-key-5.0.5.tgz#dc357472299ee974fd1326b8a04144c2129041b0"
+  integrity sha512-CwR5fsvdvTTZkKAh3GVAi61cKAyeMDpPGbOwii1JRo8QkXHR9eGTdomtBSJtSzvnPTrAKrQG05Z6yFQanb9QfA==
+  dependencies:
+    "@wansproject/bytes" "^5.0.5"
+    "@wansproject/logger" "^5.0.6"
+    "@wansproject/properties" "^5.0.4"
+    elliptic "6.5.3"
+
+"@wansproject/solidity@^5.0.5":
+  version "5.0.5"
+  resolved "https://registry.npmjs.org/@wansproject/solidity/-/solidity-5.0.5.tgz#3eb6b821de3fa964d780205d7f2f9d7d33fb2ef8"
+  integrity sha512-6McuCsuBIOdguFwgh1SA/UkgQtXO17X+l2q6saRPXxdbAz048crhK8vCpc9MwL4jEBQb8Jv1hfPYl0NhI60GOg==
+  dependencies:
+    "@wansproject/bignumber" "^5.0.8"
+    "@wansproject/bytes" "^5.0.5"
+    "@wansproject/keccak256" "^5.0.4"
+    "@wansproject/sha2" "^5.0.4"
+    "@wansproject/strings" "^5.0.5"
+
+"@wansproject/strings@^5.0.5":
+  version "5.0.5"
+  resolved "https://registry.npmjs.org/@wansproject/strings/-/strings-5.0.5.tgz#d022568cb74656d44acb04a42d0e2990a4114974"
+  integrity sha512-nFvSvG4jBhRXsd0fLBFSCYUGjrzHt3DKNWcR3rkzGQ/5yzyMb+AI4mLZDVqIX/bsomHz4yvsRyEyUgv2Din9LQ==
+  dependencies:
+    "@wansproject/bytes" "^5.0.5"
+    "@wansproject/constants" "^5.0.5"
+    "@wansproject/logger" "^5.0.6"
+
+"@wansproject/transactions@^5.0.7":
+  version "5.0.7"
+  resolved "https://registry.npmjs.org/@wansproject/transactions/-/transactions-5.0.7.tgz#bc73eafaaae243b260db2aceb236ddcbd268f821"
+  integrity sha512-vIsa9sr1/8aFcWvH1Z5KHDq/unRxbOfACkmZJ1bVBqtuB/a6FE6QdkGinTQ7drWZfxn3Urruychx1OO58PcQBA==
+  dependencies:
+    "@wansproject/address" "^5.0.5"
+    "@wansproject/bignumber" "^5.0.8"
+    "@wansproject/bytes" "^5.0.5"
+    "@wansproject/constants" "^5.0.5"
+    "@wansproject/keccak256" "^5.0.4"
+    "@wansproject/logger" "^5.0.6"
+    "@wansproject/properties" "^5.0.4"
+    "@wansproject/rlp" "^5.0.4"
+    "@wansproject/signing-key" "^5.0.5"
+
+"@wansproject/web@^5.0.8":
+  version "5.0.8"
+  resolved "https://registry.npmjs.org/@wansproject/web/-/web-5.0.8.tgz#f2c767d3ab7730342321c9f9a88586cb0e32fc2c"
+  integrity sha512-6Wala1tc14jVFIsjdqLkUmNRGuUfKbYm8SXMUe6QFPXD2F5/8cJ3g2mcmzbUcilBXBdihqNNomc+5hXWw+u8Gw==
+  dependencies:
+    "@wansproject/base64" "^5.0.4"
+    "@wansproject/bytes" "^5.0.5"
+    "@wansproject/logger" "^5.0.6"
+    "@wansproject/properties" "^5.0.4"
+    "@wansproject/strings" "^5.0.5"
+
+"@wanswap/sdk@3.0.8":
+  version "3.0.8"
+  resolved "https://registry.npmjs.org/@wanswap/sdk/-/sdk-3.0.8.tgz#1597d2376d55d86164544ee5874d63b1dc9095eb"
+  integrity sha512-XWLRykMcDEwydcQIC6ADg0MGLhXoMoIf2DOD8vIEt+DlCveGr0tDwXIf8GRjMsoea7CN1luI5XwlCLO7lqvETQ==
+  dependencies:
+    "@uniswap/v2-core" "^1.0.0"
+    "@wansproject/address" "^5.0.5"
+    "@wansproject/contracts" "^5.0.6"
+    "@wansproject/networks" "^5.0.4"
+    "@wansproject/providers" "^5.0.11"
+    "@wansproject/solidity" "^5.0.5"
+    big.js "^5.2.2"
+    decimal.js-light "^2.5.0"
+    jsbi "^3.1.1"
+    tiny-invariant "^1.1.0"
+    tiny-warning "^1.0.3"
+    toformat "^2.0.0"
+
+"@web3-react-wan/abstract-connector@^6.1.7":
+  version "6.1.7"
+  resolved "https://registry.npmjs.org/@web3-react-wan/abstract-connector/-/abstract-connector-6.1.7.tgz#0b3e39c30c17bb77c00e6b1902a48b9f1c1d2a93"
+  integrity sha512-1/GxKaZE6vNCKdjnJTUN9LDodGFY8CZX/uE0k3n0hmmWssQ52JMFZEW3w+Y/JUViyugMaieo5bDSb8Z1Wl93KA==
+  dependencies:
+    "@web3-react-wan/types" "^6.1.7"
+
+"@web3-react-wan/core@^6.1.7":
+  version "6.1.7"
+  resolved "https://registry.npmjs.org/@web3-react-wan/core/-/core-6.1.7.tgz#e4f030c70f29b735667b58fd6a2b7aef1a5e75b1"
+  integrity sha512-Twmx+hIl7zNQ3bvzqb736rdiFEycb+K5R+otiW8R/D1Y4nbASeSW/ud6MAJ7NDIF1vySlUFWsYXEmiZX46IjVw==
+  dependencies:
+    "@wansproject/keccak256" "^5.0.0-beta.130"
+    "@web3-react-wan/abstract-connector" "^6.1.7"
+    "@web3-react-wan/types" "^6.1.7"
+    tiny-invariant "^1.0.6"
+    tiny-warning "^1.0.3"
+
+"@web3-react-wan/injected-connector@^6.1.9":
+  version "6.1.9"
+  resolved "https://registry.npmjs.org/@web3-react-wan/injected-connector/-/injected-connector-6.1.9.tgz#e3ff631ec850d7cb87a96db50474791d3cc4f7ec"
+  integrity sha512-ZTz5zpEk0YAxyPWM+uGWI3mNUxjpioVZGVGyd4UDkSDYVHs3OOvz6Idc1KZwt9R02hLxz67EMOaZ5Yvx5EGJ4w==
+  dependencies:
+    "@web3-react-wan/abstract-connector" "^6.1.7"
+    "@web3-react-wan/types" "^6.1.7"
+    tiny-warning "^1.0.3"
+
+"@web3-react-wan/types@^6.1.7":
+  version "6.1.7"
+  resolved "https://registry.npmjs.org/@web3-react-wan/types/-/types-6.1.7.tgz#6d26bad95e344abcf256ffb767be5c2487f1fd75"
+  integrity sha512-nKAWj3Gny8vAg/Dur/Znb1rG7D9p+6uqDeddjXeljfwYmOohr24pwicZMEfHoTIZsI8xXKXyOrXs6/g7Dw5r5w==
+
 "@web3-react/abstract-connector@^6.0.7":
   version "6.0.7"
   resolved "https://registry.yarnpkg.com/@web3-react/abstract-connector/-/abstract-connector-6.0.7.tgz#401b3c045f1e0fab04256311be49d5144e9badc6"
@@ -4294,9 +4591,9 @@ bcrypt-pbkdf@^1.0.0:
   dependencies:
     tweetnacl "^0.14.3"
 
-bech32@^1.1.3:
+bech32@1.1.4, bech32@^1.1.3:
   version "1.1.4"
-  resolved "https://registry.yarnpkg.com/bech32/-/bech32-1.1.4.tgz#e38c9f37bf179b8eb16ae3a772b40c356d4832e9"
+  resolved "https://registry.npmjs.org/bech32/-/bech32-1.1.4.tgz#e38c9f37bf179b8eb16ae3a772b40c356d4832e9"
   integrity sha512-s0IrSOzLlbvX7yp4WBfPITzpAU8sqQcpsmwXDiKwrG4r491vwCO/XpejasRNl0piBMe/DvP4Tz0mIS/X1DPJBQ==
 
 big-integer@1.6.36:
