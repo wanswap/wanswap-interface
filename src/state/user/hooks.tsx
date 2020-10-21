@@ -1,4 +1,6 @@
-import { ChainId, Pair, Token } from '@wanswap/sdk'
+import { ChainId, Pair, Token, 
+  FACTORY_ADDRESS 
+} from '@wanswap/sdk'
 import flatMap from 'lodash.flatmap'
 import { useCallback, useMemo } from 'react'
 import { shallowEqual, useDispatch, useSelector } from 'react-redux'
@@ -6,6 +8,12 @@ import { BASES_TO_TRACK_LIQUIDITY_FOR, PINNED_PAIRS } from '../../constants'
 
 import { useActiveWeb3React } from '../../hooks'
 import { useAllTokens } from '../../hooks/Tokens'
+
+import { useSingleCallResult, 
+  // useSingleContractMultipleData 
+} from '../multicall/hooks'
+import { useFactoryContract } from '../../hooks/useContract';
+
 import { AppDispatch, AppState } from '../index'
 import {
   addSerializedPair,
@@ -179,6 +187,17 @@ export function toV2LiquidityToken([tokenA, tokenB]: [Token, Token]): Token {
   return new Token(tokenA.chainId, Pair.getAddress(tokenA, tokenB), 18, 'UNI-V2', 'Uniswap V2')
 }
 
+export function usePairAddress([tokenA, tokenB] : [Token, Token]): Token | undefined {
+  const contract = useFactoryContract(FACTORY_ADDRESS, false)
+  const ret = useSingleCallResult(contract, 'getPair', [tokenA.address, tokenB.address]).result;
+  console.log('usePairAddress', ret);
+  return ret?.pair;
+  // if (ret) {
+  //   return new Token(tokenA.chainId, ret?.pair, 18, 'UNI-V2', 'Uniswap V2')
+  // }
+  // return new Token(tokenA.chainId, '0x0', 18, 'UNI-V2', 'Uniswap V2')
+}
+
 /**
  * Returns all the pairs of tokens that are tracked by the user for the current chain ID.
  */
@@ -188,7 +207,7 @@ export function useTrackedTokenPairs(): [Token, Token][] {
 
   // pinned pairs
   const pinnedPairs = useMemo(() => (chainId ? PINNED_PAIRS[chainId] ?? [] : []), [chainId])
-
+  console.log('BASES_TO_TRACK_LIQUIDITY_FOR', BASES_TO_TRACK_LIQUIDITY_FOR, tokens);
   // pairs for every token against every base
   const generatedPairs: [Token, Token][] = useMemo(
     () =>
@@ -232,6 +251,8 @@ export function useTrackedTokenPairs(): [Token, Token][] {
     pinnedPairs,
     userPairs
   ])
+
+  console.log('combinedList', combinedList, generatedPairs, pinnedPairs, userPairs);
 
   return useMemo(() => {
     // dedupes pairs of tokens in the combined list

@@ -16,7 +16,13 @@ import { AutoColumn } from '../../components/Column'
 
 import { useActiveWeb3React } from '../../hooks'
 import { usePairs } from '../../data/Reserves'
-import { toV2LiquidityToken, useTrackedTokenPairs } from '../../state/user/hooks'
+import { 
+  usePairAddress, 
+  useTrackedTokenPairs, 
+  // toV2LiquidityToken 
+} from '../../state/user/hooks'
+import { Token
+} from '@wanswap/sdk'
 import { Dots } from '../../components/swap/styleds'
 import { CardSection, DataCard, CardNoise, CardBGImage } from '../../components/earn/styled'
 
@@ -78,10 +84,18 @@ export default function Pool() {
 
   // fetch the user's balances of all tracked V2 LP tokens
   const trackedTokenPairs = useTrackedTokenPairs()
+  const pair0 = usePairAddress(trackedTokenPairs[0]);
+  console.log('pair0', pair0);
+
   const tokenPairsWithLiquidityTokens = useMemo(
-    () => trackedTokenPairs.map(tokens => ({ liquidityToken: toV2LiquidityToken(tokens), tokens })),
+    () => trackedTokenPairs.map(tokens => ({ 
+      // liquidityToken: pair0, 
+      // liquidityToken: toV2LiquidityToken(tokens), 
+      liquidityToken: new Token(tokens[0].chainId, '0x5DfEd2ACD09637C5A1a9a9a9afDBBD35Ff44390F', 18, 'UNI-V2', 'Uniswap V2'),
+      tokens })),
     [trackedTokenPairs]
   )
+
   const liquidityTokens = useMemo(() => tokenPairsWithLiquidityTokens.map(tpwlt => tpwlt.liquidityToken), [
     tokenPairsWithLiquidityTokens
   ])
@@ -89,6 +103,7 @@ export default function Pool() {
     account ?? undefined,
     liquidityTokens
   )
+  console.log('useTokenBalancesWithLoadingIndicator', v2PairsBalances, fetchingV2PairBalances);
 
   // fetch the reserves for all V2 pools in which the user has a balance
   const liquidityTokensWithBalances = useMemo(
@@ -99,6 +114,7 @@ export default function Pool() {
     [tokenPairsWithLiquidityTokens, v2PairsBalances]
   )
 
+  console.log('liquidityTokensWithBalances', trackedTokenPairs, tokenPairsWithLiquidityTokens, liquidityTokens, liquidityTokensWithBalances);
   const v2Pairs = usePairs(liquidityTokensWithBalances.map(({ tokens }) => tokens))
   const v2IsLoading =
     fetchingV2PairBalances || v2Pairs?.length < liquidityTokensWithBalances.length || v2Pairs?.some(V2Pair => !V2Pair)
