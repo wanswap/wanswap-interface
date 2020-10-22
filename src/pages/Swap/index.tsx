@@ -1,6 +1,6 @@
 import { CurrencyAmount, JSBI, Token, Trade } from '@wanswap/sdk'
 import React, { useCallback, useContext, useEffect, useMemo, useState } from 'react'
-import { ArrowDown,ChevronDown,ChevronUp } from 'react-feather'
+import { ArrowDown,ChevronDown,ChevronUp,LogIn } from 'react-feather'
 import ReactGA from 'react-ga'
 import { Text } from 'rebass'
 import { ThemeContext } from 'styled-components'
@@ -378,7 +378,7 @@ export default function Swap() {
           </AutoColumn>
           <BottomGrouping>
             {!account ? (
-              <ButtonLight onClick={toggleWalletModal}>Connect Wallet</ButtonLight>
+              <ButtonLight onClick={toggleWalletModal}><LogIn style={{marginRight:5}} size="18" color="white"/> Connect Wallet</ButtonLight>
             ) : showWrap ? (
               <ButtonPrimary disabled={Boolean(wrapInputError)} onClick={onWrap}>
                 {wrapInputError ??
