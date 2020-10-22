@@ -20,28 +20,35 @@ export enum PairState {
 function usePairAddresses(trackedTokenPairs: [Token | undefined, Token | undefined][]): (string | undefined)[] {
   const factory = useFactoryContract(FACTORY_ADDRESS)
 
-  const params = [] 
+  const params = useMemo(() => {
+    const p1 = trackedTokenPairs.map(([tokenA, tokenB]) => {
+      return tokenA && tokenB && !tokenA.equals(tokenB) ? [tokenA.address, tokenB.address] : undefined
+    })
+    return p1
+  }, [trackedTokenPairs])
+  // for (let i = 0; i < trackedTokenPairs.length; i++) {
+  //   if (trackedTokenPairs[i][0] === undefined || trackedTokenPairs[i][1] === undefined) {
+  //     continue
+  //   }
+  //   params.push([trackedTokenPairs[i][0]!.address, trackedTokenPairs[i][1]!.address])
+  // }
 
-  for (let i=0; i<trackedTokenPairs.length; i++) {
-    if (!trackedTokenPairs[i][0] || !trackedTokenPairs[i][1]) {
-      continue
-    }
-    params.push([trackedTokenPairs[i][0]!.address, trackedTokenPairs[i][1]!.address])
-  }
+  const callParams = params.filter(v=>!!v)
+  const pairsFromFactory = useSingleContractMultipleData(factory, 'getPair', callParams);
 
-  const pairsFromFactory = useSingleContractMultipleData(factory, 'getPair', params);
   // console.debug('pairsFromFactory', pairsFromFactory);
-  const addresses = useMemo(() : (string | undefined)[] => {
-    const tmpPairs : (string | undefined)[] = []
-    for (let i=0; i<pairsFromFactory.length; i++) {
-      if (!pairsFromFactory[i].result) {
+  const addresses = useMemo((): (string | undefined)[] => {
+    const tmpPairs: (string | undefined)[] = []
+    for (let i = 0; i < params.length; i++) {
+      if (!pairsFromFactory || !pairsFromFactory[i] || !pairsFromFactory[i].result) {
+        tmpPairs.push(undefined)
         continue
       }
       tmpPairs.push(pairsFromFactory[i].result!.pair)
       Pair.setAddress(trackedTokenPairs[i][0]!, trackedTokenPairs[i][1]!, pairsFromFactory[i].result!.pair)
     }
     return tmpPairs
-  }, [trackedTokenPairs, pairsFromFactory]);
+  }, [trackedTokenPairs, pairsFromFactory, params]);
   return addresses
 }
 
@@ -49,7 +56,7 @@ export function usePairs(currencies: [Currency | undefined, Currency | undefined
   const { chainId } = useActiveWeb3React()
 
 
-  const tokens : [Token | undefined, Token | undefined][] = useMemo(
+  const tokens: [Token | undefined, Token | undefined][] = useMemo(
     () =>
       currencies.map(([currencyA, currencyB]) => [
         wrappedCurrency(currencyA, chainId),
@@ -91,5 +98,6 @@ export function usePairs(currencies: [Currency | undefined, Currency | undefined
 }
 
 export function usePair(tokenA?: Currency, tokenB?: Currency): [PairState, Pair | null] {
-  return usePairs([[tokenA, tokenB]])[0]
+  const pairs = usePairs([[tokenA, tokenB]])
+  return pairs[0]
 }
