@@ -33,7 +33,7 @@ const Proposal = styled(Button)`
   padding: 0.75rem 1rem;
   width: 100%;
   margin-top: 1rem;
-  border-radius: 12px;
+  border-radius: 10px;
   display: grid;
   grid-template-columns: 48px 1fr 120px;
   align-items: center;
@@ -82,7 +82,7 @@ const TextButton = styled(TYPE.main)`
 const AddressButton = styled.div`
   border: 1px solid ${({ theme }) => theme.bg3};
   padding: 2px 4px;
-  border-radius: 8px;
+  border-radius: 10px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -95,7 +95,7 @@ const StyledExternalLink = styled(ExternalLink)`
 const EmptyProposals = styled.div`
   border: 1px solid ${({ theme }) => theme.text4};
   padding: 16px 12px;
-  border-radius: 12px;
+  border-radius: 10px;
   display: flex;
   flex-direction: column;
   justify-content: center;
