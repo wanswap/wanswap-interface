@@ -161,11 +161,11 @@ export default function CurrencyInputPanel({
   }, [setModalOpen])
   return (
     <InputPanel id={id}>
-      <Container hideInput={hideInput}>
+      <Container hideInput={hideInput} style={{borderRadius:10, backgroundColor:'#1a3d77', border:0}}>
         {!hideInput && (
           <LabelRow>
             <RowBetween>
-              <TYPE.body color={theme.text2} fontWeight={500} fontSize={14}>
+              <TYPE.body color={theme.text2} fontWeight={500} fontSize={16}>
                 {label}
               </TYPE.body>
               {account && (
@@ -174,7 +174,8 @@ export default function CurrencyInputPanel({
                   color={theme.text2}
                   fontWeight={500}
                   fontSize={14}
-                  style={{ display: 'inline', cursor: 'pointer' }}
+                 
+                  style={{ display: 'inline', cursor: 'pointer'}}
                 >
                   {!hideBalance && !!currency && selectedCurrencyBalance
                     ? (customBalanceText ?? 'Balance: ') + selectedCurrencyBalance?.toSignificant(6)
@@ -184,10 +185,11 @@ export default function CurrencyInputPanel({
             </RowBetween>
           </LabelRow>
         )}
-        <InputRow style={hideInput ? { padding: '0', borderRadius: '8px' } : {}} selected={disableCurrencySelect}>
+        <InputRow style={hideInput ? { padding: '0', borderRadius: '8px'} : {}} selected={disableCurrencySelect}>
           {!hideInput && (
             <>
               <NumericalInput
+                style={{backgroundColor:'transparent'}}
                 className="token-amount-input"
                 value={value}
                 onUserInput={val => {
