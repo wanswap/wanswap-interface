@@ -1,6 +1,6 @@
 import { CurrencyAmount, JSBI, Token, Trade } from '@wanswap/sdk'
 import React, { useCallback, useContext, useEffect, useMemo, useState } from 'react'
-import { ArrowDown } from 'react-feather'
+import { ArrowDown,ChevronDown,ChevronUp } from 'react-feather'
 import ReactGA from 'react-ga'
 import { Text } from 'rebass'
 import { ThemeContext } from 'styled-components'
@@ -272,6 +272,7 @@ export default function Swap() {
         tokens={urlLoadedTokens}
         onConfirm={handleConfirmTokenWarning}
       />
+      <img src="./images/new_logo.png" id="center-logo"/>
       <AppBody>
         <SwapPoolTabs active={'swap'} />
         <Wrapper id="swap-page">
@@ -301,16 +302,17 @@ export default function Swap() {
               otherCurrency={currencies[Field.OUTPUT]}
               id="swap-currency-input"
             />
-            <AutoColumn justify="space-between">
+            <AutoColumn justify="space-between" style={{marginTop:'-30px',marginBottom:'-30px',position:'relative',zIndex:2}}>
               <AutoRow justify={isExpertMode ? 'space-between' : 'center'} style={{ padding: '0 1rem' }}>
-                <ArrowWrapper clickable>
-                  <ArrowDown
-                    size="16"
-                    onClick={() => {
+                <ArrowWrapper onClick={() => {
                       setApprovalSubmitted(false) // reset 2 step UI for approvals
                       onSwitchTokens()
-                    }}
-                    color={currencies[Field.INPUT] && currencies[Field.OUTPUT] ? theme.primary1 : theme.text2}
+                    }} clickable style={{borderRadius:"50%",border:'1px solid white',padding:5,marginTop:0,marginBottom:0,width:35,height:35,lineHeight:'25px'}}>
+                  <ChevronDown style={{marginRight:'-5px'}}
+                    size="14" color={currencies[Field.INPUT] && currencies[Field.OUTPUT] ? theme.primary1 : theme.text2}
+                  />
+                  <ChevronUp
+                    size="14" color={currencies[Field.INPUT] && currencies[Field.OUTPUT] ? theme.primary1 : theme.text2}
                   />
                 </ArrowWrapper>
                 {recipient === null && !showWrap && isExpertMode ? (
@@ -328,14 +330,14 @@ export default function Swap() {
               currency={currencies[Field.OUTPUT]}
               onCurrencySelect={handleOutputSelect}
               otherCurrency={currencies[Field.INPUT]}
-              id="swap-currency-output"
+              id="swap-currency-output-2"
             />
 
             {recipient !== null && !showWrap ? (
               <>
                 <AutoRow justify="space-between" style={{ padding: '0 1rem' }}>
                   <ArrowWrapper clickable={false}>
-                    <ArrowDown size="16" color={theme.text2} />
+                    <ArrowDown size="16" color="#FFF" />
                   </ArrowWrapper>
                   <LinkStyledButton id="remove-recipient-button" onClick={() => onChangeRecipient(null)}>
                     - Remove send
@@ -346,7 +348,7 @@ export default function Swap() {
             ) : null}
 
             {showWrap ? null : (
-              <Card padding={'.25rem .75rem 0 .75rem'} borderRadius={'20px'}>
+              <Card padding={'.25rem .75rem 0 .75rem'} borderRadius={'10px'}>
                 <AutoColumn gap="4px">
                   {Boolean(trade) && (
                     <RowBetween align="center">

@@ -6,7 +6,7 @@ import styled, {
   css,
   DefaultTheme
 } from 'styled-components'
-import { useIsDarkMode } from '../state/user/hooks'
+/*import { useIsDarkMode } from '../state/user/hooks'*/
 import { Text, TextProps } from 'rebass'
 import { Colors } from './styled'
 
@@ -116,7 +116,7 @@ export function theme(darkMode: boolean): DefaultTheme {
 }
 
 export default function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const darkMode = useIsDarkMode()
+  const darkMode = true;/*useIsDarkMode()*/
 
   const themeObject = useMemo(() => theme(darkMode), [darkMode])
 
@@ -212,7 +212,45 @@ html {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   font-feature-settings: 'ss01' on, 'ss02' on, 'cv01' on, 'cv03' on;
   
+  background: url(images/hexagons.png), -moz-linear-gradient(45deg, rgba(16, 114, 189, 1) 0%, rgba(16, 114, 189, 1) 23%, rgba(2, 41, 97, 1) 48%, rgba(0, 4, 38, 1) 73%, rgba(0, 0, 21, 1) 100%);
+			background: url(images/hexagons.png),-webkit-linear-gradient(45deg, rgba(16, 114, 189, 1) 0%, rgba(16, 114, 189, 1) 23%, rgba(2, 41, 97, 1) 48%, rgba(0, 4, 38, 1) 73%, rgba(0, 0, 21, 1) 100%);
+			background: url(images/hexagons.png),-o-linear-gradient(45deg, rgba(16, 114, 189, 1) 0%, rgba(16, 114, 189, 1) 23%, rgba(2, 41, 97, 1) 48%, rgba(0, 4, 38, 1) 73%, rgba(0, 0, 21, 1) 100%);
+			background: url(images/hexagons.png),-ms-linear-gradient(45deg, rgba(16, 114, 189, 1) 0%, rgba(16, 114, 189, 1) 23%, rgba(2, 41, 97, 1) 48%, rgba(0, 4, 38, 1) 73%, rgba(0, 0, 21, 1) 100%);
+			background: url(images/hexagons.png),linear-gradient(45deg, rgba(16, 114, 189, 1) 0%, rgba(16, 114, 189, 1) 23%, rgba(2, 41, 97, 1) 48%, rgba(0, 4, 38, 1) 73%, rgba(0, 0, 21, 1) 100%);
+			
 }
+
+#center-logo
+{
+  margin-bottom:40px;
+  zoom:0.8;
+}
+
+.token-amount-input::placeholder
+{
+  color:rgba(255,255,255,0.5) !important;
+}
+
+#shadow_bottom
+		{
+			background:url(./images/shadow_bottom.png) repeat-x;
+			width:100%;
+			height:860px;
+			position:fixed;
+			bottom:0;
+			z-index:-1;
+		}
+
+#swap-currency-input
+{
+  margin-bottom:-5px;
+
+}
+#swap-currency-output-2
+{
+  margin-top:-5px;
+}
+
 `
 
 export const ThemedGlobalStyle = createGlobalStyle`
