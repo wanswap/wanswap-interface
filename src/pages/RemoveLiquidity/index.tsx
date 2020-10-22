@@ -97,7 +97,6 @@ export default function RemoveLiquidity({
 
   // pair contract
   const pairContract: Contract | null = usePairContract(pair?.liquidityToken?.address)
-  console.log('pairContract', pairContract, pair?.liquidityToken?.address)
   // allowance handling
   const [signatureData, setSignatureData] = useState<{ v: number; r: string; s: string; deadline: number } | null>(null)
   const [approval, approveCallback] = useApproveCallback(parsedAmounts[Field.LIQUIDITY], ROUTER_ADDRESS)
@@ -115,7 +114,6 @@ export default function RemoveLiquidity({
 
     // try to gather a signature for permission
     const nonce = await pairContract.nonces(account)
-    console.log('pairContract.nonces', nonce, account)
     const EIP712Domain = [
       { name: 'name', type: 'string' },
       { name: 'version', type: 'string' },
@@ -151,15 +149,7 @@ export default function RemoveLiquidity({
       primaryType: 'Permit',
       message
     })
-    console.log('eth_signTypedData_v4', data, {
-      types: {
-        EIP712Domain,
-        Permit
-      },
-      domain,
-      primaryType: 'Permit',
-      message
-    });
+
     library
       .send('eth_signTypedData_v4', [account, data])
       .then(splitSignature)
@@ -289,7 +279,7 @@ export default function RemoveLiquidity({
     } else {
       throw new Error('Attempting to confirm without approval or a signature. Please contact support.')
     }
-    console.log('safeGasEstimates', router, methodNames, args)
+    
     const safeGasEstimates: (BigNumber | undefined)[] = await Promise.all(
       methodNames.map(methodName =>
         router.estimateGas[methodName](...args)
