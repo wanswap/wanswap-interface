@@ -309,10 +309,10 @@ export default function Swap() {
                       onSwitchTokens()
                     }} clickable style={{borderRadius:"50%",border:'1px solid white',padding:5,marginTop:0,marginBottom:0,width:35,height:35,lineHeight:'25px'}}>
                   <ChevronDown style={{marginRight:'-5px'}}
-                    size="14" color={currencies[Field.INPUT] && currencies[Field.OUTPUT] ? theme.primary1 : theme.text2}
+                    size="14" color={theme.text2}
                   />
                   <ChevronUp
-                    size="14" color={currencies[Field.INPUT] && currencies[Field.OUTPUT] ? theme.primary1 : theme.text2}
+                    size="14" color={theme.text2}
                   />
                 </ArrowWrapper>
                 {recipient === null && !showWrap && isExpertMode ? (

@@ -11,13 +11,19 @@ export const Wrapper = styled.div`
 
 export const ArrowWrapper = styled.div<{ clickable: boolean }>`
   padding: 2px;
-
+  transition:0.2s all;
   ${({ clickable }) =>
     clickable
       ? css`
           :hover {
             cursor: pointer;
             opacity: 0.8;
+            background:white;
+            color:black;
+          }
+          :hover svg {
+            
+            stroke:black;
           }
         `
       : null}
