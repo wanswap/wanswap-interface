@@ -30,7 +30,7 @@ const PageWrapper = styled(AutoColumn)`
 
 const ProposalInfo = styled(AutoColumn)`
   border: 1px solid ${({ theme }) => theme.bg4};
-  border-radius: 12px;
+  border-radius: 10px;
   padding: 1.5rem;
   position: relative;
   max-width: 640px;
@@ -70,14 +70,14 @@ const ProgressWrapper = styled.div`
   width: 100%;
   margin-top: 1rem;
   height: 4px;
-  border-radius: 4px;
+  border-radius: 10px;
   background-color: ${({ theme }) => theme.bg3};
   position: relative;
 `
 
 const Progress = styled.div<{ status: 'for' | 'against'; percentageString?: string }>`
   height: 4px;
-  border-radius: 4px;
+  border-radius: 10px;
   background-color: ${({ theme, status }) => (status === 'for' ? theme.green1 : theme.red1)};
   width: ${({ percentageString }) => percentageString};
 `
