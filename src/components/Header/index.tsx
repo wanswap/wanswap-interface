@@ -198,7 +198,7 @@ const Title = styled.a`
 const UniIcon = styled.div`
   transition: transform 0.3s ease;
   :hover {
-    transform: rotate(-5deg);
+    transform: scale(1.2);
   }
 `
 
@@ -299,7 +299,8 @@ export default function Header() {
       <HeaderRow>
         <Title href=".">
           <UniIcon>
-            <img width={'24px'} src={Logo} alt="logo" />
+            <img id="logo-symbol" width={'24px'} src={Logo} alt="logo" />
+            <img id="logo-full" style={{display:'none'}} height={'40px'} src="./images/new_logo.png" />
           </UniIcon>
         </Title>
         <HeaderLinks>

@@ -250,6 +250,15 @@ html {
     {
       display:none
     }
+
+    #logo-symbol
+    {
+      display:none;
+    }
+    #logo-full
+    {
+      display:block !important;
+    }
 }
 
 #swap-currency-input
