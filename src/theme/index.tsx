@@ -241,6 +241,15 @@ html {
 			z-index:-1;
 		}
 
+#swap-currency-input
+{
+  margin-bottom:-5px;
+
+}
+#swap-currency-output-2
+{
+  margin-top:-5px;
+}
 
 `
 

@@ -1,6 +1,6 @@
 import { CurrencyAmount, JSBI, Token, Trade } from '@wanswap/sdk'
 import React, { useCallback, useContext, useEffect, useMemo, useState } from 'react'
-import { ArrowDown } from 'react-feather'
+import { ArrowDown,ChevronDown,ChevronUp } from 'react-feather'
 import ReactGA from 'react-ga'
 import { Text } from 'rebass'
 import { ThemeContext } from 'styled-components'
@@ -302,17 +302,17 @@ export default function Swap() {
               otherCurrency={currencies[Field.OUTPUT]}
               id="swap-currency-input"
             />
-            <AutoColumn justify="space-between" style={{marginTop:'-30px',marginBottom:'-35px',position:'relative',zIndex:2}}>
+            <AutoColumn justify="space-between" style={{marginTop:'-30px',marginBottom:'-30px',position:'relative',zIndex:2}}>
               <AutoRow justify={isExpertMode ? 'space-between' : 'center'} style={{ padding: '0 1rem' }}>
-                <ArrowWrapper clickable>
-                  <ArrowDown
-                    style={{borderRadius:"50%",border:'1px solid white',padding:5,marginTop:0,marginBottom:0}}
-                    size="25"
-                    onClick={() => {
+                <ArrowWrapper onClick={() => {
                       setApprovalSubmitted(false) // reset 2 step UI for approvals
                       onSwitchTokens()
-                    }}
-                    color={currencies[Field.INPUT] && currencies[Field.OUTPUT] ? theme.primary1 : theme.text2}
+                    }} clickable style={{borderRadius:"50%",border:'1px solid white',padding:5,marginTop:0,marginBottom:0,width:35,height:35,lineHeight:'25px'}}>
+                  <ChevronDown style={{marginRight:'-5px'}}
+                    size="14" color={currencies[Field.INPUT] && currencies[Field.OUTPUT] ? theme.primary1 : theme.text2}
+                  />
+                  <ChevronUp
+                    size="14" color={currencies[Field.INPUT] && currencies[Field.OUTPUT] ? theme.primary1 : theme.text2}
                   />
                 </ArrowWrapper>
                 {recipient === null && !showWrap && isExpertMode ? (
@@ -330,7 +330,7 @@ export default function Swap() {
               currency={currencies[Field.OUTPUT]}
               onCurrencySelect={handleOutputSelect}
               otherCurrency={currencies[Field.INPUT]}
-              id="swap-currency-output"
+              id="swap-currency-output-2"
             />
 
             {recipient !== null && !showWrap ? (
