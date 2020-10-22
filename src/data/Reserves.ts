@@ -67,7 +67,7 @@ export function usePairs(currencies: [Currency | undefined, Currency | undefined
   // )
 
   const pairAddresses = usePairAddresses(tokens)
-  console.debug('usePairAddresses', tokens, pairAddresses)
+  // console.debug('usePairAddresses', tokens, pairAddresses)
 
   const results = useMultipleContractSingleData(pairAddresses, PAIR_INTERFACE, 'getReserves')
 
