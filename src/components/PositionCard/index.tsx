@@ -9,10 +9,14 @@ import { useTotalSupply } from '../../data/TotalSupply'
 
 import { useActiveWeb3React } from '../../hooks'
 import { useTokenBalance } from '../../state/wallet/hooks'
-import { ExternalLink, TYPE } from '../../theme'
+import { 
+  // ExternalLink, 
+  TYPE } from '../../theme'
 import { currencyId } from '../../utils/currencyId'
 import { unwrappedToken } from '../../utils/wrappedCurrency'
-import { ButtonPrimary, ButtonSecondary, ButtonEmpty } from '../Button'
+import { ButtonPrimary, 
+  // ButtonSecondary, 
+  ButtonEmpty } from '../Button'
 import { transparentize } from 'polished'
 import { CardNoise } from '../earn/styled'
 
@@ -277,14 +281,14 @@ export default function FullPositionCard({ pair, border }: PositionCardProps) {
               </Text>
             </FixedHeightRow>
 
-            <ButtonSecondary padding="8px" borderRadius="8px">
+            {/* <ButtonSecondary padding="8px" borderRadius="8px">
               <ExternalLink
                 style={{ width: '100%', textAlign: 'center' }}
                 href={`https://uniswap.info/account/${account}`}
               >
                 View accrued fees and analytics<span style={{ fontSize: '11px' }}>↗</span>
               </ExternalLink>
-            </ButtonSecondary>
+            </ButtonSecondary> */}
             <RowBetween marginTop="10px">
               <ButtonPrimary
                 padding="8px"
