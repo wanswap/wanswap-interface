@@ -45,8 +45,8 @@ const HeaderFrame = styled.div`
   padding: 1rem;
   z-index: 2;
 
-padding-left:100px;
-padding-right:100px;
+  padding-left:80px;
+  padding-right:80px;
 
   ${({ theme }) => theme.mediaWidth.upToMedium`
     grid-template-columns: 1fr;
@@ -110,8 +110,8 @@ const HeaderRow = styled(RowFixed)`
 const HeaderLinks = styled(Row)`
   justify-content: center;
   ${({ theme }) => theme.mediaWidth.upToMedium`
-    padding: 1rem 0 1rem 1rem;
-    justify-content: flex-end;
+    padding: 1rem 1rem 1rem 1rem;
+    justify-content: center;
 `};
 `
 
@@ -296,11 +296,13 @@ export default function Header() {
       <Modal isOpen={showUniBalanceModal} onDismiss={() => setShowUniBalanceModal(false)}>
         <UniBalanceContent setShowUniBalanceModal={setShowUniBalanceModal} />
       </Modal>
+      <img id="logo-full" style={{display:'none'}} height={'60px'} src="./images/new_logo.png" />
       <HeaderRow>
-        <Title href=".">
+      
+        <Title href="." id="logo-wrapper">
           <UniIcon>
             <img id="logo-symbol" width={'24px'} src={Logo} alt="logo" />
-            <img id="logo-full" style={{display:'none'}} height={'40px'} src="./images/new_logo.png" />
+            
           </UniIcon>
         </Title>
         <HeaderLinks>
@@ -321,7 +323,7 @@ export default function Header() {
             {t('pool')}
           </StyledNavLink>
           <StyledNavLink id={`stake-nav-link`} to={'/uni'}>
-            UNI
+            Swap Token
           </StyledNavLink>
           <StyledNavLink id={`stake-nav-link`} to={'/vote'}>
             Vote

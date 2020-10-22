@@ -241,7 +241,7 @@ html {
 			z-index:-1;
     }
     
-@media only screen and (max-width: 769px) {
+@media only screen and (max-width: 960px) {
   #shadow_bottom
 		{
       opacity:0.6;
@@ -258,6 +258,16 @@ html {
     #logo-full
     {
       display:block !important;
+      margin:0 auto;
+      margin-top:20px;
+    }
+    #logo-wrapper
+    {
+      margin-right:0px;
+    }
+    #body-wrapper
+    {
+      box-shadow: 0 0 50px #01001de6;
     }
 }
 
