@@ -25,7 +25,7 @@ const CurrencySelect = styled.button<{ selected: boolean }>`
   height: 2.2rem;
   font-size: 20px;
   font-weight: 500;
-  background-color: ${({ selected, theme }) => (selected ? theme.bg1 : theme.primary1)};
+  background-color: ${({ selected, theme }) => (selected ? 'white' : theme.primary1)};
   color: ${({ selected, theme }) => (selected ? theme.text1 : theme.white)};
   border-radius:10px;
   box-shadow: ${({ selected }) => (selected ? 'none' : '0px 6px 10px rgba(0, 0, 0, 0.075)')};
@@ -37,7 +37,7 @@ const CurrencySelect = styled.button<{ selected: boolean }>`
 
   :focus,
   :hover {
-    background-color: ${({ selected, theme }) => (selected ? theme.bg2 : darken(0.05, theme.primary1))};
+    background-color: ${({ selected, theme }) => (selected ? darken(0.05, 'white') : darken(0.05, theme.primary1))};
   }
 `
 
@@ -65,7 +65,7 @@ const StyledDropDown = styled(DropDown)<{ selected: boolean }>`
   height: 35%;
 
   path {
-    stroke: ${({ selected, theme }) => (selected ? theme.text1 : theme.white)};
+    stroke: 'black';
     stroke-width: 1.5px;
   }
 `
@@ -87,7 +87,7 @@ border-radius:10px;
 const StyledTokenName = styled.span<{ active?: boolean }>`
   ${({ active }) => (active ? '  margin: 0 0.25rem 0 0.75rem;' : '  margin: 0 0.25rem 0 0.25rem;')}
   font-size:  ${({ active }) => (active ? '20px' : '16px')};
-
+  color:  ${({ active }) => (active ? 'black' : 'white')};
 `
 
 const StyledBalanceMax = styled.button`
@@ -202,6 +202,7 @@ export default function CurrencyInputPanel({
             </>
           )}
           <CurrencySelect
+           
             selected={!!currency}
             className="open-currency-select-button"
             onClick={() => {
