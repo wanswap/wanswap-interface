@@ -84,7 +84,7 @@ export function MinimalPositionCard({ pair, showUnwrapped = false, border }: Pos
   return (
     <>
       {userPoolBalance && JSBI.greaterThan(userPoolBalance.raw, JSBI.BigInt(0)) ? (
-        <GreyCard border={border}>
+        <GreyCard style={{background:'rgb(26,61,119)'}} border={border}>
           <AutoColumn gap="12px">
             <FixedHeightRow>
               <RowFixed>

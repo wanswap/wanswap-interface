@@ -140,7 +140,7 @@ export default function PoolFinder() {
         {currency0 && currency1 ? (
           pairState === PairState.EXISTS ? (
             hasPosition && pair ? (
-              <MinimalPositionCard pair={pair} border="1px solid #CED0D9" />
+              <MinimalPositionCard pair={pair}  border="0px solid #CED0D9" />
             ) : (
               <LightCard padding="45px 10px">
                 <AutoColumn gap="sm" justify="center">
@@ -183,7 +183,7 @@ export default function PoolFinder() {
         )}
       </AutoColumn>
 
-      <CurrencySearchModal
+      <CurrencySearchModal 
         isOpen={showSearch}
         onCurrencySelect={handleCurrencySelect}
         onDismiss={handleSearchDismiss}
