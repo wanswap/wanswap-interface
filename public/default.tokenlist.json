@@ -1,33 +1,33 @@
 {
-    "name": "WANSWAP",
-    "logoURI": "https://umaproject.org/assets/images/UMA_square_red_logo_circle.png",
-    "keywords": ["defi", "uma", "yield"],
-    "timestamp": "2020-08-25T01:40:34.305Z",
-    "tokens": [{
-            "chainId": 3,
-            "address": "0x974ab46969d3d9a4569546051a797729e301d6eb",
-            "name": "FNX",
-            "symbol": "FNX",
-            "decimals": 18
-        },
-        {
-            "chainId": 3,
-            "address": "0x48344649b9611a891987b2db33faada3ac1d05ec",
-            "name": "Crosschain ETH",
-            "symbol": "wanETH",
-            "decimals": 18
-        },
-        {
-            "chainId": 3,
-            "address": "0x89a3e1494bc3db81dadc893ded7476d33d47dcbd",
-            "name": "Crosschain BTC",
-            "symbol": "wanBTC",
-            "decimals": 8
-        }
-    ],
-    "version": {
-        "major": 0,
-        "minor": 0,
-        "patch": 0
+  "name": "WANSWAP",
+  "logoURI": "https://github.com/wanswap/token-list/raw/main/wanswap_token_list.png",
+  "keywords": ["defi", "wanswap", "yield"],
+  "timestamp": "2020-08-25T01:40:34.305Z",
+  "tokens": [
+    {
+      "chainId": 3,
+      "address": "0x974ab46969d3d9a4569546051a797729e301d6eb",
+      "name": "FNX",
+      "symbol": "FNX",
+      "decimals": 18,
+	  "logoURI": "https://raw.githubusercontent.com/wanswap/token-list/main/icons/fnx.png"
+    },
+    {
+      "chainId": 3,
+      "address": "0x48344649b9611a891987b2db33faada3ac1d05ec",
+      "name": "Crosschain ETH",
+      "symbol": "wanETH",
+      "decimals": 18,
+	  "logoURI": "https://raw.githubusercontent.com/wanswap/token-list/main/icons/wanETH.png"
+    },
+    {
+      "chainId": 3,
+      "address": "0x89a3e1494bc3db81dadc893ded7476d33d47dcbd",
+      "name": "Crosschain BTC",
+      "symbol": "wanBTC",
+      "decimals": 8,
+	"logoURI": "https://raw.githubusercontent.com/wanswap/token-list/main/icons/wanBTC.png"
     }
+  ],
+  "version": { "major": 0, "minor": 0, "patch": 0 }
 }
