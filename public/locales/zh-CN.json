@@ -71,5 +71,13 @@
   "tokenAddress": "通证地址",
   "label": "通证符号",
   "decimals": "小数位数",
-  "enterTokenCont": "输入通证地址并继续"
+  "enterTokenCont": "输入通证地址并继续",
+
+  "swapToken": "SWAP 挖矿",
+  "vote": "投票",
+  "connectWallet": "连接钱包",
+  "enterAnAmount": "输入金额",
+  "selectAToken": "选择一个通证",
+  "enterARecipient": "输入接收地址",
+  "invalidRecipient2": "无效的接收地址"
 }
