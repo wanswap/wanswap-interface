@@ -127,7 +127,7 @@ export function ConfirmationModalContent({
         </RowBetween>
         {topContent()}
       </Section>
-      <BottomSection gap="12px">{bottomContent()}</BottomSection>
+      <BottomSection gap="20px">{bottomContent()}</BottomSection>
     </Wrapper>
   )
 }

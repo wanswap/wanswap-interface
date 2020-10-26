@@ -210,10 +210,10 @@ export default function AddLiquidity({
 
   const modalHeader = () => {
     return noLiquidity ? (
-      <AutoColumn gap="20px">
-        <LightCard mt="20px" borderRadius="20px">
+      <AutoColumn gap="0px">
+        <LightCard mt="20px" borderRadius="20px"  style={{background:'transparent'}}>
           <RowFlat>
-            <Text fontSize="48px" fontWeight={500} lineHeight="42px" marginRight={10}>
+            <Text fontSize="30px" fontWeight={500} lineHeight="26px" marginRight={5}>
               {currencies[Field.CURRENCY_A]?.symbol + '/' + currencies[Field.CURRENCY_B]?.symbol}
             </Text>
             <DoubleCurrencyLogo
@@ -225,9 +225,9 @@ export default function AddLiquidity({
         </LightCard>
       </AutoColumn>
     ) : (
-      <AutoColumn gap="20px">
+      <AutoColumn gap="0px">
         <RowFlat style={{ marginTop: '20px' }}>
-          <Text fontSize="48px" fontWeight={500} lineHeight="42px" marginRight={10}>
+          <Text fontSize="30px" fontWeight={500} lineHeight="26px" marginRight={10}>
             {liquidityMinted?.toSignificant(6)}
           </Text>
           <DoubleCurrencyLogo
