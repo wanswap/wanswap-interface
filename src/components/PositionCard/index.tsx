@@ -192,7 +192,7 @@ export default function FullPositionCard({ pair, border }: PositionCardProps) {
   const backgroundColor = useColor(pair?.token0)
 
   return (
-    <StyledPositionCard border={border} bgColor={backgroundColor}>
+    <StyledPositionCard border={border} bgColor={backgroundColor} style={{background:'#123471'}}>
       <CardNoise />
       <AutoColumn gap="12px">
         <FixedHeightRow>
