@@ -180,7 +180,7 @@ export default function Manage({
               {stakingInfo?.totalRewardRate
                 ?.multiply((60 * 60 * 24 * 7).toString())
                 ?.toFixed(0, { groupSeparator: ',' }) ?? '-'}
-              {' UNI / week'}
+              {' SWAP / week'}
             </TYPE.body>
           </AutoColumn>
         </PoolData>
@@ -264,7 +264,7 @@ export default function Manage({
             <AutoColumn gap="sm">
               <RowBetween>
                 <div>
-                  <TYPE.black>Your unclaimed UNI</TYPE.black>
+                  <TYPE.black>Your unclaimed SWAP</TYPE.black>
                 </div>
                 {stakingInfo?.earnedAmount && JSBI.notEqual(BIG_INT_ZERO, stakingInfo?.earnedAmount?.raw) && (
                   <ButtonEmpty
@@ -296,7 +296,7 @@ export default function Manage({
                   {stakingInfo?.rewardRate
                     ?.multiply((60 * 60 * 24 * 7).toString())
                     ?.toSignificant(4, { groupSeparator: ',' }) ?? '-'}
-                  {' UNI / week'}
+                  {' SWAP / week'}
                 </TYPE.black>
               </RowBetween>
             </AutoColumn>
@@ -306,7 +306,7 @@ export default function Manage({
           <span role="img" aria-label="wizard-icon" style={{ marginRight: '8px' }}>
             ⭐️
           </span>
-          When you withdraw, the contract will automagically claim UNI on your behalf!
+          When you withdraw, the contract will automagically claim SWAP on your behalf!
         </TYPE.main>
 
         {!showAddLiquidityButton && (

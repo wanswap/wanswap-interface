@@ -16,7 +16,7 @@ import ReactMarkdown from 'react-markdown'
 import VoteModal from '../../components/vote/VoteModal'
 import { TokenAmount, JSBI } from '@wanswap/sdk'
 import { useActiveWeb3React } from '../../hooks'
-import { PROPOSAL_LENGTH_IN_DAYS, COMMON_CONTRACT_NAMES, UNI, ZERO_ADDRESS } from '../../constants'
+import { PROPOSAL_LENGTH_IN_DAYS, COMMON_CONTRACT_NAMES, SWAP, ZERO_ADDRESS } from '../../constants'
 import { isAddress, getEtherscanLink } from '../../utils'
 import { ApplicationModal } from '../../state/application/actions'
 import { useModalOpen, useToggleDelegateModal, useToggleVoteModal } from '../../state/application/hooks'
@@ -143,7 +143,7 @@ export default function VotePage({
     proposalData &&
     proposalData.status === 'active'
 
-  const uniBalance: TokenAmount | undefined = useTokenBalance(account ?? undefined, chainId ? UNI[chainId] : undefined)
+  const uniBalance: TokenAmount | undefined = useTokenBalance(account ?? undefined, chainId ? SWAP[chainId] : undefined)
   const userDelegatee: string | undefined = useUserDelegatee()
 
   // in blurb link to home page if they are able to unlock
@@ -186,7 +186,7 @@ export default function VotePage({
           {proposalData && proposalData.status === 'active' && !showVotingButtons && (
             <GreyCard>
               <TYPE.black>
-                Only UNI votes that were self delegated or delegated to another address before block{' '}
+                Only SWAP votes that were self delegated or delegated to another address before block{' '}
                 {proposalData.startBlock} are eligible for voting.{' '}
                 {showLinkForUnlock && (
                   <span>

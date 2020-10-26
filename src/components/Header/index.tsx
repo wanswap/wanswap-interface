@@ -296,7 +296,7 @@ export default function Header() {
       <Modal isOpen={showUniBalanceModal} onDismiss={() => setShowUniBalanceModal(false)}>
         <UniBalanceContent setShowUniBalanceModal={setShowUniBalanceModal} />
       </Modal>
-      <img id="logo-full" style={{display:'none'}} height={'60px'} src="./images/new_logo.png" />
+      <img id="logo-full" style={{display:'none'}} height={'60px'} src="./images/new_logo.png" alt="logo" />
       <HeaderRow>
       
         <Title href="." id="logo-wrapper">
@@ -323,7 +323,7 @@ export default function Header() {
             {t('pool')}
           </StyledNavLink>
           <StyledNavLink id={`stake-nav-link`} to={'/uni'}>
-            Swap Token
+            SWAP Token
           </StyledNavLink>
           <StyledNavLink id={`stake-nav-link`} to={'/vote'}>
             Vote
@@ -344,7 +344,7 @@ export default function Header() {
             <UNIWrapper onClick={toggleClaimModal}>
               <UNIAmount active={!!account && !availableClaim} style={{ pointerEvents: 'auto' }}>
                 <TYPE.white padding="0 2px">
-                  {claimTxn && !claimTxn?.receipt ? <Dots>Claiming UNI</Dots> : 'Claim UNI'}
+                  {claimTxn && !claimTxn?.receipt ? <Dots>Claiming SWAP</Dots> : 'Claim SWAP'}
                 </TYPE.white>
               </UNIAmount>
               <CardNoise />
@@ -371,7 +371,7 @@ export default function Header() {
                     </TYPE.white>
                   </HideSmall>
                 )}
-                UNI
+                SWAP
               </UNIAmount>
               <CardNoise />
             </UNIWrapper>

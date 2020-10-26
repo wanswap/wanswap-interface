@@ -14,7 +14,7 @@ import { useAllProposalData, ProposalData, useUserVotes, useUserDelegatee } from
 import DelegateModal from '../../components/vote/DelegateModal'
 import { useTokenBalance } from '../../state/wallet/hooks'
 import { useActiveWeb3React } from '../../hooks'
-import { UNI, ZERO_ADDRESS } from '../../constants'
+import { SWAP, ZERO_ADDRESS } from '../../constants'
 import { JSBI, TokenAmount, ChainId } from '@wanswap/sdk'
 import { shortenAddress, getEtherscanLink } from '../../utils'
 import Loader from '../../components/Loader'
@@ -114,7 +114,7 @@ export default function Vote() {
 
   // user data
   const availableVotes: TokenAmount | undefined = useUserVotes()
-  const uniBalance: TokenAmount | undefined = useTokenBalance(account ?? undefined, chainId ? UNI[chainId] : undefined)
+  const uniBalance: TokenAmount | undefined = useTokenBalance(account ?? undefined, chainId ? SWAP[chainId] : undefined)
   const userDelegatee: string | undefined = useUserDelegatee()
 
   // show delegation option if they have have a balance, but have not delegated
@@ -140,7 +140,7 @@ export default function Vote() {
               </RowBetween>
               <RowBetween>
                 <TYPE.white fontSize={14}>
-                  UNI tokens represent voting shares in Uniswap governance. You can vote on each proposal yourself or
+                 SWAP tokens represent voting shares in Uniswap governance. You can vote on each proposal yourself or
                   delegate your votes to a third party.
                 </TYPE.white>
               </RowBetween>
@@ -229,7 +229,7 @@ export default function Vote() {
         })}
       </TopSection>
       <TYPE.subHeader color="text3">
-        A minimum threshhold of 1% of the total UNI supply is required to submit proposals
+        A minimum threshhold of 1% of the total SWAP supply is required to submit proposals
       </TYPE.subHeader>
     </PageWrapper>
   )

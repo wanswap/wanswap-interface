@@ -13,7 +13,7 @@ import { isAddress } from 'ethers/lib/utils'
 import useENS from '../../hooks/useENS'
 import { useDelegateCallback } from '../../state/governance/hooks'
 import { useTokenBalance } from '../../state/wallet/hooks'
-import { UNI } from '../../constants'
+import { SWAP } from '../../constants'
 import { LoadingView, SubmittedView } from '../ModalViews'
 
 const ContentWrapper = styled(AutoColumn)`
@@ -55,7 +55,7 @@ export default function DelegateModal({ isOpen, onDismiss, title }: VoteModalPro
   const { address: parsedAddress } = useENS(activeDelegate)
 
   // get the number of votes available to delegate
-  const uniBalance = useTokenBalance(account ?? undefined, chainId ? UNI[chainId] : undefined)
+  const uniBalance = useTokenBalance(account ?? undefined, chainId ? SWAP[chainId] : undefined)
 
   const delegateCallback = useDelegateCallback()
 
@@ -96,7 +96,7 @@ export default function DelegateModal({ isOpen, onDismiss, title }: VoteModalPro
               <TYPE.mediumHeader fontWeight={500}>{title}</TYPE.mediumHeader>
               <StyledClosed stroke="black" onClick={wrappedOndismiss} />
             </RowBetween>
-            <TYPE.body>Earned UNI tokens represent voting shares in Uniswap governance.</TYPE.body>
+            <TYPE.body>Earned SWAP tokens represent voting shares in Uniswap governance.</TYPE.body>
             <TYPE.body>
               You can either vote on each proposal yourself or delegate your votes to a third party.
             </TYPE.body>
