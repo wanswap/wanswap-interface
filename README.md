@@ -6,7 +6,7 @@
 
 An open source interface for wanswap -- a protocol for decentralized exchange of Ethereum tokens.
 
-- Website: [wanswap.finance](https://wanswap.org/)
+- Website: [testnet.wanswap.finance](https://testnet.wanswap.finance/)
 - Email: [morpheus.blockchain@gmail.com](mailto:morpheus.blockchain@gmail.com)
 
 ## Accessing the wanswap Interface
