@@ -167,6 +167,7 @@ const HideSmall = styled.span`
 const NetworkCard = styled(YellowCard)`
 border-radius:10px;
   padding: 8px 12px;
+  background:white;
   ${({ theme }) => theme.mediaWidth.upToSmall`
     margin: 0;
     margin-right: 0.5rem;
@@ -174,6 +175,7 @@ border-radius:10px;
     overflow: hidden;
     text-overflow: ellipsis;
     flex-shrink: 1;
+    
   `};
 `
 

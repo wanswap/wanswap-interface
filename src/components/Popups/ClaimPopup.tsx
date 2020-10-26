@@ -19,7 +19,7 @@ import { AutoColumn } from '../Column'
 import { CardBGImage, CardNoise } from '../earn/styled'
 
 const StyledClaimPopup = styled(AutoColumn)`
-  background: radial-gradient(76.02% 75.41% at 1.84% 0%, #ff007a 0%, #021d43 100%);
+  background: radial-gradient(100% 90% at 20% 0%,#41beec 0%,#123471 100%)
   border-radius:10px;
   padding: 1.5rem;
   overflow: hidden;
