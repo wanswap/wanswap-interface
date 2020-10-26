@@ -25,7 +25,7 @@ export const DataCard = styled(AutoColumn)<{ disabled?: boolean }>`
 `
 
 export const CardBGImage = styled.span<{ desaturate?: boolean }>`
-  background: url(${uImage});
+  /*background: url(${uImage});*/
   width: 1000px;
   height: 600px;
   position: absolute;
