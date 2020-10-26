@@ -21,7 +21,7 @@ const ContainerRow = styled.div<{ error: boolean }>`
   justify-content: center;
   align-items: center;
   border-radius:10px;
-  border: 1px solid ${({ error, theme }) => (error ? theme.red1 : theme.bg2)};
+  border: 1px solid ${({ error, theme }) => (error ? theme.red1 : 'rgb(26, 61, 119)')};
   transition: border-color 300ms ${({ error }) => (error ? 'step-end' : 'step-start')},
     color 500ms ${({ error }) => (error ? 'step-end' : 'step-start')};
   background-color: ${({ theme }) => theme.bg1};
@@ -95,9 +95,9 @@ export default function AddressInputPanel({
   return (
     <InputPanel id={id}>
       <ContainerRow error={error}>
-        <InputContainer>
+        <InputContainer  style={{background:'rgb(26, 61, 119)',borderRadius:'10px'}} >
           <AutoColumn gap="md">
-            <RowBetween>
+            <RowBetween >
               <TYPE.black color={theme.text2} fontWeight={500} fontSize={14}>
                 Recipient
               </TYPE.black>
@@ -107,7 +107,8 @@ export default function AddressInputPanel({
                 </ExternalLink>
               )}
             </RowBetween>
-            <Input
+            <Input  style={{background:'rgb(26, 61, 119)',color:'white'}} 
+            
               className="recipient-address-input"
               type="text"
               autoComplete="off"

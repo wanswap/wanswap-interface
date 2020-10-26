@@ -318,7 +318,7 @@ export default function Swap() {
                   />
                 </ArrowWrapper>
                 {recipient === null && !showWrap && isExpertMode ? (
-                  <LinkStyledButton id="add-recipient-button" onClick={() => onChangeRecipient('')}>
+                  <LinkStyledButton style={{color:'#C3C5CB'}} id="add-recipient-button" onClick={() => onChangeRecipient('')}>
                     {t('addRecipient')}
                   </LinkStyledButton>
                 ) : null}
@@ -341,7 +341,7 @@ export default function Swap() {
                   <ArrowWrapper clickable={false}>
                     <ArrowDown size="16" color="#FFF" />
                   </ArrowWrapper>
-                  <LinkStyledButton id="remove-recipient-button" onClick={() => onChangeRecipient(null)}>
+                  <LinkStyledButton style={{color:'#C3C5CB'}}  id="remove-recipient-button" onClick={() => onChangeRecipient(null)}>
                     {t('removeRecipent')}
                   </LinkStyledButton>
                 </AutoRow>
