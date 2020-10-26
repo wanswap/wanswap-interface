@@ -305,7 +305,7 @@ export default function Swap() {
               id="swap-currency-input"
             />
             <AutoColumn justify="space-between" style={{marginTop:'-30px',marginBottom:'-30px',position:'relative',zIndex:2}}>
-              <AutoRow justify={isExpertMode ? 'space-between' : 'center'} style={{ padding: '0 1rem' }}>
+              <AutoRow justify='center' style={{ padding: '0 1rem' }}>
                 <ArrowWrapper onClick={() => {
                       setApprovalSubmitted(false) // reset 2 step UI for approvals
                       onSwitchTokens()
@@ -317,11 +317,7 @@ export default function Swap() {
                     size="14" color={theme.text2}
                   />
                 </ArrowWrapper>
-                {recipient === null && !showWrap && isExpertMode ? (
-                  <LinkStyledButton style={{color:'#C3C5CB'}} id="add-recipient-button" onClick={() => onChangeRecipient('')}>
-                    {t('addRecipient')}
-                  </LinkStyledButton>
-                ) : null}
+                
               </AutoRow>
             </AutoColumn>
             <CurrencyInputPanel
@@ -334,14 +330,18 @@ export default function Swap() {
               otherCurrency={currencies[Field.INPUT]}
               id="swap-currency-output-2"
             />
-
+            {recipient === null && !showWrap && isExpertMode ? (
+                  <LinkStyledButton  style={{color:'#C3C5CB'}} id="add-recipient-button" onClick={() => onChangeRecipient('')}>
+                    {t('addRecipient')}
+                  </LinkStyledButton>
+                ) : null}
             {recipient !== null && !showWrap ? (
               <>
                 <AutoRow justify="space-between" style={{ padding: '0 1rem' }}>
                   <ArrowWrapper clickable={false}>
                     <ArrowDown size="16" color="#FFF" />
                   </ArrowWrapper>
-                  <LinkStyledButton style={{color:'#C3C5CB'}}  id="remove-recipient-button" onClick={() => onChangeRecipient(null)}>
+                  <LinkStyledButton style={{color:'#C3C5CB',justifyContent:'space-between'}}  id="remove-recipient-button" onClick={() => onChangeRecipient(null)}>
                     {t('removeRecipent')}
                   </LinkStyledButton>
                 </AutoRow>
