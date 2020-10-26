@@ -211,7 +211,7 @@ export default function AddLiquidity({
   const modalHeader = () => {
     return noLiquidity ? (
       <AutoColumn gap="0px">
-        <LightCard mt="20px" borderRadius="20px"  style={{background:'transparent'}}>
+        <LightCard mt="20px" borderRadius="20px"  style={{background:'transparent',paddingLeft:0,paddingRight:0}}>
           <RowFlat>
             <Text fontSize="30px" fontWeight={500} lineHeight="26px" marginRight={5}>
               {currencies[Field.CURRENCY_A]?.symbol + '/' + currencies[Field.CURRENCY_B]?.symbol}
