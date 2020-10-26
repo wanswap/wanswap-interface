@@ -45,7 +45,7 @@ To have the interface default to a different network when a wallet is not connec
 
 Note that the interface only works on testnets where both
 
-Uniswap Factory
+Wanswap Factory
 
 [multicall](https://github.com/makerdao/multicall) are deployed.
 The interface will not work on other networks.

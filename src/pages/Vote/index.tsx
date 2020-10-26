@@ -136,11 +136,11 @@ export default function Vote() {
           <CardSection>
             <AutoColumn gap="md">
               <RowBetween>
-                <TYPE.white fontWeight={600}>Uniswap Governance</TYPE.white>
+                <TYPE.white fontWeight={600}>Wanswap Governance</TYPE.white>
               </RowBetween>
               <RowBetween>
                 <TYPE.white fontSize={14}>
-                 SWAP tokens represent voting shares in Uniswap governance. You can vote on each proposal yourself or
+                 SWAP tokens represent voting shares in Wanswap governance. You can vote on each proposal yourself or
                   delegate your votes to a third party.
                 </TYPE.white>
               </RowBetween>
@@ -149,7 +149,7 @@ export default function Vote() {
                 href="https://uniswap.org/blog/uni"
                 target="_blank"
               >
-                <TYPE.white fontSize={14}>Read more about Uniswap governance</TYPE.white>
+                <TYPE.white fontSize={14}>Read more about Wanswap governance</TYPE.white>
               </ExternalLink>
             </AutoColumn>
           </CardSection>

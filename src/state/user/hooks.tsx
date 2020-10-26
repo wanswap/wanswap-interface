@@ -178,7 +178,7 @@ export function useURLWarningToggle(): () => void {
  * @param tokenB the other token
  */
 export function toV2LiquidityToken([tokenA, tokenB]: [Token, Token]): Token {
-  return new Token(tokenA.chainId, Pair.getAddress(tokenA, tokenB), 18, 'UNI-V2', 'Uniswap V2')
+  return new Token(tokenA.chainId, Pair.getAddress(tokenA, tokenB), 18, 'WSLP', 'WanSwap Liquidity Pool Token')
 }
 
 /**
@@ -268,7 +268,7 @@ export function useTokenPairsWithLiquidityTokens(trackedTokenPairs: [Token, Toke
         continue
       }
       tmpPairs.push({
-        liquidityToken: new Token(trackedTokenPairs[i][0].chainId, pairsFromFactory[i].result!.pair, 18, 'UNI-V2', 'Uniswap V2'),
+        liquidityToken: new Token(trackedTokenPairs[i][0].chainId, pairsFromFactory[i].result!.pair, 18, 'WSLP', 'WanSwap Liquidity Pool Token'),
         tokens: trackedTokenPairs[i]
       })
       Pair.setAddress(trackedTokenPairs[i][0], trackedTokenPairs[i][1], pairsFromFactory[i].result!.pair)

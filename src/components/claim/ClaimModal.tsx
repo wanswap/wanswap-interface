@@ -136,7 +136,7 @@ export default function ClaimModal() {
           </ModalUpper>
           <AutoColumn gap="md" style={{ padding: '1rem', paddingTop: '0' }} justify="center">
             <TYPE.subHeader fontWeight={500}>
-              As a member of the Uniswap community you may claim SWAP to be used for voting and governance. <br /> <br />
+              As a member of the Wanswap community you may claim SWAP to be used for voting and governance. <br /> <br />
               <ExternalLink href="https://uniswap.org/blog/uni">Read more about SWAP</ExternalLink>
             </TYPE.subHeader>
             <ButtonPrimary
