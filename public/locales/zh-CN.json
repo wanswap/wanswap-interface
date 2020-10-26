@@ -104,7 +104,21 @@
   "priceImpact": "价格影响",
   "helper2": "因交易规模而造成的成交价格与预估价格之间的差异。",
   "liquidityProviderFee": "手续费",
-  "helper3": "每笔交易的一部分(0.30%)被奖励给流动性提供者作为协议激励。"
+  "helper3": "每笔交易的一部分(0.30%)被奖励给流动性提供者作为协议激励。",
+  "confirmSwap": "兑换确认",
+  "outputIsEstimated": "输出数额是估算的. 您将收到至少 ",
+  "orTheTransaction": " 否则交易将会自动取消.",
+  "inputIsEstimated": "输入数额是估算的. 您将售出最多 ",
+  "outputWillBeSentTo": "输出资金将被发送到",
+  "swapAnyway": "依旧兑换",
+  "confirmSwap2": "确认兑换",
+  "waitingForConfirmation": "等待确认",
+  "confirmThisTransaction": "在钱包上确认交易",
+  "transactionSubmitted": "交易已经提交",
+  "close": "关闭",
+  "viewOn": "在 wanscan.org 中查看"
+
+
 
 
 }

@@ -120,6 +120,17 @@
   "priceImpact": "Price Impact",
   "helper2": "The difference between the market price and estimated price due to trade size.",
   "liquidityProviderFee": "Liquidity Provider Fee",
-  "helper3": "A portion of each trade (0.30%) goes to liquidity providers as a protocol incentive."
+  "helper3": "A portion of each trade (0.30%) goes to liquidity providers as a protocol incentive.",
+  "confirmSwap": "Confirm Swap",
+  "outputIsEstimated": "Output is estimated. You will receive at least ",
+  "orTheTransaction": " or the transaction will revert.",
+  "inputIsEstimated": "Input is estimated. You will sell at most ",
+  "outputWillBeSentTo": "Output will be sent to",
+  "confirmSwap2": "Confirm Swap",
+  "waitingForConfirmation": "Waiting For Confirmation",
+  "confirmThisTransaction": "Confirm this transaction in your wallet",
+  "transactionSubmitted": "Transaction Submitted",
+  "close": "Close",
+  "viewOn": "View on wanscan.org"
 
 }
