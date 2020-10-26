@@ -95,5 +95,31 @@
   "enterAnAmount": "Enter an amount",
   "selectAToken": "Select a token",
   "enterARecipient": "Enter a recipient",
-  "invalidRecipient2": "Invalid Recipient"
+  "invalidRecipient2": "Invalid Recipient",
+
+  "from": "From",
+  "fromEstimated": "From (estimated)",
+  "addRecipient": "+ Add a send (optional)",
+  "removeRecipent": "- Remove send",
+  "price": "Price",
+  "slippageTolerance": "Slippage Tolerance",
+  "insufficientLiquidity": "Insufficient liquidity for this trade.",
+  "approving": "Approving",
+  "approved": "Approved",
+  "approve": "Approve ",
+  "priceImpactHigh": "Price Impact High",
+  "anyway": " Anyway",
+  "priceImpactTooHigh": "Price Impact Too High",
+  "to": "To",
+  "toEstimated": "To (estimated)",
+  "balance2": "Balance: ",
+  "max": "MAX",
+  "minimumReceived": "Minimum received",
+  "maximumSold": "Maximum sold",
+  "helper1": "Your transaction will revert if there is a large, unfavorable price movement before it is confirmed.",
+  "priceImpact": "Price Impact",
+  "helper2": "The difference between the market price and estimated price due to trade size.",
+  "liquidityProviderFee": "Liquidity Provider Fee",
+  "helper3": "A portion of each trade (0.30%) goes to liquidity providers as a protocol incentive."
+
 }

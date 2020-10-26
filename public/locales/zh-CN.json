@@ -79,5 +79,32 @@
   "enterAnAmount": "输入金额",
   "selectAToken": "选择一个通证",
   "enterARecipient": "输入接收地址",
-  "invalidRecipient2": "无效的接收地址"
+  "invalidRecipient2": "无效的接收地址",
+
+  "from": "支付",
+  "fromEstimated": "支付 (估算值)",
+  "addRecipient": "+ 添加接收方 (可选)",
+  "removeRecipent": "- 移除接收方",
+  "price": "价格",
+  "slippageTolerance": "Slippage Tolerance",
+  "insufficientLiquidity": "交易对流动性不足",
+  "approving": "正在授权",
+  "approved": "已授权",
+  "approve": "授权 ",
+  "priceImpactHigh": "价格影响高",
+  "anyway": " 依旧",
+  "priceImpactTooHigh": "价格影响过大",
+  "to": "兑换成",
+  "toEstimated": "兑换成 (估算值)",
+  "balance2": "余额: ",
+  "max": "最大",
+  "minimumReceived": "最少得到",
+  "maximumSold": "最多卖出",
+  "helper1": "如果在交易上链确认前出现较大的不利价格变动，你的交易将取消。",
+  "priceImpact": "价格影响",
+  "helper2": "因交易规模而造成的成交价格与预估价格之间的差异。",
+  "liquidityProviderFee": "手续费",
+  "helper3": "每笔交易的一部分(0.30%)被奖励给流动性提供者作为协议激励。"
+
+
 }
