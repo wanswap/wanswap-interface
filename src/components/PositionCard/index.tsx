@@ -301,7 +301,7 @@ export default function FullPositionCard({ pair, border }: PositionCardProps) {
                 to={`/add/${currencyId(currency0)}/${currencyId(currency1)}`}
                 width="48%"
               >
-                Add
+                {t('add')}
               </ButtonPrimary>
               <ButtonPrimary
                 padding="8px"
@@ -310,7 +310,7 @@ export default function FullPositionCard({ pair, border }: PositionCardProps) {
                 width="48%"
                 to={`/remove/${currencyId(currency0)}/${currencyId(currency1)}`}
               >
-                Remove
+                {t('remove')}
               </ButtonPrimary>
             </RowBetween>
           </AutoColumn>

@@ -164,7 +164,9 @@
   "outputIsEstimated2": "Output is estimated. If the price changes by more than ",
   "outputIsEstimated3": "% your transaction will revert.",
   "createPoolSupply": "Create Pool & Supply",
-  "confirmSupply": "Confirm Supply"
+  "confirmSupply": "Confirm Supply",
+  "add": "Add",
+  "remove": "Remove"
 
 
 
