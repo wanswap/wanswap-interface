@@ -300,7 +300,7 @@ export default function Header() {
       <Modal isOpen={showUniBalanceModal} onDismiss={() => setShowUniBalanceModal(false)}>
         <UniBalanceContent setShowUniBalanceModal={setShowUniBalanceModal} />
       </Modal>
-      <img id="logo-full" style={{display:'none'}} height={'60px'} src="./images/new_logo.png" alt="logo" />
+      <img id="logo-full" style={{display:'none'}} height={'60px'} src="./images/wanswap_white.svg" alt="logo" />
       <HeaderRow>
       
         <Title href="." id="logo-wrapper">

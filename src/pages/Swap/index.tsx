@@ -274,7 +274,7 @@ export default function Swap() {
         tokens={urlLoadedTokens}
         onConfirm={handleConfirmTokenWarning}
       />
-      <img src="./images/new_logo.png" id="center-logo" alt="logo"/>
+      <img src="./images/wanswap_white.svg" id="center-logo" width="400" alt="logo"/>
       <AppBody>
         <SwapPoolTabs active={'swap'} />
         <Wrapper id="swap-page">
