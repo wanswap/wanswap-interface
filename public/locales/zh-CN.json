@@ -118,7 +118,7 @@
   "viewOn": "在 wanscan.org 中查看",
   "liquidityProviderRewards": "提供流动性获得奖励",
   "readMoreAboutProvidingLiquidity":"了解更多有关流动性奖励的详情",
-  "liquidityHelper":"流动性提供者从所有交易中赚取0.3%的费用奖励。(前两年所有奖励用于回购和销毁SWAP)",
+  "liquidityHelper":"流动性提供者从所有交易中赚取0.3%的费用奖励，按照质押比例实时分配，可在退出质押时获得。",
   "yourLiquidity":"我的流动性",
   "totalDeposited":"Total deposited",
   "createAPair":"新建交易对",
@@ -129,7 +129,26 @@
   "importIt":"手动导入",
   "manage":"管理",
   "yourPoolTokens":"我的流动性质押凭证:",
-  "pooled": "已质押"
+  "pooled": "已质押",
+  "whenYouAddLiquidity":"当你增加流动性时，你会得到代表你的流动性份额的质押凭证代币。持有这些代币将自动获得每笔交易的手续费收益，收益数量与你在池中的份额成比例，并且可以在任何时候使用质押凭证取回质押金。",
+  "whenYouRemoveLiquidity":"删除流动性代币会将您的流动性凭证按当前比率(与池的份额成比例)转换回质押的代币，收益的手续费包括在你收到的金额中。",
+  "creatingAPool":"你正在创建一个资金池",
+  "youWillReceive2": "你将收到",
+  "youAreFirst":"你是首位流动性提供者.",
+  "theRadioOfToken":"您添加的代币比率将设置此池的价格。",
+  "onceYouAreHappy":"如果您满意此比率，点击充值按钮继续。",
+  "prices": "价格",
+  "initialPrices": "初始价格",
+  "andPoolShare":"和占比",
+  "supply":"充值",
+  "invalidPair":"无效的交易对",
+  "insufficientBalance1":"代币 ",
+  "insufficientBalance2":" 余额不足",
+  "shareOfPool":"占比",
+  "yourPosition":"当前持有",
+  "yourPoolShare2":"占比:"
+
+
 
 
 
