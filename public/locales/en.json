@@ -131,6 +131,19 @@
   "confirmThisTransaction": "Confirm this transaction in your wallet",
   "transactionSubmitted": "Transaction Submitted",
   "close": "Close",
-  "viewOn": "View on wanscan.org"
-
+  "viewOn": "View on wanscan.org",
+  "liquidityProviderRewards": "Liquidity provider rewards",
+  "readMoreAboutProvidingLiquidity":"Read more about providing liquidity",
+  "liquidityHelper":"Liquidity providers earn a 0.3% fee on all trades proportional to their share of the pool. Fees are added to the pool, accrue in real time and can be claimed by withdrawing your liquidity. (All rewards in start two years are used to buy back / burn SWAP.)",
+  "yourLiquidity":"Your liquidity",
+  "totalDeposited":"Total deposited",
+  "createAPair":"Create a pair",
+  "connectLiquidity":"Connect to a wallet to view your liquidity.",
+  "loading":"Loading",
+  "noLiquidityFound":"No liquidity found.",
+  "dontSeePool":"Don't see a pool you joined?",
+  "importIt":"Import it.",
+  "manage":"Manage",
+  "yourPoolTokens":"Your pool tokens:",
+  "pooled": "Pooled"
 }
