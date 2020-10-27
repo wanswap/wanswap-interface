@@ -243,8 +243,8 @@ export default function AddLiquidity({
           </Text>
         </Row>
         <TYPE.italic fontSize={12} textAlign="left" padding={'8px 0 0 0 '}>
-          {`Output is estimated. If the price changes by more than ${allowedSlippage /
-            100}% your transaction will revert.`}
+          {t('outputIsEstimated2') + `${allowedSlippage /
+            100}`+t('outputIsEstimated3')}
         </TYPE.italic>
       </AutoColumn>
     )

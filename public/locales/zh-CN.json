@@ -146,9 +146,11 @@
   "insufficientBalance2":" 余额不足",
   "shareOfPool":"占比",
   "yourPosition":"当前持有",
-  "yourPoolShare2":"占比:"
-
-
+  "yourPoolShare2":"占比:",
+  "outputIsEstimated2": "输出值是估算值. 如果价格变动超过",
+  "outputIsEstimated3": "% 你的交易将被拒绝。",
+  "createPoolSupply": "创建流动性池并充值",
+  "confirmSupply": "确认充值"
 
 
 

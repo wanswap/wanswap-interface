@@ -160,7 +160,12 @@
   "insufficientBalance2":" balance",
   "shareOfPool":"Share of Pool",
   "yourPosition":"Your position",
-  "yourPoolShare2":"Your pool share:"
+  "yourPoolShare2":"Your pool share:",
+  "outputIsEstimated2": "Output is estimated. If the price changes by more than ",
+  "outputIsEstimated3": "% your transaction will revert.",
+  "createPoolSupply": "Create Pool & Supply",
+  "confirmSupply": "Confirm Supply"
+
 
 
 
