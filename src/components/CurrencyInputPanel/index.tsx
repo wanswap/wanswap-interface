@@ -58,6 +58,7 @@ const Aligner = styled.span`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  color:black;
 `
 
 const StyledDropDown = styled(DropDown)<{ selected: boolean }>`
@@ -87,7 +88,7 @@ border-radius:10px;
 const StyledTokenName = styled.span<{ active?: boolean }>`
   ${({ active }) => (active ? '  margin: 0 0.25rem 0 0.75rem;' : '  margin: 0 0.25rem 0 0.25rem;')}
   font-size:  ${({ active }) => (active ? '20px' : '16px')};
-  color:  ${({ active }) => (active ? 'black' : 'white')};
+  color:  'black';
 `
 
 const StyledBalanceMax = styled.button`
