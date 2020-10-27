@@ -1,5 +1,6 @@
 import { Currency, CurrencyAmount, ETHER, JSBI, Pair, Percent, Price, TokenAmount } from '@wanswap/sdk'
 import { useCallback, useMemo } from 'react'
+import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 import { PairState, usePair } from '../../data/Reserves'
 import { useTotalSupply } from '../../data/TotalSupply'
@@ -34,7 +35,7 @@ export function useDerivedMintInfo(
   error?: string
 } {
   const { account, chainId } = useActiveWeb3React()
-
+  const { t } = useTranslation()
   const { independentField, typedValue, otherTypedValue } = useMintState()
 
   const dependentField = independentField === Field.CURRENCY_A ? Field.CURRENCY_B : Field.CURRENCY_A
@@ -134,25 +135,25 @@ export function useDerivedMintInfo(
 
   let error: string | undefined
   if (!account) {
-    error = 'Connect Wallet'
+    error = t('connectWallet')
   }
 
   if (pairState === PairState.INVALID) {
-    error = error ?? 'Invalid pair'
+    error = error ?? t('invalidPair')
   }
 
   if (!parsedAmounts[Field.CURRENCY_A] || !parsedAmounts[Field.CURRENCY_B]) {
-    error = error ?? 'Enter an amount'
+    error = error ?? t('enterAnAmount')
   }
 
   const { [Field.CURRENCY_A]: currencyAAmount, [Field.CURRENCY_B]: currencyBAmount } = parsedAmounts
 
   if (currencyAAmount && currencyBalances?.[Field.CURRENCY_A]?.lessThan(currencyAAmount)) {
-    error = 'Insufficient ' + currencies[Field.CURRENCY_A]?.symbol + ' balance'
+    error = t('insufficientBalance1') + currencies[Field.CURRENCY_A]?.symbol + t('insufficientBalance2')
   }
 
   if (currencyBAmount && currencyBalances?.[Field.CURRENCY_B]?.lessThan(currencyBAmount)) {
-    error = 'Insufficient ' + currencies[Field.CURRENCY_B]?.symbol + ' balance'
+    error = t('insufficientBalance1') + currencies[Field.CURRENCY_B]?.symbol + t('insufficientBalance2')
   }
 
   return {
