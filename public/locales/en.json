@@ -87,7 +87,7 @@
   "toleranceExplanation": "Lowering this limit decreases your risk of frontrunning. However, this makes more likely that your transaction will fail due to normal price movements.",
   "tokenSearchPlaceholder": "Search name or paste address",
   
-  "swapToken": "SWAP Farming",
+  "swapToken": "Farming",
   "vote": "Vote",
   "connectWallet": "Connect Wallet",
   "enterAnAmount": "Enter an amount",
@@ -174,7 +174,8 @@
   "copyAddress": "Copy Address",
   "recentTransactions":"Recent Transactions",
   "clearAll":"(clear all)",
-  "yourTransactions":"Your transactions will appear here..."
+  "yourTransactions":"Your transactions will appear here...",
+  "walletAddress":"Wallet Address"
 
 
 

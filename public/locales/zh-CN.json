@@ -72,7 +72,7 @@
   "decimals": "小数位数",
   "enterTokenCont": "输入通证地址并继续",
 
-  "swapToken": "SWAP 挖矿",
+  "swapToken": "挖矿",
   "vote": "投票",
   "connectWallet": "连接钱包",
   "enterAnAmount": "输入金额",
@@ -160,7 +160,8 @@
   "copyAddress": "拷贝地址",
   "recentTransactions":"交易记录",
   "clearAll":"(清除全部)",
-  "yourTransactions":"你的交易在这里显示..."
+  "yourTransactions":"你的交易在这里显示...",
+  "walletAddress":"钱包地址"
 
 
 

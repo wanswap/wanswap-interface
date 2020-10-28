@@ -1,4 +1,4 @@
-import { isAddress } from '../utils'
+// import { isAddress } from '../utils'
 import useENSAddress from './useENSAddress'
 import useENSName from './useENSName'
 
@@ -10,6 +10,7 @@ export default function useENS(
   nameOrAddress?: string | null
 ): { loading: boolean; address: string | null; name: string | null } {
   const validated = isAddress(nameOrAddress)
+  console.log('isAddress', validated, nameOrAddress)
   const reverseLookup = useENSName(validated ? validated : undefined)
   const lookup = useENSAddress(nameOrAddress)
 
@@ -17,5 +18,13 @@ export default function useENS(
     loading: reverseLookup.loading || lookup.loading,
     address: validated ? validated : lookup.address,
     name: reverseLookup.ENSName ? reverseLookup.ENSName : !validated && lookup.address ? nameOrAddress || null : null
+  }
+}
+
+function isAddress(address?: string | null) {
+  if (address && address.match(/^(0x)?[0-9a-fA-F]{40}$/)) {
+    return address.toLowerCase()
+  } else {
+    return false
   }
 }

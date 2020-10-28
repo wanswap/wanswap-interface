@@ -1,5 +1,5 @@
 {
-  "name": "@uniswap/interface",
+  "name": "@wanswap/interface",
   "description": "Wanswap Interface",
   "homepage": ".",
   "private": true,
@@ -119,7 +119,7 @@
   },
   "license": "GPL-3.0-or-later",
   "dependencies": {
-    "@wansproject/address": "^5.0.5",
+    "@wansproject/address": "5.1.1",
     "@wanswap/sdk": "3.0.8",
     "@web3-react-wan/abstract-connector": "^6.1.7",
     "@web3-react-wan/core": "^6.1.7",

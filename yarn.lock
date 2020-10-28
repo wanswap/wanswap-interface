@@ -2876,6 +2876,18 @@
     "@wansproject/logger" "^5.0.6"
     "@wansproject/properties" "^5.0.4"
 
+"@wansproject/address@5.1.1":
+  version "5.1.1"
+  resolved "https://registry.npmjs.org/@wansproject/address/-/address-5.1.1.tgz#6a68437c67f9c52a3915b3467926401ea66b5538"
+  integrity sha512-SP1Ty+CGV0CRhNDY+7hIzJLopbzQQ/+GXmcS6R2VCe9jmq7R5nJcy5Frxbdt8pLFElLKhhYwVA9obp+By/NGOA==
+  dependencies:
+    "@wansproject/bignumber" "^5.0.8"
+    "@wansproject/bytes" "^5.0.5"
+    "@wansproject/keccak256" "^5.0.4"
+    "@wansproject/logger" "^5.0.6"
+    "@wansproject/rlp" "^5.0.4"
+    bn.js "^4.4.0"
+
 "@wansproject/address@^5.0.5":
   version "5.0.5"
   resolved "https://registry.npmjs.org/@wansproject/address/-/address-5.0.5.tgz#e5b09c46992db12b3ecfebc5fd4be05bd775b13c"
