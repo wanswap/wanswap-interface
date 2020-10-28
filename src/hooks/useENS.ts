@@ -10,7 +10,6 @@ export default function useENS(
   nameOrAddress?: string | null
 ): { loading: boolean; address: string | null; name: string | null } {
   const validated = isAddress(nameOrAddress)
-  console.log('isAddress', validated, nameOrAddress)
   const reverseLookup = useENSName(validated ? validated : undefined)
   const lookup = useENSAddress(nameOrAddress)
 
