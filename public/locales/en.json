@@ -166,7 +166,15 @@
   "createPoolSupply": "Create Pool & Supply",
   "confirmSupply": "Confirm Supply",
   "add": "Add",
-  "remove": "Remove"
+  "remove": "Remove",
+  "recipient": "Recipient",
+  "account": "Account",
+  "disconnect": "Disconnect",
+  "change": "Change",
+  "copyAddress": "Copy Address",
+  "recentTransactions":"Recent Transactions",
+  "clearAll":"(clear all)",
+  "yourTransactions":"Your transactions will appear here..."
 
 
 

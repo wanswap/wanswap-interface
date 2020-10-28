@@ -235,7 +235,7 @@ export default function WalletModal({
       if (option.connector === injected) {
         // don't show injected if there's no injected provider
         if (!(window.wanWeb3 || window.wanchain)) {
-          if (option.name === 'MetaMask') {
+          if (option.name === 'WanMask') {
             return (
               <Option
                 id={`connect-${key}`}
@@ -252,7 +252,7 @@ export default function WalletModal({
           }
         }
         // don't return metamask if injected provider isn't metamask
-        else if (option.name === 'MetaMask' && !isWanchainMask) {
+        else if (option.name === 'WanMask' && !isWanchainMask) {
           return null
         }
         // likewise for generic

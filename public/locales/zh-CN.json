@@ -152,7 +152,15 @@
   "createPoolSupply": "创建流动性池并充值",
   "confirmSupply": "确认充值",
   "add": "增加",
-  "remove": "减少"
+  "remove": "减少",
+  "recipient": "接收地址",
+  "account": "账户",
+  "disconnect": "断开",
+  "change": "更改",
+  "copyAddress": "拷贝地址",
+  "recentTransactions":"交易记录",
+  "clearAll":"(清除全部)",
+  "yourTransactions":"你的交易在这里显示..."
 
 
 
