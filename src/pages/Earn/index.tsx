@@ -54,7 +54,7 @@ export default function Earn() {
               </RowBetween>
               <RowBetween>
                 <TYPE.white fontSize={14}>
-                  Deposit your Liquidity Provider tokens to receive SWAP, the Wanswap protocol governance token.
+                  Deposit your Liquidity Provider tokens to receive WSP, the Wanswap protocol governance token.
                 </TYPE.white>
               </RowBetween>{' '}
               <ExternalLink
@@ -62,7 +62,7 @@ export default function Earn() {
                 href="https://uniswap.org/blog/uni/"
                 target="_blank"
               >
-                <TYPE.white fontSize={14}>Read more about SWAP</TYPE.white>
+                <TYPE.white fontSize={14}>Read more about WSP</TYPE.white>
               </ExternalLink>
             </AutoColumn>
           </CardSection>
