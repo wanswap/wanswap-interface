@@ -105,18 +105,18 @@ export default function AddressClaimModal({ isOpen, onDismiss }: { isOpen: boole
             <CardNoise />
             <CardSection gap="md">
               <RowBetween>
-                <TYPE.white fontWeight={500}>Claim WSP Token</TYPE.white>
+                <TYPE.white fontWeight={500}>Claim WASP Token</TYPE.white>
                 <CloseIcon onClick={wrappedOnDismiss} style={{ zIndex: 99 }} stroke="white" />
               </RowBetween>
               <TYPE.white fontWeight={700} fontSize={36}>
-                {unclaimedAmount?.toFixed(0, { groupSeparator: ',' } ?? '-')} WSP
+                {unclaimedAmount?.toFixed(0, { groupSeparator: ',' } ?? '-')} WASP
               </TYPE.white>
             </CardSection>
             <Break />
           </ModalUpper>
           <AutoColumn gap="md" style={{ padding: '1rem', paddingTop: '0' }} justify="center">
             <TYPE.subHeader fontWeight={500}>
-              Enter an address to trigger a WSP claim. If the address has any claimable WSP it will be sent to them on
+              Enter an address to trigger a WASP claim. If the address has any claimable WASP it will be sent to them on
               submission.
             </TYPE.subHeader>
             <AddressInputPanel value={typed} onChange={handleRecipientType} />
@@ -132,7 +132,7 @@ export default function AddressClaimModal({ isOpen, onDismiss }: { isOpen: boole
               mt="1rem"
               onClick={onClaim}
             >
-              Claim WSP
+              Claim WASP
             </ButtonPrimary>
           </AutoColumn>
         </ContentWrapper>
@@ -159,7 +159,7 @@ export default function AddressClaimModal({ isOpen, onDismiss }: { isOpen: boole
               </TYPE.largeHeader>
               {!claimConfirmed && (
                 <Text fontSize={36} color={'#ff007a'} fontWeight={800}>
-                  {unclaimedAmount?.toFixed(0, { groupSeparator: ',' } ?? '-')} WSP
+                  {unclaimedAmount?.toFixed(0, { groupSeparator: ',' } ?? '-')} WASP
                 </Text>
               )}
               {parsedAddress && (
