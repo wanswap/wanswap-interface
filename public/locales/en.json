@@ -175,7 +175,8 @@
   "recentTransactions":"Recent Transactions",
   "clearAll":"(clear all)",
   "yourTransactions":"Your transactions will appear here...",
-  "walletAddress":"Wallet Address"
+  "walletAddress":"Wallet Address",
+  "crossChain":"Cross Chain"
 
 
 

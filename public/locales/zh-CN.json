@@ -161,7 +161,9 @@
   "recentTransactions":"交易记录",
   "clearAll":"(清除全部)",
   "yourTransactions":"你的交易在这里显示...",
-  "walletAddress":"钱包地址"
+  "walletAddress":"钱包地址",
+  "crossChain":"跨链"
+
 
 
 
