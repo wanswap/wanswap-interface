@@ -381,7 +381,30 @@ export default function Header() {
                       />
                     </TYPE.white>
                   </HideSmall>
-                )}
+                )?
+                (
+                  <HideSmall>
+                    <TYPE.white
+                      style={{
+                        paddingRight: '.4rem',
+                        color:'#313131'
+                      }}
+                    >
+                      <CountUp
+                        key={countUpValue}
+                        isCounting
+                        start={parseFloat(countUpValuePrevious)}
+                        end={parseFloat(countUpValue)}
+                        thousandsSeparator={','}
+                        duration={1}
+                      />
+                    </TYPE.white>
+                  </HideSmall>
+                )
+                :
+                <img style={{marginLeft:'-10px',marginRight:'5px'}} height={'52px'} src="./images/Logomark_WASP_token.svg" alt="logo" />
+                
+              }
                 WASP
               </UNIAmount>
               <CardNoise />
