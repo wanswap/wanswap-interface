@@ -190,7 +190,8 @@ export default function CurrencyInputPanel({
           {!hideInput && (
             <>
               <NumericalInput
-                style={{backgroundColor:'transparent'}}
+                style={{backgroundColor:'transparent',color:'#FFE600'}}
+                
                 className="token-amount-input"
                 value={value}
                 onUserInput={val => {

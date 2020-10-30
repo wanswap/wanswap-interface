@@ -38,24 +38,24 @@ const Base = styled(RebassButton)<{
 `
 
 export const ButtonPrimary = styled(Base)`
-  background-color: #3fa9d9;
-  color: white;
+  background-color: #FFE600;
+  color: #313131;
   
   &:focus {
-    box-shadow: 0 0 0 1pt ${({ theme }) => darken(0.2, '#3fa9d9')};
-    background-color: ${({ theme }) => darken(0.2, '#3fa9d9')};
+    box-shadow: 0 0 0 1pt ${({ theme }) => darken(0.2, '#FFE600')};
+    background-color: ${({ theme }) => darken(0.2, '#FFE600')};
   }
   &:hover {
-    background-color: ${({ theme }) => darken(0.2, '#3fa9d9')};
+    background-color: ${({ theme }) => darken(0.2, '#FFE600')};
   }
   &:active {
-    box-shadow: 0 0 0 1pt ${({ theme }) => darken(0.2, '#3fa9d9')};
-    background-color: ${({ theme }) => darken(0.2, '#3fa9d9')};
+    box-shadow: 0 0 0 1pt ${({ theme }) => darken(0.2, '#FFE600')};
+    background-color: ${({ theme }) => darken(0.2, '#FFE600')};
   }
   &:disabled {
    
-    background-color: ${({ theme, altDisabledStyle }) => (altDisabledStyle ? theme.primary1 :  darken(0.2, '#3fa9d9'))};
-    color: ${({ theme, altDisabledStyle }) => (altDisabledStyle ? 'white' : darken(0.2, 'white'))};
+    background-color: ${({ theme, altDisabledStyle }) => (altDisabledStyle ? theme.primary1 : '#002868')};
+    color: ${({ theme, altDisabledStyle }) => (altDisabledStyle ? 'white' :  '#3c9fd6')};
     cursor: auto;
     box-shadow: none;
     border: 1px solid transparent;
@@ -65,26 +65,26 @@ export const ButtonPrimary = styled(Base)`
 `
 
 export const ButtonLight = styled(Base)`
-  background-color: #3fa9d9;
-  color: white;
+  background-color: #FFE600;
+  color: #313131;
   font-size: 20px;
   font-weight: 500;
   &:focus {
-    box-shadow: 0 0 0 1pt ${({ theme, disabled }) => !disabled && darken(0.2, '#3fa9d9')};
-    background-color: ${({ theme, disabled }) => !disabled && darken(0.2, '#3fa9d9')};
+    box-shadow: 0 0 0 1pt ${({ theme, disabled }) => !disabled && darken(0.2, '#FFE600')};
+    background-color: ${({ theme, disabled }) => !disabled && darken(0.2, '#FFE600')};
   }
   &:hover {
-    background-color: ${({ theme, disabled }) => !disabled && darken(0.2, '#3fa9d9')};
+    background-color: ${({ theme, disabled }) => !disabled && darken(0.2, '#FFE600')};
   }
   &:active {
-    box-shadow: 0 0 0 1pt ${({ theme, disabled }) => !disabled && darken(0.05, '#3fa9d9')};
-    background-color: ${({ theme, disabled }) => !disabled && darken(0.2, '#3fa9d9')};
+    box-shadow: 0 0 0 1pt ${({ theme, disabled }) => !disabled && darken(0.05, '#FFE600')};
+    background-color: ${({ theme, disabled }) => !disabled && darken(0.2, '#FFE600')};
   }
   :disabled {
     opacity: 0.4;
     :hover {
       cursor: auto;
-      background-color: '#3fa9d9';
+      background-color: '#FFE600';
       box-shadow: none;
       border: 1px solid transparent;
       outline: none;

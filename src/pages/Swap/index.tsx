@@ -274,7 +274,7 @@ export default function Swap() {
         tokens={urlLoadedTokens}
         onConfirm={handleConfirmTokenWarning}
       />
-      <img src="./images/wanswap_white.svg" id="center-logo" width="400" alt="logo"/>
+      <img src="./images/Logo_Whiteyellow.svg" id="center-logo" width="400" alt="logo"/>
       <AppBody>
         <SwapPoolTabs active={'swap'} />
         <Wrapper id="swap-page">
@@ -380,7 +380,7 @@ export default function Swap() {
           </AutoColumn>
           <BottomGrouping>
             {!account ? (
-              <ButtonLight onClick={toggleWalletModal}><LogIn style={{marginRight:5}} size="18" color="white"/> Connect Wallet</ButtonLight>
+              <ButtonLight onClick={toggleWalletModal}><LogIn style={{marginRight:5}} size="18" color="#313131"/> Connect Wallet</ButtonLight>
             ) : showWrap ? (
               <ButtonPrimary disabled={Boolean(wrapInputError)} onClick={onWrap}>
                 {wrapInputError ??

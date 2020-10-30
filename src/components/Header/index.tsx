@@ -136,12 +136,12 @@ const AccountElement = styled.div<{ active: boolean }>`
 `
 
 const UNIAmount = styled(AccountElement)`
-  color: white;
+  color: #313131;
   padding: 4px 8px;
   height: 36px;
   font-weight: 500;
   background-color: ${({ theme }) => theme.bg3};
-  background: radial-gradient(100% 90% at 20% 0%,#41beec 0%,#123471 100%);
+  background: #FFE600;
 `
 
 const UNIWrapper = styled.span`
@@ -300,12 +300,12 @@ export default function Header() {
       <Modal isOpen={showUniBalanceModal} onDismiss={() => setShowUniBalanceModal(false)}>
         <UniBalanceContent setShowUniBalanceModal={setShowUniBalanceModal} />
       </Modal>
-      <img id="logo-full" style={{display:'none'}} height={'60px'} src="./images/wanswap_white.svg" alt="logo" />
+      <img id="logo-full" style={{display:'none'}} height={'60px'} src="./images/Logo_Whiteyellow.svg" alt="logo" />
       <HeaderRow>
       
         <Title href="." id="logo-wrapper">
           <UniIcon>
-            <img id="logo-symbol" width={'24px'} src={Logo} alt="logo" />
+            <img id="logo-symbol" width={'36px'} src={Logo} alt="logo" />
             
           </UniIcon>
         </Title>
@@ -367,7 +367,8 @@ export default function Header() {
                   <HideSmall>
                     <TYPE.white
                       style={{
-                        paddingRight: '.4rem'
+                        paddingRight: '.4rem',
+                        color:'#313131'
                       }}
                     >
                       <CountUp
