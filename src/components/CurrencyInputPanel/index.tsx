@@ -66,7 +66,7 @@ const StyledDropDown = styled(DropDown)<{ selected: boolean }>`
   height: 35%;
 
   path {
-    stroke: 'black';
+    stroke: '#313131';
     stroke-width: 1.5px;
   }
 `
@@ -88,7 +88,8 @@ border-radius:10px;
 const StyledTokenName = styled.span<{ active?: boolean }>`
   ${({ active }) => (active ? '  margin: 0 0.25rem 0 0.75rem;' : '  margin: 0 0.25rem 0 0.25rem;')}
   font-size:  ${({ active }) => (active ? '20px' : '16px')};
-  color:  'black';
+  color:  ${({ active }) => (active ? '#313131' : '#fff')};
+  
 `
 
 const StyledBalanceMax = styled.button`

@@ -38,7 +38,7 @@ function V1PositionCard({ token, V1LiquidityBalance }: PositionCardProps) {
               py="0.25rem"
               style={{ borderRadius: '1rem' }}
               backgroundColor={theme.yellow1}
-              color={'black'}
+              color={'#313131'}
             >
               V1
             </Text>

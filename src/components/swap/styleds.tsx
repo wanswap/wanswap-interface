@@ -19,11 +19,11 @@ export const ArrowWrapper = styled.div<{ clickable: boolean }>`
             cursor: pointer;
             opacity: 0.8;
             background:white;
-            color:black;
+            color:#313131;
           }
           :hover svg {
             
-            stroke:black;
+            stroke:#313131;
           }
         `
       : null}
