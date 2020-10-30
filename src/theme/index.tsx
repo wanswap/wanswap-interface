@@ -224,6 +224,8 @@ html {
 {
   margin-bottom:40px;
   zoom:0.8;
+  position: relative;
+    z-index: 1;
 }
 
 .token-amount-input::placeholder
