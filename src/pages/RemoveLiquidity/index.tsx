@@ -496,14 +496,14 @@ export default function RemoveLiquidity({
             <LightCard>
               <AutoColumn gap="20px">
                 <RowBetween>
-                  <Text fontWeight={500}>Amount</Text>
+                  <Text fontWeight={500}>{t('amount')}</Text>
                   <ClickableText
                     fontWeight={500}
                     onClick={() => {
                       setShowDetailed(!showDetailed)
                     }}
                   >
-                    {showDetailed ? 'Simple' : 'Detailed'}
+                    {showDetailed ? t('simple') : t('detailed')}
                   </ClickableText>
                 </RowBetween>
                 <Row style={{ alignItems: 'flex-end' }}>
@@ -569,7 +569,7 @@ export default function RemoveLiquidity({
                               currencyB === ETHER ? WETH[chainId].address : currencyIdB
                             }`}
                           >
-                            Receive WETH
+                            {t('receive')} WETH
                           </StyledInternalLink>
                         ) : oneCurrencyIsWETH ? (
                           <StyledInternalLink
@@ -577,7 +577,7 @@ export default function RemoveLiquidity({
                               currencyA && currencyEquals(currencyA, WETH[chainId]) ? 'WAN' : currencyIdA
                             }/${currencyB && currencyEquals(currencyB, WETH[chainId]) ? 'WAN' : currencyIdB}`}
                           >
-                            Receive WAN
+                            {t('receive')} WAN
                           </StyledInternalLink>
                         ) : null}
                       </RowBetween>
@@ -661,11 +661,11 @@ export default function RemoveLiquidity({
                     fontSize={16}
                   >
                     {approval === ApprovalState.PENDING ? (
-                      <Dots>Approving</Dots>
+                      <Dots>{t('approving')}</Dots>
                     ) : approval === ApprovalState.APPROVED || signatureData !== null ? (
-                      'Approved'
+                      t('approved')
                     ) : (
-                      'Approve'
+                      t('approve')
                     )}
                   </ButtonConfirmed>
                   <ButtonError

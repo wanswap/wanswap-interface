@@ -173,6 +173,11 @@
   "manageThisPool":"管理此资金池",
   "importPool":"导入流动性池",
   "connectFind": "连接钱包来查账流动性池",
-  "selectFind": "选择代币来查找流动性池"
+  "selectFind": "选择代币来查找流动性池",
+  "receive": "收到",
+  "amount":"数额",
+  "detailed":"详细视图",
+  "simple":"简单视图"
+
 
 }

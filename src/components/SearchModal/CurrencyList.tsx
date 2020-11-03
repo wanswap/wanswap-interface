@@ -16,6 +16,7 @@ import { MouseoverTooltip } from '../Tooltip'
 import { FadedSpan, MenuItem } from './styleds'
 import Loader from '../Loader'
 import { isTokenOnList } from '../../utils'
+import { useTranslation } from 'react-i18next'
 
 function currencyKey(currency: Currency): string {
   return currency instanceof Token ? currency.address : currency === ETHER ? 'ETHER' : ''
@@ -94,6 +95,7 @@ function CurrencyRow({
   style: CSSProperties
 }) {
   const { account, chainId } = useActiveWeb3React()
+  const { t } = useTranslation()
   const key = currencyKey(currency)
   const selectedTokenList = useSelectedTokenList()
   const isOnSelectedList = isTokenOnList(selectedTokenList, currency)
@@ -127,7 +129,7 @@ function CurrencyRow({
                   if (chainId && currency instanceof Token) removeToken(chainId, currency.address)
                 }}
               >
-                (Remove)
+                ({t('remove')})
               </LinkStyledButton>
             </TYPE.main>
           ) : null}
