@@ -187,7 +187,11 @@
   "manageThisPool":"Manage this pool.",
   "importPool":"Import Pool",
   "connectFind": "Connect to a wallet to find pools",
-  "selectFind": "Select a token to find your liquidity."
+  "selectFind": "Select a token to find your liquidity.",
+  "receive": "Receive",
+  "amount":"Amount",
+  "detailed":"Detailed",
+  "simple":"Simple"
 
 
 
