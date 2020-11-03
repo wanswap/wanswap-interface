@@ -12,6 +12,7 @@ import { TransactionResponse } from '@ethersproject/providers'
 import { useTransactionAdder } from '../../state/transactions/hooks'
 import FormattedCurrencyAmount from '../FormattedCurrencyAmount'
 import { useActiveWeb3React } from '../../hooks'
+import { useTranslation } from 'react-i18next'
 
 const ContentWrapper = styled(AutoColumn)`
   width: 100%;
@@ -31,6 +32,8 @@ export default function UnstakingModal({ isOpen, onDismiss, stakingInfo }: Staki
   const addTransaction = useTransactionAdder()
   const [hash, setHash] = useState<string | undefined>()
   const [attempting, setAttempting] = useState(false)
+
+  const { t } = useTranslation()
 
   function wrappedOndismiss() {
     setHash(undefined)
@@ -60,10 +63,10 @@ export default function UnstakingModal({ isOpen, onDismiss, stakingInfo }: Staki
 
   let error: string | undefined
   if (!account) {
-    error = 'Connect Wallet'
+    error = t('connectWallet')
   }
   if (!stakingInfo?.stakedAmount) {
-    error = error ?? 'Enter an amount'
+    error = error ?? t('enterAnAmount')
   }
 
   return (

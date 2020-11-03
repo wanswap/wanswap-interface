@@ -176,8 +176,18 @@
   "clearAll":"(clear all)",
   "yourTransactions":"Your transactions will appear here...",
   "walletAddress":"Wallet Address",
-  "crossChain":"Cross Chain"
-
+  "crossChain":"Cross Chain",
+  "breakdown":"Your WASP Breakdown",
+  "unclaimed":"Unclaimed",
+  "claim":"claim",
+  "waspPrice":"WASP price:",
+  "waspInCirculation":"WASP in circulation:",
+  "totalSupply":"Total Supply",
+  "poolFound":"Pool Found!",
+  "manageThisPool":"Manage this pool.",
+  "importPool":"Import Pool",
+  "connectFind": "Connect to a wallet to find pools",
+  "selectFind": "Select a token to find your liquidity."
 
 
 

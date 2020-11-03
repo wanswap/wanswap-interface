@@ -43,6 +43,7 @@ import { Field } from '../../state/burn/actions'
 import { useWalletModalToggle } from '../../state/application/hooks'
 import { useUserSlippageTolerance } from '../../state/user/hooks'
 import { BigNumber } from '@ethersproject/bignumber'
+import { useTranslation } from 'react-i18next'
 
 export default function RemoveLiquidity({
   history,
@@ -57,6 +58,8 @@ export default function RemoveLiquidity({
     currencyB,
     chainId
   ])
+
+  const { t } = useTranslation();
 
   const theme = useContext(ThemeContext)
 
@@ -646,7 +649,7 @@ export default function RemoveLiquidity({
             )}
             <div style={{ position: 'relative' }}>
               {!account ? (
-                <ButtonLight onClick={toggleWalletModal}>Connect Wallet</ButtonLight>
+                <ButtonLight onClick={toggleWalletModal}>{t('connectWallet')}</ButtonLight>
               ) : (
                 <RowBetween>
                   <ButtonConfirmed

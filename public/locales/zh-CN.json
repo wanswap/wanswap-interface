@@ -162,9 +162,17 @@
   "clearAll":"(清除全部)",
   "yourTransactions":"你的交易在这里显示...",
   "walletAddress":"钱包地址",
-  "crossChain":"跨链"
-
-
-
+  "crossChain":"跨链",
+  "breakdown":"你的WASP详情",
+  "unclaimed":"未领取",
+  "claim":"领取",
+  "waspPrice":"WASP价格:",
+  "waspInCirculation":"WASP in circulation:",
+  "totalSupply":"总发行量",
+  "poolFound":"找到流动性池!",
+  "manageThisPool":"管理此资金池",
+  "importPool":"导入流动性池",
+  "connectFind": "连接钱包来查账流动性池",
+  "selectFind": "选择代币来查找流动性池"
 
 }

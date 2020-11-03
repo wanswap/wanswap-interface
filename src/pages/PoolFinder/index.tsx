@@ -1,6 +1,7 @@
 import { Currency, ETHER, JSBI, TokenAmount } from '@wanswap/sdk'
 import React, { useCallback, useEffect, useState } from 'react'
 import { Plus } from 'react-feather'
+import { useTranslation } from 'react-i18next'
 import { Text } from 'rebass'
 import { ButtonDropdownLight } from '../../components/Button'
 import { LightCard } from '../../components/Card'
@@ -26,6 +27,8 @@ enum Fields {
 
 export default function PoolFinder() {
   const { account } = useActiveWeb3React()
+
+  const { t } = useTranslation()
 
   const [showSearch, setShowSearch] = useState<boolean>(false)
   const [activeField, setActiveField] = useState<number>(Fields.TOKEN1)
@@ -71,7 +74,7 @@ export default function PoolFinder() {
   const prerequisiteMessage = (
     <LightCard padding="45px 10px">
       <Text textAlign="center">
-        {!account ? 'Connect to a wallet to find pools' : 'Select a token to find your liquidity.'}
+        {!account ? t('connectFind') : t('selectFind')}
       </Text>
     </LightCard>
   )
@@ -95,7 +98,7 @@ export default function PoolFinder() {
             </Row>
           ) : (
             <Text fontWeight={500} fontSize={20} marginLeft={'12px'}>
-              Select a Token
+              {t('selectAToken')}
             </Text>
           )}
         </ButtonDropdownLight>
@@ -119,7 +122,7 @@ export default function PoolFinder() {
             </Row>
           ) : (
             <Text fontWeight={500} fontSize={20} marginLeft={'12px'}>
-              Select a Token
+              {t('selectAToken')}
             </Text>
           )}
         </ButtonDropdownLight>
@@ -129,10 +132,10 @@ export default function PoolFinder() {
             style={{ justifyItems: 'center', backgroundColor: '', padding: '12px 0px', borderRadius: '12px' }}
           >
             <Text textAlign="center" fontWeight={500}>
-              Pool Found!
+              {t('poolFound')}
             </Text>
             <StyledInternalLink to={`/pool`}>
-              <Text textAlign="center">Manage this pool.</Text>
+            <Text textAlign="center">{t('manageThisPool')}</Text>
             </StyledInternalLink>
           </ColumnCenter>
         )}

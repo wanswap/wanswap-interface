@@ -380,7 +380,7 @@ export default function Swap() {
           </AutoColumn>
           <BottomGrouping>
             {!account ? (
-              <ButtonLight onClick={toggleWalletModal}><LogIn style={{marginRight:5}} size="18" color="#313131"/> Connect Wallet</ButtonLight>
+              <ButtonLight onClick={toggleWalletModal}><LogIn style={{marginRight:5}} size="18" color="#313131"/> {t('connectWallet')}</ButtonLight>
             ) : showWrap ? (
               <ButtonPrimary disabled={Boolean(wrapInputError)} onClick={onWrap}>
                 {wrapInputError ??
