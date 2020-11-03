@@ -42,15 +42,15 @@ export const ButtonPrimary = styled(Base)`
   color: #313131;
   
   &:focus {
-    box-shadow: 0 0 0 1pt ${({ theme }) => darken(0.2, '#FFE600')};
-    background-color: ${({ theme }) => darken(0.2, '#FFE600')};
+    box-shadow: 0 0 0 1pt ${({ theme }) => lighten(0.1, '#FFE600')};
+    background-color: ${({ theme }) => lighten(0.1, '#FFE600')};
   }
   &:hover {
-    background-color: ${({ theme }) => darken(0.2, '#FFE600')};
+    background-color: ${({ theme }) => lighten(0.2, '#FFE600')};
   }
   &:active {
-    box-shadow: 0 0 0 1pt ${({ theme }) => darken(0.2, '#FFE600')};
-    background-color: ${({ theme }) => darken(0.2, '#FFE600')};
+    box-shadow: 0 0 0 1pt ${({ theme }) => lighten(0.2, '#FFE600')};
+    background-color: ${({ theme }) => lighten(0.2, '#FFE600')};
   }
   &:disabled {
    
