@@ -309,7 +309,7 @@ export default function Swap() {
                 <ArrowWrapper onClick={() => {
                       setApprovalSubmitted(false) // reset 2 step UI for approvals
                       onSwitchTokens()
-                    }} clickable style={{borderRadius:"50%",border:'1px solid white',padding:5,marginTop:0,marginBottom:0,width:35,height:35,lineHeight:'25px'}}>
+                    }} clickable style={{borderRadius:"50%",border:'1px solid white',padding:5,marginTop:0,marginBottom:0,width:35,height:35,lineHeight:'25px',paddingTop:10,display:'inline-flex'}}>
                   <ChevronDown style={{marginRight:'-5px'}}
                     size="14" color={theme.text2}
                   />
