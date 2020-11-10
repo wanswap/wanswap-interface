@@ -28,7 +28,7 @@ export function LoadingView({ children, onDismiss }: { children: any; onDismiss:
         <CloseIcon onClick={onDismiss} />
       </RowBetween>
       <ConfirmedIcon>
-        <CustomLightSpinner src={Circle} alt="loader" size={'90px'} />
+        <CustomLightSpinner src={Circle} alt="loader" size={'150px'} />
       </ConfirmedIcon>
       <AutoColumn gap="100px" justify={'center'}>
         {children}
