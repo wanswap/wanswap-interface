@@ -40,10 +40,11 @@ const Base = styled(RebassButton)<{
 export const ButtonPrimary = styled(Base)`
   background-color: #FFE600;
   color: #313131;
-  
+  text-decoration: none;
   &:focus {
     box-shadow: 0 0 0 1pt ${({ theme }) => lighten(0.1, '#FFE600')};
     background-color: ${({ theme }) => lighten(0.1, '#FFE600')};
+    
   }
   &:hover {
     background-color: ${({ theme }) => lighten(0.2, '#FFE600')};
@@ -54,18 +55,19 @@ export const ButtonPrimary = styled(Base)`
   }
   &:disabled {
    
-    background-color: ${({ theme, altDisabledStyle }) => (altDisabledStyle ? theme.primary1 : '#002868')};
-    color: ${({ theme, altDisabledStyle }) => (altDisabledStyle ? 'white' :  '#3c9fd6')};
+    background-color: ${({ theme, altDisabledStyle }) => (altDisabledStyle ? '#002868' : '#002868')};
+    color: ${({ theme, altDisabledStyle }) => (altDisabledStyle ? '#3c9fd6' :  '#3c9fd6')};
     cursor: auto;
     box-shadow: none;
     border: 1px solid transparent;
     outline: none;
-    opacity: ${({ altDisabledStyle }) => (altDisabledStyle ? '0.7' : '1')};
+    opacity: ${({ altDisabledStyle }) => (altDisabledStyle ? '0.5' : '1')};
   }
 `
 
 export const ButtonLight = styled(Base)`
   background-color: #FFE600;
+  text-decoration: none;
   color: #313131;
   font-size: 20px;
   font-weight: 500;
@@ -251,7 +253,7 @@ const ButtonErrorStyle = styled(Base)`
     background-color: ${({ theme }) => darken(0.1, theme.red1)};
   }
   &:disabled {
-    opacity: 50%;
+    opacity:0.5
     cursor: auto;
     box-shadow: none;
     background-color: ${({ theme }) => theme.red1};
@@ -271,11 +273,11 @@ export function ButtonConfirmed({
   }
 }
 
-export function ButtonError({ error, ...rest }: { error?: boolean } & ButtonProps) {
+export function ButtonError({ error, altDisabledStyle, ...rest }: { error?: boolean; altDisabledStyle?: boolean } & ButtonProps) {
   if (error) {
     return <ButtonErrorStyle {...rest} />
   } else {
-    return <ButtonPrimary {...rest} />
+    return <ButtonPrimary {...rest} altDisabledStyle={altDisabledStyle}/>
   }
 }
 

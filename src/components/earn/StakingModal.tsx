@@ -210,12 +210,13 @@ export default function StakingModal({ isOpen, onDismiss, stakingInfo, userLiqui
   return (
     <Modal isOpen={isOpen} onDismiss={wrappedOnDismiss} maxHeight={90}>
       {!attempting && !hash && (
-        <ContentWrapper gap="lg">
+        <ContentWrapper gap="md">
           <RowBetween>
             <TYPE.mediumHeader>Deposit</TYPE.mediumHeader>
             <CloseIcon onClick={wrappedOnDismiss} />
           </RowBetween>
           <CurrencyInputPanel
+            
             value={typedValue}
             onUserInput={onUserInput}
             onMax={handleMax}
@@ -243,12 +244,14 @@ export default function StakingModal({ isOpen, onDismiss, stakingInfo, userLiqui
             <ButtonConfirmed
               mr="0.5rem"
               onClick={approveCallback}
+              altDisabledStyle={true}
               confirmed={approval === ApprovalState.APPROVED || signatureData !== null}
               disabled={approval !== ApprovalState.NOT_APPROVED || signatureData !== null}
             >
               Approve
             </ButtonConfirmed>
             <ButtonError
+              altDisabledStyle={true}
               disabled={!!error || (signatureData === null && approval !== ApprovalState.APPROVED)}
               error={!!error && !!parsedAmount}
               onClick={onStake}

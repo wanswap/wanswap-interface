@@ -273,7 +273,10 @@ html {
     }
 }
 
-
+#stake-liquidity-token div:first-child
+{
+  background: transparent !important;
+}
 
 `
 
