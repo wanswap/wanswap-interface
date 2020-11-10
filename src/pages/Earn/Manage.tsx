@@ -294,7 +294,7 @@ export default function Manage({
                   </span>
                   {stakingInfo?.rewardRate
                     ?.multiply((60 * 60 * 24 * 7).toString())
-                    ?.toSignificant(4, { groupSeparator: ',' }) ?? '-'}
+                    ?.toFixed(0, { groupSeparator: ',' }) ?? '-'}
                   {' WASP / week'}
                 </TYPE.black>
               </RowBetween>
