@@ -122,7 +122,7 @@
     "@wansproject/address": "5.1.1",
     "@wanswap/sdk": "3.0.8",
     "@web3-react-wan/abstract-connector": "^6.1.7",
-    "@web3-react-wan/core": "^6.1.7",
+    "@web3-react-wan/core": "^6.1.11",
     "@web3-react-wan/injected-connector": "^6.1.9",
     "@web3-react-wan/types": "^6.1.7"
   }

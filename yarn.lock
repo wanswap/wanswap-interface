@@ -3121,10 +3121,10 @@
   dependencies:
     "@web3-react-wan/types" "^6.1.7"
 
-"@web3-react-wan/core@^6.1.7":
-  version "6.1.7"
-  resolved "https://registry.npmjs.org/@web3-react-wan/core/-/core-6.1.7.tgz#e4f030c70f29b735667b58fd6a2b7aef1a5e75b1"
-  integrity sha512-Twmx+hIl7zNQ3bvzqb736rdiFEycb+K5R+otiW8R/D1Y4nbASeSW/ud6MAJ7NDIF1vySlUFWsYXEmiZX46IjVw==
+"@web3-react-wan/core@^6.1.11":
+  version "6.1.11"
+  resolved "https://registry.npmjs.org/@web3-react-wan/core/-/core-6.1.11.tgz#ea69a6065e691eaf73e7a6e839eae55b137e85d3"
+  integrity sha512-NIU8dauu1nJWe6DpWb0zJizl2Dyslzpl+WPaA8JNtXtLJukLDSsmEQkpQt4RGWd0R73upPygLS69r+eYfh4Deg==
   dependencies:
     "@wansproject/keccak256" "^5.0.0-beta.130"
     "@web3-react-wan/abstract-connector" "^6.1.7"
