@@ -1,8 +1,8 @@
-import React, { useContext } from 'react'
+import React, {  } from 'react'
 import { useActiveWeb3React } from '../../hooks'
 
 import { AutoColumn, ColumnCenter } from '../Column'
-import styled, { ThemeContext } from 'styled-components'
+import styled, {  } from 'styled-components'
 import { RowBetween } from '../Row'
 import { TYPE, CloseIcon, CustomLightSpinner } from '../../theme'
 import { ArrowUpCircle } from 'react-feather'
@@ -47,7 +47,7 @@ export function SubmittedView({
   onDismiss: () => void
   hash: string | undefined
 }) {
-  const theme = useContext(ThemeContext)
+
   const { chainId } = useActiveWeb3React()
 
   return (
@@ -57,7 +57,7 @@ export function SubmittedView({
         <CloseIcon onClick={onDismiss} />
       </RowBetween>
       <ConfirmedIcon>
-        <ArrowUpCircle strokeWidth={0.5} size={90} color={theme.primary1} />
+        <ArrowUpCircle strokeWidth={0.5} size={150} color={'#FFE600'} />
       </ConfirmedIcon>
       <AutoColumn gap="100px" justify={'center'}>
         {children}

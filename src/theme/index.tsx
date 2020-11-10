@@ -219,6 +219,10 @@ html {
 			background: url(images/hexagons.png),linear-gradient(45deg, rgba(16, 114, 189, 1) 0%, rgba(16, 114, 189, 1) 23%, rgba(2, 41, 97, 1) 48%, rgba(0, 4, 38, 1) 73%, rgba(0, 0, 21, 1) 100%);
 			
 }
+div[data-reach-dialog-content] a
+{
+  color:#FFE600 !important;
+}
 
 #center-logo
 {
