@@ -1,0 +1,33 @@
+import { Interface } from '@ethersproject/abi'
+import { ChainId } from '@wanswap/sdk'
+import BRIDGE_MINER_ABI from './bridge-miner.json'
+import BRIDGE_TOKEN_ABI from './bridge-token.json'
+import { abi as IUniswapV2PairABI } from '@uniswap/v2-core/build/IUniswapV2Pair.json'
+
+const WANV2_PAIR_INTERFACE = new Interface(IUniswapV2PairABI)
+const BRIDGE_MINER_INTERFACE = new Interface(BRIDGE_MINER_ABI)
+const WANV2BRIDGE_TOKEN_INTERFACE = new Interface(BRIDGE_TOKEN_ABI)
+
+const BRIDGE_MINER_ADDRESS: { [chainId in ChainId]: string } = {
+  [ChainId.MAINNET]: '0xc0a47dFe034B400B47bDaD5FecDa2621de6c4d95',
+  [ChainId.ROPSTEN]: '0x250926d8F343c78D32337410C109E0B6b210fA19',
+  [ChainId.RINKEBY]: '0x250926d8F343c78D32337410C109E0B6b210fA19',
+  [ChainId.GÖRLI]: '0x250926d8F343c78D32337410C109E0B6b210fA19',
+  [ChainId.KOVAN]: '0x250926d8F343c78D32337410C109E0B6b210fA19'
+}
+const BRIDGE_TOKEN_ADDRESS: { [chainId in ChainId]: string } = {
+  [ChainId.MAINNET]: '0xc0a47dFe034B400B47bDaD5FecDa2621de6c4d95',
+  [ChainId.ROPSTEN]: '0x38034B2E6ae3fB7FEC5D895a9Ff3474bA0c283F6',
+  [ChainId.RINKEBY]: '0x38034B2E6ae3fB7FEC5D895a9Ff3474bA0c283F6',
+  [ChainId.GÖRLI]: '0x38034B2E6ae3fB7FEC5D895a9Ff3474bA0c283F6',
+  [ChainId.KOVAN]: '0x38034B2E6ae3fB7FEC5D895a9Ff3474bA0c283F6'
+}
+export {
+  BRIDGE_MINER_ABI,
+  BRIDGE_MINER_ADDRESS,
+  BRIDGE_TOKEN_ABI,
+  BRIDGE_TOKEN_ADDRESS,
+  WANV2_PAIR_INTERFACE,
+  BRIDGE_MINER_INTERFACE,
+  WANV2BRIDGE_TOKEN_INTERFACE
+}

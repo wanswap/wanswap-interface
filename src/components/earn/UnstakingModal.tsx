@@ -6,7 +6,7 @@ import { RowBetween } from '../Row'
 import { TYPE, CloseIcon } from '../../theme'
 import { ButtonError } from '../Button'
 import { StakingInfo } from '../../state/stake/hooks'
-import { useStakingContract } from '../../hooks/useContract'
+import { useBridgeMinerContract } from '../../hooks/useContract'
 import { SubmittedView, LoadingView } from '../ModalViews'
 import { TransactionResponse } from '@ethersproject/providers'
 import { useTransactionAdder } from '../../state/transactions/hooks'
@@ -41,13 +41,13 @@ export default function UnstakingModal({ isOpen, onDismiss, stakingInfo }: Staki
     onDismiss()
   }
 
-  const stakingContract = useStakingContract(stakingInfo.stakingRewardAddress)
+  const bridgeMinerContract = useBridgeMinerContract()
 
   async function onWithdraw() {
-    if (stakingContract && stakingInfo?.stakedAmount) {
+    if (bridgeMinerContract && stakingInfo?.stakedAmount) {
       setAttempting(true)
-      await stakingContract
-        .exit({ gasLimit: 300000 })
+      await bridgeMinerContract
+        .withdraw(stakingInfo.pid, `0x${stakingInfo?.stakedAmount.raw.toString(16)}`)
         .then((response: TransactionResponse) => {
           addTransaction(response, {
             summary: `Withdraw deposited liquidity`

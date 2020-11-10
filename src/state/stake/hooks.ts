@@ -1,44 +1,35 @@
-import { ChainId, CurrencyAmount, JSBI, Token, TokenAmount, WETH, Pair } from '@wanswap/sdk'
+import { ChainId, CurrencyAmount, JSBI, Token, TokenAmount, Pair } from '@wanswap/sdk'
 import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
-import { DAI, WASP, USDC, USDT, WBTC } from '../../constants'
-import { STAKING_REWARDS_INTERFACE } from '../../constants/abis/staking-rewards'
+import { WASP } from '../../constants'
+import { useBlockNumber } from '../application/hooks'
+
 import { useActiveWeb3React } from '../../hooks'
-import { NEVER_RELOAD, useMultipleContractSingleData } from '../multicall/hooks'
+import { useTrackedTokenPairs } from '../user/hooks'
+import { WANV2_PAIR_INTERFACE, BRIDGE_MINER_ADDRESS } from '../../constants/abis/bridge'
+import { useMultipleContractSingleData, useSingleCallResult, useSingleContractMultipleData } from '../multicall/hooks'
 import { tryParseAmount } from '../swap/hooks'
+import { useBridgeMinerContract } from '../../hooks/useContract'
 
 export const STAKING_GENESIS = 1600387200
 
 export const REWARDS_DURATION_DAYS = 60
 
 // TODO add staking rewards addresses here
-export const STAKING_REWARDS_INFO: {
-  [chainId in ChainId]?: {
-    tokens: [Token, Token]
-    stakingRewardAddress: string
-  }[]
-} = {
-  [ChainId.MAINNET]: [
-    {
-      tokens: [WETH[ChainId.MAINNET], DAI],
-      stakingRewardAddress: '0xa1484C3aa22a66C62b77E0AE78E15258bd0cB711'
-    },
-    {
-      tokens: [WETH[ChainId.MAINNET], USDC],
-      stakingRewardAddress: '0x7FBa4B8Dc5E7616e59622806932DBea72537A56b'
-    },
-    {
-      tokens: [WETH[ChainId.MAINNET], USDT],
-      stakingRewardAddress: '0x6C3e4cb2E96B01F4b866965A91ed4437839A121a'
-    },
-    {
-      tokens: [WETH[ChainId.MAINNET], WBTC],
-      stakingRewardAddress: '0xCA35e32e7926b96A9988f61d510E038108d8068e'
-    }
-  ]
-}
+// export const STAKING_REWARDS_INFO: {
+//   [chainId in ChainId]?: {
+//     tokens: [Token, Token]
+//     stakingRewardAddress: string
+//   }[]
+// } = {
+//   [ChainId.MAINNET]: [],
+//   [ChainId.ROPSTEN]: []
+// }
+
+// console.log(STAKING_REWARDS_INFO)
 
 export interface StakingInfo {
+  pid: number
   // the address of the reward contract
   stakingRewardAddress: string
   // the tokens involved in this pair
@@ -64,64 +55,119 @@ export interface StakingInfo {
   ) => TokenAmount
 }
 
+export function usePoolInfo() {
+  const bridgeMinerContract = useBridgeMinerContract()
+  const poolLength = useSingleCallResult(bridgeMinerContract, 'poolLength').result?.toString()
+  return useSingleContractMultipleData(
+    bridgeMinerContract,
+    'poolInfo',
+    poolLength ? new Array(Number(poolLength)).fill(poolLength).map((_v, _i) => [_i]) : []
+  )
+}
+
+export function useAllStakingRewardsInfo() {
+  const { chainId } = useActiveWeb3React()
+  const poolInfo = usePoolInfo()
+  const lpTokenAddr = useMemo(() => poolInfo?.map(_v => _v.result?.lpToken), [poolInfo])
+  const token1Info = useMultipleContractSingleData(lpTokenAddr, WANV2_PAIR_INTERFACE, 'token1')
+  const token0Info = useMultipleContractSingleData(lpTokenAddr, WANV2_PAIR_INTERFACE, 'token0')
+  const trackedTokenPairs = useTrackedTokenPairs()
+
+  return useMemo(() => {
+    const info: {
+      [chainId in ChainId]?: {
+        tokens: [Token, Token]
+        stakingRewardAddress: string
+      }[]
+    } = {
+      [ChainId.MAINNET]: [],
+      [ChainId.ROPSTEN]: []
+    }
+    token1Info.forEach((_v, _i) => {
+      if (!_v.result || !chainId) return
+      const ret = trackedTokenPairs.find(
+        val => token0Info[_i].result?.[0] === val[0].address && _v.result && val[1].address === _v.result[0]
+      )
+      if (ret) {
+        info[chainId]?.push({
+          tokens: [ret[0], ret[1]],
+          stakingRewardAddress: lpTokenAddr[_i]
+        })
+      }
+    })
+    return info
+  }, [chainId, lpTokenAddr, token0Info, token1Info, trackedTokenPairs])
+}
+
 // gets the staking info from the network for the active chain id
 export function useStakingInfo(pairToFilterBy?: Pair | null): StakingInfo[] {
-  const { chainId, account } = useActiveWeb3React()
+  const currentBlockNumber = useBlockNumber()
+  const poolInfo = usePoolInfo()
 
-  const info = useMemo(
-    () =>
-      chainId
-        ? STAKING_REWARDS_INFO[chainId]?.filter(stakingRewardInfo =>
-            pairToFilterBy === undefined
-              ? true
-              : pairToFilterBy === null
-              ? false
-              : pairToFilterBy.involvesToken(stakingRewardInfo.tokens[0]) &&
-                pairToFilterBy.involvesToken(stakingRewardInfo.tokens[1])
-          ) ?? []
-        : [],
-    [chainId, pairToFilterBy]
-  )
+  const { chainId, account } = useActiveWeb3React()
+  const bridgeMinerContract = useBridgeMinerContract()
+  const allStakingRewards = useAllStakingRewardsInfo()
+  const info = useMemo(() => {
+    return chainId
+      ? allStakingRewards[chainId]?.filter(stakingRewardInfo =>
+          pairToFilterBy === undefined
+            ? true
+            : pairToFilterBy === null
+            ? false
+            : pairToFilterBy.involvesToken(stakingRewardInfo.tokens[0]) &&
+              pairToFilterBy.involvesToken(stakingRewardInfo.tokens[1])
+        ) ?? []
+      : []
+  }, [allStakingRewards, chainId, pairToFilterBy])
 
   const uni = chainId ? WASP[chainId] : undefined
+  const lpTokenAddr = useMemo(() => info.map(({ stakingRewardAddress }) => stakingRewardAddress), [info])
 
-  const rewardsAddresses = useMemo(() => info.map(({ stakingRewardAddress }) => stakingRewardAddress), [info])
-
-  const accountArg = useMemo(() => [account ?? undefined], [account])
+  const userInfoParams = useMemo(() => {
+    if (account) {
+      return poolInfo.map((_v, _i) => [_i.toString(), account ?? undefined])
+    } else {
+      return []
+    }
+  }, [account, poolInfo])
 
   // get all the info from the staking rewards contracts
-  const balances = useMultipleContractSingleData(rewardsAddresses, STAKING_REWARDS_INTERFACE, 'balanceOf', accountArg)
-  const earnedAmounts = useMultipleContractSingleData(rewardsAddresses, STAKING_REWARDS_INTERFACE, 'earned', accountArg)
-  const totalSupplies = useMultipleContractSingleData(rewardsAddresses, STAKING_REWARDS_INTERFACE, 'totalSupply')
+  const balances = useSingleContractMultipleData(bridgeMinerContract, 'userInfo', userInfoParams)
+  const totalSupplies = useMultipleContractSingleData(lpTokenAddr, WANV2_PAIR_INTERFACE, 'balanceOf', [
+    chainId ? BRIDGE_MINER_ADDRESS[chainId] : undefined
+  ])
+  const earnedAmounts = useSingleContractMultipleData(bridgeMinerContract, 'pendingBridge', userInfoParams)
+  const rewardRates = useSingleCallResult(bridgeMinerContract, 'bridgePerBlock')
+  const startBlock = useSingleCallResult(bridgeMinerContract, 'startBlock')
+  const testEndBlock = useSingleCallResult(bridgeMinerContract, 'testEndBlock')
+  const bonusEndBlock = useSingleCallResult(bridgeMinerContract, 'bonusEndBlock')
+  const periodFinishes = useSingleCallResult(bridgeMinerContract, 'allEndBlock')
+  const totalAllocPoint = useSingleCallResult(bridgeMinerContract, 'totalAllocPoint')
 
-  // tokens per second, constants
-  const rewardRates = useMultipleContractSingleData(
-    rewardsAddresses,
-    STAKING_REWARDS_INTERFACE,
-    'rewardRate',
-    undefined,
-    NEVER_RELOAD
-  )
-  const periodFinishes = useMultipleContractSingleData(
-    rewardsAddresses,
-    STAKING_REWARDS_INTERFACE,
-    'periodFinish',
-    undefined,
-    NEVER_RELOAD
-  )
-
+  const radix = useMemo(() => {
+    if (testEndBlock.result?.[0]?.lt(currentBlockNumber) && bonusEndBlock.result?.[0]?.gt(currentBlockNumber)) {
+      return 1
+    } else if (
+      (startBlock.result?.[0].lt(currentBlockNumber) && testEndBlock.result?.[0].gt(currentBlockNumber)) ||
+      (bonusEndBlock.result?.[0].lt(currentBlockNumber) && periodFinishes.result?.[0].gt(currentBlockNumber))
+    ) {
+      return 0.2
+    } else {
+      return 0
+    }
+  }, [bonusEndBlock, currentBlockNumber, periodFinishes, startBlock, testEndBlock])
   return useMemo(() => {
     if (!chainId || !uni) return []
 
-    return rewardsAddresses.reduce<StakingInfo[]>((memo, rewardsAddress, index) => {
+    return lpTokenAddr.reduce<StakingInfo[]>((memo, rewardsAddress, index) => {
       // these two are dependent on account
       const balanceState = balances[index]
       const earnedAmountState = earnedAmounts[index]
 
       // these get fetched regardless of account
       const totalSupplyState = totalSupplies[index]
-      const rewardRateState = rewardRates[index]
-      const periodFinishState = periodFinishes[index]
+      const rewardRateState = rewardRates
+      const periodFinishState = periodFinishes
 
       if (
         // these may be undefined if not logged in
@@ -154,7 +200,15 @@ export function useStakingInfo(pairToFilterBy?: Pair | null): StakingInfo[] {
 
         const stakedAmount = new TokenAmount(dummyPair.liquidityToken, JSBI.BigInt(balanceState?.result?.[0] ?? 0))
         const totalStakedAmount = new TokenAmount(dummyPair.liquidityToken, JSBI.BigInt(totalSupplyState.result?.[0]))
-        const totalRewardRate = new TokenAmount(uni, JSBI.BigInt(rewardRateState.result?.[0]))
+        const totalRewardRate = new TokenAmount(
+          uni,
+          JSBI.BigInt(
+            rewardRateState.result?.[0]
+              .mul(radix)
+              .mul(poolInfo[index].result?.allocPoint)
+              ?.div(totalAllocPoint.result?.[0])
+          )
+        )
 
         const getHypotheticalRewardRate = (
           stakedAmount: TokenAmount,
@@ -170,10 +224,14 @@ export function useStakingInfo(pairToFilterBy?: Pair | null): StakingInfo[] {
         }
 
         const individualRewardRate = getHypotheticalRewardRate(stakedAmount, totalStakedAmount, totalRewardRate)
-
-        const periodFinishMs = periodFinishState.result?.[0]?.mul(1000)?.toNumber()
+        const periodFinishMs = periodFinishState.result?.[0]
+          ?.sub(currentBlockNumber)
+          ?.mul(5000)
+          ?.add(Date.now())
+          ?.toNumber()
 
         memo.push({
+          pid: index,
           stakingRewardAddress: rewardsAddress,
           tokens: info[index].tokens,
           periodFinish: periodFinishMs > 0 ? new Date(periodFinishMs) : undefined,
@@ -187,7 +245,21 @@ export function useStakingInfo(pairToFilterBy?: Pair | null): StakingInfo[] {
       }
       return memo
     }, [])
-  }, [balances, chainId, earnedAmounts, info, periodFinishes, rewardRates, rewardsAddresses, totalSupplies, uni])
+  }, [
+    chainId,
+    uni,
+    lpTokenAddr,
+    balances,
+    earnedAmounts,
+    totalSupplies,
+    rewardRates,
+    periodFinishes,
+    info,
+    radix,
+    poolInfo,
+    totalAllocPoint,
+    currentBlockNumber
+  ])
 }
 
 export function useTotalUniEarned(): TokenAmount | undefined {

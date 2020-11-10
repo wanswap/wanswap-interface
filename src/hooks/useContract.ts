@@ -18,6 +18,12 @@ import ENS_ABI from '../constants/abis/ens-registrar.json'
 import { ERC20_BYTES32_ABI } from '../constants/abis/erc20'
 import ERC20_ABI from '../constants/abis/erc20.json'
 import { MIGRATOR_ABI, MIGRATOR_ADDRESS } from '../constants/abis/migrator'
+import {
+  BRIDGE_MINER_ABI,
+  BRIDGE_MINER_ADDRESS,
+  BRIDGE_TOKEN_ABI,
+  BRIDGE_TOKEN_ADDRESS
+} from '../constants/abis/bridge'
 import UNISOCKS_ABI from '../constants/abis/unisocks.json'
 import WETH_ABI from '../constants/abis/weth.json'
 import { MULTICALL_ABI, MULTICALL_NETWORKS } from '../constants/multicall'
@@ -47,6 +53,16 @@ export function useV1FactoryContract(): Contract | null {
 
 export function useV2MigratorContract(): Contract | null {
   return useContract(MIGRATOR_ADDRESS, MIGRATOR_ABI, true)
+}
+
+export function useBridgeMinerContract(): Contract | null {
+  const { chainId } = useActiveWeb3React()
+  return useContract(chainId && BRIDGE_MINER_ADDRESS[chainId], BRIDGE_MINER_ABI, true)
+}
+
+export function useBridgeTokenContract(): Contract | null {
+  const { chainId } = useActiveWeb3React()
+  return useContract(chainId && BRIDGE_TOKEN_ADDRESS[chainId], BRIDGE_TOKEN_ABI, true)
 }
 
 export function useV1ExchangeContract(address?: string, withSignerIfPossible?: boolean): Contract | null {

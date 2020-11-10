@@ -1,7 +1,7 @@
 import React from 'react'
 import { AutoColumn } from '../../components/Column'
 import styled from 'styled-components'
-import { STAKING_REWARDS_INFO, useStakingInfo } from '../../state/stake/hooks'
+import { useAllStakingRewardsInfo, useStakingInfo } from '../../state/stake/hooks'
 import { TYPE, ExternalLink } from '../../theme'
 import PoolCard from '../../components/earn/PoolCard'
 import { RowBetween } from '../../components/Row'
@@ -32,6 +32,7 @@ const PoolSection = styled.div`
 export default function Earn() {
   const { chainId } = useActiveWeb3React()
   const stakingInfos = useStakingInfo()
+  const stakingRewardsInfo = useAllStakingRewardsInfo()
 
   const DataRow = styled(RowBetween)`
     ${({ theme }) => theme.mediaWidth.upToSmall`
@@ -39,7 +40,7 @@ export default function Earn() {
   `};
   `
 
-  const stakingRewardsExist = Boolean(typeof chainId === 'number' && (STAKING_REWARDS_INFO[chainId]?.length ?? 0) > 0)
+  const stakingRewardsExist = Boolean(typeof chainId === 'number' && (stakingRewardsInfo[chainId]?.length ?? 0) > 0)
 
   return (
     <PageWrapper gap="lg" justify="center">
@@ -59,7 +60,7 @@ export default function Earn() {
               </RowBetween>{' '}
               <ExternalLink
                 style={{ color: 'white', textDecoration: 'underline' }}
-                href="https://uniswap.org/blog/uni/"
+                href="https://medium.com/wanswap/introducing-wanswap-the-wanchain-based-cross-chain-decentralized-exchange-with-automated-market-5e5f5956c223"
                 target="_blank"
               >
                 <TYPE.white fontSize={14}>Read more about WASP</TYPE.white>

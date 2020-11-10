@@ -252,7 +252,7 @@ export default function Manage({
                     {stakingInfo?.stakedAmount?.toSignificant(6) ?? '-'}
                   </TYPE.white>
                   <TYPE.white>
-                   WSLP {currencyA?.symbol}-{currencyB?.symbol}
+                    WSLP {currencyA?.symbol}-{currencyB?.symbol}
                   </TYPE.white>
                 </RowBetween>
               </AutoColumn>

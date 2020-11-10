@@ -6,7 +6,7 @@ import { RowBetween } from '../Row'
 import { TYPE, CloseIcon } from '../../theme'
 import { ButtonError } from '../Button'
 import { StakingInfo } from '../../state/stake/hooks'
-import { useStakingContract } from '../../hooks/useContract'
+import { useBridgeMinerContract } from '../../hooks/useContract'
 import { SubmittedView, LoadingView } from '../ModalViews'
 import { TransactionResponse } from '@ethersproject/providers'
 import { useTransactionAdder } from '../../state/transactions/hooks'
@@ -38,13 +38,13 @@ export default function ClaimRewardModal({ isOpen, onDismiss, stakingInfo }: Sta
     onDismiss()
   }
 
-  const stakingContract = useStakingContract(stakingInfo.stakingRewardAddress)
+  const bridgeMinerContract = useBridgeMinerContract()
 
   async function onClaimReward() {
-    if (stakingContract && stakingInfo?.stakedAmount) {
+    if (bridgeMinerContract && stakingInfo?.earnedAmount) {
       setAttempting(true)
-      await stakingContract
-        .getReward({ gasLimit: 350000 })
+      await bridgeMinerContract
+        .deposit(stakingInfo.pid, '0x0')
         .then((response: TransactionResponse) => {
           addTransaction(response, {
             summary: `Claim accumulated WASP rewards`
