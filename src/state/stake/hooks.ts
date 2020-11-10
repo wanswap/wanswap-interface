@@ -103,7 +103,6 @@ export function useAllStakingRewardsInfo() {
 export function useStakingInfo(pairToFilterBy?: Pair | null): StakingInfo[] {
   const currentBlockNumber = useBlockNumber()
   const poolInfo = usePoolInfo()
-
   const { chainId, account } = useActiveWeb3React()
   const bridgeMinerContract = useBridgeMinerContract()
   const allStakingRewards = useAllStakingRewardsInfo()
@@ -125,12 +124,14 @@ export function useStakingInfo(pairToFilterBy?: Pair | null): StakingInfo[] {
 
   const userInfoParams = useMemo(() => {
     if (account) {
-      return poolInfo.map((_v, _i) => [_i.toString(), account ?? undefined])
+      return lpTokenAddr.map(_v => {
+        const pid = poolInfo.findIndex(val => val.result?.lpToken === _v)
+        return [pid.toString(), account ?? undefined]
+      })
     } else {
       return []
     }
-  }, [account, poolInfo])
-
+  }, [account, lpTokenAddr, poolInfo])
   // get all the info from the staking rewards contracts
   const balances = useSingleContractMultipleData(bridgeMinerContract, 'userInfo', userInfoParams)
   const totalSupplies = useMultipleContractSingleData(lpTokenAddr, WANV2_PAIR_INTERFACE, 'balanceOf', [
@@ -145,11 +146,11 @@ export function useStakingInfo(pairToFilterBy?: Pair | null): StakingInfo[] {
   const totalAllocPoint = useSingleCallResult(bridgeMinerContract, 'totalAllocPoint')
 
   const radix = useMemo(() => {
-    if (testEndBlock.result?.[0]?.lt(currentBlockNumber) && bonusEndBlock.result?.[0]?.gt(currentBlockNumber)) {
+    if (testEndBlock.result?.[0]?.lt(currentBlockNumber) && bonusEndBlock.result?.[0]?.gte(currentBlockNumber)) {
       return 1
     } else if (
-      (startBlock.result?.[0].lt(currentBlockNumber) && testEndBlock.result?.[0].gt(currentBlockNumber)) ||
-      (bonusEndBlock.result?.[0].lt(currentBlockNumber) && periodFinishes.result?.[0].gt(currentBlockNumber))
+      (startBlock.result?.[0].lt(currentBlockNumber) && testEndBlock.result?.[0].gte(currentBlockNumber)) ||
+      (bonusEndBlock.result?.[0].lt(currentBlockNumber) && periodFinishes.result?.[0].gte(currentBlockNumber))
     ) {
       return 0.2
     } else {
@@ -231,7 +232,7 @@ export function useStakingInfo(pairToFilterBy?: Pair | null): StakingInfo[] {
           ?.toNumber()
 
         memo.push({
-          pid: index,
+          pid: poolInfo.findIndex(val => val.result?.lpToken === rewardsAddress),
           stakingRewardAddress: rewardsAddress,
           tokens: info[index].tokens,
           periodFinish: periodFinishMs > 0 ? new Date(periodFinishMs) : undefined,
