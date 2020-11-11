@@ -92,6 +92,8 @@ export default function PoolCard({ stakingInfo }: { stakingInfo: StakingInfo }) 
 
   // let returnOverMonth: Percent = new Percent('0')
   let valueOfTotalStakedAmountInWETH: TokenAmount | undefined
+  let valueOfTotalStakedAmountInWLSP: TokenAmount | undefined
+
   if (totalSupplyOfStakingToken && stakingTokenPair) {
     // take the total amount of LP tokens staked, multiply by WAN value of all LP tokens, divide by all LP tokens
     valueOfTotalStakedAmountInWETH = new TokenAmount(
@@ -103,6 +105,10 @@ export default function PoolCard({ stakingInfo }: { stakingInfo: StakingInfo }) 
         ),
         totalSupplyOfStakingToken.raw
       )
+    )
+    valueOfTotalStakedAmountInWLSP = new TokenAmount(
+      WETH,
+      JSBI.multiply(stakingInfo.totalStakedAmount.raw, JSBI.BigInt(1))
     )
   }
 
@@ -134,8 +140,10 @@ export default function PoolCard({ stakingInfo }: { stakingInfo: StakingInfo }) 
           <TYPE.white>{t('totalDeposited')}</TYPE.white>
           <TYPE.white>
             {valueOfTotalStakedAmountInUSDC
-              ? `$${valueOfTotalStakedAmountInUSDC.toFixed(0, { groupSeparator: ',' })}`
-              : `${valueOfTotalStakedAmountInWETH?.toSignificant(4, { groupSeparator: ',' }) ?? '-'} WSLP`}
+              ? `$${valueOfTotalStakedAmountInUSDC.toSignificant(6, { groupSeparator: ',' })}` +
+                ' / ' +
+                `${valueOfTotalStakedAmountInWLSP?.toSignificant(6, { groupSeparator: ',' }) ?? '-'} WSLP`
+              : `${valueOfTotalStakedAmountInWLSP?.toSignificant(6, { groupSeparator: ',' }) ?? '-'} WSLP`}
           </TYPE.white>
         </RowBetween>
         <RowBetween>

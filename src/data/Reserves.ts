@@ -33,28 +33,39 @@ function usePairAddresses(trackedTokenPairs: [Token | undefined, Token | undefin
   //   params.push([trackedTokenPairs[i][0]!.address, trackedTokenPairs[i][1]!.address])
   // }
 
-  const callParams = params.filter(v=>!!v)
-  const pairsFromFactory = useSingleContractMultipleData(factory, 'getPair', callParams);
+  const callParams = params.filter(v => !!v)
+  const pairsFromFactory = useSingleContractMultipleData(factory, 'getPair', callParams)
+  const data = useMemo(() => {
+    const tmp: any[] = []
+    params.forEach((value, index) => {
+      if (value) {
+        const i = callParams.findIndex(([tokenAAddr, tokenBAddr]) => value[0] === tokenAAddr && value[1] === tokenBAddr)
+        tmp[index] = pairsFromFactory[i]
+      } else {
+        tmp[index] = undefined
+      }
+    })
+    return tmp
+  }, [callParams, pairsFromFactory, params])
 
-  // console.debug('pairsFromFactory', pairsFromFactory);
   const addresses = useMemo((): (string | undefined)[] => {
     const tmpPairs: (string | undefined)[] = []
     for (let i = 0; i < params.length; i++) {
-      if (!pairsFromFactory || !pairsFromFactory[i] || !pairsFromFactory[i].result) {
+      if (!data || !data[i] || !data[i].result) {
         tmpPairs.push(undefined)
         continue
       }
-      tmpPairs.push(pairsFromFactory[i].result!.pair)
-      Pair.setAddress(trackedTokenPairs[i][0]!, trackedTokenPairs[i][1]!, pairsFromFactory[i].result!.pair)
+      tmpPairs.push(data[i].result?.pair)
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      Pair.setAddress(trackedTokenPairs[i][0]!, trackedTokenPairs[i][1]!, data[i].result!.pair)
     }
     return tmpPairs
-  }, [trackedTokenPairs, pairsFromFactory, params]);
+  }, [params, data, trackedTokenPairs])
   return addresses
 }
 
 export function usePairs(currencies: [Currency | undefined, Currency | undefined][]): [PairState, Pair | null][] {
   const { chainId } = useActiveWeb3React()
-
 
   const tokens: [Token | undefined, Token | undefined][] = useMemo(
     () =>

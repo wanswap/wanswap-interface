@@ -120,6 +120,8 @@ export default function Manage({
   // get WETH value of staked LP tokens
   const totalSupplyOfStakingToken = useTotalSupply(stakingInfo?.stakedAmount?.token)
   let valueOfTotalStakedAmountInWETH: TokenAmount | undefined
+  let valueOfTotalStakedAmountInWLSP: TokenAmount | undefined
+
   if (totalSupplyOfStakingToken && stakingTokenPair && stakingInfo && WETH) {
     // take the total amount of LP tokens staked, multiply by WAN value of all LP tokens, divide by all LP tokens
     valueOfTotalStakedAmountInWETH = new TokenAmount(
@@ -132,6 +134,10 @@ export default function Manage({
         totalSupplyOfStakingToken.raw
       )
     )
+    valueOfTotalStakedAmountInWLSP = new TokenAmount(
+      WETH,
+      JSBI.multiply(stakingInfo.totalStakedAmount.raw, JSBI.BigInt(1))
+    )
   }
 
   const countUpAmount = stakingInfo?.earnedAmount?.toFixed(6) ?? '0'
@@ -139,6 +145,7 @@ export default function Manage({
 
   // get the USD value of staked WETH
   const USDPrice = useUSDCPrice(WETH)
+  console.log(USDPrice, 'KKKKK')
   const valueOfTotalStakedAmountInUSDC =
     valueOfTotalStakedAmountInWETH && USDPrice?.quote(valueOfTotalStakedAmountInWETH)
 
@@ -167,8 +174,8 @@ export default function Manage({
             <TYPE.body style={{ margin: 0 }}>Total deposits</TYPE.body>
             <TYPE.body fontSize={24} fontWeight={500}>
               {valueOfTotalStakedAmountInUSDC
-                ? `$${valueOfTotalStakedAmountInUSDC.toFixed(0, { groupSeparator: ',' })}`
-                : `${valueOfTotalStakedAmountInWETH?.toSignificant(4, { groupSeparator: ',' }) ?? '-'} WAN`}
+                ? `$${valueOfTotalStakedAmountInUSDC.toSignificant(6, { groupSeparator: ',' })}`
+                : `${valueOfTotalStakedAmountInWLSP?.toSignificant(6, { groupSeparator: ',' }) ?? '-'} WSLP`}
             </TYPE.body>
           </AutoColumn>
         </PoolData>

@@ -147,12 +147,12 @@ export function useStakingInfo(pairToFilterBy?: Pair | null): StakingInfo[] {
 
   const radix = useMemo(() => {
     if (testEndBlock.result?.[0]?.lt(currentBlockNumber) && bonusEndBlock.result?.[0]?.gte(currentBlockNumber)) {
-      return 1
+      return 5
     } else if (
       (startBlock.result?.[0].lt(currentBlockNumber) && testEndBlock.result?.[0].gte(currentBlockNumber)) ||
       (bonusEndBlock.result?.[0].lt(currentBlockNumber) && periodFinishes.result?.[0].gte(currentBlockNumber))
     ) {
-      return 0.2
+      return 1
     } else {
       return 0
     }
@@ -206,6 +206,7 @@ export function useStakingInfo(pairToFilterBy?: Pair | null): StakingInfo[] {
           JSBI.BigInt(
             rewardRateState.result?.[0]
               .mul(radix)
+              .div(5)
               .mul(poolInfo[index].result?.allocPoint)
               ?.div(totalAllocPoint.result?.[0])
           )
