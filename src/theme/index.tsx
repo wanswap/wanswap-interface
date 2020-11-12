@@ -243,7 +243,7 @@ div[data-reach-dialog-content] a
     transform:scale(1)
   }
   to {
-    transform:scale(1.5)
+    transform:scale(1.2)
   }
 }
 
