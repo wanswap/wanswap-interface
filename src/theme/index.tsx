@@ -232,6 +232,22 @@ div[data-reach-dialog-content] a
     z-index: 1;
 }
 
+#animate-zoom
+{
+  display:inline-block;
+  
+  animation: blink-animation 0.5s infinite;
+}
+@keyframes blink-animation {
+  form {
+    transform:scale(1)
+  }
+  to {
+    transform:scale(1.5)
+  }
+}
+
+
 .token-amount-input::placeholder
 {
   color:rgba(255,255,255,0.5) !important;

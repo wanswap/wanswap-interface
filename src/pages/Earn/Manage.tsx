@@ -296,9 +296,9 @@ export default function Manage({
                     duration={1}
                   />
                 </TYPE.largeHeader>
-                <TYPE.black fontSize={16} fontWeight={500}>
-                  <span role="img" aria-label="wizard-icon" style={{ marginRight: '8px ' }}>
-                    ⚡
+                <TYPE.black fontSize={20} fontWeight={500}>
+                  <span id="animate-zoom" role="img" aria-label="wizard-icon" style={{ marginRight: '8px ' }}>
+                  ⚡
                   </span>
                   {stakingInfo?.rewardRate
                     ?.multiply((60 * 60 * 24 * 7).toString())

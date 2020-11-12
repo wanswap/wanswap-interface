@@ -163,8 +163,8 @@ export default function PoolCard({ stakingInfo }: { stakingInfo: StakingInfo }) 
             </TYPE.black>
 
             <TYPE.black style={{ textAlign: 'right' }} color={'white'} fontWeight={500}>
-              <span role="img" aria-label="wizard-icon" style={{ marginRight: '0.5rem' }}>
-                ⚡
+              <span  id="animate-zoom" role="img" aria-label="wizard-icon" style={{ marginRight: '0.5rem' }}>
+              ⚡
               </span>
               {`${stakingInfo.rewardRate
                 ?.multiply(`${60 * 60 * 24 * 7}`)
