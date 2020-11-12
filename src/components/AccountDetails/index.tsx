@@ -130,7 +130,7 @@ const AccountControl = styled.div`
 
 const AddressLink = styled(ExternalLink)<{ hasENS: boolean; isENS: boolean }>`
   font-size: 0.825rem;
-  color: ${({ theme }) => theme.text3};
+  color: #6C7284 !important;
   margin-left: 1rem;
   font-size: 0.825rem;
   display: flex;
@@ -179,6 +179,7 @@ const IconWrapper = styled.div<{ size?: number }>`
 
 const TransactionListWrapper = styled.div`
   ${({ theme }) => theme.flexColumnNoWrap};
+
 `
 
 const WalletAction = styled(ButtonSecondary)`
@@ -187,9 +188,12 @@ const WalletAction = styled(ButtonSecondary)`
   margin-left: 8px;
   font-size: 0.825rem;
   padding: 4px 6px;
+  color:#FFE600;
+  border-color:#FFE600 !important;
   :hover {
     cursor: pointer;
     text-decoration: underline;
+    
   }
 `
 
@@ -314,6 +318,7 @@ export default function AccountDetails({
                         )}
                         {chainId && account && (
                           <AddressLink
+                            
                             hasENS={!!ENSName}
                             isENS={true}
                             href={chainId && getEtherscanLink(chainId, ENSName, 'address')}
@@ -357,7 +362,7 @@ export default function AccountDetails({
         <LowerSection>
           <AutoRow mb={'1rem'} style={{ justifyContent: 'space-between' }}>
             <TYPE.body>{t('recentTransactions')}</TYPE.body>
-            <LinkStyledButton onClick={clearAllTransactionsCallback}>{t('clearAll')}</LinkStyledButton>
+            <LinkStyledButton style={{color:'#FFE600'}} onClick={clearAllTransactionsCallback}>{t('clearAll')}</LinkStyledButton>
           </AutoRow>
           {renderTransactions(pendingTransactions)}
           {renderTransactions(confirmedTransactions)}
