@@ -5,7 +5,7 @@ import React, { useEffect, useState } from 'react'
 import { isMobile } from 'react-device-detect'
 import ReactGA from 'react-ga'
 import styled from 'styled-components'
-import MetamaskIcon from '../../assets/images/metamask.png'
+import WanMaskIcon from '../../assets/images/wanmask-logo.png'
 import { ReactComponent as Close } from '../../assets/images/x.svg'
 import { fortmatic, injected } from '../../connectors'
 import { OVERLAY_READY } from '../../connectors/Fortmatic'
@@ -243,8 +243,8 @@ export default function WalletModal({
                 color={'#E8831D'}
                 header={'Install WanMask'}
                 subheader={null}
-                link={'https://metamask.io/'}
-                icon={MetamaskIcon}
+                link={'https://wanmask.io/'}
+                icon={WanMaskIcon}
               />
             )
           } else {
@@ -349,7 +349,7 @@ export default function WalletModal({
           {walletView !== WALLET_VIEWS.PENDING && (
             <Blurb>
               <span>New to Wanchain? &nbsp;</span>{' '}
-              <ExternalLink href="https://ethereum.org/wallets/">Learn more about wallets</ExternalLink>
+              <ExternalLink href="https://www.explorewanchain.org/#/wallet_and_tools/tools">Learn more about wallets</ExternalLink>
             </Blurb>
           )}
         </ContentWrapper>

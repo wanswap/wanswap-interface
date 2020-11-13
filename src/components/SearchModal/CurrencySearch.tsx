@@ -110,7 +110,7 @@ export function CurrencySearch({
   // manage focus on modal show
   const inputRef = useRef<HTMLInputElement>()
   const handleInput = useCallback(event => {
-    const input = event.target.value
+    const input = event.target.value.toLowerCase()
     const checksummedInput = isAddress(input)
     setSearchQuery(checksummedInput || input)
     fixedList.current?.scrollTo(0)
