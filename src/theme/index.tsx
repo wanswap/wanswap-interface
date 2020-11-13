@@ -236,14 +236,14 @@ div[data-reach-dialog-content] a
 {
   display:inline-block;
   
-  animation: blink-animation 0.5s infinite;
+  animation: blink-animation 0.4s infinite;
 }
 @keyframes blink-animation {
   form {
     transform:scale(1)
   }
   to {
-    transform:scale(1.2)
+    transform:scale(1.3)
   }
 }
 
