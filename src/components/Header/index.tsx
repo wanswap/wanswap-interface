@@ -258,6 +258,7 @@ const StyledExternalLink = styled(ExternalLink).attrs({
 
   :hover,
   :focus {
+    text-decoration: none;
     color: ${({ theme }) => darken(0.1, theme.text1)};
   }
 
