@@ -137,8 +137,8 @@ export function useStakingInfo(pairToFilterBy?: Pair | null): StakingInfo[] {
   const totalSupplies = useMultipleContractSingleData(lpTokenAddr, WANV2_PAIR_INTERFACE, 'balanceOf', [
     chainId ? BRIDGE_MINER_ADDRESS[chainId] : undefined
   ])
-  const earnedAmounts = useSingleContractMultipleData(bridgeMinerContract, 'pendingBridge', userInfoParams)
-  const rewardRates = useSingleCallResult(bridgeMinerContract, 'bridgePerBlock')
+  const earnedAmounts = useSingleContractMultipleData(bridgeMinerContract, 'pendingWasp', userInfoParams)
+  const rewardRates = useSingleCallResult(bridgeMinerContract, 'waspPerBlock')
   const startBlock = useSingleCallResult(bridgeMinerContract, 'startBlock')
   const testEndBlock = useSingleCallResult(bridgeMinerContract, 'testEndBlock')
   const bonusEndBlock = useSingleCallResult(bridgeMinerContract, 'bonusEndBlock')
