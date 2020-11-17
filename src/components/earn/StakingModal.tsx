@@ -89,7 +89,7 @@ export default function StakingModal({ isOpen, onDismiss, stakingInfo, userLiqui
     if (bridgeMinerContract && parsedAmount && deadline) {
       if (approval === ApprovalState.APPROVED) {
         await bridgeMinerContract
-          .deposit(stakingInfo.pid, `0x${parsedAmount.raw.toString(16)}`)
+          .deposit(stakingInfo.pid, `0x${parsedAmount.raw.toString(16)}`, { gasLimit: 500000 })
           .then((response: TransactionResponse) => {
             addTransaction(response, {
               summary: `Deposit liquidity`
