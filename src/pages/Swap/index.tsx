@@ -406,7 +406,7 @@ export default function Swap() {
                   ) : approvalSubmitted && approval === ApprovalState.APPROVED ? (
                     t('approved')
                   ) : (
-                    t('approve ') + currencies[Field.INPUT]?.symbol
+                    t('approve') + ' ' + currencies[Field.INPUT]?.symbol
                   )}
                 </ButtonConfirmed>
                 <ButtonError
