@@ -167,7 +167,7 @@
   "unclaimed":"未领取",
   "claim":"领取",
   "waspPrice":"WASP价格:",
-  "waspInCirculation":"WASP in circulation:",
+  "waspInCirculation":"WASP流通量:",
   "totalSupply":"总发行量",
   "poolFound":"找到流动性池!",
   "manageThisPool":"管理此资金池",

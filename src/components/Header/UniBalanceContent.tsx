@@ -115,10 +115,10 @@ export default function UniBalanceContent({ setShowUniBalanceModal }: { setShowU
               <TYPE.white color="white">{t('waspInCirculation')}</TYPE.white>
               <TYPE.white color="white">{circulation?.toFixed(0, { groupSeparator: ',' })}</TYPE.white>
             </RowBetween>
-            <RowBetween>
+            {/* <RowBetween>
               <TYPE.white color="white">{t('totalSupply')}</TYPE.white>
               <TYPE.white color="white">{totalSupply?.toFixed(0, { groupSeparator: ',' })}</TYPE.white>
-            </RowBetween>
+            </RowBetween> */}
             {uni && uni.chainId === ChainId.MAINNET ? (
               <ExternalLink href={`https://wanscan.org/token/${uni.address}`}>View WASP Analytics</ExternalLink>
             ) : null}
