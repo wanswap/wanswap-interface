@@ -312,7 +312,7 @@ export default function AccountDetails({
                     <AccountControl>
                       <div>
                         {account && (
-                          <Copy toCopy={account}>
+                          <Copy toCopy={account.toLowerCase()}>
                             <span style={{ marginLeft: '4px' }}>{t('copyAddress')}</span>
                           </Copy>
                         )}
@@ -335,7 +335,7 @@ export default function AccountDetails({
                     <AccountControl>
                       <div>
                         {account && (
-                          <Copy toCopy={account}>
+                          <Copy toCopy={account.toLowerCase()}>
                             <span style={{ marginLeft: '4px' }}>{t('copyAddress')}</span>
                           </Copy>
                         )}
