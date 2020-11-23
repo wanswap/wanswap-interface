@@ -28,14 +28,14 @@ export const GOVERNANCE_ADDRESS = '0x5e4be8Bc9637f0EAA1A755019e06A68ce081D58F'
 
 export const TIMELOCK_ADDRESS = '0x1a9C8182C09F50C8318d769245beA52c32BE35BC'
 
-const UNI_ADDRESS = '0x927cee3Eb8779E1e595562D4f68054217b6B2581'
+const UNI_ADDRESS = '0x8B9F9f4aA70B1B0d586BE8aDFb19c1Ac38e05E9a'
 const UNI_ADDRESS_TESTNET = '0x0A3B082C1ceDa3d35E5baD2776c5a5236044A03D'
 export const WASP: { [chainId in ChainId]: Token } = {
   [ChainId.MAINNET]: new Token(ChainId.MAINNET, UNI_ADDRESS, 18, 'WASP', 'Wanswap'),
-  [ChainId.RINKEBY]: new Token(ChainId.RINKEBY, UNI_ADDRESS, 18, 'WASP', 'Wanswap'),
+  [ChainId.RINKEBY]: new Token(ChainId.RINKEBY, UNI_ADDRESS_TESTNET, 18, 'WASP', 'Wanswap'),
   [ChainId.ROPSTEN]: new Token(ChainId.ROPSTEN, UNI_ADDRESS_TESTNET, 18, 'WASP', 'Wanswap'),
-  [ChainId.GÖRLI]: new Token(ChainId.GÖRLI, UNI_ADDRESS, 18, 'WASP', 'Wanswap'),
-  [ChainId.KOVAN]: new Token(ChainId.KOVAN, UNI_ADDRESS, 18, 'WASP', 'Wanswap')
+  [ChainId.GÖRLI]: new Token(ChainId.GÖRLI, UNI_ADDRESS_TESTNET, 18, 'WASP', 'Wanswap'),
+  [ChainId.KOVAN]: new Token(ChainId.KOVAN, UNI_ADDRESS_TESTNET, 18, 'WASP', 'Wanswap')
 }
 
 export const COMMON_CONTRACT_NAMES: { [address: string]: string } = {
