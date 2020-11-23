@@ -11,9 +11,9 @@ import { useMultipleContractSingleData, useSingleCallResult, useSingleContractMu
 import { tryParseAmount } from '../swap/hooks'
 import { useBridgeMinerContract } from '../../hooks/useContract'
 
-export const STAKING_GENESIS = 1600387200
+export const STAKING_GENESIS = 1606976660
 
-export const REWARDS_DURATION_DAYS = 60
+export const REWARDS_DURATION_DAYS = 365*2
 
 // TODO add staking rewards addresses here
 // export const STAKING_REWARDS_INFO: {
