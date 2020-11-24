@@ -298,6 +298,18 @@ div[data-reach-dialog-content] a
   background: transparent !important;
 }
 
+div[data-reach-dialog-overlay] {
+  background:rgba(20,30,75,0.80) !important;
+
+}
+div[data-reach-dialog-content]{
+  box-shadow: 0 0 100px #01001de6 !important;
+}
+.bfqITV
+{
+  border-radius:0 !important;
+}
+
 `
 
 export const ThemedGlobalStyle = createGlobalStyle`
