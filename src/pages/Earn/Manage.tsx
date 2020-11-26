@@ -145,7 +145,7 @@ export default function Manage({
 
   // get the USD value of staked WETH
   const USDPrice = useUSDCPrice(WETH)
-  console.log(USDPrice, 'KKKKK')
+  // console.debug(USDPrice, 'USDPrice')
   const valueOfTotalStakedAmountInUSDC =
     valueOfTotalStakedAmountInWETH && USDPrice?.quote(valueOfTotalStakedAmountInWETH)
 
