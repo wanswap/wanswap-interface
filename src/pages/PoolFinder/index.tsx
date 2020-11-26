@@ -190,7 +190,7 @@ export default function PoolFinder() {
         isOpen={showSearch}
         onCurrencySelect={handleCurrencySelect}
         onDismiss={handleSearchDismiss}
-        showCommonBases
+        showCommonBases={false}
         selectedCurrency={(activeField === Fields.TOKEN0 ? currency1 : currency0) ?? undefined}
       />
     </AppBody>
