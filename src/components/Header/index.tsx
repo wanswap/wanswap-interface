@@ -330,7 +330,7 @@ export default function Header() {
           <StyledNavLink id={`stake-nav-link`} to={'/farm'}>
             {t('swapToken')}
           </StyledNavLink>
-          <StyledExternalLink id={`stake-nav-link`} href={'https://snapshot-wanchain.vercel.app/#/wanswap'}>
+          <StyledExternalLink id={`stake-nav-link`} href={'https://vote.wandevs.org/#/wanswap'}>
             {t('vote')} <span style={{ fontSize: '11px' }}>↗</span>
           </StyledExternalLink>
           <StyledExternalLink id={`stake-nav-link`} href={'https://bridge.wanchain.org/'}>
