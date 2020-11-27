@@ -47,6 +47,8 @@ export interface StakingInfo {
   rewardRate: TokenAmount
   // when the period ends
   periodFinish: Date | undefined
+  // when the period ends
+  periodStart: Date | undefined
   // calculates a hypothetical amount of token distributed to the active account per second.
   getHypotheticalRewardRate: (
     stakedAmount: TokenAmount,
@@ -169,6 +171,7 @@ export function useStakingInfo(pairToFilterBy?: Pair | null): StakingInfo[] {
       const totalSupplyState = totalSupplies[index]
       const rewardRateState = rewardRates
       const periodFinishState = periodFinishes
+      const periodStartState = startBlock
 
       if (
         // these may be undefined if not logged in
@@ -180,14 +183,17 @@ export function useStakingInfo(pairToFilterBy?: Pair | null): StakingInfo[] {
         rewardRateState &&
         !rewardRateState.loading &&
         periodFinishState &&
-        !periodFinishState.loading
+        !periodFinishState.loading &&
+        periodStartState &&
+        !periodStartState.loading
       ) {
         if (
           balanceState?.error ||
           earnedAmountState?.error ||
           totalSupplyState.error ||
           rewardRateState.error ||
-          periodFinishState.error
+          periodFinishState.error ||
+          periodStartState.error
         ) {
           console.error('Failed to load staking rewards info')
           return memo
@@ -232,11 +238,18 @@ export function useStakingInfo(pairToFilterBy?: Pair | null): StakingInfo[] {
           ?.add(Date.now())
           ?.toNumber()
 
+        const periodStartMs = periodStartState.result?.[0]
+          ?.sub(currentBlockNumber)
+          ?.mul(5000)
+          ?.add(Date.now())
+          ?.toNumber()
+
         memo.push({
           pid: poolInfo.findIndex(val => val.result?.lpToken === rewardsAddress),
           stakingRewardAddress: rewardsAddress,
           tokens: info[index].tokens,
           periodFinish: periodFinishMs > 0 ? new Date(periodFinishMs) : undefined,
+          periodStart: periodStartMs > 0 ? new Date(periodStartMs) : undefined,
           earnedAmount: new TokenAmount(uni, JSBI.BigInt(earnedAmountState?.result?.[0] ?? 0)),
           rewardRate: individualRewardRate,
           totalRewardRate: totalRewardRate,
@@ -256,6 +269,7 @@ export function useStakingInfo(pairToFilterBy?: Pair | null): StakingInfo[] {
     totalSupplies,
     rewardRates,
     periodFinishes,
+    startBlock,
     info,
     radix,
     poolInfo,

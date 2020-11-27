@@ -7,13 +7,16 @@ const HOUR = MINUTE * 60
 const DAY = HOUR * 24
 const REWARDS_DURATION = DAY * REWARDS_DURATION_DAYS
 
-export function Countdown({ exactEnd }: { exactEnd?: Date }) {
+export function Countdown({ exactEnd, exactStart }: { exactEnd?: Date; exactStart?: Date }) {
   // get end/beginning times
   const end = useMemo(() => (exactEnd ? Math.floor(exactEnd.getTime() / 1000) : STAKING_GENESIS + REWARDS_DURATION), [
     exactEnd
   ])
-  const begin = useMemo(() => end - REWARDS_DURATION, [end])
-
+  // const begin = useMemo(() => end - REWARDS_DURATION, [end])
+  const begin = useMemo(
+    () => (exactStart ? Math.floor(exactStart.getTime() / 1000) : STAKING_GENESIS + REWARDS_DURATION),
+    [exactStart]
+  )
   // get current time
   const [time, setTime] = useState(() => Math.floor(Date.now() / 1000))
   useEffect((): (() => void) | void => {
