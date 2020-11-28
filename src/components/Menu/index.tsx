@@ -1,5 +1,5 @@
 import React, { useRef } from 'react'
-import { BookOpen, Code, Info } from 'react-feather'
+import { BookOpen, Code, Info, MessageCircle } from 'react-feather'
 import styled from 'styled-components'
 import { ReactComponent as MenuIcon } from '../../assets/images/menu.svg'
 // import { useActiveWeb3React } from '../../hooks'
@@ -103,9 +103,9 @@ export default function Menu() {
 
       {open && (
         <MenuFlyout>
-          <MenuItem id="link" href="https://medium.com/wanswap">
+          <MenuItem id="link" href="https://twitter.com/wanswap">
             <Info size={14} />
-            About
+            Twitter
           </MenuItem>
           <MenuItem id="link" href="https://medium.com/wanswap">
             <BookOpen size={14} />
@@ -115,10 +115,11 @@ export default function Menu() {
             <Code size={14} />
             Code
           </MenuItem>
-          {/* <MenuItem id="link" href="https://discord.gg/EwFs3Pp">
+          { <MenuItem id="link" href="https://t.me/wanswap_official">
             <MessageCircle size={14} />
-            Discord
+            Telegram
           </MenuItem>
+          /*
           <MenuItem id="link" href="https://uniswap.info/">
             <PieChart size={14} />
             Analytics
