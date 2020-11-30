@@ -54,3 +54,13 @@ The interface will not work on other networks.
 
 **Please open all pull requests against the `master` branch.** 
 CI checks will run against all PRs.
+
+## Smart Contract
+
+https://github.com/wanswap/wanswap-contracts
+
+https://github.com/wanswap/wanswap-farm
+
+
+
+
