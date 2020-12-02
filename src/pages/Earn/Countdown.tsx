@@ -14,7 +14,7 @@ export function Countdown({ exactEnd, exactStart }: { exactEnd?: Date; exactStar
   ])
   // const begin = useMemo(() => end - REWARDS_DURATION, [end])
   const begin = useMemo(
-    () => (exactStart ? Math.floor(exactStart.getTime() / 1000) : STAKING_GENESIS + REWARDS_DURATION),
+    () => (exactStart ? Math.floor(exactStart.getTime() / 1000) : STAKING_GENESIS),
     [exactStart]
   )
   // get current time
