@@ -12,6 +12,8 @@ import { TransactionResponse } from '@ethersproject/providers'
 import { useTransactionAdder } from '../../state/transactions/hooks'
 import { useActiveWeb3React } from '../../hooks'
 import { useTranslation } from 'react-i18next'
+import { calculateGasMargin } from '../../utils'
+
 
 const ContentWrapper = styled(AutoColumn)`
   width: 100%;
@@ -43,8 +45,8 @@ export default function ClaimRewardModal({ isOpen, onDismiss, stakingInfo }: Sta
   async function onClaimReward() {
     if (bridgeMinerContract && stakingInfo?.earnedAmount) {
       setAttempting(true)
-      await bridgeMinerContract
-        .deposit(stakingInfo.pid, '0x0')
+      let gas = await bridgeMinerContract.estimateGas['deposit'](stakingInfo.pid, '0x0');
+      await bridgeMinerContract.deposit(stakingInfo.pid, '0x0', {gasLimit: calculateGasMargin(gas)})
         .then((response: TransactionResponse) => {
           addTransaction(response, {
             summary: `Claim accumulated WASP rewards`

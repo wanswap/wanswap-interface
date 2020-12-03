@@ -103,6 +103,7 @@ export function useClaimCallback(
   const distributorContract = useMerkleDistributorContract()
 
   const claimCallback = async function() {
+    console.log('claimCallback');
     if (!claimData || !account || !library || !chainId || !distributorContract) return
 
     const args = [claimData.index, account, claimData.amount, claimData.proof]

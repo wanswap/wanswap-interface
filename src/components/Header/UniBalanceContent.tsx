@@ -120,7 +120,7 @@ export default function UniBalanceContent({ setShowUniBalanceModal }: { setShowU
               <TYPE.white color="white">{totalSupply?.toFixed(0, { groupSeparator: ',' })}</TYPE.white>
             </RowBetween> */}
             {uni && uni.chainId === ChainId.MAINNET ? (
-              <ExternalLink href={`https://www.wanscan.org/token/${uni.address}`}>View WASP Analytics</ExternalLink>
+              <ExternalLink href={`https://www.wanscan.org/token/${uni.address}`}>View WASP Token Information</ExternalLink>
             ) : null}
           </AutoColumn>
         </CardSection>

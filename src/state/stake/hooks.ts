@@ -161,8 +161,10 @@ export function useStakingInfo(pairToFilterBy?: Pair | null): StakingInfo[] {
   }, [bonusEndBlock, currentBlockNumber, periodFinishes, startBlock, testEndBlock])
   return useMemo(() => {
     if (!chainId || !uni) return []
-
+    console.log('lpTokenAddr', lpTokenAddr);
+    console.log('poolInfo', poolInfo);
     return lpTokenAddr.reduce<StakingInfo[]>((memo, rewardsAddress, index) => {
+      console.log('index', index);
       // these two are dependent on account
       const balanceState = balances[index]
       const earnedAmountState = earnedAmounts[index]
@@ -213,7 +215,7 @@ export function useStakingInfo(pairToFilterBy?: Pair | null): StakingInfo[] {
             rewardRateState.result?.[0]
               .mul(radix)
               .div(5)
-              .mul(poolInfo[index].result?.allocPoint)
+              .mul(poolInfo[poolInfo.findIndex(val => val.result?.lpToken === rewardsAddress)].result?.allocPoint)
               ?.div(totalAllocPoint.result?.[0])
           )
         )
