@@ -60,7 +60,6 @@ export function shortenAddress(address: string, chars = 4): string {
 
 // add 100%
 export function calculateGasMargin(value: BigNumber): BigNumber {
-  console.log('calculateGasMargin', value.toNumber(), value.mul(BigNumber.from(10000).add(BigNumber.from(10000))).div(BigNumber.from(10000)).toNumber())
   return value.mul(BigNumber.from(10000).add(BigNumber.from(10000))).div(BigNumber.from(10000))
 }
 
