@@ -3,6 +3,7 @@ import { Tags, TokenInfo, TokenList } from '@uniswap/token-lists'
 import { useMemo } from 'react'
 import { useSelector } from 'react-redux'
 import { AppState } from '../index'
+import { DEFAULT_TOKEN_LIST_URL } from '../../constants/lists'
 
 type TagDetails = Tags[keyof Tags]
 export interface TagInfo extends TagDetails {
@@ -86,7 +87,11 @@ export function useTokenList(url: string | undefined): TokenAddressMap {
 }
 
 export function useSelectedListUrl(): string | undefined {
-  return useSelector<AppState, AppState['lists']['selectedListUrl']>(state => state.lists.selectedListUrl)
+  let ret = useSelector<AppState, AppState['lists']['selectedListUrl']>(state => state.lists.selectedListUrl);
+  if (ret && ret === 'https://raw.githubusercontent.com/wanswap/token-list/main/wanswap.tokenlist.json') {
+    ret = DEFAULT_TOKEN_LIST_URL;
+  }
+  return ret;
 }
 
 export function useSelectedTokenList(): TokenAddressMap {
