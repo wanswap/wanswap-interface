@@ -47,7 +47,7 @@ export default function UnstakingModal({ isOpen, onDismiss, stakingInfo }: Staki
     if (bridgeMinerContract && stakingInfo?.stakedAmount) {
       setAttempting(true)
       await bridgeMinerContract
-        .withdraw(stakingInfo.pid, `0x${stakingInfo?.stakedAmount.raw.toString(16)}`)
+        .withdraw(stakingInfo.pid, `0x${stakingInfo?.stakedAmount.raw.toString(16)}`, { gasLimit: 500000 })
         .then((response: TransactionResponse) => {
           addTransaction(response, {
             summary: `Withdraw deposited liquidity`
