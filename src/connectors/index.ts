@@ -1,6 +1,7 @@
 import { Web3Provider } from '@ethersproject/providers'
 import { InjectedConnector } from '@web3-react-wan/injected-connector'
-import { WalletConnectConnector } from '@web3-react/walletconnect-connector'
+import { WalletConnectConnector } from '@web3-react-wan/walletconnect-connector'
+import { WanWalletConnector } from '@web3-react-wan/wanwallet-connector'
 import { WalletLinkConnector } from '@web3-react/walletlink-connector'
 import { PortisConnector } from '@web3-react/portis-connector'
 
@@ -36,6 +37,14 @@ export const walletconnect = new WalletConnectConnector({
   bridge: 'https://bridge.walletconnect.org',
   qrcode: true,
   pollingInterval: 15000
+})
+
+// mainnet only
+export const wanwallet = new WanWalletConnector({
+  chainId: 1,
+  url: 'https://gwan-ssl.wandevs.org:56891',
+  pollingInterval: 15000,
+  requestTimeoutMs: 300000
 })
 
 // mainnet only

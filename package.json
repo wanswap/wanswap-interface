@@ -124,6 +124,8 @@
     "@web3-react-wan/abstract-connector": "^6.1.7",
     "@web3-react-wan/core": "^6.1.11",
     "@web3-react-wan/injected-connector": "^6.1.9",
-    "@web3-react-wan/types": "^6.1.7"
+    "@web3-react-wan/types": "^6.1.7",
+    "@web3-react-wan/walletconnect-connector": "^6.1.13",
+    "@web3-react-wan/wanwallet-connector": "^6.1.15"
   }
 }
