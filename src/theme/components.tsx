@@ -119,6 +119,11 @@ export const UniTokenAnimated = styled.img`
   padding: 2rem 0 0 0;
   filter: drop-shadow(0px 2px 4px rgba(0, 0, 0, 0.15));
 `
+declare global {
+  interface Window {
+    injectWeb3: any;
+  }
+}
 
 /**
  * Outbound link that handles firing google analytics events

@@ -108,7 +108,7 @@ export interface WalletInfo {
   mobileOnly?: true
 }
 
-export const SUPPORTED_WALLETS: { [key: string]: WalletInfo } = {
+const SUPPORTED_WALLETS_CHROME: { [key: string]: WalletInfo } = {
   METAMASK: {
     connector: injected,
     name: 'WanMask',
@@ -116,7 +116,10 @@ export const SUPPORTED_WALLETS: { [key: string]: WalletInfo } = {
     description: 'Easy-to-use browser extension.',
     href: null,
     color: '#E8831D'
-  },
+  }
+}
+
+const SUPPORTED_WALLETS_IN_WALLET: { [key: string]: WalletInfo } = {
   WAN_WALLET: {
     connector: wanwallet,
     name: 'WanWallet',
@@ -127,6 +130,14 @@ export const SUPPORTED_WALLETS: { [key: string]: WalletInfo } = {
     mobile: true
   },
 }
+
+declare global {
+  interface Window {
+    injectWeb3: any;
+  }
+}
+
+export const SUPPORTED_WALLETS: { [key: string]: WalletInfo } = !window.injectWeb3 ? SUPPORTED_WALLETS_CHROME : SUPPORTED_WALLETS_IN_WALLET
 
 export const NetworkContextName = 'NETWORK'
 
