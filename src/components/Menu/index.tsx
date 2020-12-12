@@ -109,6 +109,10 @@ export default function Menu() {
           </MenuItem>
           <MenuItem id="link" href="https://medium.com/wanswap">
             <BookOpen size={14} />
+            Blog
+          </MenuItem>
+          <MenuItem id="link" href="https://wanswap-docs.netlify.app/">
+            <BookOpen size={14} />
             Docs
           </MenuItem>
           <MenuItem id="link" href="https://github.com/wanswap">
