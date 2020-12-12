@@ -9,7 +9,7 @@ import { AutoRow } from '../Row'
 import Copy from './Copy'
 import Transaction from './Transaction'
 
-// import { SUPPORTED_WALLETS } from '../../constants'
+import { SUPPORTED_WALLETS } from '../../constants'
 import { ReactComponent as Close } from '../../assets/images/x.svg'
 import { getEtherscanLink } from '../../utils'
 import { injected } from '../../connectors'
@@ -230,13 +230,13 @@ export default function AccountDetails({
   function formatConnectorName() {
     const { wanchain } = window
     const isWanchainMask = !!(wanchain && wanchain.isWanchainMask)
-    // const name = Object.keys(SUPPORTED_WALLETS)
-    //   .filter(
-    //     k =>
-    //       SUPPORTED_WALLETS[k].connector === connector && (connector !== injected || isWanchainMask === (k === 'METAMASK'))
-    //   )
-    //   .map(k => SUPPORTED_WALLETS[k].name)[0]
-    return <WalletName>Connected with {isWanchainMask ? "WanMask" : "Wallet"}</WalletName>
+    const name = Object.keys(SUPPORTED_WALLETS)
+      .filter(
+        k =>
+          SUPPORTED_WALLETS[k].connector === connector && (connector !== injected || isWanchainMask === (k === 'METAMASK'))
+      )
+      .map(k => SUPPORTED_WALLETS[k].name)[0]
+    return <WalletName>Connected with {name}</WalletName>
   }
 
   function getStatusIcon() {
