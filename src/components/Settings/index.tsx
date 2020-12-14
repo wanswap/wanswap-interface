@@ -168,6 +168,11 @@ export default function SettingsTab() {
                 error={true}
                 padding={'12px'}
                 onClick={() => {
+                  if (window.injectWeb3) {
+                    toggleExpertMode()
+                    setShowConfirmation(false)
+                    return;
+                  }
                   if (window.prompt(`Please type the word "confirm" to enable expert mode.`) === 'confirm') {
                     toggleExpertMode()
                     setShowConfirmation(false)
