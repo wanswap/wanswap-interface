@@ -76,7 +76,7 @@ export default function HiveCard({ stakingInfo }: { stakingInfo: StakingInfo }) 
   const token0 = stakingInfo.tokens[0]
   const token1 = stakingInfo.tokens[1]
 
-  console.log('stakingInfo?.totalRewardRate', stakingInfo?.totalRewardRate);
+  console.log('stakingInfo.totalRewardRate', stakingInfo?.totalRewardRate.toFixed(0));
 
   console.log('card stakingInfo', 
     stakingInfo.tokens[0], 
@@ -121,6 +121,8 @@ export default function HiveCard({ stakingInfo }: { stakingInfo: StakingInfo }) 
     )
   }
 
+  console.log('valueOfTotalStakedAmountInWLSP', valueOfTotalStakedAmountInWLSP);
+
   // get the USD value of staked WETH
   const USDPrice = useUSDCPrice(WETH)
   const valueOfTotalStakedAmountInUSDC =
@@ -153,13 +155,13 @@ export default function HiveCard({ stakingInfo }: { stakingInfo: StakingInfo }) 
               //  +
               //   ' / ' +
               //   `${valueOfTotalStakedAmountInWLSP?.toSignificant(6, { groupSeparator: ',' }) ?? '-'} WSLP`
-              : `${valueOfTotalStakedAmountInWLSP?.toSignificant(6, { groupSeparator: ',' }) ?? '-'} WASP`}
+              : `${stakingInfo?.totalStakedAmount.toFixed(0, { groupSeparator: ',' }) ?? '-'} WASP`}
           </TYPE.white>
         </RowBetween>
         <RowBetween>
           <TYPE.white> Pool rate </TYPE.white>
           <TYPE.white>{`${stakingInfo.totalRewardRate
-            ?.multiply(`${60 * 60 * 24 * 7}`)
+            ?.multiply(`${60 * 60 * 24 * 7 / 5}`)
             ?.toFixed(0, { groupSeparator: ',' })} WAN / week`}</TYPE.white>
         </RowBetween>
       </StatContainer>
