@@ -72,7 +72,8 @@
   "decimals": "小数位数",
   "enterTokenCont": "输入通证地址并继续",
 
-  "swapToken": "挖矿",
+  "miningPool": "挖矿",
+  "harvest": "收割",
   "vote": "投票",
   "connectWallet": "连接钱包",
   "enterAnAmount": "输入金额",
