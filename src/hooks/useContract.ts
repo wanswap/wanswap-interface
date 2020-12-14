@@ -23,8 +23,8 @@ import {
   BRIDGE_MINER_ADDRESS,
   BRIDGE_TOKEN_ABI,
   BRIDGE_TOKEN_ADDRESS,
-  HARVEST_ADDRESS,
-  HARVEST_ABI,
+  HIVE_ADDRESS,
+  HIVE_ABI,
 } from '../constants/abis/bridge'
 import UNISOCKS_ABI from '../constants/abis/unisocks.json'
 import WETH_ABI from '../constants/abis/weth.json'
@@ -62,9 +62,9 @@ export function useBridgeMinerContract(): Contract | null {
   return useContract(chainId && BRIDGE_MINER_ADDRESS[chainId], BRIDGE_MINER_ABI, true)
 }
 
-export function useHarvestContract(): Contract | null {
+export function useHiveContract(): Contract | null {
   const { chainId } = useActiveWeb3React()
-  return useContract(chainId && HARVEST_ADDRESS[chainId], HARVEST_ABI, true)
+  return useContract(chainId && HIVE_ADDRESS[chainId], HIVE_ABI, true)
 }
 
 export function useBridgeTokenContract(): Contract | null {

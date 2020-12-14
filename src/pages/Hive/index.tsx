@@ -1,9 +1,9 @@
 import React from 'react'
 import { AutoColumn } from '../../components/Column'
 import styled from 'styled-components'
-import { useAllStakingRewardsInfo, useStakingInfo } from '../../state/harvest/hooks'
+import { useAllStakingRewardsInfo, useStakingInfo } from '../../state/hive/hooks'
 import { TYPE, ExternalLink } from '../../theme'
-import PoolCard from '../../components/earn/PoolCard'
+import HiveCard from '../../components/earn/HiveCard'
 import { RowBetween } from '../../components/Row'
 import { CardSection, DataCard, CardNoise, CardBGImage } from '../../components/earn/styled'
 import { Countdown } from './Countdown'
@@ -51,11 +51,11 @@ export default function Earn() {
           <CardSection>
             <AutoColumn gap="md">
               <RowBetween>
-                <TYPE.white fontWeight={600}>WASP Harvest Tokens</TYPE.white>
+                <TYPE.white fontWeight={600}>Hive your WASP</TYPE.white>
               </RowBetween>
               <RowBetween>
                 <TYPE.white fontSize={14}>
-                  Deposit your WASP to harvest other tokens.
+                  Hive your WASP to get honey tokens.
                 </TYPE.white>
               </RowBetween>{' '}
               <ExternalLink
@@ -63,7 +63,7 @@ export default function Earn() {
                 href="https://medium.com/wanswap/introducing-wanswap-the-wanchain-based-cross-chain-decentralized-exchange-with-automated-market-5e5f5956c223"
                 target="_blank"
               >
-                <TYPE.white fontSize={14}>Read more about WASP Harvest</TYPE.white>
+                <TYPE.white fontSize={14}>Read more about WASP Hive</TYPE.white>
               </ExternalLink>
             </AutoColumn>
           </CardSection>
@@ -86,7 +86,8 @@ export default function Earn() {
           ) : (
             stakingInfos?.map(stakingInfo => {
               // need to sort by added liquidity here
-              return <PoolCard key={stakingInfo.stakingRewardAddress} stakingInfo={stakingInfo} />
+              console.log('PoolCard stakingInfo', stakingInfo)
+              return <HiveCard key={stakingInfo.stakingRewardAddress} stakingInfo={stakingInfo} />
             })
           )}
         </PoolSection>

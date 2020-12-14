@@ -3,7 +3,7 @@ import { AutoColumn } from '../Column'
 import { RowBetween } from '../Row'
 import styled from 'styled-components'
 import { TYPE, StyledInternalLink } from '../../theme'
-import DoubleCurrencyLogo from '../DoubleLogo'
+import CurrencyLogo from '../CurrencyLogo'
 import { ETHER, JSBI, TokenAmount } from '@wanswap/sdk'
 import { ButtonPrimary } from '../Button'
 import { StakingInfo } from '../../state/stake/hooks'
@@ -72,7 +72,7 @@ const BottomSection = styled.div<{ showBackground: boolean }>`
   z-index: 1;
 `
 
-export default function PoolCard({ stakingInfo }: { stakingInfo: StakingInfo }) {
+export default function HiveCard({ stakingInfo }: { stakingInfo: StakingInfo }) {
   const token0 = stakingInfo.tokens[0]
   const token1 = stakingInfo.tokens[1]
 
@@ -132,9 +132,9 @@ export default function PoolCard({ stakingInfo }: { stakingInfo: StakingInfo }) 
       <CardNoise />
 
       <TopSection>
-        <DoubleCurrencyLogo currency0={currency0} currency1={currency1} size={24} />
+        <CurrencyLogo currency={currency0} size={'24px'} />
         <TYPE.white fontWeight={600} fontSize={24} style={{ marginLeft: '8px' }}>
-          {currency0.symbol}-{currency1.symbol}
+          {currency0.symbol}
         </TYPE.white>
 
         <StyledInternalLink to={`/farm/${currencyId(currency0)}/${currencyId(currency1)}`} style={{ width: '100%',color:'transparent' }}>
@@ -153,14 +153,14 @@ export default function PoolCard({ stakingInfo }: { stakingInfo: StakingInfo }) 
               //  +
               //   ' / ' +
               //   `${valueOfTotalStakedAmountInWLSP?.toSignificant(6, { groupSeparator: ',' }) ?? '-'} WSLP`
-              : `${valueOfTotalStakedAmountInWLSP?.toSignificant(6, { groupSeparator: ',' }) ?? '-'} WSLP`}
+              : `${valueOfTotalStakedAmountInWLSP?.toSignificant(6, { groupSeparator: ',' }) ?? '-'} WASP`}
           </TYPE.white>
         </RowBetween>
         <RowBetween>
           <TYPE.white> Pool rate </TYPE.white>
           <TYPE.white>{`${stakingInfo.totalRewardRate
             ?.multiply(`${60 * 60 * 24 * 7}`)
-            ?.toFixed(0, { groupSeparator: ',' })} WASP / week`}</TYPE.white>
+            ?.toFixed(0, { groupSeparator: ',' })} WAN / week`}</TYPE.white>
         </RowBetween>
       </StatContainer>
 

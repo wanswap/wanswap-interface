@@ -330,8 +330,8 @@ export default function Header() {
           <StyledNavLink id={`stake-nav-link`} to={'/farm'}>
             {t('miningPool')}
           </StyledNavLink>
-          <StyledNavLink id={`stake-nav-link`} to={'/harvest'}>
-            {t('harvest')}
+          <StyledNavLink id={`stake-nav-link`} to={'/hive'}>
+            {t('hive')}
           </StyledNavLink>
           <StyledExternalLink id={`stake-nav-link`} href={'https://vote.wandevs.org/#/wanswap'}>
             {t('vote')} <span style={{ fontSize: '11px' }}>↗</span>
