@@ -74,6 +74,7 @@
 
   "swapToken": "挖矿",
   "vote": "投票",
+  "auction": "拍卖",
   "connectWallet": "连接钱包",
   "enterAnAmount": "输入金额",
   "selectAToken": "选择一个通证",
@@ -168,6 +169,7 @@
   "claim":"领取",
   "waspPrice":"WASP价格:",
   "waspInCirculation":"WASP流通量:",
+  "waspBurned":"已销毁WASP数量:",
   "totalSupply":"总发行量",
   "poolFound":"找到流动性池!",
   "manageThisPool":"管理此资金池",

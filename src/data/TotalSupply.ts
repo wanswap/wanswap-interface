@@ -12,3 +12,11 @@ export function useTotalSupply(token?: Token): TokenAmount | undefined {
 
   return token && totalSupply ? new TokenAmount(token, totalSupply.toString()) : undefined
 }
+
+export function useTotalBurned(token?: Token): TokenAmount | undefined {
+  const contract = useTokenContract(token?.address, false)
+
+  const totalBurned: BigNumber = useSingleCallResult(contract, 'balanceOf', ['0x0000000000000000000000000000000000000001'])?.result?.[0]
+
+  return token && totalBurned ? new TokenAmount(token, totalBurned.toString()) : undefined
+}
