@@ -4,7 +4,7 @@ import { X } from 'react-feather'
 import styled from 'styled-components'
 import tokenLogo from '../../assets/svg/Logomark_WASP_token.svg'
 import { WASP } from '../../constants'
-import { useTotalSupply } from '../../data/TotalSupply'
+import { useTotalSupply, useTotalBurned } from '../../data/TotalSupply'
 import { useActiveWeb3React } from '../../hooks'
 // import { useMerkleDistributorContract } from '../../hooks/useContract'
 import useCurrentBlockTimestamp from '../../hooks/useCurrentBlockTimestamp'
@@ -52,15 +52,24 @@ export default function UniBalanceContent({ setShowUniBalanceModal }: { setShowU
   const uniToClaim: TokenAmount | undefined = useTotalUniEarned()
 
   const totalSupply: TokenAmount | undefined = useTotalSupply(uni)
+  const totalBurned: TokenAmount | undefined = useTotalBurned(uni)
   const uniPrice = useUSDCPrice(uni)
   const blockTimestamp = useCurrentBlockTimestamp()
   // const unclaimedUni = useTokenBalance(useMerkleDistributorContract()?.address, uni)
   const circulation: TokenAmount | undefined = useMemo(
     () =>
       blockTimestamp && uni && chainId === ChainId.MAINNET
-        ? totalSupply
-        : totalSupply,
-    [blockTimestamp, chainId, totalSupply, uni]
+        ? totalSupply?.subtract(totalBurned ? totalBurned : new TokenAmount(uni!, '0'))
+        : totalSupply?.subtract(totalBurned ? totalBurned : new TokenAmount(uni!, '0')),
+    [blockTimestamp, chainId, totalSupply, uni, totalBurned]
+  )
+
+  const burned: TokenAmount | undefined = useMemo(
+    () =>
+      blockTimestamp && uni && chainId === ChainId.MAINNET
+        ? totalBurned
+        : totalBurned,
+    [blockTimestamp, chainId, totalBurned, uni]
   )
 
   return (
@@ -109,6 +118,10 @@ export default function UniBalanceContent({ setShowUniBalanceModal }: { setShowU
             <RowBetween>
               <TYPE.white color="white">{t('waspInCirculation')}</TYPE.white>
               <TYPE.white color="white">{circulation?.toFixed(0, { groupSeparator: ',' })}</TYPE.white>
+            </RowBetween>
+            <RowBetween>
+              <TYPE.white color="white">{t('waspBurned')}</TYPE.white>
+              <TYPE.white color="white">{burned?.toFixed(0, { groupSeparator: ',' })}</TYPE.white>
             </RowBetween>
             {/* <RowBetween>
               <TYPE.white color="white">{t('totalSupply')}</TYPE.white>

@@ -61,6 +61,14 @@
       "logoURI": "https://raw.githubusercontent.com/wanswap/token-list/main/icons/wan.png"
     },
     {
+      "chainId": 1,
+      "address": "0x52a9cea01c4cbdd669883e41758b8eb8e8e2b34b",
+      "name": "wanUSDC",
+      "symbol": "wanUSDC",
+      "decimals": 6,
+      "logoURI": "https://www.wanscan.org/img/tokens/0x52a9cea01c4cbdd669883e41758b8eb8e8e2b34b.png"
+    },
+    {
       "chainId": 3,
       "address": "0x974ab46969d3d9a4569546051a797729e301d6eb",
       "name": "FNX",
@@ -119,7 +127,7 @@
   ],
   "version": {
     "major": 0,
-    "minor": 4,
+    "minor": 6,
     "patch": 0
   }
 }
