@@ -13,13 +13,13 @@ type ChainTokenList = {
 }
 
 export const DAI = new Token(ChainId.MAINNET, '0x6B175474E89094C44Da98b954EedeAC495271d0F', 18, 'DAI', 'Dai Stablecoin')
-export const USDC = new Token(ChainId.MAINNET, '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48', 6, 'USDC', 'USD//C')
-export const USDT = new Token(ChainId.MAINNET, '0x11e77e27af5539872efed10abaa0b408cfd9fbbd', 6, 'USDT', 'Tether USD')
+export const USDC = new Token(ChainId.MAINNET, '0x52a9cea01c4cbdd669883e41758b8eb8e8e2b34b', 6, 'wanUSDC', 'wanUSDC')
+export const USDT = new Token(ChainId.MAINNET, '0x11e77e27af5539872efed10abaa0b408cfd9fbbd', 6, 'wanUSDT', 'wanUSDT')
 export const COMP = new Token(ChainId.MAINNET, '0xc00e94Cb662C3520282E6f5717214004A7f26888', 18, 'COMP', 'Compound')
 export const MKR = new Token(ChainId.MAINNET, '0x9f8F72aA9304c8B593d555F12eF6589cC3A579A2', 18, 'MKR', 'Maker')
 export const AMPL = new Token(ChainId.MAINNET, '0xD46bA6D942050d489DBd938a2C909A5d5039A161', 9, 'AMPL', 'Ampleforth')
 export const WBTC = new Token(ChainId.MAINNET, '0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599', 18, 'WBTC', 'Wrapped BTC')
-export const USDT1 = new Token(ChainId.ROPSTEN, '0x3d5950287b45f361774e5fb6e50d70eea06bc167', 6, 'USDT', 'USDT')
+export const USDT1 = new Token(ChainId.ROPSTEN, '0x3d5950287b45f361774e5fb6e50d70eea06bc167', 6, 'wanUSDT', 'wanUSDT')
 
 // TODO this is only approximate, it's actually based on blocks
 export const PROPOSAL_LENGTH_IN_DAYS = 7
