@@ -148,9 +148,10 @@ export function useStakingInfo(pairToFilterBy?: Pair | null): StakingInfo[] {
   console.log('earnedAmounts', earnedAmounts);
 
   const rewardRates = poolInfo[0];
-  const startBlock = poolInfo[0];
-  const periodFinishes = poolInfo[0];
+  const startBlock = poolInfo[0] ? poolInfo[0].result?.bonusStartBlock : 0;
+  const endBlock = poolInfo[0] ? poolInfo[0].result?.bonusEndBlock : 0;
   const totalAllocPoint = 1;
+  console.log('poolInfo[0]', poolInfo[0]);
 
 
   const getHypotheticalRewardRate = (
@@ -193,7 +194,7 @@ export function useStakingInfo(pairToFilterBy?: Pair | null): StakingInfo[] {
     earnedAmounts,
     totalSupplies,
     rewardRates,
-    periodFinishes,
+    endBlock,
     startBlock,
     info,
     poolInfo,
