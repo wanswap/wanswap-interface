@@ -3,7 +3,7 @@ import { AutoColumn } from '../Column'
 import { RowBetween } from '../Row'
 import styled from 'styled-components'
 import { TYPE, StyledInternalLink } from '../../theme'
-import CurrencyLogo from '../CurrencyLogo'
+import DoubleCurrencyLogo from '../DoubleLogo'
 import { ETHER, JSBI, TokenAmount } from '@wanswap/sdk'
 import { ButtonPrimary } from '../Button'
 import { StakingInfo } from '../../state/stake/hooks'
@@ -72,11 +72,21 @@ const BottomSection = styled.div<{ showBackground: boolean }>`
   z-index: 1;
 `
 
-export default function HiveCard({ stakingInfo }: { stakingInfo: StakingInfo }) {
+export default function PoolCard({ stakingInfo }: { stakingInfo: StakingInfo }) {
   const token0 = stakingInfo.tokens[0]
   const token1 = stakingInfo.tokens[1]
 
+  console.log('stakingInfo?.totalRewardRate', stakingInfo?.totalRewardRate);
+
+  console.log('card stakingInfo', 
+    stakingInfo.tokens[0], 
+    stakingInfo.tokens[1], 
+    stakingInfo?.rewardRate?.multiply((60 * 60 * 24 * 7).toString())?.toFixed(0, { groupSeparator: ',' }), 
+    stakingInfo?.totalRewardRate?.multiply((60 * 60 * 24 * 7).toString())?.toFixed(0, { groupSeparator: ',' }));
+
+
   const currency0 = unwrappedToken(token0)
+  const currency1 = unwrappedToken(token1)
   const { t } = useTranslation()
 
   const isStaking = Boolean(stakingInfo.stakedAmount.greaterThan('0'))
@@ -91,6 +101,7 @@ export default function HiveCard({ stakingInfo }: { stakingInfo: StakingInfo }) 
 
   // let returnOverMonth: Percent = new Percent('0')
   let valueOfTotalStakedAmountInWETH: TokenAmount | undefined
+  let valueOfTotalStakedAmountInWLSP: TokenAmount | undefined
 
   if (totalSupplyOfStakingToken && stakingTokenPair) {
     // take the total amount of LP tokens staked, multiply by WAN value of all LP tokens, divide by all LP tokens
@@ -103,6 +114,10 @@ export default function HiveCard({ stakingInfo }: { stakingInfo: StakingInfo }) 
         ),
         totalSupplyOfStakingToken.raw
       )
+    )
+    valueOfTotalStakedAmountInWLSP = new TokenAmount(
+      WETH,
+      JSBI.multiply(stakingInfo.totalStakedAmount.raw, JSBI.BigInt(1))
     )
   }
 
@@ -117,12 +132,12 @@ export default function HiveCard({ stakingInfo }: { stakingInfo: StakingInfo }) 
       <CardNoise />
 
       <TopSection>
-        <CurrencyLogo currency={currency0} size={'24px'} />
+        <DoubleCurrencyLogo currency0={currency0} currency1={currency1} size={24} />
         <TYPE.white fontWeight={600} fontSize={24} style={{ marginLeft: '8px' }}>
-          {currency0.symbol}
+          {currency0.symbol}-{currency1.symbol}
         </TYPE.white>
 
-        <StyledInternalLink to={`/hive/${currencyId(currency0)}`} style={{ width: '100%',color:'transparent' }}>
+        <StyledInternalLink to={`/farm/${currencyId(currency0)}/${currencyId(currency1)}`} style={{ width: '100%',color:'transparent' }}>
           <ButtonPrimary padding="8px" borderRadius="8px">
             {isStaking ? 'Manage' : 'Deposit'}
           </ButtonPrimary>
@@ -138,14 +153,14 @@ export default function HiveCard({ stakingInfo }: { stakingInfo: StakingInfo }) 
               //  +
               //   ' / ' +
               //   `${valueOfTotalStakedAmountInWLSP?.toSignificant(6, { groupSeparator: ',' }) ?? '-'} WSLP`
-              : `${stakingInfo?.totalStakedAmount.toFixed(0, { groupSeparator: ',' }) ?? '-'} WASP`}
+              : `${valueOfTotalStakedAmountInWLSP?.toSignificant(6, { groupSeparator: ',' }) ?? '-'} WSLP`}
           </TYPE.white>
         </RowBetween>
         <RowBetween>
           <TYPE.white> Pool rate </TYPE.white>
           <TYPE.white>{`${stakingInfo.totalRewardRate
-            ?.multiply(`${60 * 60 * 24 * 7 / 5}`)
-            ?.toFixed(0, { groupSeparator: ',' })} WAN / week`}</TYPE.white>
+            ?.multiply(`${60 * 60 * 24 * 7}`)
+            ?.toFixed(0, { groupSeparator: ',' })} WASP / week`}</TYPE.white>
         </RowBetween>
       </StatContainer>
 

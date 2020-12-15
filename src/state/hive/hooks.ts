@@ -5,7 +5,6 @@ import { WASP } from '../../constants'
 import { useBlockNumber } from '../application/hooks'
 
 import { useActiveWeb3React } from '../../hooks'
-import { useTrackedTokenPairs } from '../user/hooks'
 import { WANV2_PAIR_INTERFACE, HIVE_ADDRESS, BRIDGE_TOKEN_ADDRESS } from '../../constants/abis/bridge'
 import { useMultipleContractSingleData, useSingleCallResult, useSingleContractMultipleData } from '../multicall/hooks'
 import { tryParseAmount } from '../swap/hooks'
@@ -60,7 +59,6 @@ export interface StakingInfo {
 export function usePoolInfo() {
   const hiveContract = useHiveContract()
   const poolLength = useSingleCallResult(hiveContract, 'poolLength').result?.toString()
-  console.log('poolLength', poolLength)
   return useSingleContractMultipleData(
     hiveContract,
     'poolInfo',
@@ -71,10 +69,8 @@ export function usePoolInfo() {
 export function useAllStakingRewardsInfo() {
   const { chainId } = useActiveWeb3React()
   const poolInfo = usePoolInfo()
-  console.log('poolInfo', poolInfo);
   const lpTokenAddr = useMemo(() => poolInfo?.map(_v => _v.result?.lpToken), [poolInfo])
-  const trackedTokenPairs = useTrackedTokenPairs()
-
+  console.log('poolInfo', poolInfo);
   return useMemo(() => {
     const info: {
       [chainId in ChainId]?: {
@@ -85,7 +81,6 @@ export function useAllStakingRewardsInfo() {
       [ChainId.MAINNET]: [],
       [ChainId.ROPSTEN]: []
     }
-    console.log('lpTokenAddr', lpTokenAddr)
     lpTokenAddr.forEach((_v, _i) => {
       if (!_v || !chainId) return
       const ret = new Token(chainId, BRIDGE_TOKEN_ADDRESS[chainId], 18, 'WASP', 'WASP');
@@ -97,7 +92,7 @@ export function useAllStakingRewardsInfo() {
       }
     })
     return info
-  }, [chainId, lpTokenAddr, trackedTokenPairs])
+  }, [chainId, lpTokenAddr])
 }
 
 // gets the staking info from the network for the active chain id
@@ -107,10 +102,7 @@ export function useStakingInfo(pairToFilterBy?: Pair | null): StakingInfo[] {
   const { chainId, account } = useActiveWeb3React()
   const bridgeMinerContract = useHiveContract()
   const allStakingRewards = useAllStakingRewardsInfo()
-
-  console.log('poolInfo', poolInfo)
-  console.log('allStakingRewards', allStakingRewards)
-
+  console.log('pairToFilterBy', pairToFilterBy);
   const info = useMemo(() => {
     return chainId
       ? allStakingRewards[chainId]?.filter(stakingRewardInfo =>
@@ -124,8 +116,13 @@ export function useStakingInfo(pairToFilterBy?: Pair | null): StakingInfo[] {
       : []
   }, [allStakingRewards, chainId, pairToFilterBy])
 
+  console.log('allStakingRewards', allStakingRewards);
+
   const uni = chainId ? WASP[chainId] : undefined
   const lpTokenAddr = useMemo(() => info.map(({ stakingRewardAddress }) => stakingRewardAddress), [info])
+  console.log('lpTokenAddr', lpTokenAddr);
+  console.log('info', info);
+
 
   const userInfoParams = useMemo(() => {
     if (account) {
@@ -142,16 +139,12 @@ export function useStakingInfo(pairToFilterBy?: Pair | null): StakingInfo[] {
   const totalSupplies = useMultipleContractSingleData(lpTokenAddr, WANV2_PAIR_INTERFACE, 'balanceOf', [
     chainId ? HIVE_ADDRESS[chainId] : undefined
   ])
-  console.log('balances', balances);
-  console.log('totalSupplies', totalSupplies);
   const earnedAmounts = useSingleContractMultipleData(bridgeMinerContract, 'pendingwanWan', userInfoParams)
-  console.log('earnedAmounts', earnedAmounts);
 
   const rewardRates = poolInfo[0];
   const startBlock = poolInfo[0] ? poolInfo[0].result?.bonusStartBlock : 0;
   const endBlock = poolInfo[0] ? poolInfo[0].result?.bonusEndBlock : 0;
   const totalAllocPoint = 1;
-  console.log('poolInfo[0]', poolInfo[0]);
 
 
   const getHypotheticalRewardRate = (
@@ -169,13 +162,12 @@ export function useStakingInfo(pairToFilterBy?: Pair | null): StakingInfo[] {
     if (!chainId || !uni) return []
     return lpTokenAddr.reduce<StakingInfo[]>((memo, rewardsAddress, index) => {
       // these two are dependent on account
-      console.log('rewardsAddress', rewardsAddress);
       memo.push({
         pid: poolInfo.findIndex(val => val.result?.lpToken === rewardsAddress),
         stakingRewardAddress: rewardsAddress,
         tokens: info[index].tokens,
-        periodFinish: undefined,
-        periodStart: undefined,
+        periodFinish: currentBlockNumber? (currentBlockNumber < endBlock ? new Date((endBlock - currentBlockNumber) * 5000 + Date.now()) : undefined) : undefined,
+        periodStart: currentBlockNumber? (currentBlockNumber < startBlock ? new Date((startBlock - currentBlockNumber) * 5000 + Date.now()) : undefined) : undefined,
         earnedAmount: new TokenAmount(uni, JSBI.BigInt(earnedAmounts[index]?.result?.[0] ?? 0)),
         rewardRate: new TokenAmount(WETH[chainId], rewardRates.result?.wanWanPerBlock),
         totalRewardRate: new TokenAmount(WETH[chainId], rewardRates.result?.wanWanPerBlock),
