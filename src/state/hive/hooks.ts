@@ -1,4 +1,4 @@
-import { ChainId, CurrencyAmount, JSBI, Token, TokenAmount, Pair, WETH } from '@wanswap/sdk'
+import { ChainId, CurrencyAmount, JSBI, Token, TokenAmount, WETH } from '@wanswap/sdk'
 import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 import { WASP } from '../../constants'
@@ -96,25 +96,24 @@ export function useAllStakingRewardsInfo() {
 }
 
 // gets the staking info from the network for the active chain id
-export function useStakingInfo(pairToFilterBy?: Pair | null): StakingInfo[] {
+export function useStakingInfo(token?: Token | null): StakingInfo[] {
   const currentBlockNumber = useBlockNumber()
   const poolInfo = usePoolInfo()
   const { chainId, account } = useActiveWeb3React()
   const bridgeMinerContract = useHiveContract()
   const allStakingRewards = useAllStakingRewardsInfo()
-  console.log('pairToFilterBy', pairToFilterBy);
+  console.log('token', token);
   const info = useMemo(() => {
     return chainId
       ? allStakingRewards[chainId]?.filter(stakingRewardInfo =>
-          pairToFilterBy === undefined
+        token === undefined
             ? true
-            : pairToFilterBy === null
+            : token === null
             ? false
-            : pairToFilterBy.involvesToken(stakingRewardInfo.tokens[0]) &&
-              pairToFilterBy.involvesToken(stakingRewardInfo.tokens[1])
+            : token.symbol === stakingRewardInfo.tokens[0].symbol
         ) ?? []
       : []
-  }, [allStakingRewards, chainId, pairToFilterBy])
+  }, [allStakingRewards, chainId, token])
 
   console.log('allStakingRewards', allStakingRewards);
 
@@ -135,7 +134,7 @@ export function useStakingInfo(pairToFilterBy?: Pair | null): StakingInfo[] {
     }
   }, [account, lpTokenAddr, poolInfo])
   // get all the info from the staking rewards contracts
-  const balances = useSingleContractMultipleData(bridgeMinerContract, 'userInfo', userInfoParams)
+  // const balances = useSingleContractMultipleData(bridgeMinerContract, 'userInfo', userInfoParams)
   const totalSupplies = useMultipleContractSingleData(lpTokenAddr, WANV2_PAIR_INTERFACE, 'balanceOf', [
     chainId ? HIVE_ADDRESS[chainId] : undefined
   ])
@@ -144,22 +143,23 @@ export function useStakingInfo(pairToFilterBy?: Pair | null): StakingInfo[] {
   const rewardRates = poolInfo[0];
   const startBlock = poolInfo[0] ? poolInfo[0].result?.bonusStartBlock : 0;
   const endBlock = poolInfo[0] ? poolInfo[0].result?.bonusEndBlock : 0;
-  const totalAllocPoint = 1;
+  // const totalAllocPoint = 1;
 
 
-  const getHypotheticalRewardRate = (
-    stakedAmount: TokenAmount,
-    totalStakedAmount: TokenAmount,
-    totalRewardRate: TokenAmount
-  ): TokenAmount => {
-    return new TokenAmount(
-      uni!,
-      JSBI.BigInt(0)
-    )
-  }
+
 
   return useMemo(() => {
     if (!chainId || !uni) return []
+    const getHypotheticalRewardRate = (
+      stakedAmount: TokenAmount,
+      totalStakedAmount: TokenAmount,
+      totalRewardRate: TokenAmount
+    ): TokenAmount => {
+      return new TokenAmount(
+        uni!,
+        JSBI.BigInt(0)
+      )
+    }
     return lpTokenAddr.reduce<StakingInfo[]>((memo, rewardsAddress, index) => {
       // these two are dependent on account
       memo.push({
@@ -182,7 +182,6 @@ export function useStakingInfo(pairToFilterBy?: Pair | null): StakingInfo[] {
     chainId,
     uni,
     lpTokenAddr,
-    balances,
     earnedAmounts,
     totalSupplies,
     rewardRates,
@@ -190,7 +189,6 @@ export function useStakingInfo(pairToFilterBy?: Pair | null): StakingInfo[] {
     startBlock,
     info,
     poolInfo,
-    totalAllocPoint,
     currentBlockNumber
   ])
 }

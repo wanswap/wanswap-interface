@@ -9,7 +9,7 @@ import { TYPE, CloseIcon } from '../../theme'
 import { ButtonConfirmed, ButtonError } from '../Button'
 import ProgressCircles from '../ProgressSteps'
 import CurrencyInputPanel from '../CurrencyInputPanel'
-import { TokenAmount, Pair } from '@wanswap/sdk'
+import { TokenAmount } from '@wanswap/sdk'
 import { useActiveWeb3React } from '../../hooks'
 import { maxAmountSpend } from '../../utils/maxAmountSpend'
 import { useBridgeMinerContract } from '../../hooks/useContract'
@@ -71,7 +71,7 @@ export default function StakingModal({ isOpen, onDismiss, stakingInfo, userLiqui
   }, [onDismiss])
 
   // pair contract for this token to be staked
-  const dummyPair = new Pair(new TokenAmount(stakingInfo.tokens[0], '0'), new TokenAmount(stakingInfo.tokens[1], '0'))
+  const dummyPair = undefined
   // const pairContract = usePairContract(dummyPair.liquidityToken.address)
 
   // approval data for stake
@@ -140,73 +140,6 @@ export default function StakingModal({ isOpen, onDismiss, stakingInfo, userLiqui
     maxAmountInput && onUserInput(maxAmountInput.toExact())
   }, [maxAmountInput, onUserInput])
 
-  // async function onAttemptToApprove() {
-  //   if (!pairContract || !library || !deadline) throw new Error('missing dependencies')
-  //   const liquidityAmount = parsedAmount
-  //   if (!liquidityAmount) throw new Error('missing liquidity amount')
-
-  //   if (isArgentWallet) {
-  //     return approveCallback()
-  //   }
-
-  //   // try to gather a signature for permission
-  //   const nonce = await pairContract.nonces(account)
-
-  //   const EIP712Domain = [
-  //     { name: 'name', type: 'string' },
-  //     { name: 'version', type: 'string' },
-  //     { name: 'chainId', type: 'uint256' },
-  //     { name: 'verifyingContract', type: 'address' }
-  //   ]
-  //   const domain = {
-  //     name: 'Wanswap',
-  //     version: '1',
-  //     chainId: chainId,
-  //     verifyingContract: pairContract.address
-  //   }
-  //   const Permit = [
-  //     { name: 'owner', type: 'address' },
-  //     { name: 'spender', type: 'address' },
-  //     { name: 'value', type: 'uint256' },
-  //     { name: 'nonce', type: 'uint256' },
-  //     { name: 'deadline', type: 'uint256' }
-  //   ]
-  //   const message = {
-  //     owner: account,
-  //     spender: chainId ? BRIDGE_MINER_ADDRESS[chainId] : undefined,
-  //     value: liquidityAmount.raw.toString(),
-  //     nonce: nonce.toHexString(),
-  //     deadline: deadline.toNumber()
-  //   }
-  //   const data = JSON.stringify({
-  //     types: {
-  //       EIP712Domain,
-  //       Permit
-  //     },
-  //     domain,
-  //     primaryType: 'Permit',
-  //     message
-  //   })
-
-  //   library
-  //     .send('eth_signTypedData_v4', [account, data])
-  //     .then(splitSignature)
-  //     .then(signature => {
-  //       setSignatureData({
-  //         v: signature.v,
-  //         r: signature.r,
-  //         s: signature.s,
-  //         deadline: deadline.toNumber()
-  //       })
-  //     })
-  //     .catch(error => {
-  //       // for all errors other than 4001 (EIP-1193 user rejected request), fall back to manual approve
-  //       if (error?.code !== 4001) {
-  //         approveCallback()
-  //       }
-  //     })
-  // }
-
   return (
     <Modal isOpen={isOpen} onDismiss={wrappedOnDismiss} maxHeight={90}>
       {!attempting && !hash && (
@@ -216,7 +149,6 @@ export default function StakingModal({ isOpen, onDismiss, stakingInfo, userLiqui
             <CloseIcon onClick={wrappedOnDismiss} />
           </RowBetween>
           <CurrencyInputPanel
-            
             value={typedValue}
             onUserInput={onUserInput}
             onMax={handleMax}

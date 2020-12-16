@@ -11,12 +11,12 @@ import { useWalletModalToggle } from '../../state/application/hooks'
 import { TYPE } from '../../theme'
 
 import { RowBetween } from '../../components/Row'
-import { CardSection, DataCard, CardNoise, CardBGImage } from '../../components/earn/styled'
+import { CardSection, DataCard, CardNoise, CardBGImage } from '../../components/earnHive/styled'
 import { ButtonPrimary, ButtonEmpty } from '../../components/Button'
-import StakingModal from '../../components/earn/StakingModal'
+import StakingModal from '../../components/earnHive/StakingModal'
 import { useStakingInfo } from '../../state/hive/hooks'
-import UnstakingModal from '../../components/earn/UnstakingModal'
-import ClaimRewardModal from '../../components/earn/ClaimRewardModal'
+import UnstakingModal from '../../components/earnHive/UnstakingModal'
+import ClaimRewardModal from '../../components/earnHive/ClaimRewardModal'
 import { useTokenBalance } from '../../state/wallet/hooks'
 import { useActiveWeb3React } from '../../hooks'
 import { useColor } from '../../hooks/useColor'
@@ -25,10 +25,9 @@ import { CountUp } from 'use-count-up'
 import { wrappedCurrency } from '../../utils/wrappedCurrency'
 import { currencyId } from '../../utils/currencyId'
 import { useTotalSupply } from '../../data/TotalSupply'
-import { usePair } from '../../data/Reserves'
 import usePrevious from '../../hooks/usePrevious'
-import useUSDCPrice from '../../utils/useUSDCPrice'
 import { BIG_INT_ZERO } from '../../constants'
+
 
 const PageWrapper = styled(AutoColumn)`
   max-width: 640px;
@@ -98,8 +97,7 @@ export default function ManageHive({
   const tokenA = wrappedCurrency(currencyA ?? undefined, chainId)
   const tokenB = wrappedCurrency(currencyB ?? undefined, chainId)
 
-  const [, stakingTokenPair] = usePair(tokenA, tokenB)
-  const stakingInfo = useStakingInfo(stakingTokenPair)?.[0]
+  const stakingInfo = useStakingInfo(tokenA)?.[0]
 
   // detect existing unstaked LP position to show add button if none found
   const userLiquidityUnstaked = useTokenBalance(account ?? undefined, stakingInfo?.stakedAmount?.token)
@@ -117,39 +115,21 @@ export default function ManageHive({
   const WETH = currencyA === ETHER ? tokenA : tokenB
   const backgroundColor = useColor(token)
 
-  // get WETH value of staked LP tokens
-  const totalSupplyOfStakingToken = useTotalSupply(stakingInfo?.stakedAmount?.token)
-  let valueOfTotalStakedAmountInWETH: TokenAmount | undefined
-  let valueOfTotalStakedAmountInWLSP: TokenAmount | undefined
+    // get WETH value of staked LP tokens
+    const totalSupplyOfStakingToken = useTotalSupply(stakingInfo?.stakedAmount?.token)
+    let valueOfTotalStakedAmountInWLSP: TokenAmount | undefined
+  
+    if (totalSupplyOfStakingToken && tokenA && stakingInfo && WETH) {
 
-  if (totalSupplyOfStakingToken && stakingTokenPair && stakingInfo && WETH) {
-    // take the total amount of LP tokens staked, multiply by WAN value of all LP tokens, divide by all LP tokens
-    valueOfTotalStakedAmountInWETH = new TokenAmount(
-      WETH,
-      JSBI.divide(
-        JSBI.multiply(
-          JSBI.multiply(stakingInfo.totalStakedAmount.raw, stakingTokenPair.reserveOf(WETH).raw),
-          JSBI.BigInt(2) // this is b/c the value of LP shares are ~double the value of the WETH they entitle owner to
-        ),
-        totalSupplyOfStakingToken.raw
+      valueOfTotalStakedAmountInWLSP = new TokenAmount(
+        WETH,
+        JSBI.multiply(stakingInfo.totalStakedAmount.raw, JSBI.BigInt(1))
       )
-    )
-    valueOfTotalStakedAmountInWLSP = new TokenAmount(
-      WETH,
-      JSBI.multiply(stakingInfo.totalStakedAmount.raw, JSBI.BigInt(1))
-    )
-  }
-
+    }
   console.log('totalStakedAmount', stakingInfo?.totalStakedAmount.toFixed(0), stakingInfo);
 
   const countUpAmount = stakingInfo?.earnedAmount?.toFixed(6) ?? '0'
   const countUpAmountPrevious = usePrevious(countUpAmount) ?? '0'
-
-  // get the USD value of staked WETH
-  const USDPrice = useUSDCPrice(WETH)
-  // console.debug(USDPrice, 'USDPrice')
-  const valueOfTotalStakedAmountInUSDC =
-    valueOfTotalStakedAmountInWETH && USDPrice?.quote(valueOfTotalStakedAmountInWETH)
 
   const toggleWalletModal = useWalletModalToggle()
 
@@ -175,9 +155,7 @@ export default function ManageHive({
           <AutoColumn gap="sm">
             <TYPE.body style={{ margin: 0 }}>Total deposits</TYPE.body>
             <TYPE.body fontSize={24} fontWeight={500}>
-              {valueOfTotalStakedAmountInUSDC
-                ? `$${valueOfTotalStakedAmountInUSDC.toSignificant(6, { groupSeparator: ',' })}`
-                : `${valueOfTotalStakedAmountInWLSP?.toSignificant(6, { groupSeparator: ',' }) ?? '-'} WSLP`}
+              {`${valueOfTotalStakedAmountInWLSP?.toSignificant(6, { groupSeparator: ',' }) ?? '-'} WSLP`}
             </TYPE.body>
           </AutoColumn>
         </PoolData>
