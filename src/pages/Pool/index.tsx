@@ -138,7 +138,7 @@ export default function Pool() {
               <ExternalLink
                 style={{ color: 'white', textDecoration: 'underline' }}
                 target="_blank"
-                href="https://wanswap-docs.netlify.app/#/guides/liquidity"
+                href="https://docs.wanswap.finance/#/guides/liquidity"
               >
                 <TYPE.white fontSize={14}>{t('readMoreAboutProvidingLiquidity')}</TYPE.white>
               </ExternalLink>
