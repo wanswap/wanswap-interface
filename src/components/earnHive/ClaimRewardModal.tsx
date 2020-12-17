@@ -6,7 +6,7 @@ import { RowBetween } from '../Row'
 import { TYPE, CloseIcon } from '../../theme'
 import { ButtonError } from '../Button'
 import { StakingInfo } from '../../state/stake/hooks'
-import { useBridgeMinerContract } from '../../hooks/useContract'
+import { useHiveContract } from '../../hooks/useContract'
 import { SubmittedView, LoadingView } from '../ModalViews'
 import { TransactionResponse } from '@ethersproject/providers'
 import { useTransactionAdder } from '../../state/transactions/hooks'
@@ -40,7 +40,7 @@ export default function ClaimRewardModal({ isOpen, onDismiss, stakingInfo }: Sta
     onDismiss()
   }
 
-  const bridgeMinerContract = useBridgeMinerContract()
+  const bridgeMinerContract = useHiveContract()
 
   async function onClaimReward() {
     if (bridgeMinerContract && stakingInfo?.earnedAmount) {
@@ -49,7 +49,7 @@ export default function ClaimRewardModal({ isOpen, onDismiss, stakingInfo }: Sta
       await bridgeMinerContract.deposit(stakingInfo.pid, '0x0', {gasLimit: calculateGasMargin(gas)})
         .then((response: TransactionResponse) => {
           addTransaction(response, {
-            summary: `Claim accumulated WASP rewards`
+            summary: `Claim accumulated WAN rewards`
           })
           setHash(response.hash)
         })
@@ -81,11 +81,11 @@ export default function ClaimRewardModal({ isOpen, onDismiss, stakingInfo }: Sta
               <TYPE.body fontWeight={600} fontSize={36}>
                 {stakingInfo?.earnedAmount?.toSignificant(6)}
               </TYPE.body>
-              <TYPE.body>Unclaimed WASP</TYPE.body>
+              <TYPE.body>Unclaimed WAN</TYPE.body>
             </AutoColumn>
           )}
           <TYPE.subHeader style={{ textAlign: 'center' }}>
-            When you claim without withdrawing your liquidity remains in the mining pool.
+            When you claim without withdrawing your WASP remains in the mining pool.
           </TYPE.subHeader>
           <ButtonError disabled={!!error} error={!!error && !!stakingInfo?.stakedAmount} onClick={onClaimReward}>
             {error ?? 'Claim'}
@@ -95,7 +95,7 @@ export default function ClaimRewardModal({ isOpen, onDismiss, stakingInfo }: Sta
       {attempting && !hash && (
         <LoadingView onDismiss={wrappedOnDismiss}>
           <AutoColumn gap="12px" justify={'center'}>
-            <TYPE.body fontSize={20}>Claiming {stakingInfo?.earnedAmount?.toSignificant(6)} WASP</TYPE.body>
+            <TYPE.body fontSize={20}>Claiming {stakingInfo?.earnedAmount?.toSignificant(6)} WAN</TYPE.body>
           </AutoColumn>
         </LoadingView>
       )}
@@ -103,7 +103,7 @@ export default function ClaimRewardModal({ isOpen, onDismiss, stakingInfo }: Sta
         <SubmittedView onDismiss={wrappedOnDismiss} hash={hash}>
           <AutoColumn gap="12px" justify={'center'}>
             <TYPE.largeHeader>Transaction Submitted</TYPE.largeHeader>
-            <TYPE.body fontSize={20}>Claimed WASP!</TYPE.body>
+            <TYPE.body fontSize={20}>Claimed WAN!</TYPE.body>
           </AutoColumn>
         </SubmittedView>
       )}

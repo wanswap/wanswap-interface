@@ -145,7 +145,7 @@ export function useStakingInfo(token?: Token | null): StakingInfo[] {
   const endBlock = poolInfo[0] ? poolInfo[0].result?.bonusEndBlock : 0;
   // const totalAllocPoint = 1;
 
-
+  console.log('earnedAmounts', earnedAmounts);
 
 
   return useMemo(() => {
@@ -156,10 +156,13 @@ export function useStakingInfo(token?: Token | null): StakingInfo[] {
       totalRewardRate: TokenAmount
     ): TokenAmount => {
       return new TokenAmount(
-        uni!,
-        JSBI.BigInt(0)
+        uni,
+        JSBI.greaterThan(totalStakedAmount.raw, JSBI.BigInt(0))
+          ? JSBI.divide(JSBI.multiply(totalRewardRate.raw, stakedAmount.raw), totalStakedAmount.raw)
+          : JSBI.BigInt(0)
       )
     }
+    
     return lpTokenAddr.reduce<StakingInfo[]>((memo, rewardsAddress, index) => {
       // these two are dependent on account
       memo.push({
@@ -168,10 +171,10 @@ export function useStakingInfo(token?: Token | null): StakingInfo[] {
         tokens: info[index].tokens,
         periodFinish: currentBlockNumber? (currentBlockNumber < endBlock ? new Date((endBlock - currentBlockNumber) * 5000 + Date.now()) : undefined) : undefined,
         periodStart: currentBlockNumber? (currentBlockNumber < startBlock ? new Date((startBlock - currentBlockNumber) * 5000 + Date.now()) : undefined) : undefined,
-        earnedAmount: new TokenAmount(uni, JSBI.BigInt(earnedAmounts[index]?.result?.[0] ?? 0)),
+        earnedAmount: new TokenAmount(uni, JSBI.BigInt(earnedAmounts[index]?.result?.[1] ?? 0)),
         rewardRate: new TokenAmount(WETH[chainId], rewardRates.result?.wanWanPerBlock),
         totalRewardRate: new TokenAmount(WETH[chainId], rewardRates.result?.wanWanPerBlock),
-        stakedAmount: new TokenAmount(uni, '0'),
+        stakedAmount: new TokenAmount(uni, JSBI.BigInt(earnedAmounts[index]?.result?.[0] ?? 0)),
         totalStakedAmount: new TokenAmount(uni, totalSupplies[index]?.result ? totalSupplies[index]?.result?.[0] : '0'),
         getHypotheticalRewardRate
       })

@@ -1,7 +1,6 @@
 import React, { useCallback, useState } from 'react'
 import { AutoColumn } from '../../components/Column'
 import styled from 'styled-components'
-import { Link } from 'react-router-dom'
 
 import { JSBI, TokenAmount, ETHER } from '@wanswap/sdk'
 import { RouteComponentProps } from 'react-router-dom'
@@ -23,7 +22,6 @@ import { useColor } from '../../hooks/useColor'
 import { CountUp } from 'use-count-up'
 
 import { wrappedCurrency } from '../../utils/wrappedCurrency'
-import { currencyId } from '../../utils/currencyId'
 import { useTotalSupply } from '../../data/TotalSupply'
 import usePrevious from '../../hooks/usePrevious'
 import { BIG_INT_ZERO } from '../../constants'
@@ -68,11 +66,6 @@ const PoolData = styled(DataCard)`
   border: 1px solid ${({ theme }) => theme.bg4};
   padding: 1rem;
   z-index: 1;
-`
-
-const VoteCard = styled(DataCard)`
-  background: radial-gradient(90% 90% at 0% 0%,#41beec 0%,#123471 100%);
-  overflow: hidden;
 `
 
 const DataRow = styled(RowBetween)`
@@ -155,7 +148,7 @@ export default function ManageHive({
           <AutoColumn gap="sm">
             <TYPE.body style={{ margin: 0 }}>Total deposits</TYPE.body>
             <TYPE.body fontSize={24} fontWeight={500}>
-              {`${valueOfTotalStakedAmountInWLSP?.toSignificant(6, { groupSeparator: ',' }) ?? '-'} WSLP`}
+              {`${valueOfTotalStakedAmountInWLSP?.toSignificant(6, { groupSeparator: ',' }) ?? '-'} WASP`}
             </TYPE.body>
           </AutoColumn>
         </PoolData>
@@ -164,44 +157,13 @@ export default function ManageHive({
             <TYPE.body style={{ margin: 0 }}>Pool Rate</TYPE.body>
             <TYPE.body fontSize={24} fontWeight={500}>
               {stakingInfo?.totalRewardRate
-                ?.multiply((60 * 60 * 24 * 7).toString())
+                ?.multiply((60 * 60 * 24 * 7/5).toString())
                 ?.toFixed(0, { groupSeparator: ',' }) ?? '-'}
-              {' WASP / week'}
+              {' WAN / week'}
             </TYPE.body>
           </AutoColumn>
         </PoolData>
       </DataRow>
-
-      {showAddLiquidityButton && (
-        <VoteCard>
-          <CardBGImage />
-          <CardNoise />
-          <CardSection>
-            <AutoColumn gap="md">
-              <RowBetween>
-                <TYPE.white fontWeight={600}>Step 1. Get WanSwap Liquidity Pool token WSLP</TYPE.white>
-              </RowBetween>
-              <RowBetween style={{ marginBottom: '1rem' }}>
-                <TYPE.white fontSize={14}>
-                  {`WSLP tokens are required. Once you've added liquidity to the ${currencyA?.symbol}-${currencyB?.symbol} pool you can stake your liquidity tokens on this page.`}
-                </TYPE.white>
-              </RowBetween>
-              <ButtonPrimary
-                padding="8px"
-                borderRadius="8px"
-                width={'fit-content'}
-                as={Link}
-                to={`/add/${currencyA && currencyId(currencyA)}/${currencyB && currencyId(currencyB)}`}
-              >
-                {`Add ${currencyA?.symbol}-${currencyB?.symbol} liquidity`}
-              </ButtonPrimary>
-            </AutoColumn>
-          </CardSection>
-          <CardBGImage />
-          <CardNoise />
-        </VoteCard>
-      )}
-
       {stakingInfo && (
         <>
           <StakingModal
@@ -231,14 +193,14 @@ export default function ManageHive({
               <CardNoise />
               <AutoColumn gap="md">
                 <RowBetween>
-                  <TYPE.white fontWeight={600}>Your liquidity deposits</TYPE.white>
+                  <TYPE.white fontWeight={600}>Your WASP deposits</TYPE.white>
                 </RowBetween>
                 <RowBetween style={{ alignItems: 'baseline' }}>
                   <TYPE.white fontSize={36} fontWeight={600}>
                     {stakingInfo?.stakedAmount?.toSignificant(6) ?? '-'}
                   </TYPE.white>
                   <TYPE.white>
-                    WSLP {currencyA?.symbol}-{currencyB?.symbol}
+                    {currencyA?.symbol}
                   </TYPE.white>
                 </RowBetween>
               </AutoColumn>
@@ -250,7 +212,7 @@ export default function ManageHive({
             <AutoColumn gap="sm">
               <RowBetween>
                 <div>
-                  <TYPE.black>Your unclaimed WASP</TYPE.black>
+                  <TYPE.black>Your unclaimed WAN</TYPE.black>
                 </div>
                 {stakingInfo?.earnedAmount && JSBI.notEqual(BIG_INT_ZERO, stakingInfo?.earnedAmount?.raw) && (
                   <ButtonEmpty
@@ -281,9 +243,9 @@ export default function ManageHive({
                     ⚡
                   </span>
                   {stakingInfo?.rewardRate
-                    ?.multiply((60 * 60 * 24 * 7).toString())
+                    ?.multiply((60 * 60 * 24 * 7/5).toString())
                     ?.toFixed(0, { groupSeparator: ',' }) ?? '-'}
-                  {' WASP / week'}
+                  {' WAN / week'}
                 </TYPE.black>
               </RowBetween>
             </AutoColumn>
@@ -293,12 +255,12 @@ export default function ManageHive({
           <span role="img" aria-label="wizard-icon" style={{ marginRight: '8px' }}>
             ⭐️
           </span>
-          When you withdraw, the contract will automagically claim WASP on your behalf!
+          When you withdraw, the contract will automagically claim WAN on your behalf!
         </TYPE.main>
 
         {!showAddLiquidityButton && (
           <DataRow style={{ marginBottom: '1rem' }}>
-            <ButtonPrimary padding="8px" borderRadius="8px" width="160px" onClick={handleDepositClick}>
+            <ButtonPrimary padding="8px" borderRadius="8px" width="260px" onClick={handleDepositClick}>
               {stakingInfo?.stakedAmount?.greaterThan(JSBI.BigInt(0)) ? 'Deposit' : 'Deposit WSLP Tokens'}
             </ButtonPrimary>
 
@@ -307,7 +269,7 @@ export default function ManageHive({
                 <ButtonPrimary
                   padding="8px"
                   borderRadius="8px"
-                  width="160px"
+                  width="260px"
                   onClick={() => setShowUnstakingModal(true)}
                 >
                   Withdraw
@@ -315,9 +277,6 @@ export default function ManageHive({
               </>
             )}
           </DataRow>
-        )}
-        {!userLiquidityUnstaked ? null : userLiquidityUnstaked.equalTo('0') ? null : (
-          <TYPE.main>{userLiquidityUnstaked.toSignificant(6)} WSLP tokens available</TYPE.main>
         )}
       </PositionInfo>
     </PageWrapper>

@@ -12,7 +12,7 @@ import CurrencyInputPanel from '../CurrencyInputPanel'
 import { TokenAmount } from '@wanswap/sdk'
 import { useActiveWeb3React } from '../../hooks'
 import { maxAmountSpend } from '../../utils/maxAmountSpend'
-import { useBridgeMinerContract } from '../../hooks/useContract'
+import { useHiveContract } from '../../hooks/useContract'
 import { useApproveCallback, ApprovalState } from '../../hooks/useApproveCallback'
 // import { splitSignature } from 'ethers/lib/utils'
 import { StakingInfo, useDerivedStakeInfo } from '../../state/stake/hooks'
@@ -20,7 +20,7 @@ import { wrappedCurrencyAmount } from '../../utils/wrappedCurrency'
 import { TransactionResponse } from '@ethersproject/providers'
 import { useTransactionAdder } from '../../state/transactions/hooks'
 import { LoadingView, SubmittedView } from '../ModalViews'
-import { BRIDGE_MINER_ADDRESS } from '../../constants/abis/bridge'
+import { HIVE_ADDRESS } from '../../constants/abis/bridge'
 
 const HypotheticalRewardRate = styled.div<{ dim: boolean }>`
   display: flex;
@@ -60,6 +60,11 @@ export default function StakingModal({ isOpen, onDismiss, stakingInfo, userLiqui
     )
   }
 
+  console.log('hypotheticalRewardRate', hypotheticalRewardRate.toFixed(0));
+  console.log('stakingInfo.stakedAmount', stakingInfo.stakedAmount.toFixed(0));
+  console.log('stakingInfo.totalStakedAmount', stakingInfo.totalStakedAmount.toFixed(0));
+  console.log('stakingInfo.totalRewardRate', stakingInfo.totalRewardRate.toFixed(0));
+
   // state for pending and submitted txn views
   const addTransaction = useTransactionAdder()
   const [attempting, setAttempting] = useState<boolean>(false)
@@ -79,11 +84,11 @@ export default function StakingModal({ isOpen, onDismiss, stakingInfo, userLiqui
   const [signatureData, setSignatureData] = useState<{ v: number; r: string; s: string; deadline: number } | null>(null)
   const [approval, approveCallback] = useApproveCallback(
     parsedAmount,
-    chainId ? BRIDGE_MINER_ADDRESS[chainId] : undefined
+    chainId ? HIVE_ADDRESS[chainId] : undefined
   )
 
   // const isArgentWallet = useIsArgentWallet()
-  const bridgeMinerContract = useBridgeMinerContract()
+  const bridgeMinerContract = useHiveContract()
   async function onStake() {
     setAttempting(true)
     if (bridgeMinerContract && parsedAmount && deadline) {
@@ -92,7 +97,7 @@ export default function StakingModal({ isOpen, onDismiss, stakingInfo, userLiqui
           .deposit(stakingInfo.pid, `0x${parsedAmount.raw.toString(16)}`, { gasLimit: 500000 })
           .then((response: TransactionResponse) => {
             addTransaction(response, {
-              summary: `Deposit liquidity`
+              summary: `Deposit WASP`
             })
             setHash(response.hash)
           })
@@ -112,7 +117,7 @@ export default function StakingModal({ isOpen, onDismiss, stakingInfo, userLiqui
           )
           .then((response: TransactionResponse) => {
             addTransaction(response, {
-              summary: `Deposit liquidity`
+              summary: `Deposit WASP`
             })
             setHash(response.hash)
           })
@@ -167,7 +172,7 @@ export default function StakingModal({ isOpen, onDismiss, stakingInfo, userLiqui
             </div>
 
             <TYPE.black>
-              {hypotheticalRewardRate.multiply((60 * 60 * 24 * 7).toString()).toSignificant(4, { groupSeparator: ',' })}{' '}
+              {hypotheticalRewardRate.multiply((60 * 60 * 24 * 7/5).toString()).toSignificant(4, { groupSeparator: ',' })}{' '}
               WASP / week
             </TYPE.black>
           </HypotheticalRewardRate>

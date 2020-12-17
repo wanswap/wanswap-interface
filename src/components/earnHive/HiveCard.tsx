@@ -3,18 +3,15 @@ import { AutoColumn } from '../Column'
 import { RowBetween } from '../Row'
 import styled from 'styled-components'
 import { TYPE, StyledInternalLink } from '../../theme'
-import CurrencyLogo from '../CurrencyLogo'
-import { ETHER, JSBI, TokenAmount } from '@wanswap/sdk'
+import { ETHER } from '@wanswap/sdk'
 import { ButtonPrimary } from '../Button'
 import { StakingInfo } from '../../state/stake/hooks'
 import { useColor } from '../../hooks/useColor'
 import { currencyId } from '../../utils/currencyId'
 import { Break, CardNoise, CardBGImage } from './styled'
 import { unwrappedToken } from '../../utils/wrappedCurrency'
-import { useTotalSupply } from '../../data/TotalSupply'
-import { usePair } from '../../data/Reserves'
-import useUSDCPrice from '../../utils/useUSDCPrice'
 import { useTranslation } from 'react-i18next'
+import DoubleCurrencyLogo from '../DoubleLogo'
 
 const StatContainer = styled.div`
   display: flex;
@@ -83,33 +80,7 @@ export default function HiveCard({ stakingInfo }: { stakingInfo: StakingInfo }) 
 
   // get the color of the token
   const token = currency0 === ETHER ? token1 : token0
-  const WETH = currency0 === ETHER ? token0 : token1
   const backgroundColor = useColor(token)
-
-  const totalSupplyOfStakingToken = useTotalSupply(stakingInfo.stakedAmount.token)
-  const [, stakingTokenPair] = usePair(...stakingInfo.tokens)
-
-  // let returnOverMonth: Percent = new Percent('0')
-  let valueOfTotalStakedAmountInWETH: TokenAmount | undefined
-
-  if (totalSupplyOfStakingToken && stakingTokenPair) {
-    // take the total amount of LP tokens staked, multiply by WAN value of all LP tokens, divide by all LP tokens
-    valueOfTotalStakedAmountInWETH = new TokenAmount(
-      WETH,
-      JSBI.divide(
-        JSBI.multiply(
-          JSBI.multiply(stakingInfo.totalStakedAmount.raw, stakingTokenPair.reserveOf(WETH).raw),
-          JSBI.BigInt(2) // this is b/c the value of LP shares are ~double the value of the WETH they entitle owner to
-        ),
-        totalSupplyOfStakingToken.raw
-      )
-    )
-  }
-
-  // get the USD value of staked WETH
-  const USDPrice = useUSDCPrice(WETH)
-  const valueOfTotalStakedAmountInUSDC =
-    valueOfTotalStakedAmountInWETH && USDPrice?.quote(valueOfTotalStakedAmountInWETH)
 
   return (
     <Wrapper showBackground={isStaking} bgColor={backgroundColor}>
@@ -117,9 +88,9 @@ export default function HiveCard({ stakingInfo }: { stakingInfo: StakingInfo }) 
       <CardNoise />
 
       <TopSection>
-        <CurrencyLogo currency={currency0} size={'24px'} />
+        <DoubleCurrencyLogo currency0={currency0} currency1={ETHER} size={24} />
         <TYPE.white fontWeight={600} fontSize={24} style={{ marginLeft: '8px' }}>
-          {currency0.symbol}
+          {currency0.symbol + ' -> ' + ETHER.symbol}
         </TYPE.white>
 
         <StyledInternalLink to={`/hive/${currencyId(currency0)}`} style={{ width: '100%',color:'transparent' }}>
@@ -133,12 +104,7 @@ export default function HiveCard({ stakingInfo }: { stakingInfo: StakingInfo }) 
         <RowBetween>
           <TYPE.white>{t('totalDeposited')}</TYPE.white>
           <TYPE.white>
-            {valueOfTotalStakedAmountInUSDC
-              ? `$${valueOfTotalStakedAmountInUSDC.toSignificant(6, { groupSeparator: ',' })}`
-              //  +
-              //   ' / ' +
-              //   `${valueOfTotalStakedAmountInWLSP?.toSignificant(6, { groupSeparator: ',' }) ?? '-'} WSLP`
-              : `${stakingInfo?.totalStakedAmount.toFixed(0, { groupSeparator: ',' }) ?? '-'} WASP`}
+            {`${stakingInfo?.totalStakedAmount.toFixed(0, { groupSeparator: ',' }) ?? '-'} WASP`}
           </TYPE.white>
         </RowBetween>
         <RowBetween>
@@ -162,8 +128,8 @@ export default function HiveCard({ stakingInfo }: { stakingInfo: StakingInfo }) 
               ⚡
               </span>
               {`${stakingInfo.rewardRate
-                ?.multiply(`${60 * 60 * 24 * 7}`)
-                ?.toFixed(0, { groupSeparator: ',' })} WASP / week`}
+                ?.multiply(`${60 * 60 * 24 * 7 / 5}`)
+                ?.toFixed(0, { groupSeparator: ',' })} WAN / week`}
             </TYPE.black>
           </BottomSection>
         </>
