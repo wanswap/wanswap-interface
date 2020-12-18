@@ -12,6 +12,7 @@ import { Break, CardNoise, CardBGImage } from './styled'
 import { unwrappedToken } from '../../utils/wrappedCurrency'
 import { useTranslation } from 'react-i18next'
 import DoubleCurrencyLogo from '../DoubleLogo'
+import { Countdown } from '../../pages/Hive/Countdown'
 
 const StatContainer = styled.div`
   display: flex;
@@ -69,7 +70,7 @@ const BottomSection = styled.div<{ showBackground: boolean }>`
   z-index: 1;
 `
 
-export default function HiveCard({ stakingInfo }: { stakingInfo: StakingInfo }) {
+export default function HiveCard({ stakingInfo, i }: { stakingInfo: StakingInfo; i: number }) {
   const token0 = stakingInfo.tokens[0]
   const token1 = stakingInfo.tokens[1]
 
@@ -90,10 +91,11 @@ export default function HiveCard({ stakingInfo }: { stakingInfo: StakingInfo }) 
       <TopSection>
         <DoubleCurrencyLogo currency0={currency0} currency1={ETHER} size={24} />
         <TYPE.white fontWeight={600} fontSize={24} style={{ marginLeft: '8px' }}>
-          {currency0.symbol + ' -> ' + ETHER.symbol}
+          {currency0.symbol + ' -> ' + ETHER.symbol + " #" + (i+1)}
+          <Countdown exactEnd={stakingInfo?.periodFinish} exactStart={stakingInfo?.periodStart} />
         </TYPE.white>
 
-        <StyledInternalLink to={`/hive/${currencyId(currency0)}`} style={{ width: '100%',color:'transparent' }}>
+        <StyledInternalLink to={`/hive/${currencyId(currency0)}/${i}`} style={{ width: '100%',color:'transparent' }}>
           <ButtonPrimary padding="8px" borderRadius="8px">
             {isStaking ? 'Manage' : 'Deposit'}
           </ButtonPrimary>

@@ -80,9 +80,9 @@ const DataRow = styled(RowBetween)`
 
 export default function ManageHive({
   match: {
-    params: { currencyIdA }
+    params: { currencyIdA, pid }
   }
-}: RouteComponentProps<{ currencyIdA: string; }>) {
+}: RouteComponentProps<{ currencyIdA: string; pid: string }>) {
   const { account, chainId } = useActiveWeb3React()
 
   // get currencies and pair
@@ -90,7 +90,7 @@ export default function ManageHive({
   const tokenA = wrappedCurrency(currencyA ?? undefined, chainId)
   const tokenB = wrappedCurrency(currencyB ?? undefined, chainId)
 
-  const stakingInfo = useStakingInfo(tokenA)?.[0]
+  const stakingInfo = useStakingInfo(tokenA, pid)?.[0]
 
   // detect existing unstaked LP position to show add button if none found
   const userLiquidityUnstaked = useTokenBalance(account ?? undefined, stakingInfo?.stakedAmount?.token)
@@ -108,18 +108,17 @@ export default function ManageHive({
   const WETH = currencyA === ETHER ? tokenA : tokenB
   const backgroundColor = useColor(token)
 
-    // get WETH value of staked LP tokens
-    const totalSupplyOfStakingToken = useTotalSupply(stakingInfo?.stakedAmount?.token)
-    let valueOfTotalStakedAmountInWLSP: TokenAmount | undefined
-  
-    if (totalSupplyOfStakingToken && tokenA && stakingInfo && WETH) {
+  // get WETH value of staked LP tokens
+  const totalSupplyOfStakingToken = useTotalSupply(stakingInfo?.stakedAmount?.token)
+  let valueOfTotalStakedAmountInWLSP: TokenAmount | undefined
 
-      valueOfTotalStakedAmountInWLSP = new TokenAmount(
-        WETH,
-        JSBI.multiply(stakingInfo.totalStakedAmount.raw, JSBI.BigInt(1))
-      )
-    }
-  console.log('totalStakedAmount', stakingInfo?.totalStakedAmount.toFixed(0), stakingInfo);
+  if (totalSupplyOfStakingToken && tokenA && stakingInfo && WETH) {
+
+    valueOfTotalStakedAmountInWLSP = new TokenAmount(
+      WETH,
+      JSBI.multiply(stakingInfo.totalStakedAmount.raw, JSBI.BigInt(1))
+    )
+  }
 
   const countUpAmount = stakingInfo?.earnedAmount?.toFixed(6) ?? '0'
   const countUpAmountPrevious = usePrevious(countUpAmount) ?? '0'
@@ -261,7 +260,7 @@ export default function ManageHive({
         {!showAddLiquidityButton && (
           <DataRow style={{ marginBottom: '1rem' }}>
             <ButtonPrimary padding="8px" borderRadius="8px" width="260px" onClick={handleDepositClick}>
-              {stakingInfo?.stakedAmount?.greaterThan(JSBI.BigInt(0)) ? 'Deposit' : 'Deposit WSLP Tokens'}
+              {stakingInfo?.stakedAmount?.greaterThan(JSBI.BigInt(0)) ? 'Deposit' : 'Deposit WASP Tokens'}
             </ButtonPrimary>
 
             {stakingInfo?.stakedAmount?.greaterThan(JSBI.BigInt(0)) && (

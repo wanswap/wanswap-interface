@@ -6,7 +6,7 @@ import { TYPE, ExternalLink } from '../../theme'
 import HiveCard from '../../components/earnHive/HiveCard'
 import { RowBetween } from '../../components/Row'
 import { CardSection, DataCard, CardNoise, CardBGImage } from '../../components/earn/styled'
-import { Countdown } from './Countdown'
+// import { Countdown } from './Countdown'
 import Loader from '../../components/Loader'
 import { useActiveWeb3React } from '../../hooks'
 
@@ -75,7 +75,7 @@ export default function Earn() {
       <AutoColumn gap="lg" style={{ width: '100%', maxWidth: '720px' }}>
         <DataRow style={{ alignItems: 'baseline' }}>
           <TYPE.mediumHeader style={{ marginTop: '0.5rem' }}>Participating pools</TYPE.mediumHeader>
-          <Countdown exactEnd={stakingInfos?.[0]?.periodFinish} exactStart={stakingInfos?.[0]?.periodStart} />
+          {/* <Countdown exactEnd={stakingInfos?.[0]?.periodFinish} exactStart={stakingInfos?.[0]?.periodStart} /> */}
         </DataRow>
 
         <PoolSection>
@@ -84,10 +84,8 @@ export default function Earn() {
           ) : !stakingRewardsExist ? (
             'No active rewards'
           ) : (
-            stakingInfos?.map(stakingInfo => {
-              // need to sort by added liquidity here
-              console.log('PoolCard stakingInfo', stakingInfo)
-              return <HiveCard key={stakingInfo.stakingRewardAddress} stakingInfo={stakingInfo} />
+            stakingInfos?.map((stakingInfo, i) => {
+              return <HiveCard key={i} stakingInfo={stakingInfo} i={i}/>
             })
           )}
         </PoolSection>

@@ -45,8 +45,8 @@ export default function ClaimRewardModal({ isOpen, onDismiss, stakingInfo }: Sta
   async function onClaimReward() {
     if (bridgeMinerContract && stakingInfo?.earnedAmount) {
       setAttempting(true)
-      let gas = await bridgeMinerContract.estimateGas['deposit'](stakingInfo.pid, '0x0');
-      await bridgeMinerContract.deposit(stakingInfo.pid, '0x0', {gasLimit: calculateGasMargin(gas)})
+      let gas = await bridgeMinerContract.estimateGas['withdraw'](stakingInfo.pid, '0x0');
+      await bridgeMinerContract.withdraw(stakingInfo.pid, '0x0', {gasLimit: calculateGasMargin(gas)})
         .then((response: TransactionResponse) => {
           addTransaction(response, {
             summary: `Claim accumulated WAN rewards`

@@ -116,7 +116,7 @@ export default function App() {
               <Route exact strict path="/migrate/v1" component={MigrateV1} />
               <Route exact strict path="/migrate/v1/:address" component={MigrateV1Exchange} />
               <Route exact strict path="/farm/:currencyIdA/:currencyIdB" component={Manage} />
-              <Route exact strict path="/hive/:currencyIdA" component={ManageHive} />
+              <Route exact strict path="/hive/:currencyIdA/:pid" component={ManageHive} />
               <Route exact strict path="/vote/:id" component={VotePage} />
               <Route component={RedirectPathToSwapOnly} />
             </Switch>

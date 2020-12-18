@@ -60,11 +60,6 @@ export default function StakingModal({ isOpen, onDismiss, stakingInfo, userLiqui
     )
   }
 
-  console.log('hypotheticalRewardRate', hypotheticalRewardRate.toFixed(0));
-  console.log('stakingInfo.stakedAmount', stakingInfo.stakedAmount.toFixed(0));
-  console.log('stakingInfo.totalStakedAmount', stakingInfo.totalStakedAmount.toFixed(0));
-  console.log('stakingInfo.totalRewardRate', stakingInfo.totalRewardRate.toFixed(0));
-
   // state for pending and submitted txn views
   const addTransaction = useTransactionAdder()
   const [attempting, setAttempting] = useState<boolean>(false)
@@ -173,7 +168,7 @@ export default function StakingModal({ isOpen, onDismiss, stakingInfo, userLiqui
 
             <TYPE.black>
               {hypotheticalRewardRate.multiply((60 * 60 * 24 * 7/5).toString()).toSignificant(4, { groupSeparator: ',' })}{' '}
-              WASP / week
+              WAN / week
             </TYPE.black>
           </HypotheticalRewardRate>
 
@@ -202,8 +197,8 @@ export default function StakingModal({ isOpen, onDismiss, stakingInfo, userLiqui
       {attempting && !hash && (
         <LoadingView onDismiss={wrappedOnDismiss}>
           <AutoColumn gap="12px" justify={'center'}>
-            <TYPE.largeHeader>Depositing Liquidity</TYPE.largeHeader>
-            <TYPE.body fontSize={20}>{parsedAmount?.toSignificant(4)} WSLP</TYPE.body>
+            <TYPE.largeHeader>Depositing WASP</TYPE.largeHeader>
+            <TYPE.body fontSize={20}>{parsedAmount?.toSignificant(4)} WASP</TYPE.body>
           </AutoColumn>
         </LoadingView>
       )}
@@ -211,7 +206,7 @@ export default function StakingModal({ isOpen, onDismiss, stakingInfo, userLiqui
         <SubmittedView onDismiss={wrappedOnDismiss} hash={hash}>
           <AutoColumn gap="12px" justify={'center'}>
             <TYPE.largeHeader>Transaction Submitted</TYPE.largeHeader>
-            <TYPE.body fontSize={20}>Deposited {parsedAmount?.toSignificant(4)} WSLP</TYPE.body>
+            <TYPE.body fontSize={20}>Deposited {parsedAmount?.toSignificant(4)} WASP</TYPE.body>
           </AutoColumn>
         </SubmittedView>
       )}

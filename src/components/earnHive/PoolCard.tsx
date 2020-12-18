@@ -76,15 +76,6 @@ export default function PoolCard({ stakingInfo }: { stakingInfo: StakingInfo }) 
   const token0 = stakingInfo.tokens[0]
   const token1 = stakingInfo.tokens[1]
 
-  console.log('stakingInfo?.totalRewardRate', stakingInfo?.totalRewardRate);
-
-  console.log('card stakingInfo', 
-    stakingInfo.tokens[0], 
-    stakingInfo.tokens[1], 
-    stakingInfo?.rewardRate?.multiply((60 * 60 * 24 * 7).toString())?.toFixed(0, { groupSeparator: ',' }), 
-    stakingInfo?.totalRewardRate?.multiply((60 * 60 * 24 * 7).toString())?.toFixed(0, { groupSeparator: ',' }));
-
-
   const currency0 = unwrappedToken(token0)
   const currency1 = unwrappedToken(token1)
   const { t } = useTranslation()
@@ -152,15 +143,15 @@ export default function PoolCard({ stakingInfo }: { stakingInfo: StakingInfo }) 
               ? `$${valueOfTotalStakedAmountInUSDC.toSignificant(6, { groupSeparator: ',' })}`
               //  +
               //   ' / ' +
-              //   `${valueOfTotalStakedAmountInWLSP?.toSignificant(6, { groupSeparator: ',' }) ?? '-'} WSLP`
-              : `${valueOfTotalStakedAmountInWLSP?.toSignificant(6, { groupSeparator: ',' }) ?? '-'} WSLP`}
+              //   `${valueOfTotalStakedAmountInWLSP?.toSignificant(6, { groupSeparator: ',' }) ?? '-'} WASP`
+              : `${valueOfTotalStakedAmountInWLSP?.toSignificant(6, { groupSeparator: ',' }) ?? '-'} WASP`}
           </TYPE.white>
         </RowBetween>
         <RowBetween>
           <TYPE.white> Pool rate </TYPE.white>
           <TYPE.white>{`${stakingInfo.totalRewardRate
             ?.multiply(`${60 * 60 * 24 * 7}`)
-            ?.toFixed(0, { groupSeparator: ',' })} WASP / week`}</TYPE.white>
+            ?.toFixed(0, { groupSeparator: ',' })} WAN / week`}</TYPE.white>
         </RowBetween>
       </StatContainer>
 
@@ -178,7 +169,7 @@ export default function PoolCard({ stakingInfo }: { stakingInfo: StakingInfo }) 
               </span>
               {`${stakingInfo.rewardRate
                 ?.multiply(`${60 * 60 * 24 * 7}`)
-                ?.toFixed(0, { groupSeparator: ',' })} WASP / week`}
+                ?.toFixed(0, { groupSeparator: ',' })} WAN / week`}
             </TYPE.black>
           </BottomSection>
         </>
