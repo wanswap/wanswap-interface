@@ -101,7 +101,7 @@ export default function UniBalanceContent({ setShowUniBalanceModal }: { setShowU
                 <RowBetween>
                   <TYPE.white color="white">{t('unclaimed')}:</TYPE.white>
                   <TYPE.white color="white">
-                    {uniToClaim?.toFixed(4, { groupSeparator: ',' })}{' '}
+                    {uniToClaim?.toFixed(2, { groupSeparator: ',' })}{' '}
                   </TYPE.white>
                 </RowBetween>
               </AutoColumn>
