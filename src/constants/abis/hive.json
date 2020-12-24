@@ -2,11 +2,6 @@
   {
     "inputs": [
       {
-        "internalType": "contract IERC20",
-        "name": "_wanWan",
-        "type": "address"
-      },
-      {
         "internalType": "contract IWWAN",
         "name": "_wwan",
         "type": "address"
@@ -158,8 +153,7 @@
       }
     ],
     "stateMutability": "view",
-    "type": "function",
-    "constant": true
+    "type": "function"
   },
   {
     "inputs": [
@@ -175,11 +169,6 @@
         "internalType": "contract IERC20",
         "name": "lpToken",
         "type": "address"
-      },
-      {
-        "internalType": "uint256",
-        "name": "maxAmountLimit",
-        "type": "uint256"
       },
       {
         "internalType": "uint256",
@@ -212,19 +201,13 @@
         "type": "uint256"
       },
       {
-        "internalType": "uint256",
-        "name": "totalDebtReward",
-        "type": "uint256"
-      },
-      {
         "internalType": "address",
         "name": "rewardToken",
         "type": "address"
       }
     ],
     "stateMutability": "view",
-    "type": "function",
-    "constant": true
+    "type": "function"
   },
   {
     "inputs": [],
@@ -273,22 +256,7 @@
       }
     ],
     "stateMutability": "view",
-    "type": "function",
-    "constant": true
-  },
-  {
-    "inputs": [],
-    "name": "wanWan",
-    "outputs": [
-      {
-        "internalType": "contract IERC20",
-        "name": "",
-        "type": "address"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function",
-    "constant": true
+    "type": "function"
   },
   {
     "inputs": [],
@@ -301,13 +269,11 @@
       }
     ],
     "stateMutability": "view",
-    "type": "function",
-    "constant": true
+    "type": "function"
   },
   {
     "stateMutability": "payable",
-    "type": "receive",
-    "payable": true
+    "type": "receive"
   },
   {
     "inputs": [],
@@ -320,8 +286,7 @@
       }
     ],
     "stateMutability": "view",
-    "type": "function",
-    "constant": true
+    "type": "function"
   },
   {
     "inputs": [
@@ -329,11 +294,6 @@
         "internalType": "contract IERC20",
         "name": "_lpToken",
         "type": "address"
-      },
-      {
-        "internalType": "uint256",
-        "name": "_maxAmountLimit",
-        "type": "uint256"
       },
       {
         "internalType": "uint256",
@@ -374,7 +334,7 @@
         "type": "address"
       }
     ],
-    "name": "pendingwanWan",
+    "name": "pendingReward",
     "outputs": [
       {
         "internalType": "uint256",
@@ -388,8 +348,7 @@
       }
     ],
     "stateMutability": "view",
-    "type": "function",
-    "constant": true
+    "type": "function"
   },
   {
     "inputs": [
@@ -446,9 +405,14 @@
         "internalType": "address payable",
         "name": "_to",
         "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "rewardToken",
+        "type": "address"
       }
     ],
-    "name": "quitwanWan",
+    "name": "quitRewardToken",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"

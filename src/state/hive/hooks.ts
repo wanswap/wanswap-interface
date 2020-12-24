@@ -128,7 +128,7 @@ export function useStakingInfo(token?: Token | null, pid?: string | number | nul
   }, [account, lpTokenAddr])
   // get all the info from the staking rewards contracts
 
-  const earnedAmounts = useSingleContractMultipleData(bridgeMinerContract, 'pendingwanWan', userInfoParams)
+  const earnedAmounts = useSingleContractMultipleData(bridgeMinerContract, 'pendingReward', userInfoParams)
 
   return useMemo(() => {
     if (!chainId || !uni) return []
