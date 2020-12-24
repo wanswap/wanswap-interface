@@ -2,6 +2,11 @@
   {
     "inputs": [
       {
+        "internalType": "contract IERC20",
+        "name": "_wanWan",
+        "type": "address"
+      },
+      {
         "internalType": "contract IWWAN",
         "name": "_wwan",
         "type": "address"
@@ -172,6 +177,11 @@
       },
       {
         "internalType": "uint256",
+        "name": "maxAmountLimit",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
         "name": "currentSupply",
         "type": "uint256"
       },
@@ -198,6 +208,11 @@
       {
         "internalType": "uint256",
         "name": "rewardPerBlock",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "totalDebtReward",
         "type": "uint256"
       },
       {
@@ -260,6 +275,19 @@
   },
   {
     "inputs": [],
+    "name": "wanWan",
+    "outputs": [
+      {
+        "internalType": "contract IERC20",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
     "name": "wwan",
     "outputs": [
       {
@@ -294,6 +322,11 @@
         "internalType": "contract IERC20",
         "name": "_lpToken",
         "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_maxAmountLimit",
+        "type": "uint256"
       },
       {
         "internalType": "uint256",
@@ -334,7 +367,7 @@
         "type": "address"
       }
     ],
-    "name": "pendingReward",
+    "name": "pendingwanWan",
     "outputs": [
       {
         "internalType": "uint256",
@@ -395,6 +428,19 @@
       }
     ],
     "name": "emergencyWithdraw",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address payable",
+        "name": "_to",
+        "type": "address"
+      }
+    ],
+    "name": "quitwanWan",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
