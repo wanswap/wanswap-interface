@@ -101,7 +101,7 @@ export default function UniBalanceContent({ setShowUniBalanceModal }: { setShowU
                 <RowBetween>
                   <TYPE.white color="white">{t('unclaimed')}:</TYPE.white>
                   <TYPE.white color="white">
-                    {uniToClaim?.toFixed(4, { groupSeparator: ',' })}{' '}
+                    {uniToClaim?.toFixed(2, { groupSeparator: ',' })}{' '}
                   </TYPE.white>
                 </RowBetween>
               </AutoColumn>
@@ -113,7 +113,7 @@ export default function UniBalanceContent({ setShowUniBalanceModal }: { setShowU
           <AutoColumn gap="md">
             <RowBetween>
               <TYPE.white color="white">{t('waspPrice')}</TYPE.white>
-              <TYPE.white color="white">${uniPrice?.toFixed(2) ?? '-'}</TYPE.white>
+              <TYPE.white color="white">${uniPrice?.toFixed(4) ?? '-'}</TYPE.white>
             </RowBetween>
             <RowBetween>
               <TYPE.white color="white">{t('waspInCirculation')}</TYPE.white>
