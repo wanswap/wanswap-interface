@@ -25,7 +25,7 @@ const BRIDGE_TOKEN_ADDRESS: { [chainId in ChainId]: string } = {
   [ChainId.KOVAN]: '0x0A3B082C1ceDa3d35E5baD2776c5a5236044A03D'
 }
 const HIVE_ADDRESS: { [chainId in ChainId]: string } = {
-  [ChainId.MAINNET]: '',
+  [ChainId.MAINNET]: '0x93f98C2216B181846e1C92e7Deb06911373e1f37',
   [ChainId.ROPSTEN]: '0xcc1E39c4e2c3cd2DA61ad6511cf9Be69F410DF82',
   [ChainId.RINKEBY]: '0xA45b10Df50D6d0Bb4733Dd54E52fB4CefEc34E38',
   [ChainId.GÖRLI]: '0xA45b10Df50D6d0Bb4733Dd54E52fB4CefEc34E38',
