@@ -131,7 +131,7 @@ export default function HiveCard({ stakingInfo, i }: { stakingInfo: StakingInfo;
               </span>
               {`${stakingInfo.rewardRate
                 ?.multiply(`${60 * 60 * 24 * 7 / 5}`)
-                ?.toFixed(0, { groupSeparator: ',' })} WAN / week`}
+                ?.toFixed(4, { groupSeparator: ',' })} WAN / week`}
             </TYPE.black>
           </BottomSection>
         </>

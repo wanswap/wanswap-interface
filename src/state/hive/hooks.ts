@@ -157,11 +157,14 @@ export function useStakingInfo(token?: Token | null, pid?: string | number | nul
       const endBlock = poolInfo[index] ? poolInfo[index].result?.bonusEndBlock : 0;
       const totalSupplies = poolInfo[index] ? poolInfo[index].result?.currentSupply : 0;
 
-      let rewardRate = new TokenAmount(WETH[chainId], rewardRates.result?.rewardPerBlock)
+      let totalRewardRate = new TokenAmount(WETH[chainId], rewardRates.result?.rewardPerBlock)
       if (currentBlockNumber && (currentBlockNumber > endBlock)) {
-        rewardRate = new TokenAmount(WETH[chainId], '0')
+        totalRewardRate = new TokenAmount(WETH[chainId], '0')
       }
-      
+
+      let stakedAmount = new TokenAmount(uni, JSBI.BigInt(earnedAmounts[index]?.result?.[0] ?? 0));
+      let totalStakedAmount = new TokenAmount(uni, totalSupplies);
+      let rewardRate = new TokenAmount(WETH[chainId], totalRewardRate.multiply(stakedAmount).divide(totalStakedAmount).multiply('1000000000000000000').toFixed(0));
       // these two are dependent on account
       memo.push({
         pid: index,
@@ -170,10 +173,10 @@ export function useStakingInfo(token?: Token | null, pid?: string | number | nul
         periodFinish: currentBlockNumber? (new Date((endBlock - currentBlockNumber) * 5000 + Date.now())) : undefined,
         periodStart: currentBlockNumber? (new Date((startBlock - currentBlockNumber) * 5000 + Date.now())) : undefined,
         earnedAmount: new TokenAmount(uni, JSBI.BigInt(earnedAmounts[index]?.result?.[1] ?? 0)),
-        rewardRate: rewardRate,
-        totalRewardRate: rewardRate,
-        stakedAmount: new TokenAmount(uni, JSBI.BigInt(earnedAmounts[index]?.result?.[0] ?? 0)),
-        totalStakedAmount: new TokenAmount(uni, totalSupplies),
+        rewardRate,
+        totalRewardRate,
+        stakedAmount,
+        totalStakedAmount,
         getHypotheticalRewardRate
       })
       
