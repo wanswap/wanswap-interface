@@ -243,7 +243,7 @@ export default function ManageHive({
                   </span>
                   {stakingInfo?.rewardRate
                     ?.multiply((60 * 60 * 24 * 7/5).toString())
-                    ?.toFixed(0, { groupSeparator: ',' }) ?? '-'}
+                    ?.toFixed(4, { groupSeparator: ',' }) ?? '-'}
                   {' WAN / week'}
                 </TYPE.black>
               </RowBetween>
