@@ -10,7 +10,7 @@
       "name": "WASP",
       "symbol": "WASP",
       "decimals": 18,
-      "logoURI": "https://www.wanscan.org/img/tokens/0x8b9f9f4aa70b1b0d586be8adfb19c1ac38e05e9a.png"
+      "logoURI": "https://raw.githubusercontent.com/wanswap/token-list/main/icons/wanUSDC.png"
     },
     {
       "chainId": 1,
@@ -66,7 +66,7 @@
       "name": "wanUSDC",
       "symbol": "wanUSDC",
       "decimals": 6,
-      "logoURI": "https://www.wanscan.org/img/tokens/0x52a9cea01c4cbdd669883e41758b8eb8e8e2b34b.png"
+      "logoURI": "https://raw.githubusercontent.com/wanswap/token-list/main/icons/wanUSDC.png"
     },
     {
       "chainId": 3,
