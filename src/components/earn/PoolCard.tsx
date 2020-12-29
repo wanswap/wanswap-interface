@@ -15,6 +15,8 @@ import { useTotalSupply } from '../../data/TotalSupply'
 import { usePair } from '../../data/Reserves'
 import useUSDCPrice from '../../utils/useUSDCPrice'
 import { useTranslation } from 'react-i18next'
+import { WASP } from '../../constants'
+import { useActiveWeb3React } from '../../hooks'
 
 const StatContainer = styled.div`
   display: flex;
@@ -116,6 +118,13 @@ export default function PoolCard({ stakingInfo }: { stakingInfo: StakingInfo }) 
   const USDPrice = useUSDCPrice(WETH)
   const valueOfTotalStakedAmountInUSDC =
     valueOfTotalStakedAmountInWETH && USDPrice?.quote(valueOfTotalStakedAmountInWETH)
+  
+  const { chainId } = useActiveWeb3React()
+  const uni = chainId ? WASP[chainId] : undefined
+  const uniPrice = useUSDCPrice(uni)
+  const weekReward = stakingInfo.totalRewardRate?.multiply(`${60 * 60 * 24 * 7}`)?.toFixed(0)
+  const apy = valueOfTotalStakedAmountInUSDC && weekReward && uniPrice ? (Number(weekReward) * Number(uniPrice?.toFixed(8)) / Number(valueOfTotalStakedAmountInUSDC.toFixed(0)) / 7 * 365 * 100).toFixed(0) : '--' 
+
 
   return (
     <Wrapper showBackground={isStaking} bgColor={backgroundColor}>
@@ -140,7 +149,7 @@ export default function PoolCard({ stakingInfo }: { stakingInfo: StakingInfo }) 
           <TYPE.white>{t('totalDeposited')}</TYPE.white>
           <TYPE.white>
             {valueOfTotalStakedAmountInUSDC
-              ? `$${valueOfTotalStakedAmountInUSDC.toFixed(0, { groupSeparator: ',' })}`
+              ? `$${valueOfTotalStakedAmountInUSDC.toFixed(0, { groupSeparator: ',' })} 🔥 APY: ${apy}%`
               //  +
               //   ' / ' +
               //   `${valueOfTotalStakedAmountInWLSP?.toSignificant(6, { groupSeparator: ',' }) ?? '-'} WSLP`
