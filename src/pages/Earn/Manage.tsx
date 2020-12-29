@@ -253,7 +253,7 @@ export default function Manage({
                 <RowBetween>
                   <TYPE.white fontWeight={600}>Your liquidity deposits</TYPE.white>
                 </RowBetween>
-                <RowBetween style={{ alignItems: 'baseline', display:'flex',flexWrap:'wrap' }}>
+                <RowBetween style={{ alignItems: 'center', display:'flex',flexWrap:'wrap' }}>
                   <TYPE.white fontSize={36} fontWeight={600}>
                     {stakingInfo?.stakedAmount?.toSignificant(6) ?? '-'}
                   </TYPE.white>
@@ -284,7 +284,7 @@ export default function Manage({
                   </ButtonEmpty>
                 )}
               </RowBetween>
-              <RowBetween style={{ alignItems: 'baseline', display:'flex',flexWrap:'wrap' }}>
+              <RowBetween style={{ alignItems: 'center', display:'flex',flexWrap:'wrap' }}>
                 <TYPE.largeHeader fontSize={36} fontWeight={600}>
                   <CountUp
                     key={countUpAmount}

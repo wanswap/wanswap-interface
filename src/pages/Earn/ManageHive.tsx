@@ -194,7 +194,7 @@ export default function ManageHive({
                 <RowBetween>
                   <TYPE.white fontWeight={600}>Your WASP deposits</TYPE.white>
                 </RowBetween>
-                <RowBetween style={{ alignItems: 'baseline', display:'flex',flexWrap:'wrap' }}>
+                <RowBetween style={{ alignItems: 'center', display:'flex',flexWrap:'wrap' }}>
                   <TYPE.white fontSize={36} fontWeight={600}>
                     {stakingInfo?.stakedAmount?.toSignificant(6) ?? '-'}
                   </TYPE.white>
@@ -225,7 +225,7 @@ export default function ManageHive({
                   </ButtonEmpty>
                 )}
               </RowBetween>
-              <RowBetween style={{ alignItems: 'baseline', display:'flex',flexWrap:'wrap' }}>
+              <RowBetween style={{ alignItems: 'center', display:'flex',flexWrap:'wrap' }}>
                 <TYPE.largeHeader fontSize={36} fontWeight={600}>
                   <CountUp
                     key={countUpAmount}
