@@ -70,11 +70,11 @@ const PoolData = styled(DataCard)`
 
 const DataRow = styled(RowBetween)`
   justify-content: center;
-  gap: 12px;
+  grid-gap: 12px;
 
   ${({ theme }) => theme.mediaWidth.upToSmall`
     flex-direction: column;
-    gap: 12px;
+    grid-gap: 12px;
   `};
 `
 

@@ -34,14 +34,14 @@ const VoteCard = styled(DataCard)`
 const TitleRow = styled(RowBetween)`
   ${({ theme }) => theme.mediaWidth.upToSmall`
     flex-wrap: wrap;
-    gap: 12px;
+    grid-gap: 12px;
     width: 100%;
     flex-direction: column-reverse;
   `};
 `
 
 const ButtonRow = styled(RowFixed)`
-  gap: 8px;
+  grid-gap: 8px;
   ${({ theme }) => theme.mediaWidth.upToSmall`
     width: 100%;
     flex-direction: row-reverse;

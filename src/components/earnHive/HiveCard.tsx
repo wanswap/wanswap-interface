@@ -18,7 +18,7 @@ const StatContainer = styled.div`
   display: flex;
   justify-content: space-between;
   flex-direction: column;
-  gap: 12px;
+  grid-gap: 12px;
   margin-bottom: 1rem;
   margin-right: 1rem;
   margin-left: 1rem;

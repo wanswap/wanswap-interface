@@ -39,7 +39,7 @@ const ProposalInfo = styled(AutoColumn)`
 const ArrowWrapper = styled(StyledInternalLink)`
   display: flex;
   align-items: center;
-  gap: 8px;
+  grid-gap: 8px;
   height: 24px;
   color: ${({ theme }) => theme.text1};
 
@@ -54,7 +54,7 @@ const ArrowWrapper = styled(StyledInternalLink)`
 const CardWrapper = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 12px;
+  grid-gap: 12px;
   width: 100%;
 `
 
