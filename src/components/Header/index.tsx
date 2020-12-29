@@ -419,7 +419,7 @@ export default function Header() {
               <CardNoise />
             </UNIWrapper>
           )}
-          <AccountElement active={!!account} style={{ pointerEvents: 'auto' }}>
+          <AccountElement active={!!account} style={{ pointerEvents: 'auto' }} >
             {account && userEthBalance ? (
               <BalanceText style={{ flexShrink: 0 }} pl="0.75rem" pr="0.5rem" fontWeight={500}>
                 {userEthBalance?.toSignificant(4)} WAN

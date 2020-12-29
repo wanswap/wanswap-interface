@@ -96,6 +96,7 @@ const Text = styled.p`
   font-size: 1rem;
   width: fit-content;
   font-weight: 500;
+  max-width:80px;
 `
 
 const NetworkIcon = styled(Activity)`
@@ -197,7 +198,7 @@ export default function Web3Status() {
 
   return (
     <>
-      <Web3StatusInner />
+      <Web3StatusInner  />
       <WalletModal ENSName={ENSName ?? undefined} pendingTransactions={pending} confirmedTransactions={confirmed} />
     </>
   )
