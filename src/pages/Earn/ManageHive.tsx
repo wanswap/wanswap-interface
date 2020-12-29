@@ -139,7 +139,7 @@ export default function ManageHive({
         <TYPE.mediumHeader style={{ margin: 0 }}>
           {currencyA?.symbol} in Hive
         </TYPE.mediumHeader>
-        <CurrencyLogo currency={currencyA ?? undefined} size={'24px'} />
+        <CurrencyLogo currency={currencyA ?? undefined} size={'40px'} />
       </RowBetween>
 
       <DataRow style={{ gap: '24px' }}>
