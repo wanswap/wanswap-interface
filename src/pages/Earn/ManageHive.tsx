@@ -258,14 +258,15 @@ export default function ManageHive({
         </TYPE.main>
 
         {!showAddLiquidityButton && (
-          <DataRow style={{ marginBottom: '1rem' }}>
-            <ButtonPrimary padding="8px" borderRadius="8px" width="260px" onClick={handleDepositClick}>
+          <DataRow style={{ marginBottom: '1rem',gap:0 }}>
+            <ButtonPrimary padding="8px" borderRadius="8px" width="260px"  margin="6px" onClick={handleDepositClick}>
               {stakingInfo?.stakedAmount?.greaterThan(JSBI.BigInt(0)) ? 'Deposit' : 'Deposit WASP Tokens'}
             </ButtonPrimary>
 
             {stakingInfo?.stakedAmount?.greaterThan(JSBI.BigInt(0)) && (
               <>
                 <ButtonPrimary
+                   margin="6px"
                   padding="8px"
                   borderRadius="8px"
                   width="260px"

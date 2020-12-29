@@ -90,7 +90,6 @@ const HeaderControls = styled.div`
 const HeaderElement = styled.div`
   display: flex;
   align-items: center;
-  grid-gap: 8px;
 
   ${({ theme }) => theme.mediaWidth.upToMedium`
    flex-direction: row-reverse;
@@ -148,7 +147,7 @@ const UNIWrapper = styled.span`
   width: fit-content;
   position: relative;
   cursor: pointer;
-
+  margin:0 8px;
   :hover {
     opacity: 0.8;
   }
@@ -160,7 +159,7 @@ const UNIWrapper = styled.span`
 
 const HideSmall = styled.span`
   ${({ theme }) => theme.mediaWidth.upToSmall`
-    display: none;
+    /*display: none;*/
   `};
 `
 

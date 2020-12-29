@@ -317,14 +317,15 @@ export default function Manage({
         </TYPE.main>
 
         {!showAddLiquidityButton && (
-          <DataRow style={{ marginBottom: '1rem' }}>
-            <ButtonPrimary padding="8px" borderRadius="8px" width="160px" onClick={handleDepositClick}>
+          <DataRow style={{ marginBottom: '1rem', gap:0 }}>
+            <ButtonPrimary padding="8px" borderRadius="8px" width="160px" margin="6px" onClick={handleDepositClick}>
               {stakingInfo?.stakedAmount?.greaterThan(JSBI.BigInt(0)) ? 'Deposit' : 'Deposit WSLP Tokens'}
             </ButtonPrimary>
 
             {stakingInfo?.stakedAmount?.greaterThan(JSBI.BigInt(0)) && (
               <>
                 <ButtonPrimary
+                   margin="6px"
                   padding="8px"
                   borderRadius="8px"
                   width="160px"
