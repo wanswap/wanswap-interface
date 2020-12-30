@@ -23,7 +23,20 @@
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
+    <script type="text/javascript">
+      // Add for support Andriod7
+      if (!Object.entries) {
+        Object.entries = function( obj ){
+          var ownProps = Object.keys( obj ),
+              i = ownProps.length,
+              resArray = new Array(i); // preallocate the Array
+          while (i--)
+            resArray[i] = [ownProps[i], obj[ownProps[i]]];
 
+          return resArray;
+        };
+      }
+    </script>
     <title>WanSwap - The Cross-chain AMM DEX</title>
   </head>
   <body>
