@@ -74,6 +74,12 @@ const BottomSection = styled.div<{ showBackground: boolean }>`
   z-index: 1;
 `
 
+declare global {
+  interface Window {
+    tvlItems: any;
+  }
+}
+
 export default function PoolCard({ stakingInfo }: { stakingInfo: StakingInfo }) {
   const token0 = stakingInfo.tokens[0]
   const token1 = stakingInfo.tokens[1]
@@ -91,6 +97,7 @@ export default function PoolCard({ stakingInfo }: { stakingInfo: StakingInfo }) 
 
   const totalSupplyOfStakingToken = useTotalSupply(stakingInfo.stakedAmount.token)
   const [, stakingTokenPair] = usePair(...stakingInfo.tokens)
+
 
   // let returnOverMonth: Percent = new Percent('0')
   let valueOfTotalStakedAmountInWETH: TokenAmount | undefined
@@ -125,6 +132,12 @@ export default function PoolCard({ stakingInfo }: { stakingInfo: StakingInfo }) 
   const weekReward = stakingInfo.totalRewardRate?.multiply(`${60 * 60 * 24 * 7}`)?.toFixed(0)
   const apy = valueOfTotalStakedAmountInUSDC && weekReward && uniPrice ? (Number(weekReward) * Number(uniPrice?.toFixed(8)) / Number(valueOfTotalStakedAmountInUSDC.toFixed(0)) / 7 * 365 * 100).toFixed(0) : '--' 
 
+  if (valueOfTotalStakedAmountInUSDC && stakingTokenPair) {
+    if (!window.tvlItems) {
+      window.tvlItems = {}
+    }
+    window.tvlItems[stakingTokenPair!.liquidityToken.address] = valueOfTotalStakedAmountInUSDC.toFixed(0)
+  }
 
   return (
     <Wrapper showBackground={isStaking} bgColor={backgroundColor}>

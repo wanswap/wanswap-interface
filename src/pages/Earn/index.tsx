@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { AutoColumn } from '../../components/Column'
 import styled from 'styled-components'
 import { useAllStakingRewardsInfo, useStakingInfo } from '../../state/stake/hooks'
@@ -9,6 +9,7 @@ import { CardSection, DataCard, CardNoise, CardBGImage } from '../../components/
 import { Countdown } from './Countdown'
 import Loader from '../../components/Loader'
 import { useActiveWeb3React } from '../../hooks'
+import { Token, TokenAmount } from '@wanswap/sdk'
 
 const PageWrapper = styled(AutoColumn)`
   max-width: 640px;
@@ -28,6 +29,11 @@ const PoolSection = styled.div`
   width: 100%;
   justify-self: center;
 `
+declare global {
+  interface Window {
+    tvlItems: any;
+  }
+}
 
 export default function Earn() {
   const { chainId } = useActiveWeb3React()
@@ -41,6 +47,33 @@ export default function Earn() {
   `
 
   const stakingRewardsExist = Boolean(typeof chainId === 'number' && (stakingRewardsInfo[chainId]?.length ?? 0) > 0)
+
+  const [tvlValue, setTvlValue] = useState('loading TVL...')
+  useEffect(()=>{
+    let timer = setInterval(()=>{
+      let tvl = 0;
+      let hive;
+      for (const key in window.tvlItems) {
+        const element = window.tvlItems[key];
+        tvl += Number(element)
+        if (key === 'hive') {
+          hive = true;
+        }
+      }
+
+      if (tvl === 0) {
+        return;
+      }
+
+      const amount = new TokenAmount(new Token(1, '0x4Cf0A877E906DEaD748A41aE7DA8c220E4247D9e', 0), tvl.toString())
+      // 
+      setTvlValue('TVL: $' + amount.toFixed(0, {groupSeparator: ','}) + ' ' + (hive ? '(In Farming and Hive)' : '(In Farming)'));
+    }, 2000)
+
+    return () => {
+      clearInterval(timer)
+    }
+  }, []);
 
   return (
     <PageWrapper gap="lg" justify="center">
@@ -65,6 +98,9 @@ export default function Earn() {
               >
                 <TYPE.white fontSize={14}>Read more about WASP</TYPE.white>
               </ExternalLink>
+              <RowBetween>
+                <TYPE.white fontWeight={600}>{tvlValue}</TYPE.white>
+              </RowBetween>
             </AutoColumn>
           </CardSection>
           <CardBGImage />

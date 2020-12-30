@@ -13,6 +13,9 @@ import { unwrappedToken } from '../../utils/wrappedCurrency'
 import { useTranslation } from 'react-i18next'
 import DoubleCurrencyLogo from '../DoubleLogo'
 import { Countdown } from '../../pages/Hive/Countdown'
+import useUSDCPrice from '../../utils/useUSDCPrice'
+import { useActiveWeb3React } from '../../hooks'
+import { WASP } from '../../constants'
 
 const StatContainer = styled.div`
   display: flex;
@@ -70,6 +73,12 @@ const BottomSection = styled.div<{ showBackground: boolean }>`
   z-index: 1;
 `
 
+declare global {
+  interface Window {
+    tvlItems: any;
+  }
+}
+
 export default function HiveCard({ stakingInfo, i }: { stakingInfo: StakingInfo; i: number }) {
   const token0 = stakingInfo.tokens[0]
   const token1 = stakingInfo.tokens[1]
@@ -82,6 +91,18 @@ export default function HiveCard({ stakingInfo, i }: { stakingInfo: StakingInfo;
   // get the color of the token
   const token = currency0 === ETHER ? token1 : token0
   const backgroundColor = useColor(token)
+
+  const { chainId } = useActiveWeb3React()
+  const uni = chainId ? WASP[chainId] : undefined
+
+  const uniPrice = useUSDCPrice(uni)
+
+  if (stakingInfo && uniPrice) {
+    if (!window.tvlItems) {
+      window.tvlItems = {}
+    }
+    window.tvlItems['hive'] = (Number(stakingInfo?.totalStakedAmount.toFixed(0)) * Number(uniPrice.toFixed(8))).toFixed(0)
+  }
 
   return (
     <Wrapper showBackground={isStaking} bgColor={backgroundColor}>
