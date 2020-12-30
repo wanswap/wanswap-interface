@@ -13,7 +13,7 @@ export default memo(function SwapRoute({ trade }: { trade: Trade }) {
       px="1rem"
       py="0.5rem"
       my="0.5rem"
-      style={{ border: `1px solid #FFFFFF80`, borderRadius: '1rem' }}
+      style={{ border: `0px`, borderRadius: '1rem' }}
       flexWrap="wrap"
       width="100%"
       justifyContent="center"
