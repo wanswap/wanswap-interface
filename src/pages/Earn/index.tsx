@@ -98,14 +98,27 @@ export default function Earn() {
               >
                 <TYPE.white fontSize={14}>Read more about WASP</TYPE.white>
               </ExternalLink>
+             
+            </AutoColumn>
+          </CardSection>
+          <CardBGImage />
+          <CardNoise />
+        </DataCard>
+
+        <DataCard>
+          <CardBGImage />
+          <CardNoise />
+          <CardSection>
+            <AutoColumn gap="md">
               <RowBetween>
-                <TYPE.white fontWeight={600}>{tvlValue}</TYPE.white>
+                <TYPE.white fontWeight={600} style={{margin:'0 auto'}}>{tvlValue}</TYPE.white>
               </RowBetween>
             </AutoColumn>
           </CardSection>
           <CardBGImage />
           <CardNoise />
         </DataCard>
+
       </TopSection>
 
       <AutoColumn gap="lg" style={{ width: '100%', maxWidth: '720px' }}>
