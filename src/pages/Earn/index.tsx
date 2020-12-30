@@ -48,7 +48,7 @@ export default function Earn() {
 
   const stakingRewardsExist = Boolean(typeof chainId === 'number' && (stakingRewardsInfo[chainId]?.length ?? 0) > 0)
 
-  const [tvlValue, setTvlValue] = useState('')
+  const [tvlValue, setTvlValue] = useState('TVL: loading...')
   useEffect(()=>{
     let timer = setInterval(()=>{
       let tvl = 0;
