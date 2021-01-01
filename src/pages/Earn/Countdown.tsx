@@ -63,7 +63,7 @@ export function Countdown({ exactEnd, exactStart }: { exactEnd?: Date; exactStar
         {message}{' '}
         {Number.isFinite(timeRemaining) && (
           <code>
-           <b>{'1 year+'}</b>
+           <b>{'>1 year'}</b>
           </code>
         )}
       </TYPE.black>
