@@ -56,6 +56,19 @@ export function Countdown({ exactEnd, exactStart }: { exactEnd?: Date; exactStar
   timeRemaining -= minutes * MINUTE
   const seconds = timeRemaining
 
+  if (days >= 365)
+  {
+    return (
+      <TYPE.black fontWeight={400}>
+        {message}{' '}
+        {Number.isFinite(timeRemaining) && (
+          <code>
+           <b>{'1 year+'}</b>
+          </code>
+        )}
+      </TYPE.black>
+    )
+  }
   return (
     <TYPE.black fontWeight={400}>
       {message}{' '}

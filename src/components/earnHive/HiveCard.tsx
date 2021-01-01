@@ -111,8 +111,8 @@ export default function HiveCard({ stakingInfo, i }: { stakingInfo: StakingInfo;
 
       <TopSection>
         <DoubleCurrencyLogo currency0={currency0} currency1={ETHER} size={24} />
-        <TYPE.white fontWeight={600} fontSize={24} style={{ marginLeft: '8px' }}>
-          {currency0.symbol + ' -> ' + ETHER.symbol + " #" + (i+1)}
+        <TYPE.white fontWeight={600} fontSize={18} style={{ marginLeft: '8px' }}>
+          {currency0.symbol + ' → ' + ETHER.symbol + " #" + (i+1)}
           <Countdown exactEnd={stakingInfo?.periodFinish} exactStart={stakingInfo?.periodStart} />
         </TYPE.white>
 
