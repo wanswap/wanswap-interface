@@ -115,6 +115,10 @@ export default function Menu() {
             <BookOpen size={14} />
             Docs
           </MenuItem>
+          <MenuItem id="link" href="https://github.com/wanswap/wanswap-interface/discussions">
+            <BookOpen size={14} />
+            Discussions
+          </MenuItem>
           <MenuItem id="link" href="https://github.com/wanswap">
             <Code size={14} />
             Code
