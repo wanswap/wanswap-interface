@@ -8,7 +8,7 @@ import { WrappedTokenInfo } from '../../state/lists/hooks'
 import Logo from '../Logo'
 
 const getTokenLogoURL = (address: string) =>
-  (`https://www.wanscan.org/img/tokens/${address}.png`).toLowerCase()
+  (`https://token-icons.vercel.app/tokens/${address}.png`).toLowerCase()
 
 const StyledEthereumLogo = styled.img<{ size: string }>`
  

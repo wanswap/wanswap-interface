@@ -9,7 +9,7 @@ async function getColorFromToken(token: Token): Promise<string | null> {
     return Promise.resolve('#FAAB14')
   }
 
-  const path =  (`https://www.wanscan.org/img/tokens/${token.address}.png`).toLowerCase()
+  const path =  (`https://token-icons.vercel.app/tokens/${token.address}.png`).toLowerCase()
 
   return Vibrant.from(path)
     .getPalette()
