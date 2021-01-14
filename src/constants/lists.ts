@@ -3,8 +3,8 @@
 export const DEFAULT_TOKEN_LIST_URL = 'https://wanswap.finance/wanswap.tokenlist.json'
 
 export const DEFAULT_LIST_OF_LISTS: string[] = [
-  // DEFAULT_TOKEN_LIST_URL,
+  DEFAULT_TOKEN_LIST_URL,
   // 'https://raw.githubusercontent.com/compound-finance/token-list/master/compound.tokenlist.json',
   // 'https://umaproject.org/uma.tokenlist.json'
-  'https://wanswap.finance/wanswap.tokenlist.json',
+  // 'https://wanswap.finance/wanswap.tokenlist.json',
 ]
