@@ -23,6 +23,7 @@ export const USDT1 = new Token(ChainId.ROPSTEN, '0x3d5950287b45f361774e5fb6e50d7
 
 export const wanBTC = new Token(ChainId.MAINNET, '0xd15e200060fc17ef90546ad93c1c61bfefdc89c7', 8, 'wanBTC', 'wanBTC')
 export const wanETH = new Token(ChainId.MAINNET, '0xe3ae74d1518a76715ab4c7bedf1af73893cd435a', 18, 'wanETH', 'wanETH')
+export const wanLINK = new Token(ChainId.MAINNET, '0x06da85475f9d2ae79af300de474968cd5a4fde61', 18, 'wanLINK', 'wanLINK');
 
 // TODO this is only approximate, it's actually based on blocks
 export const PROPOSAL_LENGTH_IN_DAYS = 7
@@ -63,7 +64,7 @@ const WETH_ONLY: ChainTokenList = {
 // used to construct intermediary pairs for trading
 export const BASES_TO_CHECK_TRADES_AGAINST: ChainTokenList = {
   ...WETH_ONLY,
-  [ChainId.MAINNET]: [...WETH_ONLY[ChainId.MAINNET], DAI, USDC, USDT, COMP, MKR]
+  [ChainId.MAINNET]: [...WETH_ONLY[ChainId.MAINNET], DAI, USDC, USDT, COMP, wanLINK]
 }
 
 /**
@@ -85,7 +86,7 @@ export const SUGGESTED_BASES: ChainTokenList = {
 // used to construct the list of all pairs we consider by default in the frontend
 export const BASES_TO_TRACK_LIQUIDITY_FOR: ChainTokenList = {
   ...WETH_ONLY,
-  [ChainId.MAINNET]: [...WETH_ONLY[ChainId.MAINNET], wanBTC, wanETH, USDC, USDT]
+  [ChainId.MAINNET]: [...WETH_ONLY[ChainId.MAINNET], wanBTC, wanETH, USDC, USDT, wanLINK]
 }
 
 export const PINNED_PAIRS: { readonly [chainId in ChainId]?: [Token, Token][] } = {
