@@ -76,6 +76,14 @@
       "decimals": 18,
       "logoURI": "https://token-icons.vercel.app/icon/wanLINK.png"
     },
+    {
+      "chainId": 1,
+      "address": "0x73eaa7431b11b1e7a7d5310de470de09883529df",
+      "name": "wanUNI",
+      "symbol": "wanUNI",
+      "decimals": 18,
+      "logoURI": "https://token-icons.vercel.app/icon/UNI.png"
+    },
 
 
     {
@@ -137,7 +145,7 @@
   ],
   "version": {
     "major": 1,
-    "minor": 0,
+    "minor": 1,
     "patch": 0
   }
 }
