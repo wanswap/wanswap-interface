@@ -3580,10 +3580,10 @@
     "@wansproject/properties" "^5.0.4"
     "@wansproject/strings" "^5.0.5"
 
-"@wanswap/sdk@3.0.13":
-  version "3.0.13"
-  resolved "https://registry.yarnpkg.com/@wanswap/sdk/-/sdk-3.0.13.tgz#601eb32275c7aba61242f0028157813a89b94fa4"
-  integrity sha512-o5sEYIHF94ZMmxMIVxvgAEvAl2Cs2Aiu5kIMr6HcpaHy/mJVVxnF4wwSy2lPrHRx4G1QZUcNhJXX7UMT6VWiPg==
+"@wanswap/sdk@3.0.14":
+  version "3.0.14"
+  resolved "https://registry.yarnpkg.com/@wanswap/sdk/-/sdk-3.0.14.tgz#f8b30d6da1544e9a4d2be7de7ed7ab67765b607d"
+  integrity sha512-d2PdL3lqn5m2AEIbWMClmid1AIZOGlFXOYo7fbhG6w9dp5TbgV+6sNJORqAZpRFSnMjS+dr9Av05GpAqtq0yzQ==
   dependencies:
     "@uniswap/v2-core" "^1.0.0"
     "@wansproject/address" "^5.0.5"
@@ -3668,10 +3668,10 @@
     "@web3-react-wan/types" "^6.1.7"
     tiny-invariant "^1.0.6"
 
-"@web3-react-wan/wanwallet-connector@^6.1.15":
-  version "6.1.15"
-  resolved "https://registry.yarnpkg.com/@web3-react-wan/wanwallet-connector/-/wanwallet-connector-6.1.15.tgz#2a9fc0734a69a70b4df55b7b460e4280b5c282b7"
-  integrity sha512-vSic7KaV4gjycAWwhHvdtQ6i0OPq9Uy7B0tHcpr6HyzoM0C+OSX4WZHtoRxpY91zL4EiKQty0uho4EKk9fUj5w==
+"@web3-react-wan/wanwallet-connector@^6.1.17":
+  version "6.1.17"
+  resolved "https://registry.yarnpkg.com/@web3-react-wan/wanwallet-connector/-/wanwallet-connector-6.1.17.tgz#bd606cbc9de3dc98423a4543cedb0cd0e8dc8408"
+  integrity sha512-yk2PM4E9hBto/wUsbsaeyDi6c5qGoR2h0O1/MW4WJn4tueQDm+9+qE5489KUplDF+ZcOF+4ZkCk70g6BlL/j4Q==
   dependencies:
     "@0x/subproviders" "^5.0.4"
     "@wanswap/subproviders" "^0.0.1"
