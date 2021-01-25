@@ -117,6 +117,7 @@ export default function HiveCard({ stakingInfo, i }: { stakingInfo: StakingInfo;
         </TYPE.white>
 
         <StyledInternalLink to={`/hive/${currencyId(currency0)}/${i}`} style={{ width: '100%',color:'transparent' }}>
+          
           <ButtonPrimary padding="8px" borderRadius="8px">
             {isStaking ? 'Manage' : 'Deposit'}
           </ButtonPrimary>

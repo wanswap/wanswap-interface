@@ -59,22 +59,24 @@ export function Countdown({ exactEnd, exactStart }: { exactEnd?: Date; exactStar
 
   return (
     <TYPE.black fontWeight={400} fontSize={'17px'}>
-      {message}{' '}
+      
       {
         message.includes('ended') && <SpanFinished>Finished</SpanFinished>
       }
       {Number.isFinite(timeRemaining) && (
         <code>
-          {`${days}:${hours.toString().padStart(2, '0')}:${minutes
-            .toString()
-            .padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`}
+          
         </code>
       )}
       {
-        message.includes('end in') && <SpanActive>Active</SpanActive>
+        message.includes('end in') && <SpanActive>{message}{' '} {`${days}:${hours.toString().padStart(2, '0')}:${minutes
+          .toString()
+          .padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`}</SpanActive>
       }
       {
-        message.includes('begin in') && <SpanPending>Pending</SpanPending>
+        message.includes('begin in') && <SpanPending>Rewards start in {`${days}:${hours.toString().padStart(2, '0')}:${minutes
+          .toString()
+          .padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`}</SpanPending>
       }
     </TYPE.black>
   )
@@ -82,28 +84,22 @@ export function Countdown({ exactEnd, exactStart }: { exactEnd?: Date; exactStar
 
 
 const SpanFinished = styled.span`
-  background: #1a4b80;
-  padding: 10px 20px 10px 20px;
+  background: #d15458;
+  padding: 5px 10px;
   border-radius: 15px;
-  margin-left: 120px;
-  top: 10px;
-  margin-top: 20px;
+  font-size: 10px;
 `;
 
 const SpanActive = styled.span`
-  background: #1a4b80;
-  padding: 10px 20px 10px 20px;
-  border-radius: 15px;
-  margin-left: 200px;
-  top: 10px;
-  margin-top: 20px;
+background: #54d186;
+padding: 5px 10px;
+border-radius: 15px;
+font-size: 10px;
 `;
 
 const SpanPending = styled.span`
-  background: #1a4b80;
-  padding: 10px 20px 10px 20px;
-  border-radius: 15px;
-  margin-left: 200px;
-  top: 10px;
-  margin-top: 20px;
+background: #1a4b80;
+padding: 5px 10px;
+border-radius: 15px;
+font-size: 10px;
 `;
