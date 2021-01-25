@@ -164,7 +164,7 @@ export function useStakingInfo(token?: Token | null, pid?: string | number | nul
 
       let stakedAmount = new TokenAmount(uni, JSBI.BigInt(earnedAmounts[index]?.result?.[0] ?? 0));
       let totalStakedAmount = new TokenAmount(uni, totalSupplies);
-      let rewardRate = new TokenAmount(WETH[chainId], totalRewardRate.multiply(stakedAmount).divide(totalStakedAmount).multiply('1000000000000000000').toFixed(0));
+      let rewardRate = new TokenAmount(WETH[chainId], totalStakedAmount.greaterThan('0') ? totalRewardRate.multiply(stakedAmount).divide(totalStakedAmount).multiply('1000000000000000000').toFixed(0) : '0');
       // these two are dependent on account
       memo.push({
         pid: index,
