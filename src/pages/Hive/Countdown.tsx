@@ -36,12 +36,12 @@ export function Countdown({ exactEnd, exactStart }: { exactEnd?: Date; exactStar
   let timeRemaining: number
   let message: string
   if (timeUntilGenesis >= 0) {
-    message = 'Rewards begin in'
+    message = 'Start in'
     timeRemaining = timeUntilGenesis
   } else {
     const ongoing = timeUntilEnd >= 0
     if (ongoing) {
-      message = 'Rewards end in'
+      message = 'End in'
       timeRemaining = timeUntilEnd
     } else {
       message = 'Rewards have ended!'
@@ -61,7 +61,7 @@ export function Countdown({ exactEnd, exactStart }: { exactEnd?: Date; exactStar
     <TYPE.black fontWeight={400} fontSize={'17px'}>
       
       {
-        message.includes('ended') && <SpanFinished>Inactive: Finished</SpanFinished>
+        message.includes('ended') && <SpanFinished>Inactive</SpanFinished>
       }
       {Number.isFinite(timeRemaining) && (
         <code>
@@ -69,12 +69,12 @@ export function Countdown({ exactEnd, exactStart }: { exactEnd?: Date; exactStar
         </code>
       )}
       {
-        message.includes('end in') && <SpanActive>{'Active: ' + message}{' '} {`${days}:${hours.toString().padStart(2, '0')}:${minutes
+        message.includes('End in') && <SpanActive>{'Active: ' + message}{' '} {`${days}:${hours.toString().padStart(2, '0')}:${minutes
           .toString()
           .padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`}</SpanActive>
       }
       {
-        message.includes('begin in') && <SpanPending>Pending: Rewards start in {`${days}:${hours.toString().padStart(2, '0')}:${minutes
+        message.includes('Start in') && <SpanPending>Pending: Start in {`${days}:${hours.toString().padStart(2, '0')}:${minutes
           .toString()
           .padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`}</SpanPending>
       }
