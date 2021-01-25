@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react'
 import { STAKING_GENESIS, REWARDS_DURATION_DAYS } from '../../state/stake/hooks'
 import { TYPE } from '../../theme'
+import styled from 'styled-components';
 
 const MINUTE = 60
 const HOUR = MINUTE * 60
@@ -59,6 +60,9 @@ export function Countdown({ exactEnd, exactStart }: { exactEnd?: Date; exactStar
   return (
     <TYPE.black fontWeight={400} fontSize={'17px'}>
       {message}{' '}
+      {
+        message.includes('ended') && <SpanFinished>Finished</SpanFinished>
+      }
       {Number.isFinite(timeRemaining) && (
         <code>
           {`${days}:${hours.toString().padStart(2, '0')}:${minutes
@@ -66,6 +70,40 @@ export function Countdown({ exactEnd, exactStart }: { exactEnd?: Date; exactStar
             .padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`}
         </code>
       )}
+      {
+        message.includes('end in') && <SpanActive>Active</SpanActive>
+      }
+      {
+        message.includes('begin in') && <SpanPending>Pending</SpanPending>
+      }
     </TYPE.black>
   )
 }
+
+
+const SpanFinished = styled.span`
+  background: #1a4b80;
+  padding: 10px 20px 10px 20px;
+  border-radius: 15px;
+  margin-left: 120px;
+  top: 10px;
+  margin-top: 20px;
+`;
+
+const SpanActive = styled.span`
+  background: #1a4b80;
+  padding: 10px 20px 10px 20px;
+  border-radius: 15px;
+  margin-left: 200px;
+  top: 10px;
+  margin-top: 20px;
+`;
+
+const SpanPending = styled.span`
+  background: #1a4b80;
+  padding: 10px 20px 10px 20px;
+  border-radius: 15px;
+  margin-left: 200px;
+  top: 10px;
+  margin-top: 20px;
+`;
