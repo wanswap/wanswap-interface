@@ -61,7 +61,7 @@ export function Countdown({ exactEnd, exactStart }: { exactEnd?: Date; exactStar
     <TYPE.black fontWeight={400} fontSize={'17px'}>
       
       {
-        message.includes('ended') && <SpanFinished>Finished</SpanFinished>
+        message.includes('ended') && <SpanFinished>Inactive: Finished</SpanFinished>
       }
       {Number.isFinite(timeRemaining) && (
         <code>
@@ -69,12 +69,12 @@ export function Countdown({ exactEnd, exactStart }: { exactEnd?: Date; exactStar
         </code>
       )}
       {
-        message.includes('end in') && <SpanActive>{message}{' '} {`${days}:${hours.toString().padStart(2, '0')}:${minutes
+        message.includes('end in') && <SpanActive>{'Active: ' + message}{' '} {`${days}:${hours.toString().padStart(2, '0')}:${minutes
           .toString()
           .padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`}</SpanActive>
       }
       {
-        message.includes('begin in') && <SpanPending>Rewards start in {`${days}:${hours.toString().padStart(2, '0')}:${minutes
+        message.includes('begin in') && <SpanPending>Pending: Rewards start in {`${days}:${hours.toString().padStart(2, '0')}:${minutes
           .toString()
           .padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`}</SpanPending>
       }
