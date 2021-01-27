@@ -91,7 +91,7 @@ export default function Swap() {
     inputError: swapInputError
   } = useDerivedSwapInfo()
 
-  const inputAmount = useMemo(() => tryParseAmount(typedValue, currencies[Field.INPUT]), [currencies[Field.INPUT], typedValue])
+  const inputAmount = useMemo(() => tryParseAmount(typedValue, currencies[Field.INPUT]), [currencies, typedValue])
 
   const [approvalConvert, approvalConvertCallback] = useApproveCallback(inputAmount, chainId && TOKEN_CONVERT_ADDRESS[chainId])
   console.log('approvalConvertCallback', approvalConvert)
@@ -102,7 +102,7 @@ export default function Swap() {
     currencies[Field.OUTPUT],
     typedValue
   )
-  const showConvert: boolean = convertType != ConvertType.NOT_CONVERTABLE
+  const showConvert: boolean = convertType !== ConvertType.NOT_CONVERTABLE
 
   const { wrapType, execute: onWrap, inputError: wrapInputError } = useWrapCallback(
     currencies[Field.INPUT],
