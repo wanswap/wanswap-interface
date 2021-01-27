@@ -196,7 +196,9 @@
   "receive": "Receive",
   "amount":"Amount",
   "detailed":"Detailed",
-  "simple":"Simple"
+  "simple":"Simple",
+  "convert":"Convert",
+  "revert":"Revert"
 
 
 

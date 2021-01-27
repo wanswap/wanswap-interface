@@ -24,7 +24,7 @@ import { BETTER_TRADE_LINK_THRESHOLD, INITIAL_ALLOWED_SLIPPAGE } from '../../con
 import { getTradeVersion, isTradeBetter } from '../../data/V1'
 import { useActiveWeb3React } from '../../hooks'
 import { useCurrency } from '../../hooks/Tokens'
-import { ApprovalState, useApproveCallbackFromTrade } from '../../hooks/useApproveCallback'
+import { ApprovalState, useApproveCallback, useApproveCallbackFromTrade } from '../../hooks/useApproveCallback'
 import useENSAddress from '../../hooks/useENSAddress'
 import { useSwapCallback } from '../../hooks/useSwapCallback'
 import useToggledVersion, { DEFAULT_VERSION, Version } from '../../hooks/useToggledVersion'
@@ -32,6 +32,7 @@ import useWrapCallback, { WrapType } from '../../hooks/useWrapCallback'
 import { useToggleSettingsMenu, useWalletModalToggle } from '../../state/application/hooks'
 import { Field } from '../../state/swap/actions'
 import {
+  tryParseAmount,
   useDefaultsFromURLSearch,
   useDerivedSwapInfo,
   useSwapActionHandlers,
@@ -45,6 +46,8 @@ import AppBody from '../AppBody'
 import { ClickableText } from '../Pool/styleds'
 import Loader from '../../components/Loader'
 import { useTranslation } from 'react-i18next'
+import { TOKEN_CONVERT_ADDRESS } from '../../constants/abis/token-convert'
+import useTokenConvertCallback, { ConvertType } from '../../hooks/useTokenConvertCallback'
 
 export default function Swap() {
   const loadedUrlParams = useDefaultsFromURLSearch()
@@ -63,7 +66,7 @@ export default function Swap() {
     setDismissTokenWarning(true)
   }, [])
 
-  const { account } = useActiveWeb3React()
+  const { account, chainId } = useActiveWeb3React()
   const theme = useContext(ThemeContext)
   const { t } = useTranslation()
 
@@ -87,6 +90,20 @@ export default function Swap() {
     currencies,
     inputError: swapInputError
   } = useDerivedSwapInfo()
+
+  const inputAmount = useMemo(() => tryParseAmount(typedValue, currencies[Field.INPUT]), [currencies[Field.INPUT], typedValue])
+
+  const [approvalConvert, approvalConvertCallback] = useApproveCallback(inputAmount, chainId && TOKEN_CONVERT_ADDRESS[chainId])
+  console.log('approvalConvertCallback', approvalConvert)
+
+
+  const { convertType, execute: onConvert, inputError: convertInputError } = useTokenConvertCallback(
+    currencies[Field.INPUT],
+    currencies[Field.OUTPUT],
+    typedValue
+  )
+  const showConvert: boolean = convertType != ConvertType.NOT_CONVERTABLE
+
   const { wrapType, execute: onWrap, inputError: wrapInputError } = useWrapCallback(
     currencies[Field.INPUT],
     currencies[Field.OUTPUT],
@@ -99,8 +116,8 @@ export default function Swap() {
     [Version.v1]: v1Trade,
     [Version.v2]: v2Trade
   }
-  const trade = showWrap ? undefined : tradesByVersion[toggledVersion]
-  const defaultTrade = showWrap ? undefined : tradesByVersion[DEFAULT_VERSION]
+  const trade = showWrap || showConvert? undefined : tradesByVersion[toggledVersion]
+  const defaultTrade = showWrap || showConvert? undefined : tradesByVersion[DEFAULT_VERSION]
 
   // TODO: remove
   const betterTradeLinkVersion: Version | undefined =
@@ -110,7 +127,7 @@ export default function Swap() {
       ? Version.v2
       : undefined
 
-  const parsedAmounts = showWrap
+  const parsedAmounts = showWrap || showConvert
     ? {
         [Field.INPUT]: parsedAmount,
         [Field.OUTPUT]: parsedAmount
@@ -154,7 +171,7 @@ export default function Swap() {
 
   const formattedAmounts = {
     [independentField]: typedValue,
-    [dependentField]: showWrap
+    [dependentField]: showWrap || showConvert
       ? parsedAmounts[independentField]?.toExact() ?? ''
       : parsedAmounts[dependentField]?.toSignificant(6) ?? ''
   }
@@ -294,7 +311,7 @@ export default function Swap() {
 
           <AutoColumn gap={'md'}>
             <CurrencyInputPanel
-              label={independentField === Field.OUTPUT && !showWrap && trade ? t('fromEstimated') : t('from')}
+              label={independentField === Field.OUTPUT && !showWrap && !showConvert && trade ? t('fromEstimated') : t('from')}
               value={formattedAmounts[Field.INPUT]}
               showMaxButton={!atMaxAmountInput}
               currency={currencies[Field.INPUT]}
@@ -323,19 +340,19 @@ export default function Swap() {
             <CurrencyInputPanel
               value={formattedAmounts[Field.OUTPUT]}
               onUserInput={handleTypeOutput}
-              label={independentField === Field.INPUT && !showWrap && trade ? t('toEstimated') : t('to')}
+              label={independentField === Field.INPUT && !showWrap && !showConvert && trade ? t('toEstimated') : t('to')}
               showMaxButton={false}
               currency={currencies[Field.OUTPUT]}
               onCurrencySelect={handleOutputSelect}
               otherCurrency={currencies[Field.INPUT]}
               id="swap-currency-output-2"
             />
-            {recipient === null && !showWrap && isExpertMode ? (
+            {recipient === null && !showWrap && !showConvert && isExpertMode ? (
                   <LinkStyledButton  style={{color:'#C3C5CB'}} id="add-recipient-button" onClick={() => onChangeRecipient('')}>
                     {t('addRecipient')}
                   </LinkStyledButton>
                 ) : null}
-            {recipient !== null && !showWrap ? (
+            {recipient !== null && !showWrap && !showConvert ? (
               <>
                 <AutoRow justify="space-between" style={{ padding: '0 1rem' }}>
                   <ArrowWrapper clickable={false}>
@@ -349,7 +366,7 @@ export default function Swap() {
               </>
             ) : null}
 
-            {showWrap ? null : (
+            {showWrap||showConvert ? null : (
               <Card padding={'.25rem .75rem 0 .75rem'} borderRadius={'10px'}>
                 <AutoColumn gap="4px">
                   {Boolean(trade) && (
@@ -386,6 +403,35 @@ export default function Swap() {
                 {wrapInputError ??
                   (wrapType === WrapType.WRAP ? 'Wrap' : wrapType === WrapType.UNWRAP ? 'Unwrap' : null)}
               </ButtonPrimary>
+            ) : showConvert ? (
+              <RowBetween>
+                <ButtonConfirmed
+                  onClick={approvalConvertCallback}
+                  disabled={approvalConvert !== ApprovalState.NOT_APPROVED || approvalSubmitted}
+                  width="48%"
+                  altDisabledStyle={approvalConvert === ApprovalState.PENDING} // show solid button while waiting
+                  confirmed={approvalConvert === ApprovalState.APPROVED}
+                >
+                  {approvalConvert === ApprovalState.PENDING ? (
+                    <AutoRow gap="6px" justify="center">
+                      {t('approving')} <Loader stroke="white" />
+                    </AutoRow>
+                  ) : approvalSubmitted && approvalConvert === ApprovalState.APPROVED ? (
+                    t('approved')
+                  ) : (
+                    t('approve') + ' ' + currencies[Field.INPUT]?.symbol
+                  )}
+                </ButtonConfirmed>
+                <ButtonError 
+                  disabled={
+                    approvalConvert !== ApprovalState.APPROVED || Boolean(wrapInputError)
+                  }
+                  onClick={onConvert} width="48%" >
+                  {convertInputError ??
+                    (convertType === ConvertType.CONVERT ? t('convert') : convertType === ConvertType.REVERT ? t('revert') : null)}
+                </ButtonError>
+              </RowBetween>
+              
             ) : noRoute && userHasSpecifiedInputOutput ? (
               <GreyCard style={{ textAlign: 'center' }}>
                 <TYPE.main mb="4px">{t('insufficientLiquidity')}</TYPE.main>

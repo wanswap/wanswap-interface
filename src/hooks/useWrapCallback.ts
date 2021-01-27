@@ -66,7 +66,7 @@ export default function useWrapCallback(
                 }
               }
             : undefined,
-        inputError: sufficientBalance ? undefined : 'Insufficient WETH balance'
+        inputError: sufficientBalance ? undefined : 'Insufficient WWAN balance'
       }
     } else {
       return NOT_APPLICABLE

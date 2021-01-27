@@ -182,7 +182,9 @@
   "receive": "收到",
   "amount":"数额",
   "detailed":"详细视图",
-  "simple":"简单视图"
+  "simple":"简单视图",
+  "convert":"转换",
+  "revert":"转回"
 
 
 }
