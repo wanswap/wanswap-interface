@@ -33,6 +33,7 @@ yarn
 yarn start
 ```
 
+update
 
 ## Smart Contract
 
