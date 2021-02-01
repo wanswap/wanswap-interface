@@ -332,6 +332,9 @@ export default function Header() {
           <StyledNavLink id={`stake-nav-link`} to={'/hive'}>
             {t('hive')}
           </StyledNavLink>
+          <StyledExternalLink id={`stake-nav-link`} href={'https://info.wanswap.finance'}>
+            {t('statistics')} <span style={{ fontSize: '11px' }}>↗</span>
+          </StyledExternalLink>
           <StyledExternalLink id={`stake-nav-link`} href={'https://vote.wandevs.org/#/wanswap'}>
             {t('vote')} <span style={{ fontSize: '11px' }}>↗</span>
           </StyledExternalLink>
@@ -341,9 +344,9 @@ export default function Header() {
           <StyledExternalLink id={`stake-nav-link`} href={'https://wanlend.finance/'}>
             {t('wanLend')} <span style={{ fontSize: '11px' }}>↗</span>
           </StyledExternalLink>
-          <StyledExternalLink id={`stake-nav-link`} href={'https://auction.wanswap.finance/'}>
+          {/* <StyledExternalLink id={`stake-nav-link`} href={'https://auction.wanswap.finance/'}>
             {t('auction')} <span style={{ fontSize: '11px' }}>↗</span>
-          </StyledExternalLink>
+          </StyledExternalLink> */}
           {/* <StyledNavLink id={`stake-nav-link`} to={'/vote'}>
             {t('vote')}
           </StyledNavLink> */}
