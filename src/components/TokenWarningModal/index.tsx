@@ -107,7 +107,7 @@ export default function TokenWarningModal({
             <TYPE.main color={'red2'}>Token imported</TYPE.main>
           </AutoRow>
           <TYPE.body color={'red2'}>
-            Anyone can create an WRC20 token on Ethereum with <em>any</em> name, including creating fake versions of
+            Anyone can create an WRC20 token on Wanchain with <em>any</em> name, including creating fake versions of
             existing tokens and tokens that claim to represent projects that do not have a token.
           </TYPE.body>
           <TYPE.body color={'red2'}>

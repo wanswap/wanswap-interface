@@ -2,7 +2,7 @@
 
 [![Styled With Prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://prettier.io/)
 
-An open source interface for wanswap -- a protocol for decentralized exchange of Ethereum tokens.
+An open source interface for wanswap -- a protocol for decentralized exchange of Wanchain tokens.
 
 - Website: [wanswap.finance](https://wanswap.finance/)
 - Email: [morpheus.blockchain@gmail.com](mailto:morpheus.blockchain@gmail.com)
