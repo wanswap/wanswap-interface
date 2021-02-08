@@ -84,6 +84,14 @@
       "decimals": 18,
       "logoURI": "https://token-icons.vercel.app/icon/wanswap/wanUNI.png"
     },
+    {
+      "chainId": 1,
+      "address": "0x9b6863f6ab2047069ad1cd15fff8c45af637d67c",
+      "name": "wanSUSHI",
+      "symbol": "wanSUSHI",
+      "decimals": 18,
+      "logoURI": "https://token-icons.vercel.app/icon/wanswap/wanSUSHI.png"
+    },
 
 
     {
@@ -145,7 +153,7 @@
   ],
   "version": {
     "major": 1,
-    "minor": 2,
+    "minor": 3,
     "patch": 0
   }
 }
