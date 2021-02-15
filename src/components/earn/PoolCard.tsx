@@ -26,9 +26,7 @@ const StatContainer = styled.div`
   margin-bottom: 1rem;
   margin-right: 1rem;
   margin-left: 1rem;
-  ${({ theme }) => theme.mediaWidth.upToSmall`
-  display: none;
-`};
+  
 `
 
 const Wrapper = styled(AutoColumn)<{ showBackground: boolean; bgColor: any }>`
@@ -62,7 +60,16 @@ const TopSection = styled.div`
 //   display: flex;
 //   justify-content: flex-end;
 // `
-
+const PoolRate = styled.span`
+  ${({ theme }) => theme.mediaWidth.upToSmall`
+   display: none;
+  `};
+`
+const DepositTitle = styled.span`
+  ${({ theme }) => theme.mediaWidth.upToSmall`
+   display: none;
+  `};
+`
 const BottomSection = styled.div<{ showBackground: boolean }>`
   padding: 12px 16px;
   opacity: ${({ showBackground }) => (showBackground ? '1' : '0.4')};
@@ -159,7 +166,7 @@ export default function PoolCard({ stakingInfo }: { stakingInfo: StakingInfo }) 
 
       <StatContainer>
         <RowBetween>
-          <TYPE.white>{t('totalDeposited')}</TYPE.white>
+          <TYPE.white><DepositTitle>{t('totalDeposited')}</DepositTitle></TYPE.white>
           <TYPE.white>
             {valueOfTotalStakedAmountInUSDC
               ? `$${valueOfTotalStakedAmountInUSDC.toFixed(0, { groupSeparator: ',' })} 🔥 APY: ${apy}%`
@@ -169,12 +176,16 @@ export default function PoolCard({ stakingInfo }: { stakingInfo: StakingInfo }) 
               : `${valueOfTotalStakedAmountInWLSP?.toSignificant(6, { groupSeparator: ',' }) ?? '-'} WSLP`}
           </TYPE.white>
         </RowBetween>
+        <PoolRate>
         <RowBetween>
+          
           <TYPE.white> Pool rate </TYPE.white>
           <TYPE.white>{`${stakingInfo.totalRewardRate
             ?.multiply(`${60 * 60 * 24 * 7}`)
             ?.toFixed(0, { groupSeparator: ',' })} WASP / week`}</TYPE.white>
+            
         </RowBetween>
+        </PoolRate>
       </StatContainer>
 
       {isStaking && (
