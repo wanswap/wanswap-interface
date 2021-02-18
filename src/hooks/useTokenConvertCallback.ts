@@ -75,5 +75,5 @@ export default function useTokenConvertCallback(
     } else {
       return NOT_CONVERTABLE
     }
-  }, [convertContract, chainId, inputCurrency, outputCurrency, inputAmount, balance, addTransaction])
+  }, [convertContract, chainId, inputCurrency, outputCurrency, inputAmount, balance, quota, addTransaction])
 }
