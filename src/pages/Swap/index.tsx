@@ -94,8 +94,6 @@ export default function Swap() {
   const inputAmount = useMemo(() => tryParseAmount(typedValue, currencies[Field.INPUT]), [currencies, typedValue])
 
   const [approvalConvert, approvalConvertCallback] = useApproveCallback(inputAmount, chainId && TOKEN_CONVERT_ADDRESS[chainId])
-  console.log('approvalConvertCallback', approvalConvert)
-
 
   const { convertType, execute: onConvert, inputError: convertInputError } = useTokenConvertCallback(
     currencies[Field.INPUT],
