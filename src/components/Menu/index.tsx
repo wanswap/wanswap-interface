@@ -1,5 +1,6 @@
 import React, { useRef } from 'react'
 import { BookOpen, Code, Info, MessageCircle } from 'react-feather'
+import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 import { ReactComponent as MenuIcon } from '../../assets/images/menu.svg'
 // import { useActiveWeb3React } from '../../hooks'
@@ -93,6 +94,7 @@ export default function Menu() {
   const toggle = useToggleModal(ApplicationModal.MENU)
   useOnClickOutside(node, open ? toggle : undefined)
   // const openClaimModal = useToggleModal(ApplicationModal.ADDRESS_CLAIM)
+  const {t} = useTranslation()
 
   return (
     // https://github.com/DefinitelyTyped/DefinitelyTyped/issues/30451
@@ -123,10 +125,15 @@ export default function Menu() {
             <Code size={14} />
             Code
           </MenuItem>
+          <MenuItem id="link" href="https://auction.wanswap.finance/">
+            <Info size={14} />
+            {t('auction')}
+          </MenuItem>
           { <MenuItem id="link" href="https://t.me/wanswap_official">
             <MessageCircle size={14} />
             Telegram
           </MenuItem>
+          
           /*
           <MenuItem id="link" href="https://uniswap.info/">
             <PieChart size={14} />

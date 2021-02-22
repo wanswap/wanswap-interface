@@ -1,5 +1,5 @@
 {
-  "noWallet": "Wallet Ethereum non trovato",
+  "noWallet": "Wallet Wanchain non trovato",
   "wrongNetwork": "Sei connesso alla rete sbagliata",
   "switchNetwork": "Perfavore connettiti su {{ correctNetwork }}",
   "installWeb3MobileBrowser": "Perfavore visita il sito da un browser abilitato web3 o da un app mobile come Trust Wallet o Coinbase Wallet.",

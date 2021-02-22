@@ -1,5 +1,5 @@
 {
-  "noWallet": "Không tìm thấy ví tiền Ethereum",
+  "noWallet": "Không tìm thấy ví tiền Wanchain",
   "wrongNetwork": "Kết nối mạng không đúng",
   "switchNetwork": "Vui lòng chuyển sang {{ correctNetwork }}",
   "installWeb3MobileBrowser": "Vui lòng truy cập từ trình duyệt di động hỗ trợ web3 như là Ví Trust hoặc Ví Coinbase",

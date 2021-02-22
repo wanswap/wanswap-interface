@@ -1,5 +1,5 @@
 {
-  "noWallet": "No Ethereum wallet found",
+  "noWallet": "No Wanchain wallet found",
   "wrongNetwork": "You are on the wrong network",
   "switchNetwork": "Please switch to {{ correctNetwork }}",
   "installWeb3MobileBrowser": "Please visit us from a web3-enabled mobile browser such as Trust Wallet or Coinbase Wallet.",
@@ -90,6 +90,7 @@
   "miningPool": "Farming",
   "hive": "Hive",
   "vote": "Vote",
+  "statistics": "Analytics",
   "more": "More",
   "auction": "Auction",
   "connectWallet": "Connect Wallet",
