@@ -106,6 +106,14 @@
       "chainId": 3,
       "address": "0x89a3e1494bc3db81dadc893ded7476d33d47dcbd",
       "name": "Crosschain BTC",
+      "symbol": "wanOBTC",
+      "decimals": 8,
+      "logoURI": "https://token-icons.vercel.app/icon/wanBTC.png"
+    },
+    {
+      "chainId": 3,
+      "address": "0x07fdb4e8f8e420d021b9abeb2b1f6dce150ef77c",
+      "name": "Crosschain BTC",
       "symbol": "wanBTC",
       "decimals": 8,
       "logoURI": "https://token-icons.vercel.app/icon/wanBTC.png"
@@ -145,7 +153,7 @@
   ],
   "version": {
     "major": 1,
-    "minor": 1,
+    "minor": 2,
     "patch": 0
   }
 }
