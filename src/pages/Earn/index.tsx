@@ -10,7 +10,7 @@ import { Countdown } from './Countdown'
 import Loader from '../../components/Loader'
 import { useActiveWeb3React } from '../../hooks'
 import { Token, TokenAmount } from '@wanswap/sdk'
-
+import Toggle from '../../components/Toggle'
 const PageWrapper = styled(AutoColumn)`
   max-width: 640px;
   width: 100%;
@@ -39,6 +39,9 @@ export default function Earn() {
   const { chainId } = useActiveWeb3React()
   const stakingInfos = useStakingInfo()
   const stakingRewardsInfo = useAllStakingRewardsInfo()
+
+  const [onlystakedMode, toggleonlystakedMode] = useState(false)
+  const [onlyactivedMode, toggleonlyactivedMode] = useState(true)
 
   const DataRow = styled(RowBetween)`
     ${({ theme }) => theme.mediaWidth.upToSmall`
@@ -125,6 +128,43 @@ export default function Earn() {
         <DataRow style={{ alignItems: 'baseline' }}>
           <TYPE.mediumHeader style={{ marginTop: '0.5rem' }}>Participating pools</TYPE.mediumHeader>
           <Countdown exactEnd={stakingInfos?.[0]?.periodFinish} exactStart={stakingInfos?.[0]?.periodStart} />
+        </DataRow>
+
+        <DataRow style={{flexDirection:'row'}}>
+          <div>
+              <TYPE.subHeader style={{ marginTop: '0.5rem',marginBottom: 10 }}>Show Only Staked</TYPE.subHeader>
+              <Toggle
+                id="toggle-only-staked-button"
+                isActive={onlystakedMode}
+                toggle={
+                  onlystakedMode
+                    ? () => {
+                      toggleonlystakedMode(true)
+                      }
+                    : () => {
+                      toggleonlystakedMode(false)
+                      }
+                }
+              />
+          </div>
+
+          <div>
+              <TYPE.subHeader style={{ marginTop: '0.5rem',marginBottom: 10 }}>Show Only Actived</TYPE.subHeader>
+              <Toggle
+                
+                id="toggle-only-actived-button"
+                isActive={onlyactivedMode}
+                toggle={
+                  onlyactivedMode
+                    ? () => {
+                      toggleonlyactivedMode(true)
+                      }
+                    : () => {
+                      toggleonlyactivedMode(false)
+                      }
+                }
+              />
+              </div>
         </DataRow>
 
         <PoolSection>

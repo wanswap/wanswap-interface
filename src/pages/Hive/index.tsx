@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {  useState } from 'react'
 import { AutoColumn } from '../../components/Column'
 import styled from 'styled-components'
 import { useAllStakingRewardsInfo, useStakingInfo } from '../../state/hive/hooks'
@@ -9,6 +9,7 @@ import { CardSection, DataCard, CardNoise, CardBGImage } from '../../components/
 // import { Countdown } from './Countdown'
 import Loader from '../../components/Loader'
 import { useActiveWeb3React } from '../../hooks'
+import Toggle from '../../components/Toggle'
 
 const PageWrapper = styled(AutoColumn)`
   max-width: 640px;
@@ -33,6 +34,9 @@ export default function Earn() {
   const { chainId } = useActiveWeb3React()
   const stakingInfos = useStakingInfo()
   const stakingRewardsInfo = useAllStakingRewardsInfo()
+
+  const [onlystakedMode, toggleonlystakedMode] = useState(false)
+  const [onlyactivedMode, toggleonlyactivedMode] = useState(true)
 
   const DataRow = styled(RowBetween)`
     ${({ theme }) => theme.mediaWidth.upToSmall`
@@ -76,6 +80,43 @@ export default function Earn() {
         <DataRow style={{ alignItems: 'baseline' }}>
           <TYPE.mediumHeader style={{ marginTop: '0.5rem' }}>Participating pools</TYPE.mediumHeader>
           {/* <Countdown exactEnd={stakingInfos?.[0]?.periodFinish} exactStart={stakingInfos?.[0]?.periodStart} /> */}
+        </DataRow>
+
+        <DataRow style={{flexDirection:'row'}}>
+          <div style={{display:'flex',flexDirection:'column'}}>
+              <TYPE.subHeader style={{ marginTop: '0.5rem',marginBottom: 10 }}>Show Only Staked</TYPE.subHeader>
+              <Toggle
+                id="toggle-only-staked-button"
+                isActive={onlystakedMode}
+                toggle={
+                  onlystakedMode
+                    ? () => {
+                      toggleonlystakedMode(true)
+                      }
+                    : () => {
+                      toggleonlystakedMode(false)
+                      }
+                }
+              />
+          </div>
+
+          <div>
+              <TYPE.subHeader style={{ marginTop: '0.5rem',marginBottom: 10 }}>Show Only Actived</TYPE.subHeader>
+              <Toggle
+                
+                id="toggle-only-actived-button"
+                isActive={onlyactivedMode}
+                toggle={
+                  onlyactivedMode
+                    ? () => {
+                      toggleonlyactivedMode(true)
+                      }
+                    : () => {
+                      toggleonlyactivedMode(false)
+                      }
+                }
+              />
+              </div>
         </DataRow>
 
         <PoolSection>
