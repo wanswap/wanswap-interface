@@ -131,8 +131,8 @@ export default function Earn() {
         </DataRow>
 
         <DataRow style={{flexDirection:'row'}}>
-          <div>
-              <TYPE.subHeader style={{ marginTop: '0.5rem',marginBottom: 10 }}>Show Only Staked</TYPE.subHeader>
+        <div style={{display:'flex',flexDirection:'row',flexWrap:'wrap'}}>
+              <TYPE.subHeader style={{ marginTop: '0.5rem',marginRight: 5,paddingBottom:5}}>Show Only Staked</TYPE.subHeader>
               <Toggle
                 id="toggle-only-staked-button"
                 isActive={onlystakedMode}
@@ -148,8 +148,8 @@ export default function Earn() {
               />
           </div>
 
-          <div>
-              <TYPE.subHeader style={{ marginTop: '0.5rem',marginBottom: 10 }}>Show Only Actived</TYPE.subHeader>
+          <div style={{display:'flex',flexDirection:'row',flexWrap:'wrap',justifyContent:'flex-end'}}>
+              <TYPE.subHeader style={{ marginTop: '0.5rem',marginRight:5,paddingBottom:5}}>Show Only Actived</TYPE.subHeader>
               <Toggle
                 
                 id="toggle-only-actived-button"
