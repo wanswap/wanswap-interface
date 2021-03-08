@@ -31,6 +31,14 @@
     {
       "chainId": 1,
       "address": "0xd15e200060fc17ef90546ad93c1c61bfefdc89c7",
+      "name": "wanOBTC",
+      "symbol": "wanOBTC",
+      "decimals": 8,
+      "logoURI": "https://token-icons.vercel.app/icon/wanswap/wanBTC.png"
+    },
+    {
+      "chainId": 1,
+      "address": "0x50c439b6d602297252505a6799d84ea5928bcfb6",
       "name": "wanBTC",
       "symbol": "wanBTC",
       "decimals": 8,
@@ -161,7 +169,7 @@
   ],
   "version": {
     "major": 1,
-    "minor": 4,
+    "minor": 5,
     "patch": 0
   }
 }
