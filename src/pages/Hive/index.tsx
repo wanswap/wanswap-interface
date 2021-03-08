@@ -91,10 +91,10 @@ export default function Earn() {
                 toggle={
                   onlystakedMode
                     ? () => {
-                      toggleonlystakedMode(true)
+                      toggleonlystakedMode(false)
                       }
                     : () => {
-                      toggleonlystakedMode(false)
+                      toggleonlystakedMode(true)
                       }
                 }
               />
@@ -109,10 +109,10 @@ export default function Earn() {
                 toggle={
                   onlyactivedMode
                     ? () => {
-                      toggleonlyactivedMode(true)
+                      toggleonlyactivedMode(false)
                       }
                     : () => {
-                      toggleonlyactivedMode(false)
+                      toggleonlyactivedMode(true)
                       }
                 }
               />
@@ -126,6 +126,16 @@ export default function Earn() {
             'No active rewards'
           ) : (
             stakingInfos?.map((stakingInfo, i) => {
+              const isStaking = Boolean(stakingInfo.stakedAmount.greaterThan('0'))
+              const isActive = Boolean(stakingInfo.totalRewardRate.greaterThan('0'));
+
+              if (onlystakedMode && !isStaking) {
+                return null;
+              }
+
+              if (onlyactivedMode && !isActive) {
+                return null;
+              }
               return <HiveCard key={i} stakingInfo={stakingInfo} i={i}/>
             })
           )}

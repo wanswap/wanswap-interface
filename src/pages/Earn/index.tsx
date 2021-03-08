@@ -40,8 +40,8 @@ export default function Earn() {
   const stakingInfos = useStakingInfo()
   const stakingRewardsInfo = useAllStakingRewardsInfo()
 
-  const [onlystakedMode, toggleonlystakedMode] = useState(false)
-  const [onlyactivedMode, toggleonlyactivedMode] = useState(true)
+  const [onlyStakedMode, toggleOnlyStakedMode] = useState(false)
+  const [onlyActivedMode, toggleOnlyActivedMode] = useState(true)
 
   const DataRow = styled(RowBetween)`
     ${({ theme }) => theme.mediaWidth.upToSmall`
@@ -77,6 +77,8 @@ export default function Earn() {
       clearInterval(timer)
     }
   }, []);
+
+  console.log('stakingInfos', JSON.stringify(stakingInfos, null, 2));
 
   return (
     <PageWrapper gap="lg" justify="center">
@@ -135,14 +137,16 @@ export default function Earn() {
               <TYPE.subHeader style={{ marginTop: '0.5rem',marginRight: 5,paddingBottom:5}}>Show Only Staked</TYPE.subHeader>
               <Toggle
                 id="toggle-only-staked-button"
-                isActive={onlystakedMode}
+                isActive={onlyStakedMode}
                 toggle={
-                  onlystakedMode
+                  onlyStakedMode
                     ? () => {
-                      toggleonlystakedMode(true)
+                      console.log('hello1');
+                      toggleOnlyStakedMode(false)
                       }
                     : () => {
-                      toggleonlystakedMode(false)
+                      console.log('hello2');
+                      toggleOnlyStakedMode(true)
                       }
                 }
               />
@@ -153,14 +157,14 @@ export default function Earn() {
               <Toggle
                 
                 id="toggle-only-actived-button"
-                isActive={onlyactivedMode}
+                isActive={onlyActivedMode}
                 toggle={
-                  onlyactivedMode
+                  onlyActivedMode
                     ? () => {
-                      toggleonlyactivedMode(true)
+                      toggleOnlyActivedMode(false)
                       }
                     : () => {
-                      toggleonlyactivedMode(false)
+                      toggleOnlyActivedMode(true)
                       }
                 }
               />
@@ -174,6 +178,17 @@ export default function Earn() {
             'No active rewards'
           ) : (
             stakingInfos?.map(stakingInfo => {
+              const isStaking = Boolean(stakingInfo.stakedAmount.greaterThan('0'))
+              const isActive = Boolean(stakingInfo.totalRewardRate.greaterThan('0'));
+
+              if (onlyStakedMode && !isStaking) {
+                return null;
+              }
+
+              if (onlyActivedMode && !isActive) {
+                return null;
+              }
+              
               // need to sort by added liquidity here
               return <PoolCard key={stakingInfo.stakingRewardAddress} stakingInfo={stakingInfo} />
             })
