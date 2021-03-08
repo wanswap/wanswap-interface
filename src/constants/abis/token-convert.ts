@@ -15,8 +15,8 @@ export const TOKEN_CONVERT_ADDRESS: { [chainId in ChainId]: string } = {
 const token0Testnet = "0x89a3e1494bc3db81dadc893ded7476d33d47dcbd";
 const token1Testnet = "0x07fdb4e8f8e420d021b9abeb2b1f6dce150ef77c";
 
-const token0Mainnet = "0x89a3e1494bc3db81dadc893ded7476d33d47dcbd";
-const token1Mainnet = "0x07fdb4e8f8e420d021b9abeb2b1f6dce150ef77c";
+const token0Mainnet = "0xd15e200060fc17ef90546ad93c1c61bfefdc89c7";
+const token1Mainnet = "0x50c439b6d602297252505a6799d84ea5928bcfb6";
 
 export const CONVERT_TOKEN0 : { [chainId in ChainId]: Token } = {
   [ChainId.MAINNET]: new Token(ChainId.MAINNET, token0Mainnet, 18, 'wanOBTC', 'wanOBTC'),

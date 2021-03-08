@@ -21,8 +21,9 @@ export const AMPL = new Token(ChainId.MAINNET, '0xD46bA6D942050d489DBd938a2C909A
 export const WBTC = new Token(ChainId.MAINNET, '0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599', 18, 'WBTC', 'Wrapped BTC')
 export const USDT1 = new Token(ChainId.ROPSTEN, '0x3d5950287b45f361774e5fb6e50d70eea06bc167', 6, 'wanUSDT', 'wanUSDT')
 
-export const wanBTC = new Token(ChainId.MAINNET, '0xd15e200060fc17ef90546ad93c1c61bfefdc89c7', 8, 'wanBTC', 'wanBTC')
-export const wanETH = new Token(ChainId.MAINNET, '0xe3ae74d1518a76715ab4c7bedf1af73893cd435a', 18, 'wanETH', 'wanETH')
+export const wanOBTC = new Token(ChainId.MAINNET, '0xd15e200060fc17ef90546ad93c1c61bfefdc89c7', 8, 'wanOBTC', 'wanOBTC');
+export const wanBTC = new Token(ChainId.MAINNET, '0x50c439b6d602297252505a6799d84ea5928bcfb6', 8, 'wanBTC', 'wanBTC');
+export const wanETH = new Token(ChainId.MAINNET, '0xe3ae74d1518a76715ab4c7bedf1af73893cd435a', 18, 'wanETH', 'wanETH');
 export const wanLINK = new Token(ChainId.MAINNET, '0x06da85475f9d2ae79af300de474968cd5a4fde61', 18, 'wanLINK', 'wanLINK');
 export const wanUNI = new Token(ChainId.MAINNET, '0x73eaa7431b11b1e7a7d5310de470de09883529df', 18, 'wanUNI', 'wanUNI');
 export const wanSUSHI = new Token(ChainId.MAINNET, '0x9b6863f6ab2047069ad1cd15fff8c45af637d67c', 18, 'wanSUSHI', 'wanSUSHI');
