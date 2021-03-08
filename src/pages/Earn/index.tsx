@@ -41,7 +41,7 @@ export default function Earn() {
   const stakingRewardsInfo = useAllStakingRewardsInfo()
 
   const [onlyStakedMode, toggleOnlyStakedMode] = useState(false)
-  const [onlyActivedMode, toggleOnlyActivedMode] = useState(true)
+  const [onlyActivedMode, toggleOnlyActivedMode] = useState(false)
 
   const DataRow = styled(RowBetween)`
     ${({ theme }) => theme.mediaWidth.upToSmall`
