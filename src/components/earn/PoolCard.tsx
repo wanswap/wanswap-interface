@@ -146,6 +146,8 @@ export default function PoolCard({ stakingInfo }: { stakingInfo: StakingInfo }) 
     window.tvlItems[stakingTokenPair!.liquidityToken.address] = valueOfTotalStakedAmountInUSDC.toFixed(0)
   }
 
+  const isActive = Boolean(stakingInfo.totalRewardRate.greaterThan('0'));
+
   return (
     <Wrapper showBackground={isStaking} bgColor={backgroundColor}>
       <CardBGImage desaturate />
@@ -154,7 +156,10 @@ export default function PoolCard({ stakingInfo }: { stakingInfo: StakingInfo }) 
       <TopSection>
         <DoubleCurrencyLogo currency0={currency0} currency1={currency1} size={24} />
         <TYPE.white fontWeight={600} fontSize={18} style={{ marginLeft: '8px' }}>
-          {currency0.symbol} / {currency1.symbol}
+          {currency0.symbol} / {currency1.symbol} 
+          {
+            !isActive && <SpanFinished>Inactive</SpanFinished>
+          }
         </TYPE.white>
 
         <StyledInternalLink to={`/farm/${currencyId(currency0)}/${currencyId(currency1)}`} style={{ width: '100%',color:'transparent' }}>
@@ -210,3 +215,11 @@ export default function PoolCard({ stakingInfo }: { stakingInfo: StakingInfo }) 
     </Wrapper>
   )
 }
+
+const SpanFinished = styled.span`
+  background: #d15458;
+  padding: 5px 10px;
+  border-radius: 15px;
+  font-size: 10px;
+  margin-left: 10px;
+`;
