@@ -44,7 +44,7 @@ export default function useTokenConvertCallback(
       return {
         convertType: ConvertType.CONVERT,
         execute:
-          sufficientBalance && inputAmount
+          sufficientBalance && liquidityEnough && inputAmount
             ? async () => {
                 try {
                   const txReceipt = await convertContract.deposit(`0x${inputAmount.raw.toString(16)}`)
