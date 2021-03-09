@@ -11,6 +11,8 @@ import Loader from '../../components/Loader'
 import { useActiveWeb3React } from '../../hooks'
 import { Token, TokenAmount } from '@wanswap/sdk'
 import Toggle from '../../components/Toggle'
+import { loadFromLocalStorage, saveToLocalStorage } from '../../utils/tools';
+
 const PageWrapper = styled(AutoColumn)`
   max-width: 640px;
   width: 100%;
@@ -40,8 +42,12 @@ export default function Earn() {
   const stakingInfos = useStakingInfo()
   const stakingRewardsInfo = useAllStakingRewardsInfo()
 
-  const [onlyStakedMode, toggleOnlyStakedMode] = useState(false)
-  const [onlyActivedMode, toggleOnlyActivedMode] = useState(false)
+  const showStaked = loadFromLocalStorage('showStaked');
+  const showActive = loadFromLocalStorage('showActive');
+
+
+  const [onlyStakedMode, toggleOnlyStakedMode] = useState(showStaked === "true")
+  const [onlyActivedMode, toggleOnlyActivedMode] = useState(showActive === "true")
 
   const DataRow = styled(RowBetween)`
     ${({ theme }) => theme.mediaWidth.upToSmall`
@@ -143,10 +149,12 @@ export default function Earn() {
                     ? () => {
                       console.log('hello1');
                       toggleOnlyStakedMode(false)
+                      saveToLocalStorage('showStaked', 'false');
                       }
                     : () => {
                       console.log('hello2');
                       toggleOnlyStakedMode(true)
+                      saveToLocalStorage('showStaked', 'true');
                       }
                 }
               />
@@ -162,10 +170,12 @@ export default function Earn() {
                   onlyActivedMode
                     ? () => {
                       toggleOnlyActivedMode(false)
+                      saveToLocalStorage('showActive', 'false');
                       }
                     : () => {
                       toggleOnlyActivedMode(true)
-                      }
+                      saveToLocalStorage('showActive', 'true');
+                    }
                 }
               />
               </div>
