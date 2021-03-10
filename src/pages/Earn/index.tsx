@@ -191,16 +191,17 @@ export default function Earn() {
               const isStaking = Boolean(stakingInfo.stakedAmount.greaterThan('0'))
               const isActive = Boolean(stakingInfo.totalRewardRate.greaterThan('0'));
 
+              let hide = false;
               if (onlyStakedMode && !isStaking) {
-                return null;
+                hide = true;
               }
 
               if (onlyActivedMode && !isActive) {
-                return null;
+                hide = true;
               }
               
               // need to sort by added liquidity here
-              return <PoolCard key={stakingInfo.stakingRewardAddress} stakingInfo={stakingInfo} />
+              return <PoolCard key={stakingInfo.stakingRewardAddress} stakingInfo={stakingInfo} hide={hide} />
             })
           )}
         </PoolSection>

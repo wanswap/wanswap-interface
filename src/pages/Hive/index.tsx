@@ -10,6 +10,8 @@ import { CardSection, DataCard, CardNoise, CardBGImage } from '../../components/
 import Loader from '../../components/Loader'
 import { useActiveWeb3React } from '../../hooks'
 import Toggle from '../../components/Toggle'
+import { loadFromLocalStorage, saveToLocalStorage } from '../../utils/tools';
+
 
 const PageWrapper = styled(AutoColumn)`
   max-width: 640px;
@@ -35,8 +37,11 @@ export default function Earn() {
   const stakingInfos = useStakingInfo()
   const stakingRewardsInfo = useAllStakingRewardsInfo()
 
-  const [onlystakedMode, toggleonlystakedMode] = useState(false)
-  const [onlyactivedMode, toggleonlyactivedMode] = useState(true)
+  const showStaked = loadFromLocalStorage('showStakedHive');
+  const showActive = loadFromLocalStorage('showActiveHive');
+
+  const [onlystakedMode, toggleonlystakedMode] = useState(showStaked === 'true')
+  const [onlyactivedMode, toggleonlyactivedMode] = useState(showActive === 'true')
 
   const DataRow = styled(RowBetween)`
     ${({ theme }) => theme.mediaWidth.upToSmall`
@@ -92,10 +97,12 @@ export default function Earn() {
                   onlystakedMode
                     ? () => {
                       toggleonlystakedMode(false)
+                      saveToLocalStorage('showStakedHive', 'false');
                       }
                     : () => {
                       toggleonlystakedMode(true)
-                      }
+                      saveToLocalStorage('showStakedHive', 'true');
+                    }
                 }
               />
           </div>
@@ -110,10 +117,12 @@ export default function Earn() {
                   onlyactivedMode
                     ? () => {
                       toggleonlyactivedMode(false)
-                      }
+                      saveToLocalStorage('showActiveHive', 'false');
+                    }
                     : () => {
                       toggleonlyactivedMode(true)
-                      }
+                      saveToLocalStorage('showActiveHive', 'true');
+                    }
                 }
               />
               </div>
@@ -129,14 +138,16 @@ export default function Earn() {
               const isStaking = Boolean(stakingInfo.stakedAmount.greaterThan('0'))
               const isActive = Boolean(stakingInfo.totalRewardRate.greaterThan('0'));
 
+              let hide = false;
+
               if (onlystakedMode && !isStaking) {
-                return null;
+                hide = true;
               }
 
               if (onlyactivedMode && !isActive) {
-                return null;
+                hide = true;
               }
-              return <HiveCard key={i} stakingInfo={stakingInfo} i={i}/>
+              return <HiveCard key={i} stakingInfo={stakingInfo} i={i} hide={hide} />
             })
           )}
         </PoolSection>

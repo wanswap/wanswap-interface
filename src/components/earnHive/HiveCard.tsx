@@ -79,7 +79,7 @@ declare global {
   }
 }
 
-export default function HiveCard({ stakingInfo, i }: { stakingInfo: StakingInfo; i: number }) {
+export default function HiveCard({ stakingInfo, i, hide }: { stakingInfo: StakingInfo; i: number; hide?: Boolean }) {
   const token0 = stakingInfo.tokens[0]
   const token1 = stakingInfo.tokens[1]
 
@@ -105,59 +105,63 @@ export default function HiveCard({ stakingInfo, i }: { stakingInfo: StakingInfo;
   }
 
   return (
-    <Wrapper showBackground={isStaking} bgColor={backgroundColor}>
-      <CardBGImage desaturate />
-      <CardNoise />
-
-      <TopSection>
-        <DoubleCurrencyLogo currency0={currency0} currency1={ETHER} size={24} />
-        <TYPE.white fontWeight={600} fontSize={18} style={{ marginLeft: '8px' }}>
-          {currency0.symbol + ' → ' + ETHER.symbol + " #" + (i+1)}
-          <Countdown exactEnd={stakingInfo?.periodFinish} exactStart={stakingInfo?.periodStart} />
-        </TYPE.white>
-
-        <StyledInternalLink to={`/hive/${currencyId(currency0)}/${i}`} style={{ width: '100%',color:'transparent' }}>
-          
-          <ButtonPrimary padding="8px" borderRadius="8px">
-            {isStaking ? 'Manage' : 'Deposit'}
-          </ButtonPrimary>
-        </StyledInternalLink>
-      </TopSection>
-
-      <StatContainer>
-        <RowBetween>
-          <TYPE.white>{t('totalDeposited')}</TYPE.white>
-          <TYPE.white>
-            {`${stakingInfo?.totalStakedAmount.toFixed(0, { groupSeparator: ',' }) ?? '-'} WASP`}
+    <div>
+      {
+        !hide && <Wrapper showBackground={isStaking} bgColor={backgroundColor}>
+        <CardBGImage desaturate />
+        <CardNoise />
+  
+        <TopSection>
+          <DoubleCurrencyLogo currency0={currency0} currency1={ETHER} size={24} />
+          <TYPE.white fontWeight={600} fontSize={18} style={{ marginLeft: '8px' }}>
+            {currency0.symbol + ' → ' + ETHER.symbol + " #" + (i+1)}
+            <Countdown exactEnd={stakingInfo?.periodFinish} exactStart={stakingInfo?.periodStart} />
           </TYPE.white>
-        </RowBetween>
-        <RowBetween>
-          <TYPE.white> Pool rate </TYPE.white>
-          <TYPE.white>{`${stakingInfo.totalRewardRate
-            ?.multiply(`${60 * 60 * 24 * 7 / 5}`)
-            ?.toFixed(0, { groupSeparator: ',' })} WAN / week`}</TYPE.white>
-        </RowBetween>
-      </StatContainer>
-
-      {isStaking && (
-        <>
-          <Break />
-          <BottomSection showBackground={true}>
-            <TYPE.black color={'white'} fontWeight={500}>
-              <span>Your rate</span>
-            </TYPE.black>
-
-            <TYPE.black style={{ textAlign: 'right' }} color={'white'} fontWeight={500}>
-              <span  id="animate-zoom" role="img" aria-label="wizard-icon" style={{ marginRight: '0.5rem' }}>
-              ⚡
-              </span>
-              {`${stakingInfo.rewardRate
-                ?.multiply(`${60 * 60 * 24 * 7 / 5}`)
-                ?.toFixed(4, { groupSeparator: ',' })} WAN / week`}
-            </TYPE.black>
-          </BottomSection>
-        </>
-      )}
-    </Wrapper>
+  
+          <StyledInternalLink to={`/hive/${currencyId(currency0)}/${i}`} style={{ width: '100%',color:'transparent' }}>
+            
+            <ButtonPrimary padding="8px" borderRadius="8px">
+              {isStaking ? 'Manage' : 'Deposit'}
+            </ButtonPrimary>
+          </StyledInternalLink>
+        </TopSection>
+  
+        <StatContainer>
+          <RowBetween>
+            <TYPE.white>{t('totalDeposited')}</TYPE.white>
+            <TYPE.white>
+              {`${stakingInfo?.totalStakedAmount.toFixed(0, { groupSeparator: ',' }) ?? '-'} WASP`}
+            </TYPE.white>
+          </RowBetween>
+          <RowBetween>
+            <TYPE.white> Pool rate </TYPE.white>
+            <TYPE.white>{`${stakingInfo.totalRewardRate
+              ?.multiply(`${60 * 60 * 24 * 7 / 5}`)
+              ?.toFixed(0, { groupSeparator: ',' })} WAN / week`}</TYPE.white>
+          </RowBetween>
+        </StatContainer>
+  
+        {isStaking && (
+          <>
+            <Break />
+            <BottomSection showBackground={true}>
+              <TYPE.black color={'white'} fontWeight={500}>
+                <span>Your rate</span>
+              </TYPE.black>
+  
+              <TYPE.black style={{ textAlign: 'right' }} color={'white'} fontWeight={500}>
+                <span  id="animate-zoom" role="img" aria-label="wizard-icon" style={{ marginRight: '0.5rem' }}>
+                ⚡
+                </span>
+                {`${stakingInfo.rewardRate
+                  ?.multiply(`${60 * 60 * 24 * 7 / 5}`)
+                  ?.toFixed(4, { groupSeparator: ',' })} WAN / week`}
+              </TYPE.black>
+            </BottomSection>
+          </>
+        )}
+      </Wrapper>
+      }
+    </div>
   )
 }
