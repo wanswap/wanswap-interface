@@ -101,7 +101,7 @@ export default function Earn() {
           </div>
 
           <div style={{display:'flex',flexDirection:'row',flexWrap:'wrap',justifyContent:'flex-end'}}>
-              <TYPE.subHeader style={{ marginTop: '0.5rem',marginRight:5,paddingBottom:5}}>Show Only Actived</TYPE.subHeader>
+              <TYPE.subHeader style={{ marginTop: '0.5rem',marginRight:5,paddingBottom:5}}>Show Only Active</TYPE.subHeader>
               <Toggle
                 
                 id="toggle-only-actived-button"
