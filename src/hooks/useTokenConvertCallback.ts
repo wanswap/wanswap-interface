@@ -48,13 +48,13 @@ export default function useTokenConvertCallback(
             ? async () => {
                 try {
                   const txReceipt = await convertContract.deposit(`0x${inputAmount.raw.toString(16)}`)
-                  addTransaction(txReceipt, { summary: `Convert ${inputAmount.toSignificant(6)} owanBTC to wanBTC` })
+                  addTransaction(txReceipt, { summary: `Convert ${inputAmount.toSignificant(6)} wanOBTC to wanBTC` })
                 } catch (error) {
                   console.error('Could not convert', error)
                 }
               }
             : undefined,
-        inputError: liquidityEnough? (sufficientBalance ? undefined : 'Insufficient owanBTC balance'): 'Insufficient liquidity'
+        inputError: liquidityEnough? (sufficientBalance ? undefined : 'Insufficient wanOBTC balance'): 'Insufficient liquidity'
       }
     } else if (currencyEquals(CONVERT_TOKEN1[chainId], inputCurrency) && currencyEquals(CONVERT_TOKEN0[chainId], outputCurrency)) {
       return {
@@ -64,7 +64,7 @@ export default function useTokenConvertCallback(
             ? async () => {
                 try {
                   const txReceipt = await convertContract.withdraw(`0x${inputAmount.raw.toString(16)}`)
-                  addTransaction(txReceipt, { summary: `Revert ${inputAmount.toSignificant(6)} wanBTC to owanBTC` })
+                  addTransaction(txReceipt, { summary: `Revert ${inputAmount.toSignificant(6)} wanBTC to wanOBTC` })
                 } catch (error) {
                   console.error('Could not revert', error)
                 }
