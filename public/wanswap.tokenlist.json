@@ -2,7 +2,7 @@
   "name": "WANSWAP",
   "logoURI": "https://wanswap.finance/wanswap_token_list.png",
   "keywords": ["defi", "wanswap", "yield"],
-  "timestamp": "2021-01-29T12:40:34.305Z",
+  "timestamp": "2021-03-12T03:40:34.305Z",
   "tokens": [
     {
       "chainId": 1,
@@ -100,6 +100,14 @@
       "decimals": 18,
       "logoURI": "https://token-icons.vercel.app/icon/wanswap/wanSUSHI.png"
     },
+    {
+      "chainId": 1,
+      "address": "0xf1d0ad0c4a612ecf4931b673245f1fc2935bccdc",
+      "name": "wanZCN",
+      "symbol": "wanZCN",
+      "decimals": 10,
+      "logoURI": "https://token-icons.vercel.app/icon/wanswap/wanZCN.png"
+    },
 
 
     {
@@ -169,7 +177,7 @@
   ],
   "version": {
     "major": 1,
-    "minor": 5,
+    "minor": 6,
     "patch": 0
   }
 }
