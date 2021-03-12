@@ -111,7 +111,7 @@
 
 
     {
-      "chainId": 3,
+      "chainId": 999,
       "address": "0x974ab46969d3d9a4569546051a797729e301d6eb",
       "name": "FNX",
       "symbol": "FNX",
@@ -119,7 +119,7 @@
       "logoURI": "https://token-icons.vercel.app/icon/wanswap/FNX.png"
     },
     {
-      "chainId": 3,
+      "chainId": 999,
       "address": "0x48344649b9611a891987b2db33faada3ac1d05ec",
       "name": "Crosschain ETH",
       "symbol": "wanETH",
@@ -127,7 +127,7 @@
       "logoURI": "https://token-icons.vercel.app/icon/wanswap/wanETH.png"
     },
     {
-      "chainId": 3,
+      "chainId": 999,
       "address": "0x89a3e1494bc3db81dadc893ded7476d33d47dcbd",
       "name": "Crosschain BTC",
       "symbol": "wanOBTC",
@@ -135,7 +135,7 @@
       "logoURI": "https://token-icons.vercel.app/icon/wanBTC.png"
     },
     {
-      "chainId": 3,
+      "chainId": 999,
       "address": "0x07fdb4e8f8e420d021b9abeb2b1f6dce150ef77c",
       "name": "Crosschain BTC",
       "symbol": "wanBTC",
@@ -143,7 +143,7 @@
       "logoURI": "https://token-icons.vercel.app/icon/wanswap/wanBTC.png"
     },
     {
-      "chainId": 3,
+      "chainId": 999,
       "address": "0x57195b9d12421e963b720020483f97bb7ff2e2a6",
       "name": "Crosschain EOS",
       "symbol": "wanEOS",
@@ -151,7 +151,7 @@
       "logoURI": "https://token-icons.vercel.app/icon/wanswap/wanEOS.png"
     },
     {
-      "chainId": 3,
+      "chainId": 999,
       "address": "0x3d5950287b45f361774e5fb6e50d70eea06bc167",
       "name": "Crosschain USDT",
       "symbol": "wanUSDT",
@@ -159,7 +159,7 @@
       "logoURI": "https://token-icons.vercel.app/icon/wanswap/wanUSDT.png"
     },
     {
-      "chainId": 3,
+      "chainId": 999,
       "address": "0x7ff465746e4f47e1cbbb80c864cd7de9f13337fe",
       "name": "Crosschain USDC",
       "symbol": "wanUSDC",
@@ -167,7 +167,7 @@
       "logoURI": "https://token-icons.vercel.app/icon/wanswap/wanUSDC.png"
     },
     {
-      "chainId": 3,
+      "chainId": 999,
       "address": "0x916283cc60fdaf05069796466af164876e35d21f",
       "name": "WWAN",
       "symbol": "WWAN",
