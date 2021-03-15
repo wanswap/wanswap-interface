@@ -5,7 +5,7 @@
   "timestamp": "2021-03-12T03:40:34.305Z",
   "tokens": [
     {
-      "chainId": 1,
+      "chainId": 888,
       "address": "0x8b9f9f4aa70b1b0d586be8adfb19c1ac38e05e9a",
       "name": "WASP",
       "symbol": "WASP",
@@ -13,7 +13,7 @@
       "logoURI": "https://token-icons.vercel.app/icon/wanswap/WASP.png"
     },
     {
-      "chainId": 1,
+      "chainId": 888,
       "address": "0xc6f4465a6a521124c8e3096b62575c157999d361",
       "name": "FNX",
       "symbol": "FNX",
@@ -21,7 +21,7 @@
       "logoURI": "https://token-icons.vercel.app/icon/wanswap/FNX.png"
     },
     {
-      "chainId": 1,
+      "chainId": 888,
       "address": "0xe3ae74d1518a76715ab4c7bedf1af73893cd435a",
       "name": "wanETH",
       "symbol": "wanETH",
@@ -29,7 +29,7 @@
       "logoURI": "https://token-icons.vercel.app/icon/wanswap/wanETH.png"
     },
     {
-      "chainId": 1,
+      "chainId": 888,
       "address": "0xd15e200060fc17ef90546ad93c1c61bfefdc89c7",
       "name": "wanOBTC",
       "symbol": "wanOBTC",
@@ -37,7 +37,7 @@
       "logoURI": "https://token-icons.vercel.app/icon/wanswap/wanBTC.png"
     },
     {
-      "chainId": 1,
+      "chainId": 888,
       "address": "0x50c439b6d602297252505a6799d84ea5928bcfb6",
       "name": "wanBTC",
       "symbol": "wanBTC",
@@ -45,7 +45,7 @@
       "logoURI": "https://token-icons.vercel.app/icon/wanswap/wanBTC.png"
     },
     {
-      "chainId": 1,
+      "chainId": 888,
       "address": "0x81862b7622ced0defb652addd4e0c110205b0040",
       "name": "wanEOS",
       "symbol": "wanEOS",
@@ -53,7 +53,7 @@
       "logoURI": "https://token-icons.vercel.app/icon/wanswap/wanEOS.png"
     },
     {
-      "chainId": 1,
+      "chainId": 888,
       "address": "0x11e77e27af5539872efed10abaa0b408cfd9fbbd",
       "name": "wanUSDT",
       "symbol": "wanUSDT",
@@ -61,7 +61,7 @@
       "logoURI": "https://token-icons.vercel.app/icon/wanswap/wanUSDT.png"
     },
     {
-      "chainId": 1,
+      "chainId": 888,
       "address": "0xdabd997ae5e4799be47d6e69d9431615cba28f48",
       "name": "WWAN",
       "symbol": "WWAN",
@@ -69,7 +69,7 @@
       "logoURI": "https://token-icons.vercel.app/icon/wanswap/wWAN.png"
     },
     {
-      "chainId": 1,
+      "chainId": 888,
       "address": "0x52a9cea01c4cbdd669883e41758b8eb8e8e2b34b",
       "name": "wanUSDC",
       "symbol": "wanUSDC",
@@ -77,7 +77,7 @@
       "logoURI": "https://token-icons.vercel.app/icon/wanswap/wanUSDC.png"
     },
     {
-      "chainId": 1,
+      "chainId": 888,
       "address": "0x06da85475f9d2ae79af300de474968cd5a4fde61",
       "name": "wanLINK",
       "symbol": "wanLINK",
@@ -85,7 +85,7 @@
       "logoURI": "https://token-icons.vercel.app/icon/wanswap/wanLINK.png"
     },
     {
-      "chainId": 1,
+      "chainId": 888,
       "address": "0x73eaa7431b11b1e7a7d5310de470de09883529df",
       "name": "wanUNI",
       "symbol": "wanUNI",
@@ -93,7 +93,7 @@
       "logoURI": "https://token-icons.vercel.app/icon/wanswap/wanUNI.png"
     },
     {
-      "chainId": 1,
+      "chainId": 888,
       "address": "0x9b6863f6ab2047069ad1cd15fff8c45af637d67c",
       "name": "wanSUSHI",
       "symbol": "wanSUSHI",
@@ -101,7 +101,7 @@
       "logoURI": "https://token-icons.vercel.app/icon/wanswap/wanSUSHI.png"
     },
     {
-      "chainId": 1,
+      "chainId": 888,
       "address": "0xf1d0ad0c4a612ecf4931b673245f1fc2935bccdc",
       "name": "wanZCN",
       "symbol": "wanZCN",
@@ -176,8 +176,8 @@
     }
   ],
   "version": {
-    "major": 1,
-    "minor": 6,
-    "patch": 4
+    "major": 2,
+    "minor": 0,
+    "patch": 0
   }
 }

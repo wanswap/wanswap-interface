@@ -3580,10 +3580,10 @@
     "@wansproject/properties" "^5.0.4"
     "@wansproject/strings" "^5.0.5"
 
-"@wanswap/sdk@3.0.17":
-  version "3.0.17"
-  resolved "https://registry.yarnpkg.com/@wanswap/sdk/-/sdk-3.0.17.tgz#e7f28f71d92c4bcd61916442061d70b5020f0885"
-  integrity sha512-g+GIj+S82tRWpmaKN+LdO488dVhSMUhBOuo6NZzWvgDhapeGYXqArdl/nEFCD93uw8d4nq5tKPB1Tr90FaL77g==
+"@wanswap/sdk@3.0.18":
+  version "3.0.18"
+  resolved "https://registry.yarnpkg.com/@wanswap/sdk/-/sdk-3.0.18.tgz#a16b42e23d406dce36ae975c4e96cad63076b218"
+  integrity sha512-K0aCRCI+hQVtueyhpfRkGSj0rSThAzSnTZSjN8k8FeMvxJwrpZkZ5xIJWVgv7GhOeIb+mgWryMz/iwKPfzFHcQ==
   dependencies:
     "@uniswap/v2-core" "^1.0.0"
     "@wansproject/address" "^5.0.5"
