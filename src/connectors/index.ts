@@ -49,7 +49,7 @@ export const walletconnect = new WalletConnectConnector({
 
 // mainnet only
 export const wanwallet = new WanWalletConnector({
-  chainId: 1,
+  chainId: 888,
   url: 'https://gwan-ssl.wandevs.org:56891',
   pollingInterval: 15000,
   requestTimeoutMs: 300000

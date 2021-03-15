@@ -13,6 +13,11 @@ interface Window {
     removeListener?: (...args: any[]) => void
   }
   wanWeb3?: {}
+  ethereum?: {
+    isMetaMask?: true
+    on?: (...args: any[]) => void
+    removeListener?: (...args: any[]) => void
+  }
 }
 
 declare module 'content-hash' {

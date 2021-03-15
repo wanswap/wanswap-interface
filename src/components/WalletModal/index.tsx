@@ -7,7 +7,7 @@ import ReactGA from 'react-ga'
 import styled from 'styled-components'
 import WanMaskIcon from '../../assets/images/wanmask-logo.png'
 import { ReactComponent as Close } from '../../assets/images/x.svg'
-import { fortmatic, injected } from '../../connectors'
+import { fortmatic, injected, metamask } from '../../connectors'
 import { OVERLAY_READY } from '../../connectors/Fortmatic'
 import { SUPPORTED_WALLETS } from '../../constants'
 import usePrevious from '../../hooks/usePrevious'
@@ -258,6 +258,27 @@ export default function WalletModal({
         // likewise for generic
         else if (option.name === 'Injected' && isWanchainMask) {
           return null
+        }
+      }
+
+      if (option.connector === metamask) {
+        // don't show injected if there's no injected provider
+        if (!(window.ethereum)) {
+          if (option.name === 'MetaMask') {
+            return (
+              <Option
+                id={`connect-${key}`}
+                key={key}
+                color={'#E8831D'}
+                header={'Install MetaMask'}
+                subheader={null}
+                link={'https://metamask.io/'}
+                icon={WanMaskIcon}
+              />
+            )
+          } else {
+            return null //dont want to return install twice
+          }
         }
       }
 
