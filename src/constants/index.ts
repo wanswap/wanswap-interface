@@ -1,7 +1,7 @@
 import { ChainId, JSBI, Percent, Token, WETH } from '@wanswap/sdk'
 import { AbstractConnector } from '@web3-react-wan/abstract-connector'
 
-import { injected, wanwallet } from '../connectors'
+import { injected, wanwallet, metamask } from '../connectors'
 
 export const ROUTER_ADDRESS = '0xeA300406FE2eED9CD2bF5c47D01BECa8Ad294Ec1'
 
@@ -99,7 +99,7 @@ export const PINNED_PAIRS: { readonly [chainId in ChainId]?: [Token, Token][] } 
 }
 
 export interface WalletInfo {
-  connector?: AbstractConnector
+  connector?: any | AbstractConnector
   name: string
   iconName: string
   description: string
@@ -111,14 +111,30 @@ export interface WalletInfo {
 }
 
 const SUPPORTED_WALLETS_CHROME: { [key: string]: WalletInfo } = {
-  METAMASK: {
+  WANMASK: {
     connector: injected,
     name: 'WanMask',
     iconName: 'wanmask.png',
     description: 'Easy-to-use browser extension.',
     href: null,
     color: '#E8831D'
-  }
+  },
+  METAMASK: {
+    connector: metamask,
+    name: 'MetaMask',
+    iconName: 'metamask.png',
+    description: 'Easy-to-use browser extension.',
+    href: null,
+    color: '#E8831D'
+  },
+  // WALLET_CONNECT: {
+  //   connector: walletconnect,
+  //   name: 'WalletConnect',
+  //   iconName: 'walletConnectIcon.svg',
+  //   description: 'Connect to Trust Wallet, Rainbow Wallet and more...',
+  //   href: null,
+  //   color: '#4196FC',
+  // },
 }
 
 const SUPPORTED_WALLETS_IN_WALLET: { [key: string]: WalletInfo } = {

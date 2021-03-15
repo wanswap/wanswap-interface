@@ -1,5 +1,7 @@
 import { Web3Provider } from '@ethersproject/providers'
 import { InjectedConnector } from '@web3-react-wan/injected-connector'
+import { InjectedConnector as MetaMaskConnector } from '@web3-react/injected-connector'
+
 import { WalletConnectConnector } from '@web3-react-wan/walletconnect-connector'
 import { WanWalletConnector } from '@web3-react-wan/wanwallet-connector'
 import { WalletLinkConnector } from '@web3-react/walletlink-connector'
@@ -31,9 +33,15 @@ export const injected = new InjectedConnector({
   supportedChainIds: [1, 999, 4, 5, 42]
 })
 
+export const metamask = new MetaMaskConnector({
+  supportedChainIds: [1, 999, 4, 5, 42]
+})
+
 // mainnet only
 export const walletconnect = new WalletConnectConnector({
-  rpc: { 1: NETWORK_URL },
+  rpc: { 
+    1: NETWORK_URL,
+  },
   bridge: 'https://bridge.walletconnect.org',
   qrcode: true,
   pollingInterval: 15000
