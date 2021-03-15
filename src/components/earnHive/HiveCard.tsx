@@ -105,9 +105,10 @@ export default function HiveCard({ stakingInfo, i, hide }: { stakingInfo: Stakin
   }
 
   return (
-    <div>
+    <React.Fragment>
       {
-        !hide && <Wrapper showBackground={isStaking} bgColor={backgroundColor}>
+        !hide && <div>
+        <Wrapper showBackground={isStaking} bgColor={backgroundColor}>
         <CardBGImage desaturate />
         <CardNoise />
   
@@ -161,7 +162,9 @@ export default function HiveCard({ stakingInfo, i, hide }: { stakingInfo: Stakin
           </>
         )}
       </Wrapper>
-      }
+
     </div>
+    }
+    </React.Fragment>
   )
 }
