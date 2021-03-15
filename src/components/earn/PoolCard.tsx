@@ -149,9 +149,10 @@ export default function PoolCard({ stakingInfo, hide }: { stakingInfo: StakingIn
   const isActive = Boolean(stakingInfo.totalRewardRate.greaterThan('0'));
 
   return (
-    <div>
+    <React.Fragment>
       {
-        !hide &&    <Wrapper showBackground={isStaking} bgColor={backgroundColor}>
+        !hide &&   <div>
+        <Wrapper showBackground={isStaking} bgColor={backgroundColor}>
         <CardBGImage desaturate />
         <CardNoise />
   
@@ -215,9 +216,10 @@ export default function PoolCard({ stakingInfo, hide }: { stakingInfo: StakingIn
           </>
         )}
       </Wrapper>
-      }
+      
     </div>
- 
+    }
+  </React.Fragment>
   )
 }
 
