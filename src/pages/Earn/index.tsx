@@ -84,8 +84,6 @@ export default function Earn() {
     }
   }, []);
 
-  console.log('stakingInfos', JSON.stringify(stakingInfos, null, 2));
-
   return (
     <PageWrapper gap="lg" justify="center">
       <TopSection gap="md">
