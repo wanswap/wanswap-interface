@@ -122,10 +122,11 @@
       "name": "wanMKR",
       "symbol": "wanMKR",
       "decimals": 18,
-      "logoURI": "https://token-icons.vercel.app/icon/wanswap/wanZCN.png"
+      "logoURI": "https://token-icons.vercel.app/icon/wanswap/wanMKR.png"
     },
 
 
+    
     {
       "chainId": 3,
       "address": "0x974ab46969d3d9a4569546051a797729e301d6eb",
@@ -194,6 +195,6 @@
   "version": {
     "major": 1,
     "minor": 7,
-    "patch": 0
+    "patch": 1
   }
 }
