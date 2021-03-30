@@ -83,14 +83,22 @@ const BottomSection = styled.div<{ showBackground: boolean }>`
 
 
 const Multiplier = styled.span`
-font-weight: bold;
-text-align: center;
-border-radius: 5px;
-background-color: #FFE600;
-margin-left: 10px;
-padding: 2px 5px;
-font-size: 16px;
-color: #2172E5;
+font-weight: 500;
+    text-align: center;
+    border-radius: 5px;
+
+    margin-left: 10px;
+    padding: 0px 5px;
+    font-size: 16px;
+    color: #2172E5;
+    border: 1px solid #FFE600;
+    color: #FFE600;
+    background: transparent;
+    ${({ theme }) => theme.mediaWidth.upToSmall`
+      position:absolute;
+      bottom:15px;
+      left:5px;
+  `};
 `
 
 declare global {
