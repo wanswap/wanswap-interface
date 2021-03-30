@@ -48,6 +48,8 @@ export interface StakingInfo {
   periodFinish: Date | undefined
   // when the period ends
   periodStart: Date | undefined
+
+  allocPoint?: any
   // calculates a hypothetical amount of token distributed to the active account per second.
   getHypotheticalRewardRate: (
     stakedAmount: TokenAmount,

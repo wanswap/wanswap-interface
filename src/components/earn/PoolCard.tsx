@@ -105,6 +105,10 @@ export default function PoolCard({ stakingInfo, hide }: { stakingInfo: StakingIn
   const totalSupplyOfStakingToken = useTotalSupply(stakingInfo.stakedAmount.token)
   const [, stakingTokenPair] = usePair(...stakingInfo.tokens)
 
+  const baseAllocPoint = 200;
+  const multiplier = stakingInfo.allocPoint && Number(stakingInfo.allocPoint?.toString()) / baseAllocPoint;
+  // console.log('multiplier', currency0.symbol, currency1.symbol, multiplier?.toString(), stakingInfo.allocPoint?.toString());
+
 
   // let returnOverMonth: Percent = new Percent('0')
   let valueOfTotalStakedAmountInWETH: TokenAmount | undefined
@@ -162,6 +166,9 @@ export default function PoolCard({ stakingInfo, hide }: { stakingInfo: StakingIn
             {currency0.symbol} / {currency1.symbol} 
             {
               !isActive && <SpanFinished>Inactive</SpanFinished>
+            }
+            {
+              ' ' + multiplier + 'X'
             }
           </TYPE.white>
   
