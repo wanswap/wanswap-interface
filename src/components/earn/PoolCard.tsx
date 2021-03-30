@@ -81,6 +81,18 @@ const BottomSection = styled.div<{ showBackground: boolean }>`
   z-index: 1;
 `
 
+
+const Multiplier = styled.span`
+font-weight: bold;
+text-align: center;
+border-radius: 5px;
+background-color: #FFE600;
+margin-left: 10px;
+padding: 2px 5px;
+font-size: 16px;
+color: #2172E5;
+`
+
 declare global {
   interface Window {
     tvlItems: any;
@@ -167,9 +179,11 @@ export default function PoolCard({ stakingInfo, hide }: { stakingInfo: StakingIn
             {
               !isActive && <SpanFinished>Inactive</SpanFinished>
             }
+            <Multiplier>
             {
-              ' ' + multiplier + 'X'
+              multiplier+'x'
             }
+            </Multiplier>
           </TYPE.white>
   
           <StyledInternalLink to={`/farm/${currencyId(currency0)}/${currencyId(currency1)}`} style={{ width: '100%',color:'transparent' }}>
