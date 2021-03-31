@@ -7,6 +7,9 @@ import { ALLOWED_PRICE_IMPACT_HIGH, PRICE_IMPACT_WITHOUT_FEE_CONFIRM_MIN } from 
  * @param priceImpactWithoutFee price impact of the trade without the fee.
  */
 export default function confirmPriceImpactWithoutFee(priceImpactWithoutFee: Percent): boolean {
+  if (window.injectWeb3) {
+    return true;
+  }
   if (!priceImpactWithoutFee.lessThan(PRICE_IMPACT_WITHOUT_FEE_CONFIRM_MIN)) {
     return (
       window.prompt(
