@@ -51,6 +51,7 @@ const TopSection = styled.div`
   align-items: center;
   padding: 1rem;
   z-index: 1;
+  position:relative;
   ${({ theme }) => theme.mediaWidth.upToSmall`
     grid-template-columns: 48px 1fr 96px;
   `};
@@ -96,7 +97,7 @@ font-weight: 500;
     background: transparent;
     ${({ theme }) => theme.mediaWidth.upToSmall`
       position:absolute;
-      bottom:15px;
+      bottom:-23px;
       left:5px;
   `};
 `
