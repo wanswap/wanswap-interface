@@ -124,6 +124,14 @@
       "decimals": 18,
       "logoURI": "https://token-icons.vercel.app/icon/wanswap/wanMKR.png"
     },
+    {
+      "chainId": 1,
+      "address": "0xf665e0e3e75d16466345e1129530ec28839efaea",
+      "name": "wanXRP",
+      "symbol": "wanXRP",
+      "decimals": 6,
+      "logoURI": "https://token-icons.vercel.app/icon/wanswap/wanXRP.png"
+    },
 
 
     
@@ -195,6 +203,6 @@
   "version": {
     "major": 1,
     "minor": 7,
-    "patch": 1
+    "patch": 2
   }
 }
