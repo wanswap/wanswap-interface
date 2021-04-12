@@ -28,6 +28,11 @@ export const wanLINK = new Token(ChainId.MAINNET, '0x06da85475f9d2ae79af300de474
 export const wanUNI = new Token(ChainId.MAINNET, '0x73eaa7431b11b1e7a7d5310de470de09883529df', 18, 'wanUNI', 'wanUNI');
 export const wanSUSHI = new Token(ChainId.MAINNET, '0x9b6863f6ab2047069ad1cd15fff8c45af637d67c', 18, 'wanSUSHI', 'wanSUSHI');
 
+// export const wanMKR = new Token(ChainId.MAINNET, '0xa31b67a8cba75ea6ced8340d8bc0431ab052a4fa', 18, 'wanMKR', 'wanMKR');
+// export const wanVIBE = new Token(ChainId.MAINNET, '0xde1a20792553b84ddb254ca78fa7c5996ad5fbe2', 18, 'wanVIBE', 'wanVIBE');
+// export const wanZCN = new Token(ChainId.MAINNET, '0xf1d0ad0c4a612ecf4931b673245f1fc2935bccdc', 18, 'wanZCN', 'wanZCN');
+
+
 // TODO this is only approximate, it's actually based on blocks
 export const PROPOSAL_LENGTH_IN_DAYS = 7
 

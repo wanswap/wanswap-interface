@@ -49,6 +49,8 @@ export interface StakingInfo {
   periodFinish: Date | undefined
   // when the period ends
   periodStart: Date | undefined
+
+  allocPoint?: any
   // calculates a hypothetical amount of token distributed to the active account per second.
   getHypotheticalRewardRate: (
     stakedAmount: TokenAmount,
@@ -217,6 +219,8 @@ export function useStakingInfo(pairToFilterBy?: Pair | null): StakingInfo[] {
           )
         )
 
+        const allocPoint = poolInfo[poolInfo.findIndex(val => val.result?.lpToken === rewardsAddress)].result?.allocPoint
+
         const getHypotheticalRewardRate = (
           stakedAmount: TokenAmount,
           totalStakedAmount: TokenAmount,
@@ -254,6 +258,7 @@ export function useStakingInfo(pairToFilterBy?: Pair | null): StakingInfo[] {
           totalRewardRate: totalRewardRate,
           stakedAmount: stakedAmount,
           totalStakedAmount: totalStakedAmount,
+          allocPoint: allocPoint,
           getHypotheticalRewardRate
         })
       }

@@ -51,6 +51,7 @@ const TopSection = styled.div`
   align-items: center;
   padding: 1rem;
   z-index: 1;
+  position:relative;
   ${({ theme }) => theme.mediaWidth.upToSmall`
     grid-template-columns: 48px 1fr 96px;
   `};
@@ -81,6 +82,26 @@ const BottomSection = styled.div<{ showBackground: boolean }>`
   z-index: 1;
 `
 
+
+const Multiplier = styled.span`
+font-weight: 500;
+    text-align: center;
+    border-radius: 5px;
+
+    margin-left: 10px;
+    padding: 0px 5px;
+    font-size: 16px;
+    color: #2172E5;
+    border: 1px solid #FFE600;
+    color: #FFE600;
+    background: transparent;
+    ${({ theme }) => theme.mediaWidth.upToSmall`
+      position:absolute;
+      bottom:-23px;
+      left:5px;
+  `};
+`
+
 declare global {
   interface Window {
     tvlItems: any;
@@ -104,6 +125,10 @@ export default function PoolCard({ stakingInfo, hide }: { stakingInfo: StakingIn
 
   const totalSupplyOfStakingToken = useTotalSupply(stakingInfo.stakedAmount.token)
   const [, stakingTokenPair] = usePair(...stakingInfo.tokens)
+
+  const baseAllocPoint = 200;
+  const multiplier = stakingInfo.allocPoint && Number(stakingInfo.allocPoint?.toString()) / baseAllocPoint;
+  // console.log('multiplier', currency0.symbol, currency1.symbol, multiplier?.toString(), stakingInfo.allocPoint?.toString());
 
 
   // let returnOverMonth: Percent = new Percent('0')
@@ -149,9 +174,10 @@ export default function PoolCard({ stakingInfo, hide }: { stakingInfo: StakingIn
   const isActive = Boolean(stakingInfo.totalRewardRate.greaterThan('0'));
 
   return (
-    <div>
+    <React.Fragment>
       {
-        !hide &&    <Wrapper showBackground={isStaking} bgColor={backgroundColor}>
+        !hide &&   <div>
+        <Wrapper showBackground={isStaking} bgColor={backgroundColor}>
         <CardBGImage desaturate />
         <CardNoise />
   
@@ -162,6 +188,11 @@ export default function PoolCard({ stakingInfo, hide }: { stakingInfo: StakingIn
             {
               !isActive && <SpanFinished>Inactive</SpanFinished>
             }
+            <Multiplier>
+            {
+              multiplier+'x'
+            }
+            </Multiplier>
           </TYPE.white>
   
           <StyledInternalLink to={`/farm/${currencyId(currency0)}/${currencyId(currency1)}`} style={{ width: '100%',color:'transparent' }}>
@@ -215,9 +246,10 @@ export default function PoolCard({ stakingInfo, hide }: { stakingInfo: StakingIn
           </>
         )}
       </Wrapper>
-      }
+      
     </div>
- 
+    }
+  </React.Fragment>
   )
 }
 
