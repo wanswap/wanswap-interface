@@ -66,6 +66,21 @@ const BodyWrapper = styled.div`
   z-index: 1;
 `
 
+const HaechiAudit = styled.div`
+  position:fixed;
+  bottom:0;
+  right:100px;
+
+
+  ${({ theme }) => theme.mediaWidth.upToMedium`
+  top:0;
+  right:15px;
+  z-index:99;
+  `};
+
+  
+`
+
 const Marginer = styled.div`
   margin-top: 5rem;
 `
@@ -83,6 +98,9 @@ export default function App() {
       <Route component={DarkModeQueryParamReader} />
       
 	    <div id="shadow_bottom"></div>
+      <HaechiAudit>
+        <a href="https://github.com/wanswap/wanswap-contracts/blob/master/[HAECHI%20AUDIT]%20WanSwap%20Smart%20Contract%20Audit%20Report%20ver%202.0.pdf"><img src="haechiaudit.png"/></a>
+      </HaechiAudit>
       <AppWrapper>
         <URLWarning />
         <HeaderWrapper>
