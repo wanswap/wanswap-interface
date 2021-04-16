@@ -75,7 +75,7 @@ const HaechiAudit = styled.div`
   ${({ theme }) => theme.mediaWidth.upToMedium`
   bottom:68px;
   right:15px;
-
+  display:none;
   `};
 
   ${({ theme }) => theme.mediaWidth.upToSmall`
