@@ -132,6 +132,14 @@
       "decimals": 6,
       "logoURI": "https://token-icons.vercel.app/icon/wanswap/wanXRP.png"
     },
+    {
+      "chainId": 888,
+      "address": "0x6e11655d6ab3781c6613db8cb1bc3dee9a7e111f",
+      "name": "ZOO",
+      "symbol": "ZOO",
+      "decimals": 18,
+      "logoURI": "https://token-icons.vercel.app/icon/wanswap/ZOO.png"
+    },
 
 
     
@@ -202,7 +210,7 @@
   ],
   "version": {
     "major": 2,
-    "minor": 0,
+    "minor": 1,
     "patch": 0
   }
 }
