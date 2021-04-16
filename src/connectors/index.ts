@@ -10,7 +10,7 @@ import { PortisConnector } from '@web3-react/portis-connector'
 import { FortmaticConnector } from './Fortmatic'
 import { NetworkConnector } from './NetworkConnector'
 
-const NETWORK_URL = process.env.REACT_APP_NETWORK_URL
+const NETWORK_URL = process.env.REACT_APP_NETWORK_URL ? process.env.REACT_APP_NETWORK_URL : 'https://gwan-ssl.wandevs.org:56891';
 const FORMATIC_KEY = process.env.REACT_APP_FORTMATIC_KEY
 const PORTIS_ID = process.env.REACT_APP_PORTIS_ID
 
@@ -40,11 +40,11 @@ export const metamask = new MetaMaskConnector({
 // mainnet only
 export const walletconnect = new WalletConnectConnector({
   rpc: { 
-    1: NETWORK_URL,
+    888: NETWORK_URL,
   },
-  bridge: 'https://bridge.walletconnect.org',
-  qrcode: true,
-  pollingInterval: 15000
+  // bridge: 'https://bridge.walletconnect.org',
+  // qrcode: true,
+  // pollingInterval: 15000
 })
 
 // mainnet only

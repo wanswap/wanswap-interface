@@ -106,7 +106,7 @@ export default function App() {
       
 	    <div id="shadow_bottom"></div>
       <HaechiAudit>
-        <a target="_blank" href="https://github.com/wanswap/wanswap-contracts/blob/master/[HAECHI%20AUDIT]%20WanSwap%20Smart%20Contract%20Audit%20Report%20ver%202.0.pdf"><img src="haechiaudit.png"/></a>
+        <a target="_blank" rel="noopener noreferrer" href="https://github.com/wanswap/wanswap-contracts/blob/master/[HAECHI%20AUDIT]%20WanSwap%20Smart%20Contract%20Audit%20Report%20ver%202.0.pdf"><img alt="audit" src="haechiaudit.png"/></a>
       </HaechiAudit>
       <AppWrapper>
         <URLWarning />
