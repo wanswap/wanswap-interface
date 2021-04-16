@@ -6,6 +6,7 @@ import { isMobile } from 'react-device-detect'
 import ReactGA from 'react-ga'
 import styled from 'styled-components'
 import WanMaskIcon from '../../assets/images/wanmask-logo.png'
+import MetaMaskIcon from '../../assets/images/metamask.png'
 import { ReactComponent as Close } from '../../assets/images/x.svg'
 import { fortmatic, injected, metamask } from '../../connectors'
 import { OVERLAY_READY } from '../../connectors/Fortmatic'
@@ -273,7 +274,7 @@ export default function WalletModal({
                 header={'Install MetaMask'}
                 subheader={null}
                 link={'https://metamask.io/'}
-                icon={WanMaskIcon}
+                icon={MetaMaskIcon}
               />
             )
           } else {
