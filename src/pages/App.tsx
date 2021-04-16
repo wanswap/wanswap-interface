@@ -68,9 +68,12 @@ const BodyWrapper = styled.div`
 
 const HaechiAudit = styled.div`
   position:fixed;
-  bottom:0;
+  bottom:-5px;
   right:100px;
 
+  ${({ theme }) => theme.mediaWidth.upToLarge`
+  z-index:99;
+  `};
 
   ${({ theme }) => theme.mediaWidth.upToMedium`
   bottom:68px;
@@ -103,7 +106,7 @@ export default function App() {
       
 	    <div id="shadow_bottom"></div>
       <HaechiAudit>
-        <a href="https://github.com/wanswap/wanswap-contracts/blob/master/[HAECHI%20AUDIT]%20WanSwap%20Smart%20Contract%20Audit%20Report%20ver%202.0.pdf"><img src="haechiaudit.png"/></a>
+        <a target="_blank" href="https://github.com/wanswap/wanswap-contracts/blob/master/[HAECHI%20AUDIT]%20WanSwap%20Smart%20Contract%20Audit%20Report%20ver%202.0.pdf"><img src="haechiaudit.png"/></a>
       </HaechiAudit>
       <AppWrapper>
         <URLWarning />
