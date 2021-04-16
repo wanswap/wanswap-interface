@@ -73,9 +73,13 @@ const HaechiAudit = styled.div`
 
 
   ${({ theme }) => theme.mediaWidth.upToMedium`
-  top:0;
+  bottom:68px;
   right:15px;
-  z-index:99;
+
+  `};
+
+  ${({ theme }) => theme.mediaWidth.upToSmall`
+  display:none;
   `};
 
   
