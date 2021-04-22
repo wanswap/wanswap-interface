@@ -149,7 +149,7 @@ export default function Earn() {
               }
               return <HiveCard key={i} stakingInfo={stakingInfo} i={i} hide={hide} />
             })
-          )}
+          ).reverse()}
         </PoolSection>
       </AutoColumn>
     </PageWrapper>

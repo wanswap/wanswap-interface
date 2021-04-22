@@ -140,6 +140,14 @@
       "decimals": 18,
       "logoURI": "https://token-icons.vercel.app/icon/wanswap/ZOO.png"
     },
+    {
+      "chainId": 888,
+      "address": "0x8f587d955f3cf200290426f91a7c3687787ed703",
+      "name": "wanOCEAN",
+      "symbol": "wanOCEAN",
+      "decimals": 18,
+      "logoURI": "https://token-icons.vercel.app/icon/wanswap/wanOCEAN.png"
+    },
 
 
     
@@ -210,7 +218,7 @@
   ],
   "version": {
     "major": 2,
-    "minor": 1,
+    "minor": 2,
     "patch": 0
   }
 }
