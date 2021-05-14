@@ -10,7 +10,7 @@
       "name": "WASP",
       "symbol": "WASP",
       "decimals": 18,
-      "logoURI": "https://token-icons.vercel.app/icon/wanswap/WASP.png"
+      "logoURI": "https://icons.wanswap.finance/icon/wanswap/WASP.png"
     },
     {
       "chainId": 888,
@@ -18,7 +18,7 @@
       "name": "FNX",
       "symbol": "FNX",
       "decimals": 18,
-      "logoURI": "https://token-icons.vercel.app/icon/wanswap/FNX.png"
+      "logoURI": "https://icons.wanswap.finance/icon/wanswap/FNX.png"
     },
     {
       "chainId": 888,
@@ -26,7 +26,7 @@
       "name": "wanETH",
       "symbol": "wanETH",
       "decimals": 18,
-      "logoURI": "https://token-icons.vercel.app/icon/wanswap/wanETH.png"
+      "logoURI": "https://icons.wanswap.finance/icon/wanswap/wanETH.png"
     },
     {
       "chainId": 888,
@@ -34,7 +34,7 @@
       "name": "wanOBTC",
       "symbol": "wanOBTC",
       "decimals": 8,
-      "logoURI": "https://token-icons.vercel.app/icon/wanswap/wanBTC.png"
+      "logoURI": "https://icons.wanswap.finance/icon/wanswap/wanBTC.png"
     },
     {
       "chainId": 888,
@@ -42,7 +42,7 @@
       "name": "wanBTC",
       "symbol": "wanBTC",
       "decimals": 8,
-      "logoURI": "https://token-icons.vercel.app/icon/wanswap/wanBTC.png"
+      "logoURI": "https://icons.wanswap.finance/icon/wanswap/wanBTC.png"
     },
     {
       "chainId": 888,
@@ -50,7 +50,7 @@
       "name": "wanEOS",
       "symbol": "wanEOS",
       "decimals": 4,
-      "logoURI": "https://token-icons.vercel.app/icon/wanswap/wanEOS.png"
+      "logoURI": "https://icons.wanswap.finance/icon/wanswap/wanEOS.png"
     },
     {
       "chainId": 888,
@@ -58,7 +58,7 @@
       "name": "wanUSDT",
       "symbol": "wanUSDT",
       "decimals": 6,
-      "logoURI": "https://token-icons.vercel.app/icon/wanswap/wanUSDT.png"
+      "logoURI": "https://icons.wanswap.finance/icon/wanswap/wanUSDT.png"
     },
     {
       "chainId": 888,
@@ -66,7 +66,7 @@
       "name": "WWAN",
       "symbol": "WWAN",
       "decimals": 18,
-      "logoURI": "https://token-icons.vercel.app/icon/wanswap/wWAN.png"
+      "logoURI": "https://icons.wanswap.finance/icon/wanswap/WWAN.png"
     },
     {
       "chainId": 888,
@@ -74,7 +74,7 @@
       "name": "wanUSDC",
       "symbol": "wanUSDC",
       "decimals": 6,
-      "logoURI": "https://token-icons.vercel.app/icon/wanswap/wanUSDC.png"
+      "logoURI": "https://icons.wanswap.finance/icon/wanswap/wanUSDC.png"
     },
     {
       "chainId": 888,
@@ -82,7 +82,7 @@
       "name": "wanLINK",
       "symbol": "wanLINK",
       "decimals": 18,
-      "logoURI": "https://token-icons.vercel.app/icon/wanswap/wanLINK.png"
+      "logoURI": "https://icons.wanswap.finance/icon/wanswap/wanLINK.png"
     },
     {
       "chainId": 888,
@@ -90,7 +90,7 @@
       "name": "wanUNI",
       "symbol": "wanUNI",
       "decimals": 18,
-      "logoURI": "https://token-icons.vercel.app/icon/wanswap/wanUNI.png"
+      "logoURI": "https://icons.wanswap.finance/icon/wanswap/wanUNI.png"
     },
     {
       "chainId": 888,
@@ -98,7 +98,7 @@
       "name": "wanSUSHI",
       "symbol": "wanSUSHI",
       "decimals": 18,
-      "logoURI": "https://token-icons.vercel.app/icon/wanswap/wanSUSHI.png"
+      "logoURI": "https://icons.wanswap.finance/icon/wanswap/wanSUSHI.png"
     },
     {
       "chainId": 888,
@@ -106,7 +106,7 @@
       "name": "wanZCN",
       "symbol": "wanZCN",
       "decimals": 10,
-      "logoURI": "https://token-icons.vercel.app/icon/wanswap/wanZCN.png"
+      "logoURI": "https://icons.wanswap.finance/icon/wanswap/wanZCN.png"
     },
     {
       "chainId": 888,
@@ -114,7 +114,7 @@
       "name": "wanVIBE",
       "symbol": "wanVIBE",
       "decimals": 18,
-      "logoURI": "https://token-icons.vercel.app/icon/wanswap/wanVIBE.png"
+      "logoURI": "https://icons.wanswap.finance/icon/wanswap/wanVIBE.png"
     },
     {
       "chainId": 888,
@@ -122,7 +122,7 @@
       "name": "wanMKR",
       "symbol": "wanMKR",
       "decimals": 18,
-      "logoURI": "https://token-icons.vercel.app/icon/wanswap/wanMKR.png"
+      "logoURI": "https://icons.wanswap.finance/icon/wanswap/wanMKR.png"
     },
     {
       "chainId": 888,
@@ -130,7 +130,7 @@
       "name": "wanXRP",
       "symbol": "wanXRP",
       "decimals": 6,
-      "logoURI": "https://token-icons.vercel.app/icon/wanswap/wanXRP.png"
+      "logoURI": "https://icons.wanswap.finance/icon/wanswap/wanXRP.png"
     },
     {
       "chainId": 888,
@@ -138,7 +138,7 @@
       "name": "ZOO",
       "symbol": "ZOO",
       "decimals": 18,
-      "logoURI": "https://token-icons.vercel.app/icon/wanswap/ZOO.png"
+      "logoURI": "https://icons.wanswap.finance/icon/wanswap/ZOO.png"
     },
     {
       "chainId": 888,
@@ -146,7 +146,7 @@
       "name": "wanOCEAN",
       "symbol": "wanOCEAN",
       "decimals": 18,
-      "logoURI": "https://token-icons.vercel.app/icon/wanswap/wanOCEAN.png"
+      "logoURI": "https://icons.wanswap.finance/icon/wanswap/wanOCEAN.png"
     },
 
 
@@ -157,7 +157,7 @@
       "name": "FNX",
       "symbol": "FNX",
       "decimals": 18,
-      "logoURI": "https://token-icons.vercel.app/icon/wanswap/FNX.png"
+      "logoURI": "https://icons.wanswap.finance/icon/wanswap/FNX.png"
     },
     {
       "chainId": 999,
@@ -165,7 +165,7 @@
       "name": "Crosschain ETH",
       "symbol": "wanETH",
       "decimals": 18,
-      "logoURI": "https://token-icons.vercel.app/icon/wanswap/wanETH.png"
+      "logoURI": "https://icons.wanswap.finance/icon/wanswap/wanETH.png"
     },
     {
       "chainId": 999,
@@ -173,7 +173,7 @@
       "name": "Crosschain BTC",
       "symbol": "wanOBTC",
       "decimals": 8,
-      "logoURI": "https://token-icons.vercel.app/icon/wanBTC.png"
+      "logoURI": "https://icons.wanswap.finance/icon/wanBTC.png"
     },
     {
       "chainId": 999,
@@ -181,7 +181,7 @@
       "name": "Crosschain BTC",
       "symbol": "wanBTC",
       "decimals": 8,
-      "logoURI": "https://token-icons.vercel.app/icon/wanswap/wanBTC.png"
+      "logoURI": "https://icons.wanswap.finance/icon/wanswap/wanBTC.png"
     },
     {
       "chainId": 999,
@@ -189,7 +189,7 @@
       "name": "Crosschain EOS",
       "symbol": "wanEOS",
       "decimals": 4,
-      "logoURI": "https://token-icons.vercel.app/icon/wanswap/wanEOS.png"
+      "logoURI": "https://icons.wanswap.finance/icon/wanswap/wanEOS.png"
     },
     {
       "chainId": 999,
@@ -197,7 +197,7 @@
       "name": "Crosschain USDT",
       "symbol": "wanUSDT",
       "decimals": 6,
-      "logoURI": "https://token-icons.vercel.app/icon/wanswap/wanUSDT.png"
+      "logoURI": "https://icons.wanswap.finance/icon/wanswap/wanUSDT.png"
     },
     {
       "chainId": 999,
@@ -205,7 +205,7 @@
       "name": "Crosschain USDC",
       "symbol": "wanUSDC",
       "decimals": 6,
-      "logoURI": "https://token-icons.vercel.app/icon/wanswap/wanUSDC.png"
+      "logoURI": "https://icons.wanswap.finance/icon/wanswap/wanUSDC.png"
     },
     {
       "chainId": 999,
@@ -213,12 +213,12 @@
       "name": "WWAN",
       "symbol": "WWAN",
       "decimals": 18,
-      "logoURI": "https://token-icons.vercel.app/icon/wanswap/wWAN.png"
+      "logoURI": "https://icons.wanswap.finance/icon/wanswap/WWAN.png"
     }
   ],
   "version": {
     "major": 2,
-    "minor": 2,
+    "minor": 3,
     "patch": 0
   }
 }
