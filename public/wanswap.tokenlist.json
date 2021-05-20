@@ -148,6 +148,14 @@
       "decimals": 18,
       "logoURI": "https://icons.wanswap.finance/icon/wanswap/wanOCEAN.png"
     },
+    {
+      "chainId": 888,
+      "address": "0xd3a33c6fea7f785ddc0915f6a76919c11abded45",
+      "name": "wanDOGE",
+      "symbol": "wanDOGE",
+      "decimals": 8,
+      "logoURI": "https://icons.wanswap.finance/icon/DOGE.png"
+    },
 
 
     
@@ -218,7 +226,7 @@
   ],
   "version": {
     "major": 2,
-    "minor": 3,
+    "minor": 4,
     "patch": 0
   }
 }
