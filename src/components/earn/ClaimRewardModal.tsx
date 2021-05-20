@@ -73,7 +73,7 @@ export default function ClaimRewardModal({ isOpen, onDismiss, stakingInfo }: Sta
       {!attempting && !hash && (
         <ContentWrapper gap="lg">
           <RowBetween>
-            <TYPE.mediumHeader>Claim</TYPE.mediumHeader>
+            <TYPE.mediumHeader>{t("Claim")}</TYPE.mediumHeader>
             <CloseIcon onClick={wrappedOnDismiss} />
           </RowBetween>
           {stakingInfo?.earnedAmount && (
@@ -81,29 +81,29 @@ export default function ClaimRewardModal({ isOpen, onDismiss, stakingInfo }: Sta
               <TYPE.body fontWeight={600} fontSize={36}>
                 {stakingInfo?.earnedAmount?.toSignificant(6)}
               </TYPE.body>
-              <TYPE.body>Unclaimed WASP</TYPE.body>
+              <TYPE.body>{t("Unclaimed")} WASP</TYPE.body>
             </AutoColumn>
           )}
           <TYPE.subHeader style={{ textAlign: 'center' }}>
-            When you claim without withdrawing your liquidity remains in the mining pool.
+            {t("When you claim without withdrawing your liquidity remains in the mining pool.")}
           </TYPE.subHeader>
           <ButtonError disabled={!!error} error={!!error && !!stakingInfo?.stakedAmount} onClick={onClaimReward}>
-            {error ?? 'Claim'}
+            {error ?? t('Claim')}
           </ButtonError>
         </ContentWrapper>
       )}
       {attempting && !hash && (
         <LoadingView onDismiss={wrappedOnDismiss}>
           <AutoColumn gap="12px" justify={'center'}>
-            <TYPE.body fontSize={20}>Claiming {stakingInfo?.earnedAmount?.toSignificant(6)} WASP</TYPE.body>
+            <TYPE.body fontSize={20}>{t("Claiming")} {stakingInfo?.earnedAmount?.toSignificant(6)} WASP</TYPE.body>
           </AutoColumn>
         </LoadingView>
       )}
       {hash && (
         <SubmittedView onDismiss={wrappedOnDismiss} hash={hash}>
           <AutoColumn gap="12px" justify={'center'}>
-            <TYPE.largeHeader>Transaction Submitted</TYPE.largeHeader>
-            <TYPE.body fontSize={20}>Claimed WASP!</TYPE.body>
+            <TYPE.largeHeader>{t("Transaction Submitted")}</TYPE.largeHeader>
+            <TYPE.body fontSize={20}>{t("Claimed WASP!")}</TYPE.body>
           </AutoColumn>
         </SubmittedView>
       )}

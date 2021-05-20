@@ -130,7 +130,7 @@ export default function PoolCard({ stakingInfo }: { stakingInfo: StakingInfo }) 
 
         <StyledInternalLink to={`/farm/${currencyId(currency0)}/${currencyId(currency1)}`} style={{ width: '100%',color:'transparent' }}>
           <ButtonPrimary padding="8px" borderRadius="8px">
-            {isStaking ? 'Manage' : 'Deposit'}
+            {isStaking ? t('Manage') : t('Deposit')}
           </ButtonPrimary>
         </StyledInternalLink>
       </TopSection>

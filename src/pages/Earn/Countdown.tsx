@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { STAKING_GENESIS, REWARDS_DURATION_DAYS } from '../../state/stake/hooks'
 import { TYPE } from '../../theme'
 
@@ -33,18 +34,20 @@ export function Countdown({ exactEnd, exactStart }: { exactEnd?: Date; exactStar
   const timeUntilGenesis = begin - time
   const timeUntilEnd = end - time
 
+  const {t}=useTranslation();
+
   let timeRemaining: number
   let message: string
   if (timeUntilGenesis >= 0) {
-    message = 'Rewards begin in'
+    message = t('Rewards begin in')
     timeRemaining = timeUntilGenesis
   } else {
     const ongoing = timeUntilEnd >= 0
     if (ongoing) {
-      message = 'Rewards end in'
+      message = t('Rewards end in')
       timeRemaining = timeUntilEnd
     } else {
-      message = 'Rewards have ended!'
+      message = t('Rewards have ended!')
       timeRemaining = Infinity
     }
   }

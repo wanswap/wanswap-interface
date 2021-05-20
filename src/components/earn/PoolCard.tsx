@@ -186,7 +186,7 @@ export default function PoolCard({ stakingInfo, hide }: { stakingInfo: StakingIn
           <TYPE.white fontWeight={600} fontSize={18} style={{ marginLeft: '8px' }}>
             {currency0.symbol} / {currency1.symbol} 
             {
-              !isActive && <SpanFinished>Inactive</SpanFinished>
+              !isActive && <SpanFinished>{t("Inactive")}</SpanFinished>
             }
             <Multiplier>
             {
@@ -197,7 +197,7 @@ export default function PoolCard({ stakingInfo, hide }: { stakingInfo: StakingIn
   
           <StyledInternalLink to={`/farm/${currencyId(currency0)}/${currencyId(currency1)}`} style={{ width: '100%',color:'transparent' }}>
             <ButtonPrimary padding="8px" borderRadius="8px">
-              {isStaking ? 'Manage' : 'Deposit'}
+              {isStaking ? t('Manage') : t('Deposit')}
             </ButtonPrimary>
           </StyledInternalLink>
         </TopSection>
@@ -217,7 +217,7 @@ export default function PoolCard({ stakingInfo, hide }: { stakingInfo: StakingIn
           <PoolRate>
           <RowBetween>
             
-            <TYPE.white> Pool rate </TYPE.white>
+            <TYPE.white> {t("Pool rate")} </TYPE.white>
             <TYPE.white>{`${stakingInfo.totalRewardRate
               ?.multiply(`${60 * 60 * 24 * 7}`)
               ?.toFixed(0, { groupSeparator: ',' })} WASP / week`}</TYPE.white>

@@ -29,6 +29,7 @@ import { usePair } from '../../data/Reserves'
 import usePrevious from '../../hooks/usePrevious'
 import useUSDCPrice from '../../utils/useUSDCPrice'
 import { BIG_INT_ZERO } from '../../constants'
+import { useTranslation } from 'react-i18next'
 
 const PageWrapper = styled(AutoColumn)`
   max-width: 640px;
@@ -98,6 +99,8 @@ export default function Manage({
   const tokenA = wrappedCurrency(currencyA ?? undefined, chainId)
   const tokenB = wrappedCurrency(currencyB ?? undefined, chainId)
 
+  const { t } = useTranslation()
+
   const [, stakingTokenPair] = usePair(tokenA, tokenB)
   const stakingInfo = useStakingInfo(stakingTokenPair)?.[0]
 
@@ -163,7 +166,7 @@ export default function Manage({
     <PageWrapper gap="lg" justify="center">
       <RowBetween style={{ gap: '24px' }}>
         <TYPE.mediumHeader style={{ margin: 0 }}>
-          {currencyA?.symbol}-{currencyB?.symbol} Liquidity Mining
+          {currencyA?.symbol}-{currencyB?.symbol} {t("Liquidity Mining")}
         </TYPE.mediumHeader>
         <DoubleCurrencyLogo currency0={currencyA ?? undefined} currency1={currencyB ?? undefined} size={40} />
       </RowBetween>
@@ -171,7 +174,7 @@ export default function Manage({
       <DataRow style={{ gap: '24px' }}>
         <PoolData>
           <AutoColumn gap="sm">
-            <TYPE.body style={{ margin: 0 }}>Total deposits</TYPE.body>
+            <TYPE.body style={{ margin: 0 }}>{t("Total deposits")}</TYPE.body>
             <TYPE.body fontSize={24} fontWeight={500}>
               {valueOfTotalStakedAmountInUSDC
                 ? `$${valueOfTotalStakedAmountInUSDC.toSignificant(6, { groupSeparator: ',' })}`
@@ -181,12 +184,12 @@ export default function Manage({
         </PoolData>
         <PoolData>
           <AutoColumn gap="sm">
-            <TYPE.body style={{ margin: 0 }}>Pool Rate</TYPE.body>
+            <TYPE.body style={{ margin: 0 }}>{t("Pool Rate")}</TYPE.body>
             <TYPE.body fontSize={24} fontWeight={500}>
               {stakingInfo?.totalRewardRate
                 ?.multiply((60 * 60 * 24 * 7).toString())
                 ?.toFixed(0, { groupSeparator: ',' }) ?? '-'}
-              {' WASP / week'}
+              {t(' WASP / week')}
             </TYPE.body>
           </AutoColumn>
         </PoolData>
@@ -199,7 +202,7 @@ export default function Manage({
           <CardSection>
             <AutoColumn gap="md">
               <RowBetween>
-                <TYPE.white fontWeight={600}>Step 1. Get WanSwap Liquidity Pool token WSLP</TYPE.white>
+                <TYPE.white fontWeight={600}>{t("Step 1. Get WanSwap Liquidity Pool token WSLP")}</TYPE.white>
               </RowBetween>
               <RowBetween style={{ marginBottom: '1rem' }}>
                 <TYPE.white fontSize={14}>
@@ -251,7 +254,7 @@ export default function Manage({
               <CardNoise />
               <AutoColumn gap="md">
                 <RowBetween>
-                  <TYPE.white fontWeight={600}>Your liquidity deposits</TYPE.white>
+                  <TYPE.white fontWeight={600}>{t("Your liquidity deposits")}</TYPE.white>
                 </RowBetween>
                 <RowBetween style={{ alignItems: 'center', display:'flex',flexWrap:'wrap' }}>
                   <TYPE.white fontSize={36} fontWeight={600}>
@@ -270,7 +273,7 @@ export default function Manage({
             <AutoColumn gap="sm">
               <RowBetween>
                 <div>
-                  <TYPE.black>Your unclaimed WASP</TYPE.black>
+                  <TYPE.black>{t("Your unclaimed WASP")}</TYPE.black>
                 </div>
                 {stakingInfo?.earnedAmount && JSBI.notEqual(BIG_INT_ZERO, stakingInfo?.earnedAmount?.raw) && (
                   <ButtonEmpty
@@ -280,7 +283,7 @@ export default function Manage({
                     width="fit-content"
                     onClick={() => setShowClaimRewardModal(true)}
                   >
-                    Claim
+                    {t("Claim")}
                   </ButtonEmpty>
                 )}
               </RowBetween>
@@ -303,7 +306,7 @@ export default function Manage({
                   {stakingInfo?.rewardRate
                     ?.multiply((60 * 60 * 24 * 7).toString())
                     ?.toFixed(0, { groupSeparator: ',' }) ?? '-'}
-                  {' WASP / week'}
+                  {t(' WASP / week')}
                 </TYPE.black>
               </RowBetween>
             </AutoColumn>
@@ -313,13 +316,13 @@ export default function Manage({
           <span role="img" aria-label="wizard-icon" style={{ marginRight: '8px' }}>
             ⭐️
           </span>
-          When you withdraw, the contract will automagically claim WASP on your behalf!
+          {t("When you withdraw, the contract will automagically claim WASP on your behalf!")}
         </TYPE.main>
 
         {!showAddLiquidityButton && (
           <DataRow style={{ marginBottom: '1rem', gap:0 }}>
             <ButtonPrimary padding="8px" borderRadius="8px" width="160px" margin="6px" onClick={handleDepositClick}>
-              {stakingInfo?.stakedAmount?.greaterThan(JSBI.BigInt(0)) ? 'Deposit' : 'Deposit WSLP Tokens'}
+              {stakingInfo?.stakedAmount?.greaterThan(JSBI.BigInt(0)) ? t('Deposit') : t('Deposit WSLP Tokens')}
             </ButtonPrimary>
 
             {stakingInfo?.stakedAmount?.greaterThan(JSBI.BigInt(0)) && (
@@ -331,14 +334,14 @@ export default function Manage({
                   width="160px"
                   onClick={() => setShowUnstakingModal(true)}
                 >
-                  Withdraw
+                  {t("Withdraw")}
                 </ButtonPrimary>
               </>
             )}
           </DataRow>
         )}
         {!userLiquidityUnstaked ? null : userLiquidityUnstaked.equalTo('0') ? null : (
-          <TYPE.main>{userLiquidityUnstaked.toSignificant(6)} WSLP tokens available</TYPE.main>
+          <TYPE.main>{userLiquidityUnstaked.toSignificant(6)} {t("WSLP tokens available")}</TYPE.main>
         )}
       </PositionInfo>
     </PageWrapper>

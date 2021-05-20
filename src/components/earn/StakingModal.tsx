@@ -21,6 +21,7 @@ import { TransactionResponse } from '@ethersproject/providers'
 import { useTransactionAdder } from '../../state/transactions/hooks'
 import { LoadingView, SubmittedView } from '../ModalViews'
 import { BRIDGE_MINER_ADDRESS } from '../../constants/abis/bridge'
+import { useTranslation } from 'react-i18next'
 
 const HypotheticalRewardRate = styled.div<{ dim: boolean }>`
   display: flex;
@@ -45,6 +46,7 @@ interface StakingModalProps {
 
 export default function StakingModal({ isOpen, onDismiss, stakingInfo, userLiquidityUnstaked }: StakingModalProps) {
   const { chainId } = useActiveWeb3React()
+  const { t } = useTranslation()
 
   // track and parse user input
   const [typedValue, setTypedValue] = useState('')
@@ -212,7 +214,7 @@ export default function StakingModal({ isOpen, onDismiss, stakingInfo, userLiqui
       {!attempting && !hash && (
         <ContentWrapper gap="md">
           <RowBetween>
-            <TYPE.mediumHeader>Deposit</TYPE.mediumHeader>
+            <TYPE.mediumHeader>{t("Deposit")}</TYPE.mediumHeader>
             <CloseIcon onClick={wrappedOnDismiss} />
           </RowBetween>
           <CurrencyInputPanel
@@ -225,18 +227,18 @@ export default function StakingModal({ isOpen, onDismiss, stakingInfo, userLiqui
             pair={dummyPair}
             label={''}
             disableCurrencySelect={true}
-            customBalanceText={'Available to deposit: '}
+            customBalanceText={t('Available to deposit: ')}
             id="stake-liquidity-token"
           />
 
           <HypotheticalRewardRate dim={!hypotheticalRewardRate.greaterThan('0')}>
             <div>
-              <TYPE.black fontWeight={600}>Weekly Rewards</TYPE.black>
+              <TYPE.black fontWeight={600}>{t("Weekly Rewards")}</TYPE.black>
             </div>
 
             <TYPE.black>
               {hypotheticalRewardRate.multiply((60 * 60 * 24 * 7).toString()).toSignificant(4, { groupSeparator: ',' })}{' '}
-              WASP / week
+              {t("WASP / week")}
             </TYPE.black>
           </HypotheticalRewardRate>
 
@@ -248,7 +250,7 @@ export default function StakingModal({ isOpen, onDismiss, stakingInfo, userLiqui
               confirmed={approval === ApprovalState.APPROVED || signatureData !== null}
               disabled={approval !== ApprovalState.NOT_APPROVED || signatureData !== null}
             >
-              Approve
+              {t("Approve")}
             </ButtonConfirmed>
             <ButtonError
               altDisabledStyle={true}
@@ -256,7 +258,7 @@ export default function StakingModal({ isOpen, onDismiss, stakingInfo, userLiqui
               error={!!error && !!parsedAmount}
               onClick={onStake}
             >
-              {error ?? 'Deposit'}
+              {error ?? t('Deposit')}
             </ButtonError>
           </RowBetween>
           <ProgressCircles steps={[approval === ApprovalState.APPROVED || signatureData !== null]} disabled={true} />
@@ -265,7 +267,7 @@ export default function StakingModal({ isOpen, onDismiss, stakingInfo, userLiqui
       {attempting && !hash && (
         <LoadingView onDismiss={wrappedOnDismiss}>
           <AutoColumn gap="12px" justify={'center'}>
-            <TYPE.largeHeader>Depositing Liquidity</TYPE.largeHeader>
+            <TYPE.largeHeader>{t("Depositing Liquidity")}</TYPE.largeHeader>
             <TYPE.body fontSize={20}>{parsedAmount?.toSignificant(4)} WSLP</TYPE.body>
           </AutoColumn>
         </LoadingView>
@@ -273,8 +275,8 @@ export default function StakingModal({ isOpen, onDismiss, stakingInfo, userLiqui
       {attempting && hash && (
         <SubmittedView onDismiss={wrappedOnDismiss} hash={hash}>
           <AutoColumn gap="12px" justify={'center'}>
-            <TYPE.largeHeader>Transaction Submitted</TYPE.largeHeader>
-            <TYPE.body fontSize={20}>Deposited {parsedAmount?.toSignificant(4)} WSLP</TYPE.body>
+            <TYPE.largeHeader>{t("Transaction Submitted")}</TYPE.largeHeader>
+            <TYPE.body fontSize={20}>{t("Deposited")} {parsedAmount?.toSignificant(4)} WSLP</TYPE.body>
           </AutoColumn>
         </SubmittedView>
       )}
