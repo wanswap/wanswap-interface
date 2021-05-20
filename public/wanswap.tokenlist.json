@@ -154,7 +154,7 @@
       "name": "wanDOGE",
       "symbol": "wanDOGE",
       "decimals": 8,
-      "logoURI": "https://icons.wanswap.finance/icon/DOGE.png"
+      "logoURI": "https://icons.wanswap.finance/icon/wanswap/wanDOGE.png"
     },
 
 
@@ -226,7 +226,7 @@
   ],
   "version": {
     "major": 2,
-    "minor": 7,
+    "minor": 8,
     "patch": 0
   }
 }
