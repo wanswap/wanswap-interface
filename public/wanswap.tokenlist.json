@@ -30,14 +30,6 @@
     },
     {
       "chainId": 888,
-      "address": "0xd15e200060fc17ef90546ad93c1c61bfefdc89c7",
-      "name": "wanOBTC",
-      "symbol": "wanOBTC",
-      "decimals": 8,
-      "logoURI": "https://icons.wanswap.finance/icon/wanswap/wanBTC.png"
-    },
-    {
-      "chainId": 888,
       "address": "0x50c439b6d602297252505a6799d84ea5928bcfb6",
       "name": "wanBTC",
       "symbol": "wanBTC",
@@ -226,7 +218,7 @@
   ],
   "version": {
     "major": 2,
-    "minor": 8,
+    "minor": 9,
     "patch": 0
   }
 }
