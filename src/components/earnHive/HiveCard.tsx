@@ -122,7 +122,7 @@ export default function HiveCard({ stakingInfo, i, hide }: { stakingInfo: Stakin
           <StyledInternalLink to={`/hive/${currencyId(currency0)}/${i}`} style={{ width: '100%',color:'transparent' }}>
             
             <ButtonPrimary padding="8px" borderRadius="8px">
-              {isStaking ? 'Manage' : 'Deposit'}
+              {isStaking ? t('Manage') : t('Deposit')}
             </ButtonPrimary>
           </StyledInternalLink>
         </TopSection>
@@ -135,7 +135,7 @@ export default function HiveCard({ stakingInfo, i, hide }: { stakingInfo: Stakin
             </TYPE.white>
           </RowBetween>
           <RowBetween>
-            <TYPE.white> Pool rate </TYPE.white>
+            <TYPE.white> {t("Pool rate")} </TYPE.white>
             <TYPE.white>{`${stakingInfo.totalRewardRate
               ?.multiply(`${60 * 60 * 24 * 7 / 5}`)
               ?.toFixed(0, { groupSeparator: ',' })} WAN / week`}</TYPE.white>
@@ -147,7 +147,7 @@ export default function HiveCard({ stakingInfo, i, hide }: { stakingInfo: Stakin
             <Break />
             <BottomSection showBackground={true}>
               <TYPE.black color={'white'} fontWeight={500}>
-                <span>Your rate</span>
+                <span>{t("Your rate")}</span>
               </TYPE.black>
   
               <TYPE.black style={{ textAlign: 'right' }} color={'white'} fontWeight={500}>

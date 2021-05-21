@@ -1,5 +1,6 @@
 import React, { useContext, useRef, useState } from 'react'
 import { Settings, X } from 'react-feather'
+import { useTranslation } from 'react-i18next'
 import { Text } from 'rebass'
 import styled, { ThemeContext } from 'styled-components'
 import { useOnClickOutside } from '../../hooks/useOnClickOutside'
@@ -140,6 +141,8 @@ export default function SettingsTab() {
   // show confirmation view before turning on
   const [showConfirmation, setShowConfirmation] = useState(false)
 
+  const { t } = useTranslation()
+
   useOnClickOutside(node, open ? toggle : undefined)
 
   return (
@@ -162,7 +165,7 @@ export default function SettingsTab() {
                 in bad rates and lost funds.
               </Text>
               <Text fontWeight={600} fontSize={20}>
-                ONLY USE THIS MODE IF YOU KNOW WHAT YOU ARE DOING.
+                {t("ONLY USE THIS MODE IF YOU KNOW WHAT YOU ARE DOING.")}
               </Text>
               <ButtonError
                 error={true}
@@ -180,7 +183,7 @@ export default function SettingsTab() {
                 }}
               >
                 <Text fontSize={20} fontWeight={500} id="confirm-expert-mode">
-                  Turn On Expert Mode
+                  {t("Turn On Expert Mode")}
                 </Text>
               </ButtonError>
             </AutoColumn>
@@ -201,7 +204,7 @@ export default function SettingsTab() {
         <MenuFlyout>
           <AutoColumn gap="md" style={{ padding: '1rem' }}>
             <Text fontWeight={600} fontSize={14}>
-              Transaction Settings
+              {t("Transaction Settings")}
             </Text>
             <TransactionSettings
               rawSlippage={userSlippageTolerance}
@@ -210,12 +213,12 @@ export default function SettingsTab() {
               setDeadline={setTtl}
             />
             <Text fontWeight={600} fontSize={14}>
-              Interface Settings
+              {t("Interface Settings")}
             </Text>
             <RowBetween>
               <RowFixed>
                 <TYPE.black fontWeight={400} fontSize={14} color={theme.text2}>
-                  Toggle Expert Mode
+                  {t("Toggle Expert Mode")}
                 </TYPE.black>
                 <QuestionHelper text="Bypasses confirmation modals and allows high slippage trades. Use at your own risk." />
               </RowFixed>

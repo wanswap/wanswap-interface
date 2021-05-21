@@ -21,6 +21,7 @@ import { TransactionResponse } from '@ethersproject/providers'
 import { useTransactionAdder } from '../../state/transactions/hooks'
 import { LoadingView, SubmittedView } from '../ModalViews'
 import { HIVE_ADDRESS } from '../../constants/abis/bridge'
+import { useTranslation } from 'react-i18next'
 
 const HypotheticalRewardRate = styled.div<{ dim: boolean }>`
   display: flex;
@@ -45,6 +46,7 @@ interface StakingModalProps {
 
 export default function StakingModal({ isOpen, onDismiss, stakingInfo, userLiquidityUnstaked }: StakingModalProps) {
   const { chainId } = useActiveWeb3React()
+  const { t } = useTranslation()
 
   // track and parse user input
   const [typedValue, setTypedValue] = useState('')
@@ -145,7 +147,7 @@ export default function StakingModal({ isOpen, onDismiss, stakingInfo, userLiqui
       {!attempting && !hash && (
         <ContentWrapper gap="md">
           <RowBetween>
-            <TYPE.mediumHeader>Deposit</TYPE.mediumHeader>
+            <TYPE.mediumHeader>{t("Deposit")}</TYPE.mediumHeader>
             <CloseIcon onClick={wrappedOnDismiss} />
           </RowBetween>
           <CurrencyInputPanel
@@ -163,7 +165,7 @@ export default function StakingModal({ isOpen, onDismiss, stakingInfo, userLiqui
 
           <HypotheticalRewardRate dim={!hypotheticalRewardRate.greaterThan('0')}>
             <div>
-              <TYPE.black fontWeight={600}>Weekly Rewards</TYPE.black>
+              <TYPE.black fontWeight={600}>{t("Weekly Rewards")}</TYPE.black>
             </div>
 
             <TYPE.black>
@@ -180,7 +182,7 @@ export default function StakingModal({ isOpen, onDismiss, stakingInfo, userLiqui
               confirmed={approval === ApprovalState.APPROVED || signatureData !== null}
               disabled={approval !== ApprovalState.NOT_APPROVED || signatureData !== null}
             >
-              Approve
+              {t("Approve")}
             </ButtonConfirmed>
             <ButtonError
               altDisabledStyle={true}
@@ -188,7 +190,7 @@ export default function StakingModal({ isOpen, onDismiss, stakingInfo, userLiqui
               error={!!error && !!parsedAmount}
               onClick={onStake}
             >
-              {error ?? 'Deposit'}
+              {error ?? t('Deposit')}
             </ButtonError>
           </RowBetween>
           <ProgressCircles steps={[approval === ApprovalState.APPROVED || signatureData !== null]} disabled={true} />
@@ -197,7 +199,7 @@ export default function StakingModal({ isOpen, onDismiss, stakingInfo, userLiqui
       {attempting && !hash && (
         <LoadingView onDismiss={wrappedOnDismiss}>
           <AutoColumn gap="12px" justify={'center'}>
-            <TYPE.largeHeader>Depositing WASP</TYPE.largeHeader>
+            <TYPE.largeHeader>{t("Depositing WASP")}</TYPE.largeHeader>
             <TYPE.body fontSize={20}>{parsedAmount?.toSignificant(4)} WASP</TYPE.body>
           </AutoColumn>
         </LoadingView>
@@ -205,8 +207,8 @@ export default function StakingModal({ isOpen, onDismiss, stakingInfo, userLiqui
       {attempting && hash && (
         <SubmittedView onDismiss={wrappedOnDismiss} hash={hash}>
           <AutoColumn gap="12px" justify={'center'}>
-            <TYPE.largeHeader>Transaction Submitted</TYPE.largeHeader>
-            <TYPE.body fontSize={20}>Deposited {parsedAmount?.toSignificant(4)} WASP</TYPE.body>
+            <TYPE.largeHeader>{t("Transaction Submitted")}</TYPE.largeHeader>
+            <TYPE.body fontSize={20}>{t("Deposited")} {parsedAmount?.toSignificant(4)} WASP</TYPE.body>
           </AutoColumn>
         </SubmittedView>
       )}

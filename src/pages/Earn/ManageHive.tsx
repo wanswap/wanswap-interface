@@ -25,6 +25,7 @@ import { wrappedCurrency } from '../../utils/wrappedCurrency'
 import { useTotalSupply } from '../../data/TotalSupply'
 import usePrevious from '../../hooks/usePrevious'
 import { BIG_INT_ZERO } from '../../constants'
+import { useTranslation } from 'react-i18next'
 
 
 const PageWrapper = styled(AutoColumn)`
@@ -133,11 +134,13 @@ export default function ManageHive({
     }
   }, [account, toggleWalletModal])
 
+  const { t } = useTranslation()
+
   return (
     <PageWrapper gap="lg" justify="center">
       <RowBetween style={{ gap: '24px' }}>
         <TYPE.mediumHeader style={{ margin: 0 }}>
-          {currencyA?.symbol} in Hive
+          {currencyA?.symbol} {t("in Hive")}
         </TYPE.mediumHeader>
         <CurrencyLogo currency={currencyA ?? undefined} size={'40px'} />
       </RowBetween>
@@ -145,7 +148,7 @@ export default function ManageHive({
       <DataRow style={{ gap: '24px' }}>
         <PoolData>
           <AutoColumn gap="sm">
-            <TYPE.body style={{ margin: 0 }}>Total deposits</TYPE.body>
+            <TYPE.body style={{ margin: 0 }}>{t("Total deposits")}</TYPE.body>
             <TYPE.body fontSize={24} fontWeight={500}>
               {`${valueOfTotalStakedAmountInWLSP?.toSignificant(6, { groupSeparator: ',' }) ?? '-'} WASP`}
             </TYPE.body>
@@ -153,7 +156,7 @@ export default function ManageHive({
         </PoolData>
         <PoolData>
           <AutoColumn gap="sm">
-            <TYPE.body style={{ margin: 0 }}>Pool Rate</TYPE.body>
+            <TYPE.body style={{ margin: 0 }}>{t("Pool Rate")}</TYPE.body>
             <TYPE.body fontSize={24} fontWeight={500}>
               {stakingInfo?.totalRewardRate
                 ?.multiply((60 * 60 * 24 * 7/5).toString())
@@ -192,7 +195,7 @@ export default function ManageHive({
               <CardNoise />
               <AutoColumn gap="md">
                 <RowBetween>
-                  <TYPE.white fontWeight={600}>Your WASP deposits</TYPE.white>
+                  <TYPE.white fontWeight={600}>{t("Your WASP deposits")}</TYPE.white>
                 </RowBetween>
                 <RowBetween style={{ alignItems: 'center', display:'flex',flexWrap:'wrap' }}>
                   <TYPE.white fontSize={36} fontWeight={600}>
@@ -211,7 +214,7 @@ export default function ManageHive({
             <AutoColumn gap="sm">
               <RowBetween>
                 <div>
-                  <TYPE.black>Your unclaimed WAN</TYPE.black>
+                  <TYPE.black>{t("Your unclaimed WAN")}</TYPE.black>
                 </div>
                 {stakingInfo?.earnedAmount && JSBI.notEqual(BIG_INT_ZERO, stakingInfo?.earnedAmount?.raw) && (
                   <ButtonEmpty
@@ -221,7 +224,7 @@ export default function ManageHive({
                     width="fit-content"
                     onClick={() => setShowClaimRewardModal(true)}
                   >
-                    Claim
+                    {t("Claim")}
                   </ButtonEmpty>
                 )}
               </RowBetween>
@@ -254,13 +257,13 @@ export default function ManageHive({
           <span role="img" aria-label="wizard-icon" style={{ marginRight: '8px' }}>
             ⭐️
           </span>
-          When you withdraw, the contract will automagically claim WAN on your behalf!
+          {t("When you withdraw, the contract will automagically claim WAN on your behalf!")}
         </TYPE.main>
 
         {!showAddLiquidityButton && (
           <DataRow style={{ marginBottom: '1rem',gap:0 }}>
             <ButtonPrimary padding="8px" borderRadius="8px" width="260px"  margin="6px" onClick={handleDepositClick}>
-              {stakingInfo?.stakedAmount?.greaterThan(JSBI.BigInt(0)) ? 'Deposit' : 'Deposit WASP Tokens'}
+              {stakingInfo?.stakedAmount?.greaterThan(JSBI.BigInt(0)) ? t('Deposit') : t('Deposit WASP Tokens')}
             </ButtonPrimary>
 
             {stakingInfo?.stakedAmount?.greaterThan(JSBI.BigInt(0)) && (
@@ -272,7 +275,7 @@ export default function ManageHive({
                   width="260px"
                   onClick={() => setShowUnstakingModal(true)}
                 >
-                  Withdraw
+                  {t("Withdraw")}
                 </ButtonPrimary>
               </>
             )}

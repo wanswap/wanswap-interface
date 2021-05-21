@@ -49,7 +49,7 @@ export default function ClaimRewardModal({ isOpen, onDismiss, stakingInfo }: Sta
       await bridgeMinerContract.deposit(stakingInfo.pid, '0x0', {gasLimit: calculateGasMargin(gas)})
         .then((response: TransactionResponse) => {
           addTransaction(response, {
-            summary: `Claim accumulated WASP rewards`
+            summary: t(`Claim accumulated WASP rewards`)
           })
           setHash(response.hash)
         })

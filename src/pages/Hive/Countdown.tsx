@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react'
 import { STAKING_GENESIS, REWARDS_DURATION_DAYS } from '../../state/stake/hooks'
 import { TYPE } from '../../theme'
 import styled from 'styled-components';
+import { useTranslation } from 'react-i18next';
 
 const MINUTE = 60
 const HOUR = MINUTE * 60
@@ -33,6 +34,8 @@ export function Countdown({ exactEnd, exactStart }: { exactEnd?: Date; exactStar
   const timeUntilGenesis = begin - time
   const timeUntilEnd = end - time
 
+  const { t } = useTranslation()
+
   let timeRemaining: number
   let message: string
   if (timeUntilGenesis >= 0) {
@@ -61,7 +64,7 @@ export function Countdown({ exactEnd, exactStart }: { exactEnd?: Date; exactStar
     <TYPE.black fontWeight={400} fontSize={'17px'}>
       
       {
-        message.includes('ended') && <SpanFinished>Inactive</SpanFinished>
+        message.includes('ended') && <SpanFinished>{t("Inactive")}</SpanFinished>
       }
       {Number.isFinite(timeRemaining) && (
         <code>
@@ -69,7 +72,7 @@ export function Countdown({ exactEnd, exactStart }: { exactEnd?: Date; exactStar
         </code>
       )}
       {
-        message.includes('End in') && <SpanActive>{'Active: ' + message}{' '} {`${days}:${hours.toString().padStart(2, '0')}:${minutes
+        message.includes('End in') && <SpanActive>{t('Active: ') + t(message)}{' '} {`${days}:${hours.toString().padStart(2, '0')}:${minutes
           .toString()
           .padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`}</SpanActive>
       }

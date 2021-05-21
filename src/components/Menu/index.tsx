@@ -107,23 +107,23 @@ export default function Menu() {
         <MenuFlyout>
           <MenuItem id="link" href="https://twitter.com/wanswap">
             <Info size={14} />
-            Twitter
+            {t("Twitter")}
           </MenuItem>
           <MenuItem id="link" href="https://medium.com/wanswap">
             <BookOpen size={14} />
-            Blog
+            {t("Blog")}
           </MenuItem>
           <MenuItem id="link" href="https://docs.wanswap.finance/">
             <BookOpen size={14} />
-            Docs
+            {t("Docs")}
           </MenuItem>
-          <MenuItem id="link" href="https://github.com/wanswap/wanswap-interface/discussions">
+          <MenuItem id="link" href="http://bbs.zookeeper.finance/t/wanswap">
             <MessageCircle size={14} />
-            Discussions
+            {t("Discussions")}
           </MenuItem>
           <MenuItem id="link" href="https://github.com/wanswap">
             <Code size={14} />
-            Code
+            {t("Code")}
           </MenuItem>
           <MenuItem id="link" href="https://auction.wanswap.finance/">
             <Info size={14} />
@@ -131,7 +131,7 @@ export default function Menu() {
           </MenuItem>
           { <MenuItem id="link" href="https://t.me/wanswap_official">
             <MessageCircle size={14} />
-            Telegram
+            {t("Telegram")}
           </MenuItem>
           
           /*
