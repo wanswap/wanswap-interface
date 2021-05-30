@@ -148,6 +148,14 @@
       "decimals": 8,
       "logoURI": "https://icons.wanswap.finance/icon/wanswap/wanDOGE.png"
     },
+    {
+      "chainId": 888,
+      "address": "0x5f95A1AB4fa5f367708F12371Ad954D95b55F395",
+      "name": "wanICP",
+      "symbol": "wanICP",
+      "decimals": 8,
+      "logoURI": "https://icons.wanswap.finance/icon/wanswap/wanICP.png"
+    },
 
 
     
@@ -218,7 +226,7 @@
   ],
   "version": {
     "major": 2,
-    "minor": 11,
+    "minor": 12,
     "patch": 0
   }
 }
