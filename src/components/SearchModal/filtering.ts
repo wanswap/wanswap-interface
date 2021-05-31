@@ -28,7 +28,6 @@ export function filterTokens(tokens: Token[], search: string): Token[] {
     //likewise, I dont think you're symbols or names will have whitespace characters in them
     const sParts = prepareTermForSearch(s)
 
-    // return lowerSearchParts.every(p => p.length === 0 || sParts.some(sp => sp.startsWith(p) || sp.endsWith(p)))
     return lowerSearchParts.every(p => p.length === 0 || sParts.some(sp => sp.includes(p)))
   }
 
