@@ -156,7 +156,14 @@
       "decimals": 8,
       "logoURI": "https://icons.wanswap.finance/icon/wanswap/wanICP.png"
     },
-
+    {
+      "chainId": 888,
+      "address": "0xf17c59bf0f6326da7a8cc2ce417e4f53a26707bd",
+      "name": "Phoenix Token@WAN",
+      "symbol": "PHX",
+      "decimals": 18,
+      "logoURI": "https://icons.wanswap.finance/icon/wanswap/PHX.png"
+    },
 
     
     {
@@ -226,7 +233,7 @@
   ],
   "version": {
     "major": 2,
-    "minor": 12,
+    "minor": 13,
     "patch": 0
   }
 }
