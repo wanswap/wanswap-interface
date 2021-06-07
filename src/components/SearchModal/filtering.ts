@@ -1,6 +1,12 @@
 import { isAddress } from '../../utils'
 import { Token } from '@wanswap/sdk'
 
+const prepareTermForSearch = (term: string) =>
+  term
+    .toLowerCase()
+    .split(/\s+/)
+    .filter(s => s.length > 0)
+
 export function filterTokens(tokens: Token[], search: string): Token[] {
   if (search.length === 0) return tokens
 
@@ -10,22 +16,16 @@ export function filterTokens(tokens: Token[], search: string): Token[] {
     return tokens.filter(token => token.address === searchingAddress)
   }
 
-  const lowerSearchParts = search
-    .toLowerCase()
-    .split(/\s+/)
-    .filter(s => s.length > 0)
+  const lowerSearchParts = prepareTermForSearch(search)
 
   if (lowerSearchParts.length === 0) {
     return tokens
   }
 
   const matchesSearch = (s: string): boolean => {
-    const sParts = s
-      .toLowerCase()
-      .split(/\s+/)
-      .filter(s => s.length > 0)
+    const sParts = prepareTermForSearch(s)
 
-    return lowerSearchParts.every(p => p.length === 0 || sParts.some(sp => sp.startsWith(p) || sp.endsWith(p)))
+    return lowerSearchParts.every(p => p.length === 0 || sParts.some(sp => sp.includes(p)))
   }
 
   return tokens.filter(token => {
