@@ -98,7 +98,6 @@
   "selectAToken": "Select a token",
   "enterARecipient": "Enter a recipient",
   "invalidRecipient2": "Invalid Recipient",
-
   "from": "From",
   "fromEstimated": "From (estimated)",
   "addRecipient": "+ Add a send (optional)",
