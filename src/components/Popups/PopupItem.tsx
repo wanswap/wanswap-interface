@@ -7,6 +7,7 @@ import { PopupContent } from '../../state/application/actions'
 import { useRemovePopup } from '../../state/application/hooks'
 import ListUpdatePopup from './ListUpdatePopup'
 import TransactionPopup from './TransactionPopup'
+import WarningMessagePopup from './WarningMessagePopup'
 
 export const StyledClose = styled(X)`
   position: absolute;
@@ -82,6 +83,8 @@ export default function PopupItem({
       listUpdate: { listUrl, oldList, newList, auto }
     } = content
     popupContent = <ListUpdatePopup popKey={popKey} listUrl={listUrl} oldList={oldList} newList={newList} auto={auto} />
+  } else if ('lowWanForFees' in content) {
+    popupContent = <WarningMessagePopup message={'lowWanAmountWarning'} />
   }
 
   const faderStyle = useSpring({

@@ -17,6 +17,9 @@ export type PopupContent =
         auto: boolean
       }
     }
+  | {
+      lowWanForFees: boolean
+    }
 
 export enum ApplicationModal {
   WALLET,
