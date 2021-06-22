@@ -162,7 +162,7 @@ export default function PoolCard({ stakingInfo, hide }: { stakingInfo: StakingIn
   const uni = chainId ? WASP[chainId] : undefined
   const uniPrice = useUSDCPrice(uni)
   const weekReward = stakingInfo.totalRewardRate?.multiply(`${60 * 60 * 24 * 7}`)?.toFixed(0)
-  const apy = valueOfTotalStakedAmountInUSDC && weekReward && uniPrice ? (Number(weekReward) * Number(uniPrice?.toFixed(8)) / Number(valueOfTotalStakedAmountInUSDC.toFixed(0)) / 7 * 365 * 100).toFixed(0) : '--' 
+  const apy = valueOfTotalStakedAmountInUSDC && weekReward && uniPrice ? Number((Number(weekReward) * Number(uniPrice?.toFixed(8)) / Number(valueOfTotalStakedAmountInUSDC.toFixed(0)) / 7 * 365 * 100).toFixed(2)) : '--' 
 
   if (valueOfTotalStakedAmountInUSDC && stakingTokenPair) {
     if (!window.tvlItems) {
