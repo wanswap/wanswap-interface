@@ -4,6 +4,7 @@ import { useActiveWeb3React } from '../../hooks'
 import { useAddPopup, useBlockNumber } from '../application/hooks'
 import { AppDispatch, AppState } from '../index'
 import { checkedTransaction, finalizeTransaction } from './actions'
+import { useETHBalances } from '../wallet/hooks'
 
 export function shouldCheck(
   lastBlockNumber: number,
@@ -27,8 +28,8 @@ export function shouldCheck(
 }
 
 export default function Updater(): null {
-  const { chainId, library } = useActiveWeb3React()
-
+  const { account, chainId, library } = useActiveWeb3React()
+  const userEthBalance = useETHBalances(account ? [account] : [])?.[account ?? '']
   const lastBlockNumber = useBlockNumber()
 
   const dispatch = useDispatch<AppDispatch>()
@@ -76,6 +77,17 @@ export default function Updater(): null {
                 },
                 hash
               )
+
+              const AVERAGE_TRANSACTION_FEE = 0.0042
+              const FIVE_TRANSACTIONS = 5
+              if (userEthBalance && +userEthBalance?.toSignificant(4) <= AVERAGE_TRANSACTION_FEE * FIVE_TRANSACTIONS) {
+                addPopup(
+                  {
+                    lowWanForFees: true
+                  },
+                  userEthBalance?.toSignificant(4)
+                )
+              }
             } else {
               dispatch(checkedTransaction({ chainId, hash, blockNumber: lastBlockNumber }))
             }
@@ -84,7 +96,7 @@ export default function Updater(): null {
             console.error(`failed to check transaction hash: ${hash}`, error)
           })
       })
-  }, [chainId, library, transactions, lastBlockNumber, dispatch, addPopup])
+  }, [chainId, library, transactions, lastBlockNumber, dispatch, addPopup, userEthBalance])
 
   return null
 }
