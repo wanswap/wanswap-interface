@@ -164,6 +164,14 @@
       "decimals": 18,
       "logoURI": "https://icons.wanswap.finance/icon/wanswap/PHX.png"
     },
+    {
+      "chainId": 888,
+      "address": "0xd8e7bd03920ba407d764789b11dd2b5eaee0961e",
+      "name": "wanLTC",
+      "symbol": "wanLTC",
+      "decimals": 8,
+      "logoURI": "https://icons.wanswap.finance/icon/wanswap/wanLTC.png"
+    },
 
     
     {
@@ -233,7 +241,7 @@
   ],
   "version": {
     "major": 2,
-    "minor": 14,
+    "minor": 15,
     "patch": 0
   }
 }
