@@ -14,14 +14,6 @@
     },
     {
       "chainId": 888,
-      "address": "0xc6f4465a6a521124c8e3096b62575c157999d361",
-      "name": "FNX",
-      "symbol": "FNX-Obsolete",
-      "decimals": 18,
-      "logoURI": "https://icons.wanswap.finance/icon/wanswap/caution.png"
-    },
-    {
-      "chainId": 888,
       "address": "0xe3ae74d1518a76715ab4c7bedf1af73893cd435a",
       "name": "wanETH",
       "symbol": "wanETH",
@@ -248,8 +240,8 @@
     }
   ],
   "version": {
-    "major": 2,
-    "minor": 16,
+    "major": 3,
+    "minor": 0,
     "patch": 0
   }
 }
