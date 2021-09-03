@@ -5,7 +5,7 @@ import { WASP } from '../../constants'
 import { useBlockNumber } from '../application/hooks'
 
 import { useActiveWeb3React } from '../../hooks'
-import { BRIDGE_TOKEN_ADDRESS } from '../../constants/abis/bridge'
+import { BRIDGE_TOKEN_ADDRESS, ZOO_TOKEN_ADDRESS } from '../../constants/abis/bridge'
 import { useSingleCallResult, useSingleContractMultipleData } from '../multicall/hooks'
 import { tryParseAmount } from '../swap/hooks'
 import { useHiveContract } from '../../hooks/useContract'
@@ -72,6 +72,7 @@ export function useAllStakingRewardsInfo() {
   const { chainId } = useActiveWeb3React()
   const poolInfo = usePoolInfo()
   const lpTokenAddr = useMemo(() => poolInfo?.map(_v => _v.result?.lpToken), [poolInfo])
+  const rewardTokenAddr = useMemo(() => poolInfo?.map(_v => _v.result?.rewardToken), [poolInfo])
   return useMemo(() => {
     const info: {
       [chainId in ChainId]?: {
@@ -85,15 +86,21 @@ export function useAllStakingRewardsInfo() {
     lpTokenAddr.forEach((_v, _i) => {
       if (!_v || !chainId) return
       const ret = new Token(chainId, BRIDGE_TOKEN_ADDRESS[chainId], 18, 'WASP', 'WASP');
+      let ret1 = ret;
+      if (rewardTokenAddr[_i].toLowerCase() === ZOO_TOKEN_ADDRESS[chainId].toLowerCase()) {
+        ret1 = new Token(chainId, ZOO_TOKEN_ADDRESS[chainId], 18, 'ZOO', 'ZOO');
+      } else {
+        ret1 = new Token(chainId, BRIDGE_TOKEN_ADDRESS[chainId], 18, 'WAN', 'WAN');
+      }
       if (ret) {
         info[chainId]?.push({
-          tokens: [ret, ret],
+          tokens: [ret, ret1],
           stakingRewardAddress: lpTokenAddr[_i]
         })
       }
     })
     return info
-  }, [chainId, lpTokenAddr])
+  }, [chainId, lpTokenAddr, rewardTokenAddr])
 }
 
 // gets the staking info from the network for the active chain id
@@ -117,7 +124,6 @@ export function useStakingInfo(token?: Token | null, pid?: string | number | nul
 
   const uni = chainId ? WASP[chainId] : undefined
   const lpTokenAddr = useMemo(() => info.map(({ stakingRewardAddress }) => stakingRewardAddress), [info])
-
   const userInfoParams = useMemo(() => {
     if (account) {
       return lpTokenAddr.map((_v, i) => {

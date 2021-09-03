@@ -92,6 +92,7 @@ export default function ManageHive({
   const tokenB = wrappedCurrency(currencyB ?? undefined, chainId)
 
   const stakingInfo = useStakingInfo(tokenA, pid)?.[0]
+  const rewardToken = stakingInfo?.tokens[1];
 
   // detect existing unstaked LP position to show add button if none found
   const userLiquidityUnstaked = useTokenBalance(account ?? undefined, stakingInfo?.stakedAmount?.token)
@@ -161,7 +162,7 @@ export default function ManageHive({
               {stakingInfo?.totalRewardRate
                 ?.multiply((60 * 60 * 24 * 7/5).toString())
                 ?.toFixed(0, { groupSeparator: ',' }) ?? '-'}
-              {' WAN / week'}
+              {` ${rewardToken?.symbol} / week`}
             </TYPE.body>
           </AutoColumn>
         </PoolData>
@@ -214,7 +215,7 @@ export default function ManageHive({
             <AutoColumn gap="sm">
               <RowBetween>
                 <div>
-                  <TYPE.black>{t("Your unclaimed WAN")}</TYPE.black>
+                  <TYPE.black>{t("Your unclaimed") + ' ' + rewardToken?.symbol}</TYPE.black>
                 </div>
                 {stakingInfo?.earnedAmount && JSBI.notEqual(BIG_INT_ZERO, stakingInfo?.earnedAmount?.raw) && (
                   <ButtonEmpty
@@ -247,7 +248,7 @@ export default function ManageHive({
                   {stakingInfo?.rewardRate
                     ?.multiply((60 * 60 * 24 * 7/5).toString())
                     ?.toFixed(4, { groupSeparator: ',' }) ?? '-'}
-                  {' WAN / week'}
+                  {` ${rewardToken?.symbol} / week`}
                 </TYPE.black>
               </RowBetween>
             </AutoColumn>
@@ -257,7 +258,7 @@ export default function ManageHive({
           <span role="img" aria-label="wizard-icon" style={{ marginRight: '8px' }}>
             ⭐️
           </span>
-          {t("When you withdraw, the contract will automagically claim WAN on your behalf!")}
+          {t("When you withdraw, the contract will automagically claim reward on your behalf!")}
         </TYPE.main>
 
         {!showAddLiquidityButton && (

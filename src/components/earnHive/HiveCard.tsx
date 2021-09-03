@@ -104,6 +104,8 @@ export default function HiveCard({ stakingInfo, i, hide }: { stakingInfo: Stakin
     window.tvlItems['hive'] = (Number(stakingInfo?.totalStakedAmount.toFixed(0)) * Number(uniPrice.toFixed(8))).toFixed(0)
   }
 
+  const symbol = token1.symbol;
+
   return (
     <React.Fragment>
       {
@@ -115,7 +117,7 @@ export default function HiveCard({ stakingInfo, i, hide }: { stakingInfo: Stakin
         <TopSection>
           <DoubleCurrencyLogo currency0={currency0} currency1={ETHER} size={24} />
           <TYPE.white fontWeight={600} fontSize={18} style={{ marginLeft: '8px' }}>
-            {currency0.symbol + ' → ' + ETHER.symbol + " #" + (i+1)}
+            {currency0.symbol + ' → ' + token1.symbol + " #" + (i+1)}
             <Countdown exactEnd={stakingInfo?.periodFinish} exactStart={stakingInfo?.periodStart} />
           </TYPE.white>
   
@@ -138,7 +140,7 @@ export default function HiveCard({ stakingInfo, i, hide }: { stakingInfo: Stakin
             <TYPE.white> {t("Pool rate")} </TYPE.white>
             <TYPE.white>{`${stakingInfo.totalRewardRate
               ?.multiply(`${60 * 60 * 24 * 7 / 5}`)
-              ?.toFixed(0, { groupSeparator: ',' })} WAN / week`}</TYPE.white>
+              ?.toFixed(0, { groupSeparator: ',' })} ${symbol} / week`}</TYPE.white>
           </RowBetween>
         </StatContainer>
   
@@ -156,7 +158,7 @@ export default function HiveCard({ stakingInfo, i, hide }: { stakingInfo: Stakin
                 </span>
                 {`${stakingInfo.rewardRate
                   ?.multiply(`${60 * 60 * 24 * 7 / 5}`)
-                  ?.toFixed(4, { groupSeparator: ',' })} WAN / week`}
+                  ?.toFixed(4, { groupSeparator: ',' })} ${symbol} / week`}
               </TYPE.black>
             </BottomSection>
           </>
