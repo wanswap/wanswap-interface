@@ -174,7 +174,7 @@
     },
     {
       "chainId": 888,
-      "address": "0x8565dd297b6d4f25efd101fefbc4b44e03f609ce",
+      "address": "0x716f88d32B52342AF040B2E775871dFF56EBd035",
       "name": "wanCFi",
       "symbol": "wanCFi",
       "decimals": 18,
@@ -249,7 +249,7 @@
   ],
   "version": {
     "major": 3,
-    "minor": 1,
+    "minor": 2,
     "patch": 0
   }
 }
