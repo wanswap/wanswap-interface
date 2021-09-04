@@ -172,6 +172,14 @@
       "decimals": 18,
       "logoURI": "https://icons.wanswap.finance/icon/wanswap/WAND.png"
     },
+    {
+      "chainId": 888,
+      "address": "0x8565dd297b6d4f25efd101fefbc4b44e03f609ce",
+      "name": "wanCFi",
+      "symbol": "wanCFi",
+      "decimals": 18,
+      "logoURI": "https://icons.wanswap.finance/icon/wanswap/wanCFI.png"
+    },
 
     
     {
@@ -241,7 +249,7 @@
   ],
   "version": {
     "major": 3,
-    "minor": 0,
+    "minor": 1,
     "patch": 0
   }
 }
