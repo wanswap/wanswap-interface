@@ -180,6 +180,14 @@
       "decimals": 18,
       "logoURI": "https://icons.wanswap.finance/icon/wanswap/wanCFI.png"
     },
+    {
+      "chainId": 888,
+      "address": "0x114FA1201F82B83c5a2FF0465b4024f01f966b91",
+      "name": "wanMOVR",
+      "symbol": "wanMOVR",
+      "decimals": 18,
+      "logoURI": "https://icons.wanswap.finance/icon/wanswap/wanMOVR.png"
+    },
 
     
     {
@@ -249,7 +257,7 @@
   ],
   "version": {
     "major": 4,
-    "minor": 0,
+    "minor": 2,
     "patch": 0
   }
 }
