@@ -188,6 +188,14 @@
       "decimals": 18,
       "logoURI": "https://icons.wanswap.finance/icon/wanswap/wanMOVR.png"
     },
+    {
+      "chainId": 888,
+      "address": "0xB333721251961337F67bbBCAED514f9F284CE8E8",
+      "name": "wanAVAX",
+      "symbol": "wanAVAX",
+      "decimals": 18,
+      "logoURI": "https://icons.wanswap.finance/icon/wanswap/wanAVAX.png"
+    },
 
     
     {
@@ -257,7 +265,7 @@
   ],
   "version": {
     "major": 4,
-    "minor": 2,
+    "minor": 3,
     "patch": 0
   }
 }
