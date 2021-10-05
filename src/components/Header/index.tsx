@@ -109,6 +109,14 @@ const HeaderRow = styled(RowFixed)`
   `};
 `
 
+const HeaderRowMobile = styled(RowFixed)`
+  display:none;
+  ${({ theme }) => theme.mediaWidth.upToExtraSmall`
+   width: 100%;
+   display:block;
+  `};
+`
+
 const HeaderLinks = styled(Row)`
   justify-content: center;
   ${({ theme }) => theme.mediaWidth.upToMedium`
@@ -390,13 +398,13 @@ export default function Header() {
         </HeaderLinks>
 
       </HeaderRow>
-      <HeaderRow>
+      <HeaderRowMobile>
         <HeaderLinks>
           <StyledExternalLinkMobile id={`stake-nav-link`} href={'https://info.wanswap.finance'}>
             {t('statistics')} <span style={{ fontSize: '11px' }}>↗</span>
           </StyledExternalLinkMobile>
         </HeaderLinks>
-      </HeaderRow>
+      </HeaderRowMobile>
       <HeaderControls>
         <HeaderElement>
           <HideSmall>
