@@ -294,7 +294,7 @@ const StyledExternalLinkMobile = styled(ExternalLink).attrs({
     color: ${({ theme }) => darken(0.1, theme.text1)};
   }
 
-  ${({ theme }) => theme.mediaWidth.upToSmall`
+  ${({ theme }) => theme.mediaWidth.upToExtraSmall`
       display: block;
 `}
 `
