@@ -196,6 +196,14 @@
       "decimals": 18,
       "logoURI": "https://icons.wanswap.finance/icon/wanswap/wanAVAX.png"
     },
+    {
+      "chainId": 888,
+      "address": "0x52f44783BdF480e88C0eD4cF341A933CAcfDBcaa",
+      "name": "wanDOT",
+      "symbol": "wanDOT",
+      "decimals": 10,
+      "logoURI": "https://icons.wanswap.finance/icon/others/DOT.png"
+    },
 
     
     {
@@ -265,7 +273,7 @@
   ],
   "version": {
     "major": 4,
-    "minor": 3,
+    "minor": 4,
     "patch": 0
   }
 }
