@@ -14,8 +14,9 @@ import { useActiveWeb3React } from '../../hooks'
 import { useETHBalances, useAggregateUniBalance } from '../../state/wallet/hooks'
 import { CardNoise } from '../earn/styled'
 import { CountUp } from 'use-count-up'
-import { TYPE, 
-  ExternalLink 
+import {
+  TYPE,
+  ExternalLink
 } from '../../theme'
 
 import { YellowCard } from '../Card'
@@ -105,6 +106,14 @@ const HeaderElementWrap = styled.div`
 const HeaderRow = styled(RowFixed)`
   ${({ theme }) => theme.mediaWidth.upToMedium`
    width: 100%;
+  `};
+`
+
+const HeaderRowMobile = styled(RowFixed)`
+  display:none;
+  ${({ theme }) => theme.mediaWidth.upToExtraSmall`
+   width: 100%;
+   display:block;
   `};
 `
 
@@ -236,7 +245,7 @@ const StyledNavLink = styled(NavLink).attrs({
 
 const StyledExternalLink = styled(ExternalLink).attrs({
   activeClassName
-})<{ isActive?: boolean }>`
+}) <{ isActive?: boolean }>`
   ${({ theme }) => theme.flexRowNoWrap}
   align-items: left;
   border-radius:10px;
@@ -263,6 +272,38 @@ const StyledExternalLink = styled(ExternalLink).attrs({
 
   ${({ theme }) => theme.mediaWidth.upToExtraSmall`
       display: none;
+`}
+`
+
+const StyledExternalLinkMobile = styled(ExternalLink).attrs({
+  activeClassName
+}) <{ isActive?: boolean }>`
+  ${({ theme }) => theme.flexRowNoWrap}
+  align-items: left;
+  border-radius:10px;
+  outline: none;
+  cursor: pointer;
+  text-decoration: none;
+  color: ${({ theme }) => theme.text2};
+  font-size: 1rem;
+  width: fit-content;
+  margin: 0 12px;
+  font-weight: 500;
+  display:none;
+  &.${activeClassName} {
+    border-radius: 10px;
+    font-weight: 600;
+    color: ${({ theme }) => theme.text1};
+  }
+
+  :hover,
+  :focus {
+    text-decoration: none;
+    color: ${({ theme }) => darken(0.1, theme.text1)};
+  }
+
+  ${({ theme }) => theme.mediaWidth.upToExtraSmall`
+      display: block;
 `}
 `
 
@@ -300,13 +341,13 @@ export default function Header() {
       <Modal isOpen={showUniBalanceModal} onDismiss={() => setShowUniBalanceModal(false)}>
         <UniBalanceContent setShowUniBalanceModal={setShowUniBalanceModal} />
       </Modal>
-      <img id="logo-full" style={{display:'none'}} height={'60px'} src="./images/Logo_Whiteyellow.svg" alt="logo" />
+      <img id="logo-full" style={{ display: 'none' }} height={'60px'} src="./images/Logo_Whiteyellow.svg" alt="logo" />
       <HeaderRow>
-      
+
         <Title href="." id="logo-wrapper">
           <UniIcon>
             <img id="logo-symbol" width={'36px'} src={Logo} alt="logo" />
-            
+
           </UniIcon>
         </Title>
         <HeaderLinks>
@@ -335,6 +376,7 @@ export default function Header() {
           <StyledExternalLink id={`stake-nav-link`} href={'https://info.wanswap.finance'}>
             {t('statistics')} <span style={{ fontSize: '11px' }}>↗</span>
           </StyledExternalLink>
+
           <StyledExternalLink id={`stake-nav-link`} href={'https://vote.wandevs.org/#/wanswap'}>
             {t('vote')} <span style={{ fontSize: '11px' }}>↗</span>
           </StyledExternalLink>
@@ -354,7 +396,15 @@ export default function Header() {
             Charts <span style={{ fontSize: '11px' }}>↗</span>
           </StyledExternalLink> */}
         </HeaderLinks>
+
       </HeaderRow>
+      <HeaderRowMobile>
+        <HeaderLinks>
+          <StyledExternalLinkMobile id={`stake-nav-link`} href={'https://info.wanswap.finance'}>
+            {t('statistics')} <span style={{ fontSize: '11px' }}>↗</span>
+          </StyledExternalLinkMobile>
+        </HeaderLinks>
+      </HeaderRowMobile>
       <HeaderControls>
         <HeaderElement>
           <HideSmall>
@@ -380,7 +430,7 @@ export default function Header() {
                     <TYPE.white
                       style={{
                         paddingRight: '.4rem',
-                        color:'#313131'
+                        color: '#313131'
                       }}
                     >
                       <CountUp
@@ -393,30 +443,30 @@ export default function Header() {
                       />
                     </TYPE.white>
                   </HideSmall>
-                )?
-                (
-                  <HideSmall>
-                    <TYPE.white
-                      style={{
-                        paddingRight: '.4rem',
-                        color:'#313131'
-                      }}
-                    >
-                      <CountUp
-                        key={countUpValue}
-                        isCounting
-                        start={parseFloat(countUpValuePrevious)}
-                        end={parseFloat(countUpValue)}
-                        thousandsSeparator={','}
-                        duration={1}
-                      />
-                    </TYPE.white>
-                  </HideSmall>
-                )
-                :
-                <img style={{marginLeft:'-10px',marginRight:'5px'}} height={'52px'} src="./images/Logomark_WASP_token.svg" alt="logo" />
-                
-              }
+                ) ?
+                  (
+                    <HideSmall>
+                      <TYPE.white
+                        style={{
+                          paddingRight: '.4rem',
+                          color: '#313131'
+                        }}
+                      >
+                        <CountUp
+                          key={countUpValue}
+                          isCounting
+                          start={parseFloat(countUpValuePrevious)}
+                          end={parseFloat(countUpValue)}
+                          thousandsSeparator={','}
+                          duration={1}
+                        />
+                      </TYPE.white>
+                    </HideSmall>
+                  )
+                  :
+                  <img style={{ marginLeft: '-10px', marginRight: '5px' }} height={'52px'} src="./images/Logomark_WASP_token.svg" alt="logo" />
+
+                }
                 WASP
               </UNIAmount>
               <CardNoise />
