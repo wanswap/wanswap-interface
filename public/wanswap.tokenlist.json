@@ -204,6 +204,14 @@
       "decimals": 10,
       "logoURI": "https://icons.wanswap.finance/icon/others/DOT.png"
     },
+    {
+      "chainId": 888,
+      "address": "0xaACB8505b680dD287eCDE9679C72aa5FEF2e9B0c",
+      "name": "wanECR",
+      "symbol": "wanECR",
+      "decimals": 18,
+      "logoURI": "https://icons.wanswap.finance/icon/wanswap/wanECR.png"
+    },
 
     
     {
@@ -273,7 +281,7 @@
   ],
   "version": {
     "major": 4,
-    "minor": 4,
+    "minor": 5,
     "patch": 0
   }
 }
