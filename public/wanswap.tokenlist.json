@@ -212,6 +212,14 @@
       "decimals": 18,
       "logoURI": "https://icons.wanswap.finance/icon/wanswap/wanECR.png"
     },
+    {
+      "chainId": 888,
+      "address": "0xB24999Cf67e4EACBF164BcE9138136F33589d969",
+      "name": "VOX",
+      "symbol": "VOX",
+      "decimals": 18,
+      "logoURI": "https://icons.wanswap.finance/icon/others/VOX.png"
+    },
 
     
     {
@@ -281,7 +289,7 @@
   ],
   "version": {
     "major": 4,
-    "minor": 5,
+    "minor": 6,
     "patch": 0
   }
 }
