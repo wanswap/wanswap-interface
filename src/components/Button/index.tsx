@@ -65,6 +65,34 @@ export const ButtonPrimary = styled(Base)`
   }
 `
 
+export const ButtonHarvestAll = styled(Base)`
+  background: #2172E5;
+  width: 112px;
+  border-radius: 8px;
+  padding: 10px;
+  text-decoration: none;
+  color: #9BCEDC;
+  font-size: 16px;
+  font-weight: 400;
+  color: #fff;
+  ${({ theme }) => theme.mediaWidth.upToMedium`
+    width: 100%;
+  `};
+
+  &:focus {
+    background: #2172E5;
+    color: #fff;
+  }
+  &:hover {
+    background: #2172E5;
+    color: #fff;
+  }
+  &:active {
+    background: #2172E5;
+    color: #fff;
+  }
+`
+
 export const ButtonLight = styled(Base)`
   background-color: #FFE600;
   text-decoration: none;

@@ -11,8 +11,10 @@ import Loader from '../../components/Loader'
 import { useActiveWeb3React } from '../../hooks'
 import { Token, TokenAmount } from '@wanswap/sdk'
 import Toggle from '../../components/Toggle'
-import { loadFromLocalStorage, saveToLocalStorage } from '../../utils/tools';
+import { ButtonHarvestAll } from '../../components/Button'
+import { loadFromLocalStorage, saveToLocalStorage } from '../../utils/tools'
 import { useTranslation } from 'react-i18next'
+import ClaimAllRewardModal from '../../components/earn/ClaimAllRewardModal'
 
 const PageWrapper = styled(AutoColumn)`
   max-width: 640px;
@@ -39,12 +41,13 @@ declare global {
 }
 
 export default function Earn() {
-  const { chainId } = useActiveWeb3React()
+  const { chainId, account } = useActiveWeb3React()
   const stakingInfos = useStakingInfo()
   const stakingRewardsInfo = useAllStakingRewardsInfo()
 
   const showStaked = loadFromLocalStorage('showStaked');
   const showActive = loadFromLocalStorage('showActive');
+  const [showClaimRewardModal, setShowClaimRewardModal] = useState(false)
 
   const { t } = useTranslation();
 
@@ -124,6 +127,7 @@ export default function Earn() {
             <AutoColumn gap="md">
               <RowBetween>
                 <TYPE.white fontWeight={600} style={{margin:'0 auto'}}>{tvlValue}</TYPE.white>
+                {account && <ButtonHarvestAll onClick={() => setShowClaimRewardModal(true)}>Harvest all</ButtonHarvestAll>}
               </RowBetween>
             </AutoColumn>
           </CardSection>
@@ -207,6 +211,13 @@ export default function Earn() {
           )}
         </PoolSection>
       </AutoColumn>
+      {stakingInfos && stakingInfos.length !== 0 && (
+        <ClaimAllRewardModal
+          isOpen={showClaimRewardModal}
+          onDismiss={() => setShowClaimRewardModal(false)}
+          stakingInfos={stakingInfos}
+        />
+      )}
     </PageWrapper>
   )
 }
