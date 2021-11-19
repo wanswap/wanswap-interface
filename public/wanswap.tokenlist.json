@@ -220,6 +220,14 @@
       "decimals": 18,
       "logoURI": "https://icons.wanswap.finance/icon/others/VOX.png"
     },
+    {
+      "chainId": 888,
+      "address": "0x9DE0405064BEDd88399098b4fbb2f7fA462992E0",
+      "name": "wanBNB",
+      "symbol": "wanBNB",
+      "decimals": 18,
+      "logoURI": "https://icons.wanswap.finance/icon/others/BNB.png"
+    },
 
     
     {
@@ -289,7 +297,7 @@
   ],
   "version": {
     "major": 4,
-    "minor": 6,
+    "minor": 7,
     "patch": 0
   }
 }
