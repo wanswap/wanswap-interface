@@ -1,5 +1,5 @@
 import { ChainId, TokenAmount } from '@wanswap/sdk'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Text } from 'rebass'
 import { NavLink } from 'react-router-dom'
 import { darken } from 'polished'
@@ -14,10 +14,7 @@ import { useActiveWeb3React } from '../../hooks'
 import { useETHBalances, useAggregateUniBalance } from '../../state/wallet/hooks'
 import { CardNoise } from '../earn/styled'
 import { CountUp } from 'use-count-up'
-import {
-  TYPE,
-  ExternalLink
-} from '../../theme'
+import { TYPE, ExternalLink } from '../../theme'
 
 import { YellowCard } from '../Card'
 import Settings from '../Settings'
@@ -33,6 +30,21 @@ import { Dots } from '../swap/styleds'
 import Modal from '../Modal'
 import UniBalanceContent from './UniBalanceContent'
 import usePrevious from '../../hooks/usePrevious'
+import useUSDCPrice from '../../utils/useUSDCPrice'
+import { WASP } from '../../constants'
+
+interface AddEthereumChainParameter {
+  chainId: string; // A 0x-prefixed hexadecimal string
+  chainName: string;
+  nativeCurrency: {
+    name: string;
+    symbol: string; // 2-6 characters long
+    decimals: 18;
+  };
+  rpcUrls: string[];
+  blockExplorerUrls?: string[];
+  iconUrls?: string[]; // Currently ignored.
+}
 
 const HeaderFrame = styled.div`
   display: grid;
@@ -156,7 +168,8 @@ const UNIWrapper = styled.span`
   width: fit-content;
   position: relative;
   cursor: pointer;
-  margin:0 8px;
+  margin: 0 8px;
+  display: flex;
   :hover {
     opacity: 0.8;
   }
@@ -173,9 +186,9 @@ const HideSmall = styled.span`
 `
 
 const NetworkCard = styled(YellowCard)`
-border-radius:10px;
+  border-radius: 10px;
   padding: 8px 12px;
-  background:white;
+  background: white;
   ${({ theme }) => theme.mediaWidth.upToSmall`
     margin: 0;
     margin-right: 0.5rem;
@@ -221,7 +234,7 @@ const StyledNavLink = styled(NavLink).attrs({
 })`
   ${({ theme }) => theme.flexRowNoWrap}
   align-items: left;
-  border-radius:10px;
+  border-radius: 10px;
   outline: none;
   cursor: pointer;
   text-decoration: none;
@@ -318,6 +331,8 @@ export default function Header() {
   const { account, chainId } = useActiveWeb3React()
   const { t } = useTranslation()
 
+  const uniPrice = useUSDCPrice(chainId ? WASP[chainId] : undefined)
+
   const userEthBalance = useETHBalances(account ? [account] : [])?.[account ?? '']
 
 
@@ -334,6 +349,35 @@ export default function Header() {
 
   const countUpValue = aggregateBalance?.toFixed(0) ?? '0'
   const countUpValuePrevious = usePrevious(countUpValue) ?? '0'
+
+  useEffect(() => {
+    if (window.ethereum && Number(chainId) !== 1285) {
+      const params: AddEthereumChainParameter = {
+        chainId: '0x378', // A 0x-prefixed hexadecimal string
+        chainName: 'Wanchain',
+        nativeCurrency: {
+          name: 'WAN',
+          symbol: 'WAN', // 2-6 characters long
+          decimals: 18
+        },
+        rpcUrls: ['https://gwan-ssl.wandevs.org:56891/'],
+        blockExplorerUrls: ['https://www.wanscan.org']
+      } as AddEthereumChainParameter
+
+      (window.ethereum as any)
+        .request({
+          method: 'wallet_addEthereumChain',
+          params: [params]
+        })
+        .then((result: any) => {
+          console.debug(result)
+        })
+        .catch((error: any) => {
+          console.debug(error)
+        })
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   return (
     <HeaderFrame>
@@ -470,6 +514,7 @@ export default function Header() {
                 WASP
               </UNIAmount>
               <CardNoise />
+              <PriceText>${uniPrice?.toFixed(4) ?? '-'}</PriceText>
             </UNIWrapper>
           )}
           <AccountElement active={!!account} style={{ pointerEvents: 'auto' }} >
@@ -489,3 +534,19 @@ export default function Header() {
     </HeaderFrame>
   )
 }
+
+const PriceText = styled.div`
+  position: relative;
+  z-index: -1;
+  margin-left: -12px;
+  background-color: #2c2f36;
+  border: 1px solid #ffe400;
+  padding: 0 8px 0 20px;
+  color: #ffe400;
+  font-size: 16px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+`

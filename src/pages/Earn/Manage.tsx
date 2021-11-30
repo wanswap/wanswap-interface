@@ -1,4 +1,5 @@
-import React, { useCallback, useState } from 'react'
+/* eslint-disable @typescript-eslint/ban-ts-ignore */
+import React, { useCallback, useMemo, useState } from 'react'
 import { AutoColumn } from '../../components/Column'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
@@ -9,6 +10,7 @@ import DoubleCurrencyLogo from '../../components/DoubleLogo'
 import { useCurrency } from '../../hooks/Tokens'
 import { useWalletModalToggle } from '../../state/application/hooks'
 import { TYPE } from '../../theme'
+import CurrencyLogo from '../../components/CurrencyLogo'
 
 import { RowBetween } from '../../components/Row'
 import { CardSection, DataCard, CardNoise, CardBGImage } from '../../components/earn/styled'
@@ -30,6 +32,8 @@ import usePrevious from '../../hooks/usePrevious'
 import useUSDCPrice from '../../utils/useUSDCPrice'
 import { BIG_INT_ZERO } from '../../constants'
 import { useTranslation } from 'react-i18next'
+import { useMultipleContractSingleData } from '../../state/multicall/hooks'
+import ERC20_INTERFACE from '../../constants/abis/erc20'
 
 const PageWrapper = styled(AutoColumn)`
   max-width: 640px;
@@ -73,7 +77,7 @@ const PoolData = styled(DataCard)`
 `
 
 const VoteCard = styled(DataCard)`
-  background: radial-gradient(90% 90% at 0% 0%,#41beec 0%,#123471 100%);
+  background: radial-gradient(90% 90% at 0% 0%, #41beec 0%, #123471 100%);
   overflow: hidden;
 `
 
@@ -112,6 +116,12 @@ export default function Manage({
   const [showStakingModal, setShowStakingModal] = useState(false)
   const [showUnstakingModal, setShowUnstakingModal] = useState(false)
   const [showClaimRewardModal, setShowClaimRewardModal] = useState(false)
+  const lpBalanceOf = useMultipleContractSingleData(
+    stakingInfo?.tokens?.map(i => i.address),
+    ERC20_INTERFACE,
+    'balanceOf',
+    [stakingInfo?.stakingRewardAddress]
+  )
 
   // fade cards if nothing staked or nothing earned yet
   const disableTop = !stakingInfo?.stakedAmount || stakingInfo.stakedAmount.equalTo(JSBI.BigInt(0))
@@ -120,10 +130,18 @@ export default function Manage({
   const WETH = currencyA === ETHER ? tokenA : tokenB
   const backgroundColor = useColor(token)
 
+  const selfTokensAmount = useMemo(() => {
+    return lpBalanceOf.map(
+      (item, index) => new TokenAmount(stakingInfo?.tokens[index], JSBI.BigInt(item?.result?.balance ?? 0))
+    )
+  }, [stakingInfo, lpBalanceOf])
+
   // get WETH value of staked LP tokens
   const totalSupplyOfStakingToken = useTotalSupply(stakingInfo?.stakedAmount?.token)
   let valueOfTotalStakedAmountInWETH: TokenAmount | undefined
   let valueOfTotalStakedAmountInWLSP: TokenAmount | undefined
+  let selfTokens0Amount: number | undefined
+  let selfTokens1Amount: number | undefined
 
   if (totalSupplyOfStakingToken && stakingTokenPair && stakingInfo && WETH) {
     // take the total amount of LP tokens staked, multiply by WAN value of all LP tokens, divide by all LP tokens
@@ -141,6 +159,12 @@ export default function Manage({
       WETH,
       JSBI.multiply(stakingInfo.totalStakedAmount.raw, JSBI.BigInt(1))
     )
+    //@ts-ignore
+    const rate = stakingInfo?.stakedAmount?.toSignificant(10) / totalSupplyOfStakingToken?.toSignificant(10)
+    //@ts-ignore
+    selfTokens0Amount = rate * selfTokensAmount[0]?.toSignificant(10)
+    //@ts-ignore
+    selfTokens1Amount = rate * selfTokensAmount[1]?.toSignificant(10)
   }
 
   const countUpAmount = stakingInfo?.earnedAmount?.toFixed(6) ?? '0'
@@ -254,9 +278,9 @@ export default function Manage({
               <CardNoise />
               <AutoColumn gap="md">
                 <RowBetween>
-                  <TYPE.white fontWeight={600}>{t("Your liquidity deposits")}</TYPE.white>
+                  <TYPE.white fontWeight={600}>{t('Your liquidity deposits')}</TYPE.white>
                 </RowBetween>
-                <RowBetween style={{ alignItems: 'center', display:'flex',flexWrap:'wrap' }}>
+                <RowBetween style={{ alignItems: 'center', display: 'flex', flexWrap: 'wrap' }}>
                   <TYPE.white fontSize={36} fontWeight={600}>
                     {stakingInfo?.stakedAmount?.toSignificant(6) ?? '-'}
                   </TYPE.white>
@@ -265,6 +289,22 @@ export default function Manage({
                   </TYPE.white>
                 </RowBetween>
               </AutoColumn>
+              <div style={{ marginTop: '30px' }}>
+                <span style={{ display: 'inline-block' }}>
+                  <CurrencyLogo currency={currencyA ?? undefined} size={'24px'} />
+                  <TokenAmountCon margin={'0 3px 0 10px'} fontWeight={'600'}>
+                    {selfTokens0Amount?.toFixed(3) || 0}
+                  </TokenAmountCon>
+                  <TokenAmountCon>{currencyA?.symbol}</TokenAmountCon>
+                </span>
+                <span style={{ display: 'inline-block', marginLeft: '25px' }}>
+                  <CurrencyLogo currency={currencyB ?? undefined} size={'24px'} />
+                  <TokenAmountCon margin={'0 3px 0 10px'} fontWeight={'600'}>
+                    {selfTokens1Amount?.toFixed(3) || 0}
+                  </TokenAmountCon>
+                  <TokenAmountCon>{currencyB?.symbol}</TokenAmountCon>
+                </span>
+              </div>
             </CardSection>
           </StyledDataCard>
           <StyledBottomCard dim={stakingInfo?.stakedAmount?.equalTo(JSBI.BigInt(0))}>
@@ -347,3 +387,16 @@ export default function Manage({
     </PageWrapper>
   )
 }
+
+const TokenAmountCon = styled.span<{
+  fontWeight?: string
+  margin?: string
+}>`
+  color: #fff;
+  display: inline-block;
+  /* margin-left: 3px; */
+  margin: ${({ margin }) => margin ? margin : "0 3px 0 0"}
+  top: -6px;
+  position: relative;
+  font-weight: ${({ fontWeight }) => fontWeight ? fontWeight : "400"}
+`

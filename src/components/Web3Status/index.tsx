@@ -21,6 +21,18 @@ import Loader from '../Loader'
 import { RowBetween } from '../Row'
 import WalletModal from '../WalletModal'
 
+interface AddEthereumChainParameter {
+  chainId: string; // A 0x-prefixed hexadecimal string
+  chainName: string;
+  nativeCurrency: {
+    name: string;
+    symbol: string; // 2-6 characters long
+    decimals: 18;
+  };
+  rpcUrls: string[];
+  blockExplorerUrls?: string[];
+  iconUrls?: string[]; // Currently ignored.
+}
 
 const Web3StatusGeneric = styled(ButtonSecondary)`
   ${({ theme }) => theme.flexRowNoWrap}
@@ -127,7 +139,7 @@ function StatusIcon({ connector }: { connector: AbstractConnector }) {
 
 function Web3StatusInner() {
   const { t } = useTranslation()
-  const { account, connector, error } = useWeb3React()
+  const { account, connector, error, chainId } = useWeb3React()
 
   const { ENSName } = useENSName(account ?? undefined)
 
@@ -143,6 +155,34 @@ function Web3StatusInner() {
   const hasPendingTransactions = !!pending.length
   const hasSocks = useHasSocks()
   const toggleWalletModal = useWalletModalToggle()
+
+  const switchNetwork = () => {
+    if (window.ethereum && Number(chainId) !== 1285) {
+      const params : AddEthereumChainParameter = {
+        chainId: '0x378', // A 0x-prefixed hexadecimal string
+        chainName: 'Wanchain',
+        nativeCurrency: {
+          name: 'WAN',
+          symbol: 'WAN', // 2-6 characters long
+          decimals: 18
+        },
+        rpcUrls: ['https://gwan-ssl.wandevs.org:56891/'],
+        blockExplorerUrls: ['https://www.wanscan.org']
+      } as AddEthereumChainParameter
+
+      (window.ethereum as any)
+        .request({
+          method: 'wallet_addEthereumChain',
+          params: [params]
+        })
+        .then((result: any) => {
+          console.debug(result)
+        })
+        .catch((error: any) => {
+          console.debug(error)
+        })
+    }
+  }
 
   if (account) {
     return (
@@ -162,7 +202,7 @@ function Web3StatusInner() {
     )
   } else if (error) {
     return (
-      <Web3StatusError onClick={toggleWalletModal}>
+      <Web3StatusError onClick={switchNetwork}>
         <NetworkIcon />
         <Text>{error instanceof UnsupportedChainIdError ? 'Wrong Network' : 'Error'}</Text>
       </Web3StatusError>

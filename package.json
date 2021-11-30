@@ -119,6 +119,7 @@
   },
   "license": "GPL-3.0-or-later",
   "dependencies": {
+    "@types/numeral": "^2.0.2",
     "@wansproject/address": "5.1.1",
     "@wanswap/sdk": "3.0.20",
     "@web3-react-wan/abstract-connector": "^6.1.7",
@@ -126,6 +127,7 @@
     "@web3-react-wan/injected-connector": "^6.1.9",
     "@web3-react-wan/types": "^6.1.7",
     "@web3-react-wan/walletconnect-connector": "^6.1.13",
-    "@web3-react-wan/wanwallet-connector": "^6.1.17"
+    "@web3-react-wan/wanwallet-connector": "^6.1.17",
+    "numeral": "^2.0.6"
   }
 }

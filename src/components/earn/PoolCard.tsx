@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { AutoColumn } from '../Column'
 import { RowBetween } from '../Row'
 import styled from 'styled-components'
@@ -9,7 +9,7 @@ import { ButtonPrimary } from '../Button'
 import { StakingInfo } from '../../state/stake/hooks'
 import { useColor } from '../../hooks/useColor'
 import { currencyId } from '../../utils/currencyId'
-import { Break, CardNoise, CardBGImage } from './styled'
+import { CardNoise, CardBGImage } from './styled'
 import { unwrappedToken } from '../../utils/wrappedCurrency'
 import { useTotalSupply } from '../../data/TotalSupply'
 import { usePair } from '../../data/Reserves'
@@ -80,6 +80,10 @@ const BottomSection = styled.div<{ showBackground: boolean }>`
   align-items: baseline;
   justify-content: space-between;
   z-index: 1;
+  background: radial-gradient(100% 96% at -100% 100%, #41beec 0%, #123471 100%);
+  width: 94%;
+  left: 3%;
+  position: relative;
 `
 
 
@@ -108,7 +112,7 @@ declare global {
   }
 }
 
-export default function PoolCard({ stakingInfo, hide }: { stakingInfo: StakingInfo, hide?: Boolean }) {
+export default function PoolCard({ stakingInfo, index, hide, totalDeposit }: { stakingInfo: StakingInfo, index: number, hide?: Boolean, totalDeposit: object }) {
   const token0 = stakingInfo.tokens[0]
   const token1 = stakingInfo.tokens[1]
 
@@ -135,6 +139,9 @@ export default function PoolCard({ stakingInfo, hide }: { stakingInfo: StakingIn
   let valueOfTotalStakedAmountInWETH: TokenAmount | undefined
   let valueOfTotalStakedAmountInWLSP: TokenAmount | undefined
 
+  let valueOfSelfStakedAmountInWETH: TokenAmount | undefined
+  let valueOfSelfStakedAmountInWLSP: TokenAmount | undefined
+
   if (totalSupplyOfStakingToken && stakingTokenPair) {
     // take the total amount of LP tokens staked, multiply by WAN value of all LP tokens, divide by all LP tokens
     valueOfTotalStakedAmountInWETH = new TokenAmount(
@@ -153,16 +160,49 @@ export default function PoolCard({ stakingInfo, hide }: { stakingInfo: StakingIn
     )
   }
 
+  if (
+    totalSupplyOfStakingToken &&
+    stakingTokenPair &&
+    stakingInfo &&
+    WETH &&
+    Number(totalSupplyOfStakingToken.toExact()) > 0
+  ) {
+    // take the total amount of LP tokens staked, multiply by WAN value of all LP tokens, divide by all LP tokens
+    valueOfSelfStakedAmountInWETH = new TokenAmount(
+      WETH,
+      JSBI.divide(
+        JSBI.multiply(
+          JSBI.multiply(stakingInfo.stakedAmount.raw, stakingTokenPair.reserveOf(WETH).raw),
+          JSBI.BigInt(2) // this is b/c the value of LP shares are ~double the value of the WETH they entitle owner to
+        ),
+        totalSupplyOfStakingToken.raw
+      )
+    )
+    valueOfSelfStakedAmountInWLSP = new TokenAmount(WETH, JSBI.multiply(stakingInfo.stakedAmount.raw, JSBI.BigInt(1)))
+  }
+
   // get the USD value of staked WETH
   const USDPrice = useUSDCPrice(WETH)
   const valueOfTotalStakedAmountInUSDC =
     valueOfTotalStakedAmountInWETH && USDPrice?.quote(valueOfTotalStakedAmountInWETH)
-  
+  const valueOfSelfStakedAmountInUSDC = valueOfSelfStakedAmountInWETH && USDPrice?.quote(valueOfSelfStakedAmountInWETH)
+
   const { chainId } = useActiveWeb3React()
   const uni = chainId ? WASP[chainId] : undefined
   const uniPrice = useUSDCPrice(uni)
   const weekReward = stakingInfo.totalRewardRate?.multiply(`${60 * 60 * 24 * 7}`)?.toFixed(0)
-  const apy = valueOfTotalStakedAmountInUSDC && weekReward && uniPrice ? Number((Number(weekReward) * Number(uniPrice?.toFixed(8)) / Number(valueOfTotalStakedAmountInUSDC.toFixed(0)) / 7 * 365 * 100).toFixed(2)) : '--' 
+  const apy =
+    valueOfTotalStakedAmountInUSDC && weekReward && uniPrice
+      ? Number(
+          (
+            ((Number(weekReward) * Number(uniPrice?.toFixed(8))) /
+              Number(valueOfTotalStakedAmountInUSDC.toFixed(0)) /
+              7) *
+            365 *
+            100
+          ).toFixed(2)
+        )
+      : '--'
 
   if (valueOfTotalStakedAmountInUSDC && stakingTokenPair) {
     if (!window.tvlItems) {
@@ -170,6 +210,12 @@ export default function PoolCard({ stakingInfo, hide }: { stakingInfo: StakingIn
     }
     window.tvlItems[stakingTokenPair!.liquidityToken.address] = valueOfTotalStakedAmountInUSDC.toFixed(0)
   }
+
+  useEffect(() => {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+    //@ts-ignore
+    totalDeposit[index] = valueOfSelfStakedAmountInUSDC ? valueOfSelfStakedAmountInUSDC.toFixed(0) : '0'
+  }, [index, totalDeposit, valueOfSelfStakedAmountInUSDC])
 
   const isActive = Boolean(stakingInfo.totalRewardRate.greaterThan('0'));
 
@@ -225,31 +271,33 @@ export default function PoolCard({ stakingInfo, hide }: { stakingInfo: StakingIn
           </RowBetween>
           </PoolRate>
         </StatContainer>
-  
-        {isStaking && (
+          </Wrapper>
+          {isStaking && (
           <>
-            <Break />
             <BottomSection showBackground={true}>
-              <TYPE.black color={'white'} fontWeight={500}>
-                <span>Your rate</span>
-              </TYPE.black>
-  
-              <TYPE.black style={{ textAlign: 'right' }} color={'white'} fontWeight={500}>
-                <span  id="animate-zoom" role="img" aria-label="wizard-icon" style={{ marginRight: '0.5rem' }}>
-                ⚡
-                </span>
-                {`${stakingInfo.rewardRate
+                  <TYPE.black fontWeight={500} color={'#909699'} marginBottom={''}>
+                    <span style={{ fontSize: '14px' }}>My Deposit ≈ </span>
+                    <span style={{ fontWeight: 'bold', fontSize: '18px', color: '#FFE600' }}>
+                      {valueOfSelfStakedAmountInUSDC
+                        ? `$${valueOfSelfStakedAmountInUSDC.toSignificant(6, { groupSeparator: ',' })}`
+                        : `${valueOfSelfStakedAmountInWLSP?.toSignificant(6, { groupSeparator: ',' }) ?? '-'} HBLP`}
+                    </span>
+                  </TYPE.black>
+                  <TYPE.black style={{ textAlign: 'right' }} color={'#909699'}>
+                    <span style={{ fontSize: '14px' }}>My Rate: </span>
+                    <span style={{ fontWeight: 'bold', fontSize: '18px', color: '#FFE600' }}>
+                      {`${stakingInfo.rewardRate
                   ?.multiply(`${60 * 60 * 24 * 7}`)
-                  ?.toFixed(0, { groupSeparator: ',' })} WASP / week`}
-              </TYPE.black>
-            </BottomSection>
-          </>
-        )}
-      </Wrapper>
-      
+                  ?.toFixed(0, { groupSeparator: ',' })}`}
+                    </span>
+                    <span style={{ fontSize: '14px' }}> WASP / week</span>
+                  </TYPE.black>
+                </BottomSection>
+              </>
+            )}
     </div>
     }
-  </React.Fragment>
+ </React.Fragment>
   )
 }
 
