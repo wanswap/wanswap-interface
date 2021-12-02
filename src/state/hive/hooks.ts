@@ -89,6 +89,8 @@ export function useAllStakingRewardsInfo() {
       let ret1 = ret;
       if (rewardTokenAddr[_i].toLowerCase() === ZOO_TOKEN_ADDRESS[chainId].toLowerCase()) {
         ret1 = new Token(chainId, ZOO_TOKEN_ADDRESS[chainId], 18, 'ZOO', 'ZOO');
+      } else if (rewardTokenAddr[_i].toLowerCase() === ('0x230f0C01b8e2c027459781E6a56dA7e1876EFDbe').toLowerCase()) {
+        ret1 = new Token(chainId, '0x230f0C01b8e2c027459781E6a56dA7e1876EFDbe', 18, 'WAND', 'WAND');
       } else {
         ret1 = new Token(chainId, BRIDGE_TOKEN_ADDRESS[chainId], 18, 'WAN', 'WAN');
       }
