@@ -306,6 +306,7 @@ export default function Swap() {
       <FlexRow>
         <Panel
           style={{
+            marginTop: isMobile ? (!showWrap && Boolean(trade) ? '200px' : '15px') : '0',
             gridColumn: below1080 ? '1' : '2/4',
             gridRow: below1080 ? '' : '1/5'
           }}
@@ -596,7 +597,7 @@ export default function Swap() {
 
 const FlexRow = styled.div`
   display: flex;
-  flex-direction: ${isMobile ? 'column' : 'row'};
+  flex-direction: ${isMobile ? 'column-reverse' : 'row'};
   width: 100%;
   justify-content: center;
 `
