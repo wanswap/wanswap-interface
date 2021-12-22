@@ -287,6 +287,9 @@ export function useDefaultsFromURLSearch():
 
   useEffect(() => {
     if (!chainId) return
+    if (!parsedQs.outputCurrency) {
+      parsedQs.outputCurrency = '0x11e77E27Af5539872efEd10abaA0b408cfd9fBBD' // wanUSDT
+    }
     const parsed = queryParametersToSwapState(parsedQs)
 
     dispatch(

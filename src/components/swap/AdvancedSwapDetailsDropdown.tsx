@@ -2,8 +2,11 @@ import React from 'react'
 import styled from 'styled-components'
 import { useLastTruthy } from '../../hooks/useLast'
 import { AdvancedSwapDetails, AdvancedSwapDetailsProps } from './AdvancedSwapDetails'
+import { isMobile } from 'react-device-detect'
 
 const AdvancedDetailsFooter = styled.div<{ show: boolean }>`
+  position: absolute;
+  left: ${isMobile ? '0' : '45px'};
   padding-top: calc(16px + 2rem);
   padding-bottom: 20px;
   margin-top: -1rem;

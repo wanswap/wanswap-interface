@@ -192,3 +192,20 @@ export const BLOCKED_PRICE_IMPACT_NON_EXPERT: Percent = new Percent(JSBI.BigInt(
 // used to ensure the user doesn't send so much WAN so they end up with <.01
 export const MIN_ETH: JSBI = JSBI.exponentiate(JSBI.BigInt(10), JSBI.BigInt(16)) // .01 WAN
 export const BETTER_TRADE_LINK_THRESHOLD = new Percent(JSBI.BigInt(75), JSBI.BigInt(10000))
+export const BUNDLE_ID = '1'
+export const TRACKED_OVERRIDES = [
+  '0x495c7f3a713870f68f8b418b355c085dfdc412c3',
+  '0xc3761eb917cd790b30dad99f6cc5b4ff93c4f9ea',
+  '0xe31debd7abff90b06bca21010dd860d8701fd901',
+  '0xfc989fbb6b3024de5ca0144dc23c18a063942ac1',
+  '0xf4eda77f0b455a12f3eb44f8653835f377e36b76',
+  '0x93b2fff814fcaeffb01406e80b4ecd89ca6a021b'
+]
+export const timeframeOptions = {
+  WEEK: '1 week',
+  MONTH: '1 month',
+  // THREE_MONTHS: '3 months',
+  // YEAR: '1 year',
+  HALF_YEAR: '6 months',
+  ALL_TIME: 'All time'
+}
