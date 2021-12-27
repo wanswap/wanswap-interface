@@ -209,3 +209,5 @@ export const timeframeOptions = {
   HALF_YEAR: '6 months',
   ALL_TIME: 'All time'
 }
+
+export const SUGGEST_GAS_PRICE = '0x59682f00' // 1.1 gwei

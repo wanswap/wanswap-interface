@@ -1,6 +1,6 @@
-import { ChainId, Currency, currencyEquals, JSBI, Price, WETH } from '@wanswap/sdk'
+import { ChainId, Currency, currencyEquals, JSBI, Price, Token, WETH } from '@wanswap/sdk'
 import { useMemo } from 'react'
-import { USDT1, USDT } from '../constants'
+import { USDT1, USDT, WASP } from '../constants'
 import { PairState, usePairs } from '../data/Reserves'
 import { useActiveWeb3React } from '../hooks'
 import { wrappedCurrency } from './wrappedCurrency'
@@ -11,7 +11,7 @@ import { wrappedCurrency } from './wrappedCurrency'
  */
 export default function useUSDCPrice(currency?: Currency): Price | undefined {
   const { chainId } = useActiveWeb3React()
-  const wrapped = wrappedCurrency(currency, chainId)
+  const wrapped = wrappedCurrency(currency?.name === 'WAN' ? (chainId ? WETH[chainId] : undefined) : currency , chainId)
   const USD = useMemo(() => (chainId === ChainId.MAINNET ? USDT : USDT1), [chainId])
   const tokenPairs: [Currency | undefined, Currency | undefined][] = useMemo(
     () => [
@@ -22,12 +22,13 @@ export default function useUSDCPrice(currency?: Currency): Price | undefined {
       // [wrapped?.equals(USD) ? undefined : wrapped, !(chainId === ChainId.MAINNET) ? USD : undefined],
       // [chainId ? WETH[chainId] : undefined, !(chainId === ChainId.MAINNET) ? USD : undefined],
       [wrapped?.equals(USD) ? undefined : wrapped, USD],
-      [chainId ? WETH[chainId] : undefined, USD]
+      [chainId ? WETH[chainId] : undefined, USD],
+      [currency?.name === 'WAN' ? (chainId ? WETH[chainId] : undefined) : currency, chainId ? WASP[chainId]: undefined],
+      [chainId ? WETH[chainId] : undefined, chainId ? WASP[chainId]: undefined]
     ],
     [USD, chainId, currency, wrapped]
   )
-  const [[ethPairState, ethPair], [usdcPairState, usdcPair], [usdcEthPairState, usdcEthPair]] = usePairs(tokenPairs)
-
+  const [[ethPairState, ethPair], [usdcPairState, usdcPair], [usdcEthPairState, usdcEthPair], [waspPairState, waspPair], [waspEthPairState, waspEthPair]] = usePairs(tokenPairs)
   return useMemo(() => {
     if (!currency || !wrapped || !chainId) {
       return undefined
@@ -52,6 +53,18 @@ export default function useUSDCPrice(currency?: Currency): Price | undefined {
 
     // all other tokens
     // first try the usdc pair
+    if (waspPairState === PairState.EXISTS && waspPair &&
+      waspEthPairState === PairState.EXISTS && waspEthPair &&
+      usdcEthPairState === PairState.EXISTS && usdcEthPair) {
+      if (waspPair.reserveOf(currency as Token).greaterThan(ethPairETHUSDCValue) && usdcEthPair.reserveOf(USD).greaterThan('0') && waspEthPair.reserveOf(WETH[chainId]).greaterThan('0')) {
+        const ethUsdcPrice = usdcEthPair.priceOf(USD)
+        const currencywaspPrice = waspPair.priceOf(WASP[chainId])
+        const waspEthPrice = waspEthPair.priceOf(WETH[chainId])
+
+        const usdcPrice = ethUsdcPrice.multiply(waspEthPrice).multiply(currencywaspPrice).invert()
+        return new Price(currency, USD, usdcPrice.denominator, usdcPrice.numerator)
+      }
+    }
     if (usdcPairState === PairState.EXISTS && usdcPair && usdcPair.reserveOf(USD).greaterThan(ethPairETHUSDCValue)) {
       const price = usdcPair.priceOf(wrapped)
       return new Price(currency, USD, price.denominator, price.numerator)
@@ -65,5 +78,5 @@ export default function useUSDCPrice(currency?: Currency): Price | undefined {
       }
     }
     return undefined
-  }, [chainId, currency, ethPair, ethPairState, usdcEthPair, usdcEthPairState, usdcPair, usdcPairState, wrapped, USD])
+  }, [chainId, currency, ethPair, ethPairState, usdcEthPair, usdcEthPairState, usdcPair, usdcPairState, wrapped, USD, waspPairState, waspPair, waspEthPairState, waspEthPair])
 }
