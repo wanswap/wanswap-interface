@@ -1,10 +1,13 @@
 import React from 'react'
 import styled, { css, keyframes } from 'styled-components'
 
-const pulse = keyframes`
-  0% { transform: scale(1); }
-  60% { transform: scale(1.1); }
-  100% { transform: scale(1); }
+const rotate = keyframes`
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 `
 
 const Wrapper = styled.div`
@@ -26,7 +29,7 @@ const Wrapper = styled.div`
 `
 
 const AnimatedImg = styled.div`
-  animation: ${pulse} 800ms linear infinite;
+  animation: 2s ${rotate} linear infinite;
   & > * {
     width: 120px;
   }
@@ -37,7 +40,7 @@ const LocalLoader = ({ fill }) => {
   return (
     <Wrapper fill={fill}>
       <AnimatedImg>
-        <img src={require('../../assets/images/logo_dark.png')} alt="loading-icon" />
+        <img src={require('../../assets/svg/loader.svg')} alt="loading-icon" />
       </AnimatedImg>
     </Wrapper>
   )
