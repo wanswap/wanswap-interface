@@ -306,7 +306,7 @@ export default function Swap() {
       <FlexRow>
         <Panel
           style={{
-            marginTop: isMobile ? (!showWrap && Boolean(trade) ? '200px' : '15px') : '0',
+            marginTop: isMobile ? (!showWrap && Boolean(trade) ? '250px' : '15px') : '0',
             gridColumn: below1080 ? '1' : '2/4',
             gridRow: below1080 ? '' : '1/5'
           }}
