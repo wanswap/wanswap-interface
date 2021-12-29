@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-ts-ignore */
 import React, { useCallback, useMemo, useState } from 'react'
-import Modal from '../Modal'
+import Modal from '../Modal/index_cus'
 import { AutoColumn } from '../Column'
 import styled from 'styled-components'
 import Row, { RowBetween, RowFixed } from '../Row'
@@ -169,13 +169,13 @@ export default function UnstakingModal({ isOpen, onDismiss, stakingInfo }: Staki
                       <Text fontWeight={500} color={"#fff"}>{t('amount')}</Text>
                     </RowBetween>
                     <Row style={{ alignItems: 'flex-end' }}>
-                      <Text fontSize={72} fontWeight={"bold"} color={"#96B5BB"}>
+                      <Text fontSize={72} fontWeight={"bold"} color={"#FFFFFF"}>
                         {percent}%
                       </Text>
                     </Row>
                     <div>
                       <Slider value={innerLiquidityPercentage} onChange={setInnerLiquidityPercentage} />
-                      <RowBetween>
+                      <RowBetweenCus2>
                         <MaxButtonCus onClick={() => setPercent('25')} width="20%">
                           25%
                         </MaxButtonCus>
@@ -188,8 +188,8 @@ export default function UnstakingModal({ isOpen, onDismiss, stakingInfo }: Staki
                         <MaxButtonCus onClick={() => setPercent('100')} width="100%">
                           Max
                         </MaxButtonCus>
-                      </RowBetween>
-                      </div>
+                      </RowBetweenCus2>
+                    </div>
                   </AutoColumn>
                 </LightCardCus>
                 <LightCardCus1>
@@ -232,10 +232,10 @@ export default function UnstakingModal({ isOpen, onDismiss, stakingInfo }: Staki
                     <RowBetweenCus>
                       <Text fontSize={18} color={"#fff"}>
                         <IconCon><CurrencyLogo currency={currencyA ?? undefined} size={"24px"} /></IconCon>
-                        <SpanSty color={'#42B5D9'}>{currencyA?.symbol}</SpanSty>
+                        <SpanSty color={'#FFE600'}>{currencyA?.symbol}</SpanSty>
                       </Text>
                       <RowFixed>
-                        <Text fontSize={18} fontWeight={400} id="remove-liquidity-tokena-symbol" color={"#42B5D9"}>
+                        <Text fontSize={18} fontWeight={400} id="remove-liquidity-tokena-symbol" color={"#FFE600"}>
                           {selfTokens0Amount?.toFixed(3) || 0}
                         </Text>
                       </RowFixed>
@@ -243,10 +243,10 @@ export default function UnstakingModal({ isOpen, onDismiss, stakingInfo }: Staki
                     <RowBetweenCus>
                       <Text fontSize={18} color={"#fff"}>
                         <IconCon><CurrencyLogo currency={currencyB ?? undefined} size={"24px"} /></IconCon>
-                        <SpanSty color={'#42B5D9'}>{currencyB?.symbol}</SpanSty>
+                        <SpanSty color={'#FFE600'}>{currencyB?.symbol}</SpanSty>
                       </Text>
                       <RowFixed>
-                        <Text fontSize={18} fontWeight={400} id="remove-liquidity-tokenb-symbol" color={"#42B5D9"}>
+                        <Text fontSize={18} fontWeight={400} id="remove-liquidity-tokenb-symbol" color={"#FFE600"}>
                           {selfTokens1Amount?.toFixed(3) || 0}
                         </Text>
                       </RowFixed>
@@ -293,7 +293,9 @@ export default function UnstakingModal({ isOpen, onDismiss, stakingInfo }: Staki
 
 const LightCardCus = styled(LightCard)`
   background: rgba(0, 0, 0, 0.05);
-  border: 1px solid #42B5D9;
+  border-bottom: 1px solid #42B5D9;
+  border-top: 1px solid #42B5D9;
+  border-radius: 0;
 `
 
 const LightCardCus1 = styled(LightCard)`
@@ -302,9 +304,22 @@ const LightCardCus1 = styled(LightCard)`
 `
 
 const MaxButtonCus = styled(MaxButton)`
-  background: #2B3A3E;
-  color: #42B5D9;
-  border: 1px solid #152025;
+  background: #1A3D77;
+  color: #fff;
+  margin: 0;
+  font-weight: bold;
+  border-radius: 18px;
+  :hover {
+    background-color: #FFE600;
+    outline: none;
+    color: #313131;
+  }
+  :focus {
+    background-color: #FFE600;
+    outline: none;
+    color: #313131;
+  }
+
 `
 
 const Line = styled.div`
@@ -343,6 +358,11 @@ const RowBetweenCus1 = styled(RowBetween)`
   height: 45px;
   padding: 0 20px;
   margin-bottom: 10px;
+`
+
+const RowBetweenCus2 = styled(RowBetween)`
+  background-color: #1A3D77;
+  border-radius: 10px;
 `
 
 // const Bg = styled.div`

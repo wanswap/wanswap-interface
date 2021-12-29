@@ -14,7 +14,6 @@ export const BodyWrapper = styled.div`
 
 export const BodyWrapperV1 = styled.div`
   position: relative;
-  max-width: 500px;
   width: 100%;
   background: rgba(0, 0, 0, 0.05);
   box-shadow: 0px 0px 50px 0px rgba(0, 0, 0, 0.2);
