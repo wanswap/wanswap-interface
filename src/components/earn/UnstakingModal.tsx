@@ -197,7 +197,7 @@ export default function UnstakingModal({ isOpen, onDismiss, stakingInfo }: Staki
                     <RowBetweenCus>
                       <Text fontSize={18} color={"#fff"}>
                         <IconCon><DoubleCurrencyLogo currency0={currencyA ?? undefined} currency1={currencyB ?? undefined} size={24} /></IconCon>
-                        <SpanSty>WASP Amount</SpanSty>
+                        <SpanSty>WSLP Amount</SpanSty>
                       </Text>
                       <RowFixed>
                         <Text fontSize={18} fontWeight={400} id="remove-liquidity-tokena-symbol" color={"#fff"}>
@@ -271,7 +271,7 @@ export default function UnstakingModal({ isOpen, onDismiss, stakingInfo }: Staki
       {attempting && !hash && (
         <LoadingView onDismiss={wrappedOndismiss}>
           <AutoColumn gap="12px" justify={'center'}>
-          <TYPE.body fontSize={20}>Withdrawing {stakingInfo?.stakedAmount?.multiply(JSBI.BigInt(percent)).divide(JSBI.BigInt(100)).toSignificant(4)} WASP</TYPE.body>
+          <TYPE.body fontSize={20}>Withdrawing {stakingInfo?.stakedAmount?.multiply(JSBI.BigInt(percent)).divide(JSBI.BigInt(100)).toSignificant(4)} WSLP</TYPE.body>
             <TYPE.body fontSize={20}>
               {t('Claiming')} {stakingInfo?.earnedAmount?.toSignificant(4)} WASP
             </TYPE.body>
