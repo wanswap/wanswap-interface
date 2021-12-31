@@ -280,7 +280,7 @@ export default function PoolCard({ stakingInfo, index, hide, totalDeposit }: { s
                     <span style={{ fontWeight: 'bold', fontSize: '18px', color: '#FFE600' }}>
                       {valueOfSelfStakedAmountInUSDC
                         ? `$${valueOfSelfStakedAmountInUSDC.toSignificant(6, { groupSeparator: ',' })}`
-                        : `${valueOfSelfStakedAmountInWLSP?.toSignificant(6, { groupSeparator: ',' }) ?? '-'} HBLP`}
+                        : `${valueOfSelfStakedAmountInWLSP?.toSignificant(6, { groupSeparator: ',' }) ?? '-'} WSLP`}
                     </span>
                   </TYPE.black>
                   <TYPE.black style={{ textAlign: 'right' }} color={'#909699'}>
