@@ -228,6 +228,14 @@
       "decimals": 18,
       "logoURI": "https://icons.wanswap.finance/icon/others/BNB.png"
     },
+    {
+      "chainId": 888,
+      "address": "0xf8b0D176257f9DC1EE49f038bB4f6cfd51af5762",
+      "name": "wanFTM",
+      "symbol": "wanFTM",
+      "decimals": 18,
+      "logoURI": "https://icons.wanswap.finance/icon/wanswap/wanFTM.png"
+    },
 
     
     {
@@ -297,7 +305,7 @@
   ],
   "version": {
     "major": 4,
-    "minor": 7,
+    "minor": 8,
     "patch": 0
   }
 }
