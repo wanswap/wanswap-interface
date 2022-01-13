@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import { AutoColumn } from '../Column'
 import { RowBetween } from '../Row'
 import styled from 'styled-components'
@@ -25,9 +25,6 @@ const StatContainer = styled.div`
   margin-bottom: 1rem;
   margin-right: 1rem;
   margin-left: 1rem;
-  ${({ theme }) => theme.mediaWidth.upToSmall`
-  display: none;
-`};
 `
 
 const Wrapper = styled(AutoColumn)<{ showBackground: boolean; bgColor: any }>`
@@ -106,6 +103,16 @@ export default function HiveCard({ stakingInfo, i, hide }: { stakingInfo: Stakin
 
   const symbol = token1.symbol;
 
+  const tokenPrice = useUSDCPrice(token1)
+
+  const stakedUsd = useMemo(() => {
+    return stakingInfo?.totalStakedAmount && uniPrice ? (Number(stakingInfo?.totalStakedAmount.toExact()) * Number(uniPrice.toFixed(8))) : undefined;
+  }, [stakingInfo, uniPrice])
+
+  const apy = useMemo(() => {
+    return stakedUsd && stakingInfo?.totalRewardRate && tokenPrice ? (Number(stakingInfo?.totalRewardRate.toExact()) * Number(tokenPrice?.toFixed(8)) * 3600*24 * 365 * 100 / 5 / Number(stakedUsd.toFixed(0))).toFixed(0) : '--' 
+  }, [stakingInfo, stakedUsd, tokenPrice])
+
   return (
     <React.Fragment>
       {
@@ -134,6 +141,12 @@ export default function HiveCard({ stakingInfo, i, hide }: { stakingInfo: Stakin
             <TYPE.white>{t('totalDeposited')}</TYPE.white>
             <TYPE.white>
               {`${stakingInfo?.totalStakedAmount.toFixed(0, { groupSeparator: ',' }) ?? '-'} WASP`}
+              {
+                apy && apy !== '--' && !isNaN(Number(apy)) && apy !== '0' ? ' 🔥 ' : null
+              }
+              {
+                apy && apy !== '--' && !isNaN(Number(apy)) && apy !== '0' ? 'APR: ' + apy + '%' : null
+              }
             </TYPE.white>
           </RowBetween>
           <RowBetween>

@@ -17,6 +17,9 @@ import TransactionUpdater from './state/transactions/updater'
 import UserUpdater from './state/user/updater'
 import ThemeProvider, { FixedGlobalStyle, ThemedGlobalStyle } from './theme'
 import getLibrary from './utils/getLibrary'
+import GlobalDataContextProvider from './contexts/GlobalData'
+import PairDataContextProvider, { Updater as PairDataContextUpdater } from './contexts/PairData'
+import ApplicationContextProvider from './contexts/Application'
 
 const Web3ProviderNetwork = createWeb3ReactRoot(NetworkContextName)
 
@@ -49,7 +52,18 @@ function Updaters() {
       <ApplicationUpdater />
       <TransactionUpdater />
       <MulticallUpdater />
+      <PairDataContextUpdater />
     </>
+  )
+}
+
+function ContextProviders({ children }: { children: any }) {
+  return (
+    <ApplicationContextProvider>
+      <GlobalDataContextProvider>
+        <PairDataContextProvider>{children}</PairDataContextProvider>
+      </GlobalDataContextProvider>
+    </ApplicationContextProvider>
   )
 }
 
@@ -58,15 +72,17 @@ ReactDOM.render(
     <FixedGlobalStyle />
     <Web3ReactProvider getLibrary={getLibrary}>
       <Web3ProviderNetwork getLibrary={getLibrary}>
-        <Provider store={store}>
-          <Updaters />
-          <ThemeProvider>
-            <ThemedGlobalStyle />
-            <HashRouter>
-              <App />
-            </HashRouter>
-          </ThemeProvider>
-        </Provider>
+        <ContextProviders>
+          <Provider store={store}>
+            <Updaters />
+            <ThemeProvider>
+              <ThemedGlobalStyle />
+              <HashRouter>
+                <App />
+              </HashRouter>
+            </ThemeProvider>
+          </Provider>
+        </ContextProviders>
       </Web3ProviderNetwork>
     </Web3ReactProvider>
   </StrictMode>,

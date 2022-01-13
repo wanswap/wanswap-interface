@@ -2,11 +2,13 @@ import { Interface } from '@ethersproject/abi'
 import { ChainId } from '@wanswap/sdk'
 import BRIDGE_MINER_ABI from './bridge-miner.json'
 import BRIDGE_TOKEN_ABI from './bridge-token.json'
+import ERC20_ABI from './erc20.json'
 import HIVE_ABI from './hive.json'
 import { abi as IUniswapV2PairABI } from '@uniswap/v2-core/build/IUniswapV2Pair.json'
 
 const WANV2_PAIR_INTERFACE = new Interface(IUniswapV2PairABI)
 const BRIDGE_MINER_INTERFACE = new Interface(BRIDGE_MINER_ABI)
+const ERC20_INTERFACE = new Interface(ERC20_ABI)
 const WANV2BRIDGE_TOKEN_INTERFACE = new Interface(BRIDGE_TOKEN_ABI)
 const HIVE_INTERFACE = new Interface(HIVE_ABI);
 
@@ -51,5 +53,6 @@ export {
   HIVE_INTERFACE,
   WANV2_PAIR_INTERFACE,
   BRIDGE_MINER_INTERFACE,
+  ERC20_INTERFACE,
   WANV2BRIDGE_TOKEN_INTERFACE,
 }
