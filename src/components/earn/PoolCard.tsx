@@ -253,7 +253,7 @@ export default function PoolCard({ stakingInfo, index, hide, totalDeposit }: { s
             <TYPE.white><DepositTitle>{t('totalDeposited')}</DepositTitle></TYPE.white>
             <TYPE.white>
               {valueOfTotalStakedAmountInUSDC
-                ? `$${valueOfTotalStakedAmountInUSDC.toFixed(0, { groupSeparator: ',' })} 🔥 APY: ${apy}%`
+                ? `$${valueOfTotalStakedAmountInUSDC.toFixed(0, { groupSeparator: ',' })} 🔥 APR: ${apy}%`
                 //  +
                 //   ' / ' +
                 //   `${valueOfTotalStakedAmountInWLSP?.toSignificant(6, { groupSeparator: ',' }) ?? '-'} WSLP`
