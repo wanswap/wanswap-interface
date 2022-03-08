@@ -12,6 +12,7 @@ import { useActiveWeb3React } from '../../hooks'
 import Toggle from '../../components/Toggle'
 import { loadFromLocalStorage, saveToLocalStorage } from '../../utils/tools';
 import { useTranslation } from 'react-i18next'
+import AutoWaspCard from '../../components/earnHive/AutoWaspCard'
 
 
 const PageWrapper = styled(AutoColumn)`
@@ -132,6 +133,12 @@ export default function Earn() {
         </DataRow>
 
         <PoolSection>
+          {
+           stakingInfos.length ?
+            <AutoWaspCard key={-1} i={-1} stakingInfo={stakingInfos[0]}></AutoWaspCard>
+            :
+            null
+          }
           {stakingRewardsExist && stakingInfos?.length === 0 ? (
             <Loader style={{ margin: 'auto' }} />
           ) : !stakingRewardsExist ? (
