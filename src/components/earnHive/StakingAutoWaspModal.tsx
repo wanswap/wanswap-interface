@@ -9,18 +9,19 @@ import { TYPE, CloseIcon } from '../../theme'
 import { ButtonConfirmed, ButtonError } from '../Button'
 import ProgressCircles from '../ProgressSteps'
 import CurrencyInputPanel from '../CurrencyInputPanel'
-import { TokenAmount } from '@wanswap/sdk'
+import { TokenAmount, ChainId } from '@wanswap/sdk'
 import { useActiveWeb3React } from '../../hooks'
 import { maxAmountSpend } from '../../utils/maxAmountSpend'
-import { useHiveContract } from '../../hooks/useContract'
+import { useAutoWaspContract } from '../../hooks/useContract'
 import { useApproveCallback, ApprovalState } from '../../hooks/useApproveCallback'
 // import { splitSignature } from 'ethers/lib/utils'
-import { StakingInfo, useDerivedStakeInfo } from '../../state/stake/hooks'
+import { useDerivedStakeInfo } from '../../state/stake/hooks'
 import { TransactionResponse } from '@ethersproject/providers'
 import { useTransactionAdder } from '../../state/transactions/hooks'
 import { LoadingView, SubmittedView } from '../ModalViews'
-import { HIVE_ADDRESS } from '../../constants/abis/bridge'
+import { AUTO_WASP_ADDRESS } from '../../constants/abis/bridge'
 import { useTranslation } from 'react-i18next'
+import { WASP } from '../../constants'
 
 const ContentWrapper = styled(AutoColumn)`
   width: 100%;
@@ -30,17 +31,18 @@ const ContentWrapper = styled(AutoColumn)`
 interface StakingModalProps {
   isOpen: boolean
   onDismiss: () => void
-  stakingInfo: StakingInfo
+  stakingInfo: any
   userLiquidityUnstaked: TokenAmount | undefined
 }
 
 export default function StakingAutoWaspModal({ isOpen, onDismiss, stakingInfo, userLiquidityUnstaked }: StakingModalProps) {
   const { chainId } = useActiveWeb3React()
   const { t } = useTranslation()
+  const uni = WASP[chainId ? chainId : ChainId.MAINNET]
 
   // track and parse user input
   const [typedValue, setTypedValue] = useState('')
-  const { parsedAmount, error } = useDerivedStakeInfo(typedValue, stakingInfo.stakedAmount.token, userLiquidityUnstaked)
+  const { parsedAmount, error } = useDerivedStakeInfo(typedValue, uni, userLiquidityUnstaked)
 
   // state for pending and submitted txn views
   const addTransaction = useTransactionAdder()
@@ -60,17 +62,17 @@ export default function StakingAutoWaspModal({ isOpen, onDismiss, stakingInfo, u
   const deadline = useTransactionDeadline()
   const [approval, approveCallback] = useApproveCallback(
     parsedAmount,
-    chainId ? HIVE_ADDRESS[chainId] : undefined
+    chainId ? AUTO_WASP_ADDRESS[chainId] : undefined
   )
 
   // const isArgentWallet = useIsArgentWallet()
-  const bridgeMinerContract = useHiveContract()
+  const autoWaspContract = useAutoWaspContract()
   async function onStake() {
     setAttempting(true)
-    if (bridgeMinerContract && parsedAmount && deadline) {
+    if (autoWaspContract && parsedAmount && deadline) {
       if (approval === ApprovalState.APPROVED) {
-        await bridgeMinerContract
-          .deposit(stakingInfo.pid, `0x${parsedAmount.raw.toString(16)}`, { gasLimit: 500000 })
+        await autoWaspContract
+          .deposit(`0x${parsedAmount.raw.toString(16)}`, { gasLimit: 500000 })
           .then((response: TransactionResponse) => {
             addTransaction(response, {
               summary: `Deposit WASP`
@@ -113,7 +115,7 @@ export default function StakingAutoWaspModal({ isOpen, onDismiss, stakingInfo, u
             onUserInput={onUserInput}
             onMax={handleMax}
             showMaxButton={!atMaxAmount}
-            currency={stakingInfo.stakedAmount.token}
+            currency={uni}
             pair={dummyPair}
             label={''}
             disableCurrencySelect={true}

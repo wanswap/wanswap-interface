@@ -2,7 +2,7 @@ import React, { useCallback, useState } from 'react'
 import { AutoColumn } from '../../components/Column'
 import styled from 'styled-components'
 
-import { JSBI, TokenAmount, ETHER } from '@wanswap/sdk'
+import { ETHER, ChainId } from '@wanswap/sdk'
 import { RouteComponentProps } from 'react-router-dom'
 import CurrencyLogo from '../../components/CurrencyLogo'
 import { useCurrency } from '../../hooks/Tokens'
@@ -13,15 +13,16 @@ import { RowBetween } from '../../components/Row'
 import { CardSection, DataCard, CardNoise, CardBGImage } from '../../components/earnHive/styled'
 import { ButtonPrimary } from '../../components/Button'
 import StakingAutoWaspModal from '../../components/earnHive/StakingAutoWaspModal'
-import { useStakingInfo } from '../../state/hive/hooks'
+import { useStakeWaspEarnWaspInfo } from '../../state/hive/hooks'
 import UnstakingAutoWaspModal from '../../components/earnHive/UnstakingAutoWaspModal'
 import { useTokenBalance } from '../../state/wallet/hooks'
 import { useActiveWeb3React } from '../../hooks'
 import { useColor } from '../../hooks/useColor'
 
 import { wrappedCurrency } from '../../utils/wrappedCurrency'
-import { useTotalSupply } from '../../data/TotalSupply'
 import { useTranslation } from 'react-i18next'
+
+import { WASP } from '../../constants'
 
 
 const PageWrapper = styled(AutoColumn)`
@@ -68,44 +69,32 @@ const DataRow = styled(RowBetween)`
 
 export default function ManageAutoWasp({
   match: {
-    params: { currencyIdA, pid }
+    params: { currencyIdA }
   }
-}: RouteComponentProps<{ currencyIdA: string; pid: string }>) {
+}: RouteComponentProps<{ currencyIdA: string }>) {
   const { account, chainId } = useActiveWeb3React()
+  const uni = WASP[chainId ? chainId : ChainId.MAINNET]
 
   // get currencies and pair
   const [currencyA, currencyB] = [useCurrency(currencyIdA), useCurrency(currencyIdA)]
   const tokenA = wrappedCurrency(currencyA ?? undefined, chainId)
   const tokenB = wrappedCurrency(currencyB ?? undefined, chainId)
 
-  const stakingInfo = useStakingInfo(tokenA, pid)?.[0]
+  const stakingInfo = useStakeWaspEarnWaspInfo()
 
   // detect existing unstaked LP position to show add button if none found
-  const userLiquidityUnstaked = useTokenBalance(account ?? undefined, stakingInfo?.stakedAmount?.token)
-  const showAddLiquidityButton = Boolean(stakingInfo?.stakedAmount?.equalTo('0') && userLiquidityUnstaked?.equalTo('0'))
+  const userLiquidityUnstaked = useTokenBalance(account ?? undefined, uni)
+  const showAddLiquidityButton = false
 
   // toggle for staking modal and unstaking modal
   const [showStakingModal, setShowStakingModal] = useState(false)
   const [showUnstakingModal, setShowUnstakingModal] = useState(false)
 
   // fade cards if nothing staked or nothing earned yet
-  const disableTop = !stakingInfo?.stakedAmount || stakingInfo.stakedAmount.equalTo(JSBI.BigInt(0))
+  const disableTop = !stakingInfo?.stakedAmount || stakingInfo.stakedAmount.equalTo('0')
 
   const token = currencyA === ETHER ? tokenB : tokenA
-  const WETH = currencyA === ETHER ? tokenA : tokenB
   const backgroundColor = useColor(token)
-
-  // get WETH value of staked LP tokens
-  const totalSupplyOfStakingToken = useTotalSupply(stakingInfo?.stakedAmount?.token)
-  let valueOfTotalStakedAmountInWLSP: TokenAmount | undefined
-
-  if (totalSupplyOfStakingToken && tokenA && stakingInfo && WETH) {
-
-    valueOfTotalStakedAmountInWLSP = new TokenAmount(
-      WETH,
-      JSBI.multiply(stakingInfo.totalStakedAmount.raw, JSBI.BigInt(1))
-    )
-  }
 
   const toggleWalletModal = useWalletModalToggle()
 
@@ -133,7 +122,7 @@ export default function ManageAutoWasp({
           <AutoColumn gap="sm">
             <TYPE.body style={{ margin: 0 }}>{t("Total deposits")}</TYPE.body>
             <TYPE.body fontSize={24} fontWeight={500}>
-              {`${valueOfTotalStakedAmountInWLSP?.toSignificant(6, { groupSeparator: ',' }) ?? '-'} WASP`}
+              {`${stakingInfo?.totalStakedAmount.toFixed(6) ?? '-'} WASP`}
             </TYPE.body>
           </AutoColumn>
         </PoolData>
@@ -180,16 +169,16 @@ export default function ManageAutoWasp({
           <span role="img" aria-label="wizard-icon" style={{ marginRight: '8px' }}>
             ⭐️
           </span>
-          {t("When you withdraw, the contract will automagically claim reward on your behalf!")}
+          {t("You will earn compound interest on your initial deposits of WASP.")}
         </TYPE.main>
 
         {!showAddLiquidityButton && (
           <DataRow style={{ marginBottom: '1rem',gap:0 }}>
             <ButtonPrimary padding="8px" borderRadius="8px" width="260px"  margin="6px" onClick={handleDepositClick}>
-              {stakingInfo?.stakedAmount?.greaterThan(JSBI.BigInt(0)) ? t('Deposit') : t('Deposit WASP Tokens')}
+              {stakingInfo?.stakedAmount?.greaterThan('0') ? t('Deposit') : t('Deposit WASP Tokens')}
             </ButtonPrimary>
 
-            {stakingInfo?.stakedAmount?.greaterThan(JSBI.BigInt(0)) && (
+            {stakingInfo?.stakedAmount?.greaterThan('0') && (
               <>
                 <ButtonPrimary
                    margin="6px"

@@ -2,20 +2,20 @@ import React, { useMemo } from 'react'
 import { AutoColumn } from '../Column'
 import { RowBetween } from '../Row'
 import styled from 'styled-components'
-// import { TYPE, StyledInternalLink } from '../../theme'
-import { TYPE } from '../../theme'
-// import { ButtonPrimary } from '../Button'
+import { TYPE, StyledInternalLink } from '../../theme'
+import { ButtonPrimary } from '../Button'
 import { useStakeWaspEarnWaspInfo } from '../../state/hive/hooks'
 import { useColor } from '../../hooks/useColor'
-// import { currencyId } from '../../utils/currencyId'
+import { currencyId } from '../../utils/currencyId'
 import { CardNoise, CardBGImage } from './styled'
 import { unwrappedToken } from '../../utils/wrappedCurrency'
 import { useTranslation } from 'react-i18next'
 import CurrencyLogo from '../CurrencyLogo'
 import { Countdown } from '../../pages/Hive/Countdown'
 import useUSDCPrice from '../../utils/useUSDCPrice'
-import { useActiveWeb3React } from '../../hooks'
-import { WASP } from '../../constants'
+// import { useActiveWeb3React } from '../../hooks'
+// import { WASP } from '../../constants'
+import BN from 'bignumber.js'
 
 const StatContainer = styled.div`
   display: flex;
@@ -63,19 +63,17 @@ declare global {
 export default function AutoWaspCard({ hide }: { hide?: Boolean }) {
   const stakingInfo = useStakeWaspEarnWaspInfo();
   const token0 = stakingInfo.tokens[0]
-  const token1 = stakingInfo.tokens[1]
   
   const currency0 = unwrappedToken(token0)
   const { t } = useTranslation()
   
-  const isStaking = Boolean(stakingInfo.stakedAmount.gt('0'))
+  const isStaking = Boolean(stakingInfo.stakedAmount.greaterThan('0'))
   
   const backgroundColor = useColor(token0)
   
-  const { chainId } = useActiveWeb3React()
-  const uni = chainId ? WASP[chainId] : undefined
+  // const { chainId } = useActiveWeb3React()
   
-  const uniPrice = useUSDCPrice(uni)
+  const uniPrice = useUSDCPrice(token0)
   
   if (stakingInfo && uniPrice) {
     if (!window.tvlItems) {
@@ -83,16 +81,16 @@ export default function AutoWaspCard({ hide }: { hide?: Boolean }) {
     }
     window.tvlItems['hive'] = (Number(stakingInfo?.totalStakedAmount.toFixed(0)) * Number(uniPrice.toFixed(8))).toFixed(0)
   }
-  
-  const tokenPrice = useUSDCPrice(token1)
-  
+    
   const stakedUsd = useMemo(() => {
     return stakingInfo?.totalStakedAmount && uniPrice ? (Number(stakingInfo?.totalStakedAmount.toString()) * Number(uniPrice.toFixed(8))) : undefined;
   }, [stakingInfo, uniPrice])
   
-  const apy = useMemo(() => {
-    return stakedUsd && stakingInfo?.totalRewardRate && tokenPrice ? (Number(stakingInfo?.totalRewardRate.toExact()) * Number(tokenPrice?.toFixed(8)) * 3600*24 * 365 * 100 / 5 / Number(stakedUsd.toFixed(0))).toFixed(0) : '--' 
-  }, [stakingInfo, stakedUsd, tokenPrice])
+  const apr = useMemo(() => {
+    return stakedUsd && stakingInfo?.totalRewardRate && uniPrice ? (Number(stakingInfo?.totalRewardRate.toExact()) * Number(uniPrice?.toFixed(8)) * 3600*24 * 365 * 100 / 5 / Number(stakedUsd.toFixed(0))).toFixed(0) : '' 
+  }, [stakingInfo, stakedUsd, uniPrice])
+  
+  const apy = apr === '' ? '--' :  new BN(apr).div(365).div(100).plus(1).exponentiatedBy(365).minus(1).times(100).times(stakingInfo?.apyRate).toFixed(0);
   
   return (
     <React.Fragment>
@@ -105,16 +103,15 @@ export default function AutoWaspCard({ hide }: { hide?: Boolean }) {
         <TopSection>
           <CurrencyLogo currency={currency0} size={'24px'} />
           <TYPE.white fontWeight={600} fontSize={18} style={{ marginLeft: '8px' }}>
-            {currency0.symbol}
+            Auto {currency0.symbol}
             <Countdown exactEnd={stakingInfo?.periodFinish} exactStart={stakingInfo?.periodStart} />
           </TYPE.white>
-  
-          {/* <StyledInternalLink to={`/hive/${currencyId(currency0)}`} style={{ width: '100%',color:'transparent' }}>
+          <StyledInternalLink to={`/autoWasp/${currencyId(currency0)}`} style={{ width: '100%',color:'transparent' }}>
             
             <ButtonPrimary padding="8px" borderRadius="8px">
               {isStaking ? t('Manage') : t('Deposit')}
             </ButtonPrimary>
-          </StyledInternalLink> */}
+          </StyledInternalLink>
         </TopSection>
   
         <StatContainer>

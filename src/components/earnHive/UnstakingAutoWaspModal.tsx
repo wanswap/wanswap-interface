@@ -5,12 +5,11 @@ import styled from 'styled-components'
 import { RowBetween } from '../Row'
 import { TYPE, CloseIcon } from '../../theme'
 import { ButtonError } from '../Button'
-import { StakingInfo } from '../../state/stake/hooks'
-import { useHiveContract } from '../../hooks/useContract'
+import { useAutoWaspContract } from '../../hooks/useContract'
 import { SubmittedView, LoadingView } from '../ModalViews'
 import { TransactionResponse } from '@ethersproject/providers'
 import { useTransactionAdder } from '../../state/transactions/hooks'
-import FormattedCurrencyAmount from '../FormattedCurrencyAmount'
+// import FormattedCurrencyAmount from '../FormattedCurrencyAmount'
 import { useActiveWeb3React } from '../../hooks'
 import { useTranslation } from 'react-i18next'
 
@@ -22,7 +21,7 @@ const ContentWrapper = styled(AutoColumn)`
 interface StakingModalProps {
   isOpen: boolean
   onDismiss: () => void
-  stakingInfo: StakingInfo
+  stakingInfo: any
 }
 
 export default function UnstakingAutoWaspModal({ isOpen, onDismiss, stakingInfo }: StakingModalProps) {
@@ -30,6 +29,7 @@ export default function UnstakingAutoWaspModal({ isOpen, onDismiss, stakingInfo 
 
   // monitor call to help UI loading state
   const addTransaction = useTransactionAdder()
+
   const [hash, setHash] = useState<string | undefined>()
   const [attempting, setAttempting] = useState(false)
 
@@ -41,13 +41,24 @@ export default function UnstakingAutoWaspModal({ isOpen, onDismiss, stakingInfo 
     onDismiss()
   }
 
-  const bridgeMinerContract = useHiveContract()
-
+  const autoWaspContract = useAutoWaspContract()
   async function onWithdraw() {
-    if (bridgeMinerContract && stakingInfo?.stakedAmount) {
+    if (autoWaspContract && stakingInfo?.stakedAmount) {
       setAttempting(true)
-      await bridgeMinerContract
-        .withdraw(stakingInfo.pid, `0x${stakingInfo?.stakedAmount.raw.toString(16)}`, { gasLimit: 500000 })
+      // await autoWaspContract
+      //   .withdraw(`0x${stakingInfo?.stakedAmount.raw.toString(16)}`, { gasLimit: 500000 })
+      //   .then((response: TransactionResponse) => {
+      //     addTransaction(response, {
+      //       summary: `Withdraw deposited WASP`
+      //     })
+      //     setHash(response.hash)
+      //   })
+      //   .catch((error: any) => {
+      //     setAttempting(false)
+      //     console.log(error)
+      //   })
+      await autoWaspContract
+        .withdrawAll({ gasLimit: 500000 })
         .then((response: TransactionResponse) => {
           addTransaction(response, {
             summary: `Withdraw deposited WASP`
@@ -80,14 +91,10 @@ export default function UnstakingAutoWaspModal({ isOpen, onDismiss, stakingInfo 
           {stakingInfo?.stakedAmount && (
             <AutoColumn justify="center" gap="md">
               <TYPE.body fontWeight={600} fontSize={36}>
-                {<FormattedCurrencyAmount currencyAmount={stakingInfo.stakedAmount} />}
+                {stakingInfo.stakedAmount.toSignificant(6)}
               </TYPE.body>
-              <TYPE.body>Deposited WASP:</TYPE.body>
             </AutoColumn>
           )}
-          <TYPE.subHeader style={{ textAlign: 'center' }}>
-            When you withdraw, your reward is claimed and your WASP is removed from the mining pool.
-          </TYPE.subHeader>
           <ButtonError disabled={!!error} error={!!error && !!stakingInfo?.stakedAmount} onClick={onWithdraw}>
             {error ?? 'Withdraw'}
           </ButtonError>
@@ -96,7 +103,7 @@ export default function UnstakingAutoWaspModal({ isOpen, onDismiss, stakingInfo 
       {attempting && !hash && (
         <LoadingView onDismiss={wrappedOndismiss}>
           <AutoColumn gap="12px" justify={'center'}>
-            <TYPE.body fontSize={20}>Withdrawing {stakingInfo?.stakedAmount?.toSignificant(4)} WASP</TYPE.body>
+            <TYPE.body fontSize={20}>Withdrawing {stakingInfo?.stakedAmount?.toSignificant(6)} WASP</TYPE.body>
           </AutoColumn>
         </LoadingView>
       )}
