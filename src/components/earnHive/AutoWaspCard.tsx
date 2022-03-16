@@ -2,12 +2,12 @@ import React, { useMemo } from 'react'
 import { AutoColumn } from '../Column'
 import { RowBetween } from '../Row'
 import styled from 'styled-components'
-import { TYPE, StyledInternalLink } from '../../theme'
-import { ETHER } from '@wanswap/sdk'
-import { ButtonPrimary } from '../Button'
-import { StakingInfo } from '../../state/stake/hooks'
+// import { TYPE, StyledInternalLink } from '../../theme'
+import { TYPE } from '../../theme'
+// import { ButtonPrimary } from '../Button'
+import { useStakeWaspEarnWaspInfo } from '../../state/hive/hooks'
 import { useColor } from '../../hooks/useColor'
-import { currencyId } from '../../utils/currencyId'
+// import { currencyId } from '../../utils/currencyId'
 import { CardNoise, CardBGImage } from './styled'
 import { unwrappedToken } from '../../utils/wrappedCurrency'
 import { useTranslation } from 'react-i18next'
@@ -60,41 +60,40 @@ declare global {
   }
 }
 
-export default function AutoWaspCard({ stakingInfo, i, hide }: { stakingInfo: StakingInfo; i: number; hide?: Boolean }) {
+export default function AutoWaspCard({ hide }: { hide?: Boolean }) {
+  const stakingInfo = useStakeWaspEarnWaspInfo();
   const token0 = stakingInfo.tokens[0]
   const token1 = stakingInfo.tokens[1]
-
+  
   const currency0 = unwrappedToken(token0)
   const { t } = useTranslation()
-
-  const isStaking = Boolean(stakingInfo.stakedAmount.greaterThan('0'))
-
-  // get the color of the token
-  const token = currency0 === ETHER ? token1 : token0
-  const backgroundColor = useColor(token)
-
+  
+  const isStaking = Boolean(stakingInfo.stakedAmount.gt('0'))
+  
+  const backgroundColor = useColor(token0)
+  
   const { chainId } = useActiveWeb3React()
   const uni = chainId ? WASP[chainId] : undefined
-
+  
   const uniPrice = useUSDCPrice(uni)
-
+  
   if (stakingInfo && uniPrice) {
     if (!window.tvlItems) {
       window.tvlItems = {}
     }
     window.tvlItems['hive'] = (Number(stakingInfo?.totalStakedAmount.toFixed(0)) * Number(uniPrice.toFixed(8))).toFixed(0)
   }
-
+  
   const tokenPrice = useUSDCPrice(token1)
-
+  
   const stakedUsd = useMemo(() => {
-    return stakingInfo?.totalStakedAmount && uniPrice ? (Number(stakingInfo?.totalStakedAmount.toExact()) * Number(uniPrice.toFixed(8))) : undefined;
+    return stakingInfo?.totalStakedAmount && uniPrice ? (Number(stakingInfo?.totalStakedAmount.toString()) * Number(uniPrice.toFixed(8))) : undefined;
   }, [stakingInfo, uniPrice])
-
+  
   const apy = useMemo(() => {
     return stakedUsd && stakingInfo?.totalRewardRate && tokenPrice ? (Number(stakingInfo?.totalRewardRate.toExact()) * Number(tokenPrice?.toFixed(8)) * 3600*24 * 365 * 100 / 5 / Number(stakedUsd.toFixed(0))).toFixed(0) : '--' 
   }, [stakingInfo, stakedUsd, tokenPrice])
-
+  
   return (
     <React.Fragment>
       {
@@ -110,19 +109,19 @@ export default function AutoWaspCard({ stakingInfo, i, hide }: { stakingInfo: St
             <Countdown exactEnd={stakingInfo?.periodFinish} exactStart={stakingInfo?.periodStart} />
           </TYPE.white>
   
-          <StyledInternalLink to={`/hive/${currencyId(currency0)}/${i}`} style={{ width: '100%',color:'transparent' }}>
+          {/* <StyledInternalLink to={`/hive/${currencyId(currency0)}`} style={{ width: '100%',color:'transparent' }}>
             
             <ButtonPrimary padding="8px" borderRadius="8px">
               {isStaking ? t('Manage') : t('Deposit')}
             </ButtonPrimary>
-          </StyledInternalLink>
+          </StyledInternalLink> */}
         </TopSection>
   
         <StatContainer>
           <RowBetween>
             <TYPE.white>{t('totalDeposited')}</TYPE.white>
             <TYPE.white>
-              {`${stakingInfo?.totalStakedAmount.toFixed(0, { groupSeparator: ',' }) ?? '-'} WASP`}
+              {`${stakingInfo?.totalStakedAmount.toFixed(0) ?? '-'} WASP`}
               {
                 apy && apy !== '--' && !isNaN(Number(apy)) && apy !== '0' ? ' 🔥 ' : null
               }

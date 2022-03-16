@@ -36,7 +36,7 @@ const PoolSection = styled.div`
 
 export default function Earn() {
   const { chainId } = useActiveWeb3React()
-  const stakingInfos = useStakingInfo()
+  let stakingInfos = useStakingInfo()
   const stakingRewardsInfo = useAllStakingRewardsInfo()
 
   const showStaked = loadFromLocalStorage('showStakedHive');
@@ -133,12 +133,7 @@ export default function Earn() {
         </DataRow>
 
         <PoolSection>
-          {
-           stakingInfos.length ?
-            <AutoWaspCard key={-1} i={-1} stakingInfo={stakingInfos[0]}></AutoWaspCard>
-            :
-            null
-          }
+          <AutoWaspCard key={-1}></AutoWaspCard>
           {stakingRewardsExist && stakingInfos?.length === 0 ? (
             <Loader style={{ margin: 'auto' }} />
           ) : !stakingRewardsExist ? (
@@ -147,7 +142,6 @@ export default function Earn() {
             stakingInfos?.map((stakingInfo, i) => {
               const isStaking = Boolean(stakingInfo.stakedAmount.greaterThan('0'))
               const isActive = Boolean(stakingInfo.totalRewardRate.greaterThan('0'));
-
               let hide = false;
 
               if (onlystakedMode && !isStaking) {

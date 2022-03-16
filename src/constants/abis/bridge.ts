@@ -4,6 +4,7 @@ import BRIDGE_MINER_ABI from './bridge-miner.json'
 import BRIDGE_TOKEN_ABI from './bridge-token.json'
 import ERC20_ABI from './erc20.json'
 import HIVE_ABI from './hive.json'
+import AUTO_WASP_ABI from './abi.TomVaultV2.json'
 import { abi as IUniswapV2PairABI } from '@uniswap/v2-core/build/IUniswapV2Pair.json'
 
 const WANV2_PAIR_INTERFACE = new Interface(IUniswapV2PairABI)
@@ -42,6 +43,31 @@ const ZOO_TOKEN_ADDRESS: { [chainId in ChainId]: string } = {
   [ChainId.KOVAN]: '0x0A3B082C1ceDa3d35E5baD2776c5a5236044A03D'
 }
 
+const WRAPPED_WASP_ADDRESS: { [chainId in ChainId]: string } = {
+  [ChainId.MAINNET]: '0xAEECE738A9AFC0E2E28D43E6aA78F13589049D0b',
+  [ChainId.ROPSTEN]: '0xAEECE738A9AFC0E2E28D43E6aA78F13589049D0b',
+  [ChainId.RINKEBY]: '0xAEECE738A9AFC0E2E28D43E6aA78F13589049D0b',
+  [ChainId.GÖRLI]: '0xAEECE738A9AFC0E2E28D43E6aA78F13589049D0b',
+  [ChainId.KOVAN]: '0xAEECE738A9AFC0E2E28D43E6aA78F13589049D0b'
+}
+
+const AUTO_WASP_ADDRESS: { [chainId in ChainId]: string } = {
+  [ChainId.MAINNET]: '0x84AeBa7475a5CA1AC258CAf0349Ef069E0CA14Cf',
+  [ChainId.ROPSTEN]: '0x84AeBa7475a5CA1AC258CAf0349Ef069E0CA14Cf',
+  [ChainId.RINKEBY]: '0x84AeBa7475a5CA1AC258CAf0349Ef069E0CA14Cf',
+  [ChainId.GÖRLI]: '0x84AeBa7475a5CA1AC258CAf0349Ef069E0CA14Cf',
+  [ChainId.KOVAN]: '0x84AeBa7475a5CA1AC258CAf0349Ef069E0CA14Cf'
+}
+
+
+const STAKE_WASP_EARN_WASP_PID: { [chainId in ChainId]: string } = {
+  [ChainId.MAINNET]: '5',
+  [ChainId.ROPSTEN]: '5',
+  [ChainId.RINKEBY]: '5',
+  [ChainId.GÖRLI]: '5',
+  [ChainId.KOVAN]: '5'
+}
+
 export {
   BRIDGE_MINER_ABI,
   BRIDGE_MINER_ADDRESS,
@@ -49,10 +75,14 @@ export {
   BRIDGE_TOKEN_ADDRESS,
   ZOO_TOKEN_ADDRESS,
   HIVE_ABI,
+  AUTO_WASP_ABI,
   HIVE_ADDRESS,
   HIVE_INTERFACE,
   WANV2_PAIR_INTERFACE,
   BRIDGE_MINER_INTERFACE,
   ERC20_INTERFACE,
   WANV2BRIDGE_TOKEN_INTERFACE,
+  WRAPPED_WASP_ADDRESS,
+  AUTO_WASP_ADDRESS,
+  STAKE_WASP_EARN_WASP_PID,
 }

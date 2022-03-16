@@ -5,10 +5,14 @@ import { WASP } from '../../constants'
 import { useBlockNumber } from '../application/hooks'
 
 import { useActiveWeb3React } from '../../hooks'
-import { BRIDGE_TOKEN_ADDRESS, ZOO_TOKEN_ADDRESS } from '../../constants/abis/bridge'
+import { BRIDGE_TOKEN_ADDRESS, ZOO_TOKEN_ADDRESS, STAKE_WASP_EARN_WASP_PID, WRAPPED_WASP_ADDRESS } from '../../constants/abis/bridge'
 import { useSingleCallResult, useSingleContractMultipleData } from '../multicall/hooks'
 import { tryParseAmount } from '../swap/hooks'
-import { useHiveContract } from '../../hooks/useContract'
+import { useHiveContract, useBridgeMinerContract, useAutoWaspContract } from '../../hooks/useContract'
+import { useTokenBalance } from '../wallet/hooks'
+import BN from 'bignumber.js'
+
+const defaultBigNum = new BN(0);
 
 export const STAKING_GENESIS = 1606976660
 
@@ -189,7 +193,6 @@ export function useStakingInfo(token?: Token | null, pid?: string | number | nul
         totalStakedAmount,
         getHypotheticalRewardRate
       })
-      
       return memo
     }, [])
   }, [
@@ -280,5 +283,88 @@ export function useDerivedUnstakeInfo(
   return {
     parsedAmount,
     error
+  }
+}
+
+export function useStakeWaspEarnWaspInfo() {
+  const autoWaspContract = useAutoWaspContract();
+  const { account, chainId } = useActiveWeb3React();
+  // const networkId = chainId ? chainId : ChainId.MAINNET
+  const networkId = chainId ? chainId : ChainId.ROPSTEN
+  const currentBlockNumber = useBlockNumber();
+  const pid = Number(STAKE_WASP_EARN_WASP_PID[networkId]);
+  const bridgeMinerContract = useBridgeMinerContract()
+  const poolLength = useSingleCallResult(bridgeMinerContract, 'poolLength').result?.toString()
+  const poolInfoArr = useSingleContractMultipleData(
+    bridgeMinerContract,
+    'poolInfo',
+    poolLength ? new Array(Number(poolLength)).fill(poolLength).map((_v, _i) => [_i]) : []
+  )
+  const poolInfo = poolInfoArr.find(v => v && v.result && v.result.lpToken ===  WRAPPED_WASP_ADDRESS[networkId])
+  
+
+  const stakeBalance = useSingleCallResult(account ? autoWaspContract : undefined, 'balanceOf', account ? [account] : undefined).result?.[0];
+  const stakeBalancePrice = useSingleCallResult(autoWaspContract, 'getPricePerFullShare').result?.[0]
+  const stakedAmount = (stakeBalance && stakeBalancePrice && account) ? new BN(stakeBalance.toString()).times(stakeBalancePrice.toString()).div(1e36) : defaultBigNum;
+  const amount = useSingleCallResult(autoWaspContract, 'totalBalance').result?.[0];
+  const totalStaked = amount ? new BN(amount.toString()).div(1e18) : defaultBigNum;
+  
+  // const callFee = useSingleCallResult(autoWaspContract, 'callFee').result?.[0];
+  // const performanceFee = useSingleCallResult(autoWaspContract, 'performanceFee').result?.[0];
+  // const apyRate = (callFee && performanceFee) ? new BN(callFee.toString()).plus(performanceFee.toString()).div(10000).negated().plus(1).toNumber() : 9975/10000;
+  const apyRate = defaultBigNum;
+
+
+  const rewardRates = useSingleCallResult(bridgeMinerContract, 'waspPerBlock')
+  const startBlock = useSingleCallResult(bridgeMinerContract, 'startBlock')
+  const testEndBlock = useSingleCallResult(bridgeMinerContract, 'testEndBlock')
+  const bonusEndBlock = useSingleCallResult(bridgeMinerContract, 'bonusEndBlock')
+  const periodFinishes = useSingleCallResult(bridgeMinerContract, 'allEndBlock')
+  const totalAllocPoint = useSingleCallResult(bridgeMinerContract, 'totalAllocPoint')
+  const radix = useMemo(() => {
+    if (testEndBlock.result?.[0]?.lt(currentBlockNumber) && bonusEndBlock.result?.[0]?.gte(currentBlockNumber)) {
+      return 5
+    } else if (
+      (startBlock.result?.[0].lt(currentBlockNumber) && testEndBlock.result?.[0].gte(currentBlockNumber)) ||
+      (bonusEndBlock.result?.[0].lt(currentBlockNumber) && periodFinishes.result?.[0].gte(currentBlockNumber))
+    ) {
+      return 1
+    } else {
+      return 0
+    }
+  }, [bonusEndBlock, currentBlockNumber, periodFinishes, startBlock, testEndBlock])
+  const allocPoint = poolInfo?.result?.allocPoint ?? '0'
+  const uni = WASP[networkId];
+  const totalRewardRate = 
+      (rewardRates && rewardRates.result && totalAllocPoint && totalAllocPoint.result)
+        ? 
+      new TokenAmount( uni, JSBI.BigInt(rewardRates.result[0].mul(radix).div(5).mul(allocPoint).div(totalAllocPoint.result[0])))
+        :
+      new TokenAmount(uni, '0')
+
+  
+
+
+  const balance = useTokenBalance(account ? account : undefined, chainId ? WASP[chainId] : undefined)
+
+  // console.debug('!88', earnedAmounts[0].result, earnedAmounts && earnedAmounts[0].result ? new BN(earnedAmounts[0]?.result[0].toString()).div(1e18) : 0);
+
+  return {
+    stakedAmount,
+    totalStaked,
+    totalRewardRate,
+    balance,
+    pid,
+    apyRate,
+    // the address of the reward contract
+    stakingRewardAddress: WASP[networkId].address,
+    totalStakedAmount: totalStaked,
+    // the tokens involved in this pair
+    tokens: [WASP[networkId], WASP[networkId]],
+    // the total amount of token staked in the contract
+    // when the period ends
+    periodFinish: undefined,
+    // when the period ends
+    periodStart:  undefined,
   }
 }

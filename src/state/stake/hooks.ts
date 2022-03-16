@@ -6,10 +6,11 @@ import { useBlockNumber } from '../application/hooks'
 
 import { useActiveWeb3React } from '../../hooks'
 import { useTrackedTokenPairs } from '../user/hooks'
-import { WANV2_PAIR_INTERFACE, BRIDGE_MINER_ADDRESS } from '../../constants/abis/bridge'
+import { WANV2_PAIR_INTERFACE, BRIDGE_MINER_ADDRESS, WRAPPED_WASP_ADDRESS } from '../../constants/abis/bridge'
 import { useMultipleContractSingleData, useSingleCallResult, useSingleContractMultipleData } from '../multicall/hooks'
 import { tryParseAmount } from '../swap/hooks'
 import { useBridgeMinerContract } from '../../hooks/useContract'
+
 
 export const STAKING_GENESIS = 1606976660
 
@@ -70,11 +71,10 @@ export function usePoolInfo() {
     poolLength ? new Array(Number(poolLength)).fill(poolLength).map((_v, _i) => [_i]) : []
   )
 }
-
 export function useAllStakingRewardsInfo() {
   const { chainId } = useActiveWeb3React()
   const poolInfo = usePoolInfo()
-  const lpTokenAddr = useMemo(() => poolInfo?.map(_v => _v.result?.lpToken), [poolInfo])
+  const lpTokenAddr = useMemo(() => poolInfo?.map(_v => _v.result?.lpToken).filter(v => v && chainId && v !== WRAPPED_WASP_ADDRESS[chainId]), [poolInfo, chainId])
   const token1Info = useMultipleContractSingleData(lpTokenAddr, WANV2_PAIR_INTERFACE, 'token1')
   const token0Info = useMultipleContractSingleData(lpTokenAddr, WANV2_PAIR_INTERFACE, 'token0')
   const trackedTokenPairs = useTrackedTokenPairs()
@@ -127,7 +127,6 @@ export function useStakingInfo(pairToFilterBy?: Pair | null): StakingInfo[] {
 
   const uni = chainId ? WASP[chainId] : undefined
   const lpTokenAddr = useMemo(() => info.map(({ stakingRewardAddress }) => stakingRewardAddress), [info])
-
   const userInfoParams = useMemo(() => {
     if (account) {
       return lpTokenAddr.map(_v => {
@@ -264,7 +263,7 @@ export function useStakingInfo(pairToFilterBy?: Pair | null): StakingInfo[] {
           getHypotheticalRewardRate
         })
       }
-      return memo
+      return memo;
     }, [])
   }, [
     chainId,
@@ -362,3 +361,4 @@ export function useDerivedUnstakeInfo(
     error
   }
 }
+
