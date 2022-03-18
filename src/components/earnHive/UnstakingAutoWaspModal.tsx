@@ -12,6 +12,7 @@ import { useTransactionAdder } from '../../state/transactions/hooks'
 // import FormattedCurrencyAmount from '../FormattedCurrencyAmount'
 import { useActiveWeb3React } from '../../hooks'
 import { useTranslation } from 'react-i18next'
+import BN from 'bignumber.js'
 
 const ContentWrapper = styled(AutoColumn)`
   width: 100%;
@@ -79,7 +80,7 @@ export default function UnstakingAutoWaspModal({ isOpen, onDismiss, stakingInfo 
           {stakingInfo?.stakedAmount && (
             <AutoColumn justify="center" gap="md">
               <TYPE.body fontWeight={600} fontSize={36}>
-                {stakingInfo.stakedAmount.toSignificant(6)}
+                {new BN(stakingInfo.stakedAmount.toExact()).toFixed(6, BN.ROUND_UP)}
               </TYPE.body>
             </AutoColumn>
           )}

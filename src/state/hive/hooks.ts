@@ -307,7 +307,7 @@ export function useStakeWaspEarnWaspInfo() {
   const stakeBalance = useSingleCallResult(account ? autoWaspContract : undefined, 'balanceOf', account ? [account] : undefined).result?.[0];
   const stakeBalancePrice = useSingleCallResult(autoWaspContract, 'getPricePerFullShare').result?.[0]
   const stakeAmountRadix = (stakeBalance && stakeBalancePrice && account) ? new BN(stakeBalance.toString()).times(stakeBalancePrice.toString()).div(1e18).toFixed(0, BN.ROUND_UP) : '0';
-  console.log('stakeAmountRadix', stakeAmountRadix)
+  // console.log('stakeAmountRadix', stakeAmountRadix)
   const stakedAmount = new TokenAmount(uni, stakeAmountRadix);
   const amount = useSingleCallResult(autoWaspContract, 'totalBalance').result?.[0];
   const totalStaked = amount ? new BN(amount.toString()).div(1e18) : defaultBigNum;

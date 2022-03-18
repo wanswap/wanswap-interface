@@ -23,6 +23,7 @@ import { wrappedCurrency } from '../../utils/wrappedCurrency'
 import { useTranslation } from 'react-i18next'
 
 import { WASP } from '../../constants'
+import BN from 'bignumber.js'
 
 
 const PageWrapper = styled(AutoColumn)`
@@ -81,6 +82,7 @@ export default function ManageAutoWasp({
   const tokenB = wrappedCurrency(currencyB ?? undefined, chainId)
 
   const stakingInfo = useStakeWaspEarnWaspInfo()
+  console.log('stakingInfo-amount', stakingInfo?.stakedAmount?.toSignificant(6))
 
   // detect existing unstaked LP position to show add button if none found
   const userLiquidityUnstaked = useTokenBalance(account ?? undefined, uni)
@@ -122,7 +124,7 @@ export default function ManageAutoWasp({
           <AutoColumn gap="sm">
             <TYPE.body style={{ margin: 0 }}>{t("Total deposits")}</TYPE.body>
             <TYPE.body fontSize={24} fontWeight={500}>
-              {`${stakingInfo?.totalStakedAmount.toFixed(6) ?? '-'} WASP`}
+              {`${stakingInfo?.totalStakedAmount.toFixed(6) ? stakingInfo?.totalStakedAmount.toFixed(0, BN.ROUND_UP) : '-'} WASP`}
             </TYPE.body>
           </AutoColumn>
         </PoolData>
@@ -155,7 +157,7 @@ export default function ManageAutoWasp({
                 </RowBetween>
                 <RowBetween style={{ alignItems: 'center', display:'flex',flexWrap:'wrap' }}>
                   <TYPE.white fontSize={36} fontWeight={600}>
-                    {stakingInfo?.stakedAmount?.toSignificant(6) ?? '-'}
+                    {stakingInfo?.stakedAmount?.toSignificant(6) ? new BN(stakingInfo?.stakedAmount?.toExact()).toFixed(6, BN.ROUND_UP) : '-'}
                   </TYPE.white>
                   <TYPE.white>
                     {currencyA?.symbol}

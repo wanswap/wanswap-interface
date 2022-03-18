@@ -113,7 +113,7 @@ export default function HiveCard({ stakingInfo, i, hide }: { stakingInfo: Stakin
     return stakedUsd && stakingInfo?.totalRewardRate && tokenPrice ? (Number(stakingInfo?.totalRewardRate.toExact()) * Number(tokenPrice?.toFixed(8)) * 3600*24 * 365 * 100 / 5 / Number(stakedUsd?.toFixed(0))).toFixed(0) : '--' 
   }, [stakingInfo, stakedUsd, tokenPrice])
 
-  console.log('hiveapy-=-', apy, Number(stakingInfo?.totalRewardRate.toExact()), Number(tokenPrice?.toFixed(8)), Number(stakedUsd?.toFixed(0)))
+  // console.log('hiveapy-=-', apy, Number(stakingInfo?.totalRewardRate.toExact()), Number(tokenPrice?.toFixed(8)), Number(stakedUsd?.toFixed(0)))
   return (
     <React.Fragment>
       {
