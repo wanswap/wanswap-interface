@@ -318,23 +318,15 @@ export function useStakeWaspEarnWaspInfo() {
 
 
   const rewardRates = useSingleCallResult(bridgeMinerContract, 'waspPerBlock')
-  const startBlock = useSingleCallResult(bridgeMinerContract, 'startBlock')
-  const testEndBlock = useSingleCallResult(bridgeMinerContract, 'testEndBlock')
-  const bonusEndBlock = useSingleCallResult(bridgeMinerContract, 'bonusEndBlock')
   const periodFinishes = useSingleCallResult(bridgeMinerContract, 'allEndBlock')
   const totalAllocPoint = useSingleCallResult(bridgeMinerContract, 'totalAllocPoint')
   const radix = useMemo(() => {
-    if (testEndBlock.result?.[0]?.lt(currentBlockNumber) && bonusEndBlock.result?.[0]?.gte(currentBlockNumber)) {
-      return 5
-    } else if (
-      (startBlock.result?.[0].lt(currentBlockNumber) && testEndBlock.result?.[0].gte(currentBlockNumber)) ||
-      (bonusEndBlock.result?.[0].lt(currentBlockNumber) && periodFinishes.result?.[0].gte(currentBlockNumber))
-    ) {
+    if (periodFinishes.result?.[0].gte(currentBlockNumber)) {
       return 1
     } else {
       return 0
     }
-  }, [bonusEndBlock, currentBlockNumber, periodFinishes, startBlock, testEndBlock])
+  }, [currentBlockNumber, periodFinishes])
   const allocPoint = poolInfo?.result?.allocPoint ?? '0'
   const totalRewardRate = 
       (rewardRates && rewardRates.result && totalAllocPoint && totalAllocPoint.result)
@@ -344,6 +336,7 @@ export function useStakeWaspEarnWaspInfo() {
       new TokenAmount(uni, '0')
 
   
+  console.log('allocPoint', allocPoint.toString(), 'totalAllocPoint', totalAllocPoint?.result?.[0].toString(), 'rewardRates', rewardRates?.result?.[0].toString(), 'radix', radix, 'totalRewardRate', totalRewardRate.toExact())
 
 
   const balance = useTokenBalance(account ? account : undefined, chainId ? WASP[chainId] : undefined)

@@ -81,17 +81,18 @@ export default function AutoWaspCard({ hide }: { hide?: Boolean }) {
     }
     window.tvlItems['hive'] = (Number(stakingInfo?.totalStakedAmount.toFixed(0)) * Number(uniPrice.toFixed(8))).toFixed(0)
   }
-    
-  const stakedUsd = useMemo(() => {
-    return stakingInfo?.totalStakedAmount && uniPrice ? (Number(stakingInfo?.totalStakedAmount.toString()) * Number(uniPrice.toFixed(8))) : undefined;
-  }, [stakingInfo, uniPrice])
   
   const apr = useMemo(() => {
-    return stakedUsd && stakingInfo?.totalRewardRate && uniPrice ? (Number(stakingInfo?.totalRewardRate.toExact()) * Number(uniPrice?.toFixed(8)) * 3600*24 * 365 * 100 / 5 / Number(stakedUsd.toFixed(0))).toFixed(0) : '' 
-  }, [stakingInfo, stakedUsd, uniPrice])
+    const {
+      totalStakedAmount,
+      totalRewardRate
+    } = stakingInfo
+    if (!(totalStakedAmount && new BN(totalStakedAmount.toString()).gt(0) &&  totalRewardRate)) return ''
+    return new BN(totalRewardRate.toExact()).times(3600).times(24).div(totalStakedAmount.toString())
+  }, [stakingInfo])
   
-  const apy = apr === '' ? '--' :  new BN(apr).div(365).div(100).plus(1).exponentiatedBy(365).minus(1).times(100).toFixed(0);
-  // console.log('autoapy-=-', apr, apy, Number(stakingInfo?.totalRewardRate.toExact()), Number(uniPrice?.toFixed(8)), Number(stakedUsd?.toFixed(0)))
+  const apy = apr === '' ? '--' :  new BN(apr).plus(1).exponentiatedBy(365).minus(1).times(100).toFixed(0);
+  console.log('autoapy-=-', apr.toString(), apy, Number(stakingInfo?.totalRewardRate.toExact()), Number(uniPrice?.toFixed(8)), Number(stakingInfo?.totalStakedAmount.toString()))
   
   return (
     <React.Fragment>
