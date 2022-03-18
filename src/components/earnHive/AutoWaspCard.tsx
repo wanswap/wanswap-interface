@@ -90,7 +90,8 @@ export default function AutoWaspCard({ hide }: { hide?: Boolean }) {
     return stakedUsd && stakingInfo?.totalRewardRate && uniPrice ? (Number(stakingInfo?.totalRewardRate.toExact()) * Number(uniPrice?.toFixed(8)) * 3600*24 * 365 * 100 / 5 / Number(stakedUsd.toFixed(0))).toFixed(0) : '' 
   }, [stakingInfo, stakedUsd, uniPrice])
   
-  const apy = apr === '' ? '--' :  new BN(apr).div(365).div(100).plus(1).exponentiatedBy(365).minus(1).times(100).times(stakingInfo?.apyRate).toFixed(0);
+  const apy = apr === '' ? '--' :  new BN(apr).div(365).div(100).plus(1).exponentiatedBy(365).minus(1).times(100).toFixed(0);
+  console.log('autoapy-=-', apr, apy, Number(stakingInfo?.totalRewardRate.toExact()), Number(uniPrice?.toFixed(8)), Number(stakedUsd?.toFixed(0)))
   
   return (
     <React.Fragment>
@@ -123,7 +124,7 @@ export default function AutoWaspCard({ hide }: { hide?: Boolean }) {
                 apy && apy !== '--' && !isNaN(Number(apy)) && apy !== '0' ? ' 🔥 ' : null
               }
               {
-                apy && apy !== '--' && !isNaN(Number(apy)) && apy !== '0' ? 'APR: ' + apy + '%' : null
+                apy && apy !== '--' && !isNaN(Number(apy)) && apy !== '0' ? 'APY: ' + apy + '%' : null
               }
             </TYPE.white>
           </RowBetween>

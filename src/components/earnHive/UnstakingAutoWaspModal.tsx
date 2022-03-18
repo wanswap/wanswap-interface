@@ -45,18 +45,6 @@ export default function UnstakingAutoWaspModal({ isOpen, onDismiss, stakingInfo 
   async function onWithdraw() {
     if (autoWaspContract && stakingInfo?.stakedAmount) {
       setAttempting(true)
-      // await autoWaspContract
-      //   .withdraw(`0x${stakingInfo?.stakedAmount.raw.toString(16)}`, { gasLimit: 500000 })
-      //   .then((response: TransactionResponse) => {
-      //     addTransaction(response, {
-      //       summary: `Withdraw deposited WASP`
-      //     })
-      //     setHash(response.hash)
-      //   })
-      //   .catch((error: any) => {
-      //     setAttempting(false)
-      //     console.log(error)
-      //   })
       await autoWaspContract
         .withdrawAll({ gasLimit: 500000 })
         .then((response: TransactionResponse) => {

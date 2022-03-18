@@ -312,9 +312,9 @@ export function useStakeWaspEarnWaspInfo() {
   const amount = useSingleCallResult(autoWaspContract, 'totalBalance').result?.[0];
   const totalStaked = amount ? new BN(amount.toString()).div(1e18) : defaultBigNum;
   
-  const callFee = useSingleCallResult(autoWaspContract, 'callFee').result?.[0];
-  const performanceFee = useSingleCallResult(autoWaspContract, 'performanceFee').result?.[0];
-  const apyRate = (callFee && performanceFee) ? new BN(callFee.toString()).plus(performanceFee.toString()).div(10000).negated().plus(1).toNumber() : 9975/10000;
+  // const callFee = useSingleCallResult(autoWaspContract, 'callFee').result?.[0];
+  // const performanceFee = useSingleCallResult(autoWaspContract, 'performanceFee').result?.[0];
+  // const apyRate = (callFee && performanceFee) ? new BN(callFee.toString()).plus(performanceFee.toString()).div(10000).negated().plus(1).toNumber() : 9975/10000;
 
 
   const rewardRates = useSingleCallResult(bridgeMinerContract, 'waspPerBlock')
@@ -356,7 +356,7 @@ export function useStakeWaspEarnWaspInfo() {
     totalRewardRate,
     balance,
     pid,
-    apyRate,
+    // apyRate,
     // the address of the reward contract
     stakingRewardAddress: WASP[networkId].address,
     totalStakedAmount: totalStaked,
