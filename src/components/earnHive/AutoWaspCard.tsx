@@ -86,13 +86,13 @@ export default function AutoWaspCard({ hide }: { hide?: Boolean }) {
     const {
       totalStakedAmount,
       totalRewardRate
-    } = stakingInfo
+    } = stakingInfo 
     if (!(totalStakedAmount && new BN(totalStakedAmount.toString()).gt(0) &&  totalRewardRate)) return ''
     return new BN(totalRewardRate.toExact()).times(3600).times(24).div(totalStakedAmount.toString())
   }, [stakingInfo])
   
   const apy = apr === '' ? '--' :  new BN(apr).plus(1).exponentiatedBy(365).minus(1).times(100).toFixed(0);
-  console.log('autoapy-=-', apr.toString(), apy, Number(stakingInfo?.totalRewardRate.toExact()), Number(uniPrice?.toFixed(8)), Number(stakingInfo?.totalStakedAmount.toString()))
+  // console.log('autoapy-=-', apr.toString(), apy, Number(stakingInfo?.totalRewardRate.toExact()), Number(uniPrice?.toFixed(8)), Number(stakingInfo?.totalStakedAmount.toString()))
   
   return (
     <React.Fragment>

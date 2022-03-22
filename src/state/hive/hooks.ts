@@ -311,11 +311,6 @@ export function useStakeWaspEarnWaspInfo() {
   const stakedAmount = new TokenAmount(uni, stakeAmountRadix);
   const amount = useSingleCallResult(autoWaspContract, 'totalBalance').result?.[0];
   const totalStaked = amount ? new BN(amount.toString()).div(1e18) : defaultBigNum;
-  
-  // const callFee = useSingleCallResult(autoWaspContract, 'callFee').result?.[0];
-  // const performanceFee = useSingleCallResult(autoWaspContract, 'performanceFee').result?.[0];
-  // const apyRate = (callFee && performanceFee) ? new BN(callFee.toString()).plus(performanceFee.toString()).div(10000).negated().plus(1).toNumber() : 9975/10000;
-
 
   const rewardRates = useSingleCallResult(bridgeMinerContract, 'waspPerBlock')
   const periodFinishes = useSingleCallResult(bridgeMinerContract, 'allEndBlock')
@@ -335,13 +330,9 @@ export function useStakeWaspEarnWaspInfo() {
         :
       new TokenAmount(uni, '0')
 
-  
-  console.log('allocPoint', allocPoint.toString(), 'totalAllocPoint', totalAllocPoint?.result?.[0].toString(), 'rewardRates', rewardRates?.result?.[0].toString(), 'radix', radix, 'totalRewardRate', totalRewardRate.toExact())
-
+  // console.log('allocPoint', allocPoint.toString(), 'totalAllocPoint', totalAllocPoint?.result?.[0].toString(), 'rewardRates', rewardRates?.result?.[0].toString(), 'radix', radix, 'totalRewardRate', totalRewardRate.toExact())
 
   const balance = useTokenBalance(account ? account : undefined, chainId ? WASP[chainId] : undefined)
-
-  // console.debug('!88', earnedAmounts[0].result, earnedAmounts && earnedAmounts[0].result ? new BN(earnedAmounts[0]?.result[0].toString()).div(1e18) : 0);
 
   return {
     stakedAmount,
