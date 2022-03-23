@@ -11,7 +11,6 @@ import { CardNoise, CardBGImage } from './styled'
 import { unwrappedToken } from '../../utils/wrappedCurrency'
 import { useTranslation } from 'react-i18next'
 import CurrencyLogo from '../CurrencyLogo'
-import { Countdown } from '../../pages/Hive/Countdown'
 // import useUSDCPrice from '../../utils/useUSDCPrice'
 // import { useActiveWeb3React } from '../../hooks'
 // import { WASP } from '../../constants'
@@ -91,9 +90,9 @@ export default function AutoWaspCard({ hide }: { hide?: Boolean }) {
     return new BN(totalRewardRate.toExact()).times(3600).times(24).div(totalStakedAmount.toString())
   }, [stakingInfo])
   
-  console.log('apr', apr.toString())
+  // console.log('apr', apr.toString())
   const apy = apr === '' ? '--' :  new BN(apr).plus(1).exponentiatedBy(365).minus(1).times(100).toFixed(0);
-  console.log('autoapy-=-', apr.toString(), apy, Number(stakingInfo?.totalRewardRate.toExact()), Number(stakingInfo?.totalStakedAmount.toString()))
+  // console.log('autoapy-=-', apr.toString(), apy, Number(stakingInfo?.totalRewardRate.toExact()), Number(stakingInfo?.totalStakedAmount.toString()))
   
   return (
     <React.Fragment>
@@ -107,7 +106,7 @@ export default function AutoWaspCard({ hide }: { hide?: Boolean }) {
           <CurrencyLogo currency={currency0} size={'24px'} />
           <TYPE.white fontWeight={600} fontSize={18} style={{ marginLeft: '8px' }}>
             Auto {currency0.symbol}
-            <Countdown exactEnd={stakingInfo?.periodFinish} exactStart={stakingInfo?.periodStart} />
+            <TYPE.white fontSize={12} color={'rgba(255, 255, 255, 0.5)'}>{t('Automatic restaking')}</TYPE.white>
           </TYPE.white>
           <StyledInternalLink to={`/autoWasp/${currencyId(currency0)}`} style={{ width: '100%',color:'transparent' }}>
             
@@ -126,7 +125,7 @@ export default function AutoWaspCard({ hide }: { hide?: Boolean }) {
                 apy && apy !== '--' && !isNaN(Number(apy)) && apy !== '0' ? ' 🔥 ' : null
               }
               {
-                apy && apy !== '--' && !isNaN(Number(apy)) && apy !== '0' ? 'APY: ' + apy + '%' : null
+                apy && apy !== '--' && !isNaN(Number(apy)) && apy !== '0' ? `APY: ${+apy > 100000 ? ' > 100,000' : apy}%` : null
               }
             </TYPE.white>
           </RowBetween>

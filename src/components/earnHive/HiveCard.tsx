@@ -99,6 +99,7 @@ export default function HiveCard({ stakingInfo, i, hide }: { stakingInfo: Stakin
       window.tvlItems = {}
     }
     window.tvlItems['hive'] = (Number(stakingInfo?.totalStakedAmount.toFixed(0)) * Number(uniPrice.toFixed(8))).toFixed(0)
+    // console.log('(Number(stakingInfo?.totalStakedAmount.toFixed(0)) * Number(uniPrice.toFixed(8))).toFixed(0)', (Number(stakingInfo?.totalStakedAmount.toFixed(0)) * Number(uniPrice.toFixed(8))).toFixed(0), stakingInfo.pid)
   }
   const symbol = token1.symbol;
 
