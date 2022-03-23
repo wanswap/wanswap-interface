@@ -120,12 +120,12 @@ export default function AutoWaspCard({ hide }: { hide?: Boolean }) {
           <RowBetween>
             <TYPE.white>{t('totalDeposited')}</TYPE.white>
             <TYPE.white>
-              {`${stakingInfo?.totalStakedAmount.toFixed(0) ?? '-'} WASP`}
+              {`${stakingInfo?.totalStakedAmount.toFormat(0) ?? '-'} WASP`}
               {
                 apy && apy !== '--' && !isNaN(Number(apy)) && apy !== '0' ? ' 🔥 ' : null
               }
               {
-                apy && apy !== '--' && !isNaN(Number(apy)) && apy !== '0' ? `APY: ${+apy > 100000 ? ' > 100,000' : apy}%` : null
+                apy && apy !== '--' && !isNaN(Number(apy)) && apy !== '0' ? `APY: ${+apy > 100000 ? ' > 100,000' : new BN(apy).toFormat(0)}%` : null
               }
             </TYPE.white>
           </RowBetween>
