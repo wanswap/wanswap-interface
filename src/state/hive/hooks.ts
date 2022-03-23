@@ -289,8 +289,7 @@ export function useDerivedUnstakeInfo(
 export function useStakeWaspEarnWaspInfo() {
   const autoWaspContract = useAutoWaspContract();
   const { account, chainId } = useActiveWeb3React();
-  // const networkId = chainId ? chainId : ChainId.MAINNET
-  const networkId = chainId ? chainId : ChainId.ROPSTEN
+  const networkId = chainId ? chainId : ChainId.MAINNET
   const currentBlockNumber = useBlockNumber();
   const pid = Number(STAKE_WASP_EARN_WASP_PID[networkId]);
   const uni = WASP[networkId];

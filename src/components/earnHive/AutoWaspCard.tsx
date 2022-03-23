@@ -12,7 +12,7 @@ import { unwrappedToken } from '../../utils/wrappedCurrency'
 import { useTranslation } from 'react-i18next'
 import CurrencyLogo from '../CurrencyLogo'
 import { Countdown } from '../../pages/Hive/Countdown'
-import useUSDCPrice from '../../utils/useUSDCPrice'
+// import useUSDCPrice from '../../utils/useUSDCPrice'
 // import { useActiveWeb3React } from '../../hooks'
 // import { WASP } from '../../constants'
 import BN from 'bignumber.js'
@@ -73,14 +73,14 @@ export default function AutoWaspCard({ hide }: { hide?: Boolean }) {
   
   // const { chainId } = useActiveWeb3React()
   
-  const uniPrice = useUSDCPrice(token0)
+  // const uniPrice = useUSDCPrice(token0)
   
-  if (stakingInfo && uniPrice) {
-    if (!window.tvlItems) {
-      window.tvlItems = {}
-    }
-    window.tvlItems['hive'] = (Number(stakingInfo?.totalStakedAmount.toFixed(0)) * Number(uniPrice.toFixed(8))).toFixed(0)
-  }
+  // if (stakingInfo && uniPrice) {
+  //   if (!window.tvlItems) {
+  //     window.tvlItems = {}
+  //   }
+  //   window.tvlItems['hive'] = (Number(stakingInfo?.totalStakedAmount.toFixed(0)) * Number(uniPrice.toFixed(8))).toFixed(0)
+  // }
   
   const apr = useMemo(() => {
     const {
@@ -91,8 +91,9 @@ export default function AutoWaspCard({ hide }: { hide?: Boolean }) {
     return new BN(totalRewardRate.toExact()).times(3600).times(24).div(totalStakedAmount.toString())
   }, [stakingInfo])
   
+  console.log('apr', apr.toString())
   const apy = apr === '' ? '--' :  new BN(apr).plus(1).exponentiatedBy(365).minus(1).times(100).toFixed(0);
-  // console.log('autoapy-=-', apr.toString(), apy, Number(stakingInfo?.totalRewardRate.toExact()), Number(uniPrice?.toFixed(8)), Number(stakingInfo?.totalStakedAmount.toString()))
+  console.log('autoapy-=-', apr.toString(), apy, Number(stakingInfo?.totalRewardRate.toExact()), Number(stakingInfo?.totalStakedAmount.toString()))
   
   return (
     <React.Fragment>

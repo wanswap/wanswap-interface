@@ -44,7 +44,7 @@ const ZOO_TOKEN_ADDRESS: { [chainId in ChainId]: string } = {
 }
 
 const WRAPPED_WASP_ADDRESS: { [chainId in ChainId]: string } = {
-  [ChainId.MAINNET]: '0xAEECE738A9AFC0E2E28D43E6aA78F13589049D0b',
+  [ChainId.MAINNET]: '0x9661684e1766aB483CcDf149E8D04d2821025DFb',
   [ChainId.ROPSTEN]: '0xAEECE738A9AFC0E2E28D43E6aA78F13589049D0b',
   [ChainId.RINKEBY]: '0xAEECE738A9AFC0E2E28D43E6aA78F13589049D0b',
   [ChainId.GÖRLI]: '0xAEECE738A9AFC0E2E28D43E6aA78F13589049D0b',
@@ -52,7 +52,7 @@ const WRAPPED_WASP_ADDRESS: { [chainId in ChainId]: string } = {
 }
 
 const AUTO_WASP_ADDRESS: { [chainId in ChainId]: string } = {
-  [ChainId.MAINNET]: '0x84AeBa7475a5CA1AC258CAf0349Ef069E0CA14Cf',
+  [ChainId.MAINNET]: '0x230AD47D0b5Cddd1f542bEd66648a5282E0bB33e',
   [ChainId.ROPSTEN]: '0x84AeBa7475a5CA1AC258CAf0349Ef069E0CA14Cf',
   [ChainId.RINKEBY]: '0x84AeBa7475a5CA1AC258CAf0349Ef069E0CA14Cf',
   [ChainId.GÖRLI]: '0x84AeBa7475a5CA1AC258CAf0349Ef069E0CA14Cf',
@@ -61,7 +61,7 @@ const AUTO_WASP_ADDRESS: { [chainId in ChainId]: string } = {
 
 
 const STAKE_WASP_EARN_WASP_PID: { [chainId in ChainId]: string } = {
-  [ChainId.MAINNET]: '5',
+  [ChainId.MAINNET]: '31',
   [ChainId.ROPSTEN]: '5',
   [ChainId.RINKEBY]: '5',
   [ChainId.GÖRLI]: '5',

@@ -82,7 +82,7 @@ export default function ManageAutoWasp({
   const tokenB = wrappedCurrency(currencyB ?? undefined, chainId)
 
   const stakingInfo = useStakeWaspEarnWaspInfo()
-  console.log('stakingInfo-amount', stakingInfo?.stakedAmount?.toSignificant(6))
+  // console.log('stakingInfo-amount', stakingInfo?.stakedAmount?.toSignificant(6))
 
   // detect existing unstaked LP position to show add button if none found
   const userLiquidityUnstaked = useTokenBalance(account ?? undefined, uni)
@@ -183,7 +183,7 @@ export default function ManageAutoWasp({
             {stakingInfo?.stakedAmount?.greaterThan('0') && (
               <>
                 <ButtonPrimary
-                   margin="6px"
+                  margin="6px"
                   padding="8px"
                   borderRadius="8px"
                   width="260px"
