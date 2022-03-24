@@ -236,6 +236,14 @@
       "decimals": 18,
       "logoURI": "https://icons.wanswap.finance/icon/wanswap/wanFTM.png"
     },
+    {
+      "chainId": 888,
+      "address": "0x555E5752CaA9e8E02F4Ba8DcD7682c051bbcb933",
+      "name": "Poacher",
+      "symbol": "POACH",
+      "decimals": 4,
+      "logoURI": "https://icons.wanswap.finance/icon/others/POACH.png"
+    },
 
     
     {
@@ -304,8 +312,8 @@
     }
   ],
   "version": {
-    "major": 4,
-    "minor": 8,
+    "major": 5,
+    "minor": 0,
     "patch": 0
   }
 }
