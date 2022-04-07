@@ -244,7 +244,14 @@
       "decimals": 4,
       "logoURI": "https://icons.wanswap.finance/icon/others/POACH.png"
     },
-
+    {
+      "chainId": 888,
+      "address": "0x665a838d72541d28b5CBA325934D88E170c57301",
+      "name": "Wan Mooons",
+      "symbol": "WMC",
+      "decimals": 4,
+      "logoURI": "https://icons.wanswap.finance/icon/wanswap/WMC.png"
+    },
     
     {
       "chainId": 999,
@@ -312,7 +319,7 @@
     }
   ],
   "version": {
-    "major": 5,
+    "major": 6,
     "minor": 0,
     "patch": 0
   }
