@@ -430,6 +430,9 @@ export default function Header() {
           <StyledExternalLink id={`stake-nav-link`} href={'https://wanlend.finance/'}>
             {t('wanLend')} <span style={{ fontSize: '11px' }}>↗</span>
           </StyledExternalLink>
+          <StyledExternalLink id={`stake-nav-link`} href={'https://streamtrade.wanlend.finance/'}>
+            {'StreamTrade'} <span style={{ fontSize: '11px' }}>↗</span>
+          </StyledExternalLink>
           {/* <StyledExternalLink id={`stake-nav-link`} href={'https://auction.wanswap.finance/'}>
             {t('auction')} <span style={{ fontSize: '11px' }}>↗</span>
           </StyledExternalLink> */}
