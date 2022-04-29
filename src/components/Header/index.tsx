@@ -241,7 +241,7 @@ const StyledNavLink = styled(NavLink).attrs({
   color: ${({ theme }) => theme.text2};
   font-size: 1rem;
   width: fit-content;
-  margin: 0 12px;
+  margin: 0 8px;
   font-weight: 500;
 
   &.${activeClassName} {
@@ -268,7 +268,7 @@ const StyledExternalLink = styled(ExternalLink).attrs({
   color: ${({ theme }) => theme.text2};
   font-size: 1rem;
   width: fit-content;
-  margin: 0 12px;
+  margin: 0 8px;
   font-weight: 500;
 
   &.${activeClassName} {
@@ -418,20 +418,25 @@ export default function Header() {
             {t('hive')}
           </StyledNavLink>
           <StyledExternalLink id={`stake-nav-link`} href={'https://info.wanswap.finance'}>
-            {t('statistics')} <span style={{ fontSize: '11px' }}>↗</span>
+            {t('statistics')} 
+            {/* <span style={{ fontSize: '11px' }}>↗</span> */}
           </StyledExternalLink>
 
           <StyledExternalLink id={`stake-nav-link`} href={'https://vote.wandevs.org/#/wanswap'}>
-            {t('vote')} <span style={{ fontSize: '11px' }}>↗</span>
+            {t('vote')} 
+            {/* <span style={{ fontSize: '11px' }}>↗</span> */}
           </StyledExternalLink>
           <StyledExternalLink id={`stake-nav-link`} href={'https://bridge.wanchain.org/'}>
-            {t('crossChain')} <span style={{ fontSize: '11px' }}>↗</span>
+            {t('crossChain')} 
+            {/* <span style={{ fontSize: '11px' }}>↗</span> */}
           </StyledExternalLink>
           <StyledExternalLink id={`stake-nav-link`} href={'https://wanlend.finance/'}>
-            {t('wanLend')} <span style={{ fontSize: '11px' }}>↗</span>
+            {t('wanLend')} 
+            {/* <span style={{ fontSize: '11px' }}>↗</span> */}
           </StyledExternalLink>
           <StyledExternalLink id={`stake-nav-link`} href={'https://streamtrade.wanlend.finance/'}>
-            {'StreamTrade'} <span style={{ fontSize: '11px' }}>↗</span>
+            {'StreamTrade'} 
+            {/* <span style={{ fontSize: '11px' }}>↗</span> */}
           </StyledExternalLink>
           {/* <StyledExternalLink id={`stake-nav-link`} href={'https://auction.wanswap.finance/'}>
             {t('auction')} <span style={{ fontSize: '11px' }}>↗</span>
