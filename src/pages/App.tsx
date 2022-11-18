@@ -111,6 +111,9 @@ export default function App() {
         <a target="_blank" rel="noopener noreferrer" href="https://github.com/wanswap/wanswap-contracts/blob/master/[HAECHI%20AUDIT]%20WanSwap%20Smart%20Contract%20Audit%20Report%20ver%202.0.pdf"><img alt="audit" src="haechiaudit.png"/></a>
       </HaechiAudit>
       <AppWrapper>
+        <div style={{width: '100%'}}>
+          <img alt='banner' src='/images/Banner.png' style={{width: '100%', cursor: 'pointer'}} onClick={()=>{window.open('https://fifa.wanswap.finance')}} />
+        </div>
         <URLWarning />
         <HeaderWrapper>
           <Header />
