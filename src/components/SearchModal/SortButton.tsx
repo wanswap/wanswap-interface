@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Text } from 'rebass'
 import styled from 'styled-components'
 import { RowFixed } from '../Row'
+import { ThemeContext } from 'styled-components';
 
 export const FilterWrapper = styled(RowFixed)`
   padding: 8px;
@@ -24,9 +25,10 @@ export default function SortButton({
   toggleSortOrder: () => void
   ascending: boolean
 }) {
+  const theme = useContext(ThemeContext);
   return (
     <FilterWrapper onClick={toggleSortOrder}>
-      <Text fontSize={14} fontWeight={500}>
+      <Text color={theme.primary6} fontSize={14} fontWeight={500}>
         {ascending ? '↑' : '↓'}
       </Text>
     </FilterWrapper>
