@@ -20,6 +20,7 @@ import Loader from '../Loader'
 
 import { RowBetween } from '../Row'
 import WalletModal from '../WalletModal'
+import walletImg from '../../assets/images/png/wallet.png';
 
 interface AddEthereumChainParameter {
   chainId: string; // A 0x-prefixed hexadecimal string
@@ -62,6 +63,9 @@ const Web3StatusConnect = styled(Web3StatusGeneric)<{ faded?: boolean }>`
   border: none;
   color: ${({ theme }) => theme.primaryText1};
   font-weight: 500;
+  min-width: 9.5rem;
+  display: flex;
+  justify-content: center;
 
   :hover,
   :focus {
@@ -72,14 +76,14 @@ const Web3StatusConnect = styled(Web3StatusGeneric)<{ faded?: boolean }>`
   ${({ faded }) =>
     faded &&
     css`
-      background-color: ${({ theme }) => theme.primary5};
-      border: 1px solid ${({ theme }) => theme.primary5};
-      color: ${({ theme }) => theme.primaryText1};
+      background-color: ${({ theme }) => theme.primary6};
+      border: 1px solid ${({ theme }) => theme.primary6};
+      color: #fff;
 
       :hover,
       :focus {
-        border: 1px solid ${({ theme }) => darken(0.05, theme.primary4)};
-        color: ${({ theme }) => darken(0.05, theme.primaryText1)};
+        border: 1px solid ${({ theme }) => theme.primary6};
+        color: #fff;
       }
     `}
 `
@@ -110,6 +114,13 @@ const Text = styled.p`
   font-weight: 500;
   max-width:80px;
 `
+
+const TextAuto = styled.p`
+  margin-left: 0.5rem;
+  font-weight: 500;
+  font-size: 0.875rem;
+  margin: 0;
+`;
 
 const NetworkIcon = styled(Activity)`
   margin-left: 0.25rem;
@@ -210,7 +221,8 @@ function Web3StatusInner() {
   } else {
     return (
       <Web3StatusConnect id="connect-wallet" onClick={toggleWalletModal} faded={!account}>
-        <Text>{t('Connect wallet')}</Text>
+        <img src={walletImg} style={{ height: '22px'}} />
+        <TextAuto>{t('Connect wallet')}</TextAuto>
       </Web3StatusConnect>
     )
   }

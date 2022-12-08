@@ -1,13 +1,10 @@
 import { ChainId, TokenAmount } from '@wanswap/sdk'
 import React, { useEffect, useState } from 'react'
 import { Text } from 'rebass'
-import { NavLink } from 'react-router-dom'
 import { darken } from 'polished'
 import { useTranslation } from 'react-i18next'
 
 import styled from 'styled-components'
-
-import Logo from '../../assets/svg/logows_white.svg'
 
 import { useActiveWeb3React } from '../../hooks'
 
@@ -18,7 +15,6 @@ import { TYPE, ExternalLink } from '../../theme'
 
 import { YellowCard } from '../Card'
 import Settings from '../Settings'
-import Menu from '../Menu'
 
 import Row, { RowFixed } from '../Row'
 import Web3Status from '../Web3Status'
@@ -31,7 +27,8 @@ import Modal from '../Modal'
 import UniBalanceContent from './UniBalanceContent'
 import usePrevious from '../../hooks/usePrevious'
 import useUSDCPrice from '../../utils/useUSDCPrice'
-import { WASP } from '../../constants'
+import { WASP } from '../../constants';
+import logoImg from '../../assets/images/png/wasp_logo.png';
 
 interface AddEthereumChainParameter {
   chainId: string; // A 0x-prefixed hexadecimal string
@@ -47,12 +44,13 @@ interface AddEthereumChainParameter {
 }
 
 const HeaderFrame = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 120px;
+  // display: grid;
+  display: flex;
+  // grid-template-columns: 1fr 120px;
   align-items: center;
-  justify-content: space-between;
+  // justify-content: space-between;
   align-items: center;
-  flex-direction: row;
+  flex-direction: row-reverse;
   width: 100%;
   top: 0;
   position: relative;
@@ -110,17 +108,6 @@ const HeaderElement = styled.div`
   `};
 `
 
-const HeaderElementWrap = styled.div`
-  display: flex;
-  align-items: center;
-`
-
-const HeaderRow = styled(RowFixed)`
-  ${({ theme }) => theme.mediaWidth.upToMedium`
-   width: 100%;
-  `};
-`
-
 const HeaderRowMobile = styled(RowFixed)`
   display:none;
   ${({ theme }) => theme.mediaWidth.upToExtraSmall`
@@ -146,6 +133,7 @@ const AccountElement = styled.div<{ active: boolean }>`
   white-space: nowrap;
   width: 100%;
   cursor: pointer;
+  margin-left: 0.5rem;
 
   :focus {
     border: 1px solid blue;
@@ -206,87 +194,7 @@ const BalanceText = styled(Text)`
   `};
 `
 
-const Title = styled.a`
-  display: flex;
-  align-items: center;
-  pointer-events: auto;
-  justify-self: flex-start;
-  margin-right: 12px;
-  ${({ theme }) => theme.mediaWidth.upToSmall`
-    justify-self: center;
-  `};
-  :hover {
-    cursor: pointer;
-  }
-`
-
-const UniIcon = styled.div`
-  transition: transform 0.3s ease;
-  :hover {
-    transform: scale(1.2);
-  }
-`
-
 const activeClassName = 'ACTIVE'
-
-const StyledNavLink = styled(NavLink).attrs({
-  activeClassName
-})`
-  ${({ theme }) => theme.flexRowNoWrap}
-  align-items: left;
-  border-radius: 10px;
-  outline: none;
-  cursor: pointer;
-  text-decoration: none;
-  color: ${({ theme }) => theme.text2};
-  font-size: 1rem;
-  width: fit-content;
-  margin: 0 8px;
-  font-weight: 500;
-
-  &.${activeClassName} {
-    border-radius:10px;
-    font-weight: 600;
-    color: ${({ theme }) => theme.text1};
-  }
-
-  :hover,
-  :focus {
-    color: ${({ theme }) => darken(0.1, theme.text1)};
-  }
-`
-
-const StyledExternalLink = styled(ExternalLink).attrs({
-  activeClassName
-}) <{ isActive?: boolean }>`
-  ${({ theme }) => theme.flexRowNoWrap}
-  align-items: left;
-  border-radius:10px;
-  outline: none;
-  cursor: pointer;
-  text-decoration: none;
-  color: ${({ theme }) => theme.text2};
-  font-size: 1rem;
-  width: fit-content;
-  margin: 0 8px;
-  font-weight: 500;
-
-  &.${activeClassName} {
-    border-radius: 10px;
-    font-weight: 600;
-    color: ${({ theme }) => theme.text1};
-  }
-
-  :hover,
-  :focus {
-    text-decoration: none;
-    color: ${({ theme }) => darken(0.1, theme.text1)};
-  }
-
-  ${({ theme }) => theme.mediaWidth.upToExtraSmall`
-      display: none;
-`}
-`
 
 const StyledExternalLinkMobile = styled(ExternalLink).attrs({
   activeClassName
@@ -319,6 +227,17 @@ const StyledExternalLinkMobile = styled(ExternalLink).attrs({
       display: block;
 `}
 `
+
+const LogoCon = styled.div`
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  background: #212121;
+  margin: 0 10px 0 -10px;
+`;
 
 const NETWORK_LABELS: { [chainId in ChainId]?: string } = {
   [ChainId.RINKEBY]: 'Rinkeby',
@@ -386,74 +305,6 @@ export default function Header() {
         <UniBalanceContent setShowUniBalanceModal={setShowUniBalanceModal} />
       </Modal>
       <img id="logo-full" style={{ display: 'none' }} height={'60px'} src="./images/Logo_Whiteyellow.svg" alt="logo" />
-      <HeaderRow>
-
-        <Title href="." id="logo-wrapper">
-          <UniIcon>
-            <img id="logo-symbol" width={'36px'} src={Logo} alt="logo" />
-
-          </UniIcon>
-        </Title>
-        <HeaderLinks>
-          <StyledNavLink id={`swap-nav-link`} to={'/swap'}>
-            {t('swap')}
-          </StyledNavLink>
-          <StyledNavLink
-            id={`pool-nav-link`}
-            to={'/pool'}
-            isActive={(match, { pathname }) =>
-              Boolean(match) ||
-              pathname.startsWith('/add') ||
-              pathname.startsWith('/remove') ||
-              pathname.startsWith('/create') ||
-              pathname.startsWith('/find')
-            }
-          >
-            {t('pool')}
-          </StyledNavLink>
-          <StyledNavLink id={`stake-nav-link`} to={'/farm'}>
-            {t('miningPool')}
-          </StyledNavLink>
-          <StyledNavLink id={`stake-nav-link`} to={'/hive'}>
-            {t('hive')}
-          </StyledNavLink>
-          <StyledExternalLink id={`stake-nav-link`} href={'https://info.wanswap.finance'}>
-            {t('statistics')} 
-            {/* <span style={{ fontSize: '11px' }}>↗</span> */}
-          </StyledExternalLink>
-
-          <StyledExternalLink id={`stake-nav-link`} href={'https://vote.wandevs.org/#/wanswap'}>
-            {t('vote')} 
-            {/* <span style={{ fontSize: '11px' }}>↗</span> */}
-          </StyledExternalLink>
-          <StyledExternalLink id={`stake-nav-link`} href={'https://bridge.wanchain.org/'}>
-            {t('crossChain')} 
-            {/* <span style={{ fontSize: '11px' }}>↗</span> */}
-          </StyledExternalLink>
-          <StyledExternalLink id={`stake-nav-link`} href={'https://fifa.wanswap.finance/'}>
-            FIFA 
-            {/* <span style={{ fontSize: '11px' }}>↗</span> */}
-          </StyledExternalLink>
-          <StyledExternalLink id={`stake-nav-link`} href={'https://wanlend.finance/'}>
-            {t('wanLend')} 
-            {/* <span style={{ fontSize: '11px' }}>↗</span> */}
-          </StyledExternalLink>
-          <StyledExternalLink id={`stake-nav-link`} href={'https://streamtrade.wanlend.finance/'}>
-            {'StreamTrade'} 
-            {/* <span style={{ fontSize: '11px' }}>↗</span> */}
-          </StyledExternalLink>
-          {/* <StyledExternalLink id={`stake-nav-link`} href={'https://auction.wanswap.finance/'}>
-            {t('auction')} <span style={{ fontSize: '11px' }}>↗</span>
-          </StyledExternalLink> */}
-          {/* <StyledNavLink id={`stake-nav-link`} to={'/vote'}>
-            {t('vote')}
-          </StyledNavLink> */}
-          {/* <StyledExternalLink id={`stake-nav-link`} href={'https://www.wanscan.org'}>
-            Charts <span style={{ fontSize: '11px' }}>↗</span>
-          </StyledExternalLink> */}
-        </HeaderLinks>
-
-      </HeaderRow>
       <HeaderRowMobile>
         <HeaderLinks>
           <StyledExternalLinkMobile id={`stake-nav-link`} href={'https://info.wanswap.finance'}>
@@ -520,7 +371,9 @@ export default function Header() {
                     </HideSmall>
                   )
                   :
-                  <img style={{ marginLeft: '-10px', marginRight: '5px' }} height={'52px'} src="./images/Logomark_WASP_token.svg" alt="logo" />
+                  <LogoCon>
+                    <img height={'24px'} src={logoImg} alt="logo" />
+                  </LogoCon>
 
                 }
                 WASP
@@ -529,6 +382,7 @@ export default function Header() {
               <PriceText>${uniPrice?.toFixed(4) ?? '-'}</PriceText>
             </UNIWrapper>
           )}
+          <Settings />
           <AccountElement active={!!account} style={{ pointerEvents: 'auto' }} >
             {account && userEthBalance ? (
               <BalanceText style={{ flexShrink: 0 }} pl="0.75rem" pr="0.5rem" fontWeight={500}>
@@ -538,10 +392,6 @@ export default function Header() {
             <Web3Status />
           </AccountElement>
         </HeaderElement>
-        <HeaderElementWrap>
-          <Settings />
-          <Menu />
-        </HeaderElementWrap>
       </HeaderControls>
     </HeaderFrame>
   )
