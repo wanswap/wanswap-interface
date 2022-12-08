@@ -55,8 +55,8 @@ export const ButtonPrimary = styled(Base)`
   }
   &:disabled {
    
-    background-color: ${({ theme, altDisabledStyle }) => (altDisabledStyle ? '#002868' : '#002868')};
-    color: ${({ theme, altDisabledStyle }) => (altDisabledStyle ? '#3c9fd6' :  '#3c9fd6')};
+    background-color: ${({ theme, altDisabledStyle }) => (altDisabledStyle ? '#4D4D4D' : '#4D4D4D')};
+    color: ${({ theme, altDisabledStyle }) => (altDisabledStyle ? '#999999' :  '#999999')};
     cursor: auto;
     box-shadow: none;
     border: 1px solid transparent;
@@ -94,9 +94,9 @@ export const ButtonHarvestAll = styled(Base)`
 `
 
 export const ButtonLight = styled(Base)`
-  background-color: #FFE600;
+  background-color: ${({ theme }) => theme.primary6};
   text-decoration: none;
-  color: #313131;
+  color: #ffffff;
   font-size: 20px;
   font-weight: 500;
   &:focus {
