@@ -30,13 +30,26 @@ import PoolFinder from './PoolFinder'
 import RemoveLiquidity from './RemoveLiquidity'
 import { RedirectOldRemoveLiquidityPathStructure } from './RemoveLiquidity/redirects'
 import Swap from './Swap'
+import ConvertWasp from './ConvertWasp'
+import MigrateLP from './MigrateLP';
 import { OpenClaimAddressModalAndRedirectToSwap, RedirectPathToSwapOnly, RedirectToSwap } from './Swap/redirects'
+
+import SideBar from '../components/Sidebar';
 
 import Vote from './Vote'
 import VotePage from './Vote/VotePage'
 
+const View = styled.div`
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+`
+
+
 const AppWrapper = styled.div`
   display: flex;
+  flex: 1;
   flex-flow: column;
   align-items: flex-start;
   overflow-x: hidden;
@@ -105,56 +118,57 @@ export default function App() {
     <Suspense fallback={null}>
       <Route component={GoogleAnalyticsReporter} />
       <Route component={DarkModeQueryParamReader} />
-      
 	    <div id="shadow_bottom"></div>
       <HaechiAudit>
         <a target="_blank" rel="noopener noreferrer" href="https://github.com/wanswap/wanswap-contracts/blob/master/[HAECHI%20AUDIT]%20WanSwap%20Smart%20Contract%20Audit%20Report%20ver%202.0.pdf"><img alt="audit" src="haechiaudit.png"/></a>
       </HaechiAudit>
-      <AppWrapper>
-        <div style={{width: '100%'}}>
-          <img alt='banner' src='/images/Banner.png' style={{width: '100%', cursor: 'pointer'}} onClick={()=>{window.open('https://fifa.wanswap.finance')}} />
-        </div>
-        <URLWarning />
-        <HeaderWrapper>
-          <Header />
-        </HeaderWrapper>
-        <BodyWrapper>
-          <Popups />
-          <Polling />
-          <TopLevelModals />
-          <Web3ReactManager>
-            <Switch>
-              <Route exact strict path="/swap" component={Swap} />
-              <Route exact strict path="/claim" component={OpenClaimAddressModalAndRedirectToSwap} />
-              <Route exact strict path="/swap/:outputCurrency" component={RedirectToSwap} />
-              <Route exact strict path="/send" component={RedirectPathToSwapOnly} />
-              <Route exact strict path="/find" component={PoolFinder} />
-              <Route exact strict path="/pool" component={Pool} />
-              <Route exact strict path="/farm" component={Earn} />
-              <Route exact strict path="/hive" component={Hive} />
-              <Route exact strict path="/vote" component={Vote} />
-              <Route exact strict path="/create" component={RedirectToAddLiquidity} />
-              <Route exact path="/add" component={AddLiquidity} />
-              <Route exact path="/add/:currencyIdA" component={RedirectOldAddLiquidityPathStructure} />
-              <Route exact path="/add/:currencyIdA/:currencyIdB" component={RedirectDuplicateTokenIds} />
-              <Route exact path="/create" component={AddLiquidity} />
-              <Route exact path="/create/:currencyIdA" component={RedirectOldAddLiquidityPathStructure} />
-              <Route exact path="/create/:currencyIdA/:currencyIdB" component={RedirectDuplicateTokenIds} />
-              <Route exact strict path="/remove/v1/:address" component={RemoveV1Exchange} />
-              <Route exact strict path="/remove/:tokens" component={RedirectOldRemoveLiquidityPathStructure} />
-              <Route exact strict path="/remove/:currencyIdA/:currencyIdB" component={RemoveLiquidity} />
-              <Route exact strict path="/migrate/v1" component={MigrateV1} />
-              <Route exact strict path="/migrate/v1/:address" component={MigrateV1Exchange} />
-              <Route exact strict path="/farm/:currencyIdA/:currencyIdB" component={Manage} />
-              <Route exact strict path="/hive/:currencyIdA/:pid" component={ManageHive} />
-              <Route exact strict path="/autoWasp/:currencyIdA" component={ManageAutoWasp} />
-              <Route exact strict path="/vote/:id" component={VotePage} />
-              <Route component={RedirectPathToSwapOnly} />
-            </Switch>
-          </Web3ReactManager>
-          <Marginer />
-        </BodyWrapper>
-      </AppWrapper>
+      <View>
+        <SideBar></SideBar>
+        <AppWrapper>
+          <URLWarning />
+          <HeaderWrapper>
+            <Header />
+          </HeaderWrapper>
+          <BodyWrapper>
+            <Popups />
+            <Polling />
+            <TopLevelModals />
+            <Web3ReactManager>
+              <Switch>
+                <Route exact strict path="/convertwasp" component={ConvertWasp} />
+                <Route exact strict path="/migratelp" component={MigrateLP} />
+                <Route exact strict path="/swap" component={Swap} />
+                <Route exact strict path="/claim" component={OpenClaimAddressModalAndRedirectToSwap} />
+                <Route exact strict path="/swap/:outputCurrency" component={RedirectToSwap} />
+                <Route exact strict path="/send" component={RedirectPathToSwapOnly} />
+                <Route exact strict path="/find" component={PoolFinder} />
+                <Route exact strict path="/pool" component={Pool} />
+                <Route exact strict path="/farm" component={Earn} />
+                <Route exact strict path="/hive" component={Hive} />
+                <Route exact strict path="/vote" component={Vote} />
+                <Route exact strict path="/create" component={RedirectToAddLiquidity} />
+                <Route exact path="/add" component={AddLiquidity} />
+                <Route exact path="/add/:currencyIdA" component={RedirectOldAddLiquidityPathStructure} />
+                <Route exact path="/add/:currencyIdA/:currencyIdB" component={RedirectDuplicateTokenIds} />
+                <Route exact path="/create" component={AddLiquidity} />
+                <Route exact path="/create/:currencyIdA" component={RedirectOldAddLiquidityPathStructure} />
+                <Route exact path="/create/:currencyIdA/:currencyIdB" component={RedirectDuplicateTokenIds} />
+                <Route exact strict path="/remove/v1/:address" component={RemoveV1Exchange} />
+                <Route exact strict path="/remove/:tokens" component={RedirectOldRemoveLiquidityPathStructure} />
+                <Route exact strict path="/remove/:currencyIdA/:currencyIdB" component={RemoveLiquidity} />
+                <Route exact strict path="/migrate/v1" component={MigrateV1} />
+                <Route exact strict path="/migrate/v1/:address" component={MigrateV1Exchange} />
+                <Route exact strict path="/farm/:currencyIdA/:currencyIdB" component={Manage} />
+                <Route exact strict path="/hive/:currencyIdA/:pid" component={ManageHive} />
+                <Route exact strict path="/autoWasp/:currencyIdA" component={ManageAutoWasp} />
+                <Route exact strict path="/vote/:id" component={VotePage} />
+                <Route component={RedirectPathToSwapOnly} />
+              </Switch>
+            </Web3ReactManager>
+            <Marginer />
+          </BodyWrapper>
+        </AppWrapper>
+      </View>
     </Suspense>
   )
 }

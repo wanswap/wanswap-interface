@@ -27,7 +27,7 @@ export const BodyWrapperV2 = styled.div`
   position: relative;
   width: ${isMobile ? '100%' : '500px'};
   min-height: 363px;
-  background: rgb(18, 52, 113);
+  background: rgba(23, 23, 23, 1);
   /* box-shadow: 10px 8px 15px 5px #0000002e, -8px -10px 15px 5px #ffffff90; */
   box-shadow: 0px 0px 50px 0px rgba(0, 0, 0, 0.2);
   border-radius: 24px;
