@@ -91,7 +91,8 @@ const CandleStickChart = ({
   const [chartCreated, setChartCreated] = useState(false)
   const dataPrev = usePrevious(data)
 
-  const textColor = darkMode ? 'white' : 'black'
+  const textColor = darkMode ? 'white' : 'black';
+  const siderTextColor = '#8F8D8B';
   const previousTheme = usePrevious(darkMode)
 
   // reset the chart if theme switches
@@ -125,7 +126,7 @@ const CandleStickChart = ({
         height: 500,
         layout: {
           backgroundColor: 'transparent',
-          textColor: textColor
+          textColor: siderTextColor
         },
         grid: {
           vertLines: {

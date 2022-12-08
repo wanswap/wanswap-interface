@@ -20,10 +20,10 @@ const panelPseudo = css`
 
 const Panel = styled(RebassBox)`
   position: relative;
-  // background-color: ${({ theme }) => theme.advancedBG};
   /* padding: 0 1.25rem; */
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  // background: rgba(255, 255, 255, 0.05);
+  background-color: ${({ theme }) => theme.bg6};
+  // border: 1px solid rgba(255, 255, 255, 0.2);
   width: ${isMobile ? '100%' : '35%'};
   max-width: 500px;
   height: 395px;

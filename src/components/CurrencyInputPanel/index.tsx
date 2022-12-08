@@ -94,15 +94,16 @@ const StyledTokenName = styled.span<{ active?: boolean }>`
 
 const StyledBalanceMax = styled.button`
   height: 28px;
-  background-color: ${({ theme }) => theme.primary5};
-  border: 1px solid ${({ theme }) => theme.primary5};
+  background: none;
+  border: none;
   border-radius:10px;
-  font-size: 0.875rem;
-
-  font-weight: 500;
   cursor: pointer;
   margin-right: 0.5rem;
-  color: ${({ theme }) => theme.primaryText1};
+  font-size: 1rem;
+  font-family: Inter-Bold, Inter;
+  font-weight: bold;
+  color: #FFE600;
+
   :hover {
     border: 1px solid ${({ theme }) => theme.primary1};
   }
@@ -160,10 +161,10 @@ export default function CurrencyInputPanel({
 
   const handleDismissSearch = useCallback(() => {
     setModalOpen(false)
-  }, [setModalOpen])
+  }, [setModalOpen]);
   return (
     <InputPanel id={id}>
-      <Container hideInput={hideInput} style={{borderRadius:10, backgroundColor:'#1a3d77', border:0}}>
+      <Container hideInput={hideInput} style={{borderRadius:10, backgroundColor:'rgba(255, 255, 255, 0)', border: '1px solid rgba(255, 255, 255, 0.1)'}}>
         {!hideInput && (
           <LabelRow>
             <RowBetween>

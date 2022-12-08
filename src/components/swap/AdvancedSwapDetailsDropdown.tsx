@@ -15,7 +15,8 @@ const AdvancedDetailsFooter = styled.div<{ show: boolean }>`
   border-bottom-left-radius: 20px;
   border-bottom-right-radius: 20px;
   color: ${({ theme }) => theme.text2};
-  background-color: #123471;
+  background: #171717;
+  box-shadow: 0px 0px 50px 0px #000000;
   z-index: ${({ show }) => (show && isMobile ? '2' : '-1')};
 
   transform: ${({ show }) => (show ? 'translateY(0%)' : 'translateY(-100%)')};

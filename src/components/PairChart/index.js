@@ -143,9 +143,9 @@ const OptionButton = styled.div`
   white-space: nowrap;
   padding: 6px;
   border-radius: 6px;
-  border: ${({ active }) => (active ? 'none' : '1px solid #646D70')};
-  background-color: ${({ active }) => active && '#42B5D9'};
-  color: ${({ active }) => (active ? '#fff' : '#646D70')};
+  border: ${({ active, theme }) => (active ? 'none' : '1px solid ' + theme.primary7)};
+  background-color: ${({ active, theme }) => active && theme.yellow3 };
+  color: ${({ active }) => (active ? '#333333' : '#8F8D8B')};
 
   :hover {
     cursor: ${({ disabled }) => !disabled && 'pointer'};

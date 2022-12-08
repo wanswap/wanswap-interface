@@ -456,7 +456,7 @@ export default function Swap() {
               >
                 {!account ? (
                   <ButtonLight onClick={toggleWalletModal}>
-                    <LogIn style={{ marginRight: 5 }} size="18" color="#313131" /> {t('connectWallet')}
+                    <LogIn style={{ marginRight: 5 }} size="18" color="#ffffff" /> {t('connectWallet')}
                   </ButtonLight>
                 ) : showWrap ? (
                   <ButtonPrimary disabled={Boolean(wrapInputError)} onClick={onWrap}>
