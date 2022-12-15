@@ -65,8 +65,23 @@ export const ButtonPrimary = styled(Base)`
   }
 `
 
+export const ButtonGreen = styled(Base)`
+  background-color: ${({theme}) => theme.primary6};
+  color: #fff;
+  text-decoration: none;
+  &:disabled {
+    background-color: ${({ theme, altDisabledStyle }) => (altDisabledStyle ? '#4D4D4D' : '#4D4D4D')};
+    color: ${({ theme, altDisabledStyle }) => (altDisabledStyle ? '#999999' :  '#999999')};
+    cursor: auto;
+    box-shadow: none;
+    border: 1px solid transparent;
+    outline: none;
+    opacity: ${({ altDisabledStyle }) => (altDisabledStyle ? '0.5' : '1')};
+  }
+`
+
 export const ButtonHarvestAll = styled(Base)`
-  background: #2172E5;
+  background: ${({theme}) => theme.green2};
   width: 112px;
   border-radius: 8px;
   padding: 10px;
