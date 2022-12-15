@@ -26,24 +26,24 @@ export function PoolPriceBar({
     <AutoColumn gap="md">
       <AutoRow justify="space-around" gap="4px">
         <AutoColumn justify="center">
-          <TYPE.black>{price?.toSignificant(6) ?? '-'}</TYPE.black>
+          <TYPE.yellow3>{price?.toSignificant(6) ?? '-'}</TYPE.yellow3>
           <Text fontWeight={500} fontSize={14} color={theme.text2} pt={1}>
             {currencies[Field.CURRENCY_B]?.symbol} per {currencies[Field.CURRENCY_A]?.symbol}
           </Text>
         </AutoColumn>
         <AutoColumn justify="center">
-          <TYPE.black>{price?.invert()?.toSignificant(6) ?? '-'}</TYPE.black>
+          <TYPE.yellow3>{price?.invert()?.toSignificant(6) ?? '-'}</TYPE.yellow3>
           <Text fontWeight={500} fontSize={14} color={theme.text2} pt={1}>
             {currencies[Field.CURRENCY_A]?.symbol} per {currencies[Field.CURRENCY_B]?.symbol}
           </Text>
         </AutoColumn>
         <AutoColumn justify="center">
-          <TYPE.black>
+          <TYPE.yellow3>
             {noLiquidity && price
               ? '100'
               : (poolTokenPercentage?.lessThan(ONE_BIPS) ? '<0.01' : poolTokenPercentage?.toFixed(2)) ?? '0'}
             %
-          </TYPE.black>
+          </TYPE.yellow3>
           <Text fontWeight={500} fontSize={14} color={theme.text2} pt={1}>
             {t('shareOfPool')}
           </Text>

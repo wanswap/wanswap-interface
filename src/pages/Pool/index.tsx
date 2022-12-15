@@ -51,6 +51,14 @@ const ButtonRow = styled(RowFixed)`
 
 const ResponsiveButtonPrimary = styled(ButtonPrimary)`
   width: fit-content;
+  border-color: ${({ theme }) => theme.primary6};
+  background-color: ${({ theme }) => theme.primary6};
+  color: #fff;
+  &:hover {
+    border-color: ${({ theme }) => theme.primary6};
+    background-color: ${({ theme }) => theme.primary6};
+    color: #fff;
+  }
   ${({ theme }) => theme.mediaWidth.upToSmall`
     width: 48%;
   `};
@@ -58,19 +66,26 @@ const ResponsiveButtonPrimary = styled(ButtonPrimary)`
 
 const ResponsiveButtonSecondary = styled(ButtonSecondary)`
   width: fit-content;
+  border-color: ${({ theme }) => theme.primary6};
+  color: ${({ theme }) => theme.primary6};
+  &:hover {
+    border-color: ${({ theme }) => theme.primary6};
+    color: ${({ theme }) => theme.primary6};
+  }
   ${({ theme }) => theme.mediaWidth.upToSmall`
     width: 48%;
   `};
 `
 
 const EmptyProposals = styled.div`
-  border: 1px solid ${({ theme }) => theme.text4};
+  border: 1px solid #171717;
   padding: 16px 12px;
-  border-radius: 10px;
+  border-radius: 16px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  background: #171717;
 `
 
 export default function Pool() {
@@ -128,19 +143,19 @@ export default function Pool() {
           <CardSection>
             <AutoColumn gap="md">
               <RowBetween>
-                <TYPE.white fontWeight={600}>{t('liquidityProviderRewards')}</TYPE.white>
+                <TYPE.yellow3 fontWeight={600}>{t('liquidityProviderRewards')}</TYPE.yellow3>
               </RowBetween>
               <RowBetween>
-                <TYPE.white fontSize={14}>
+                <TYPE.white color={theme.text6} fontSize={14}>
                   {t('liquidityHelper')}
                 </TYPE.white>
               </RowBetween>
               <ExternalLink
-                style={{ color: 'white', textDecoration: 'underline' }}
+                style={{ color: theme.text6, textDecoration: 'underline' }}
                 target="_blank"
                 href="https://docs.wanswap.finance/#/guides/liquidity"
               >
-                <TYPE.white fontSize={14}>{t('readMoreAboutProvidingLiquidity')}</TYPE.white>
+                <TYPE.white color={theme.text6} fontSize={14}>{t('readMoreAboutProvidingLiquidity')}</TYPE.white>
               </ExternalLink>
             </AutoColumn>
           </CardSection>
@@ -197,7 +212,7 @@ export default function Pool() {
               </>
             ) : (
                     <EmptyProposals>
-                      <TYPE.body color={theme.text3} textAlign="center">
+                      <TYPE.body color={theme.text6} textAlign="center">
                         {t('noLiquidityFound')}
                       </TYPE.body>
                     </EmptyProposals>
@@ -206,7 +221,7 @@ export default function Pool() {
             <AutoColumn justify={'center'} gap="md">
               <Text textAlign="center" fontSize={14} style={{ padding: '.5rem 0 .5rem 0' }}>
                 {hasV1Liquidity ? 'Uniswap V1 liquidity found!' : t('dontSeePool')}{' '}
-                <StyledInternalLink id="import-pool-link" to={hasV1Liquidity ? '/migrate/v1' : '/find'}>
+                <StyledInternalLink style={{color: theme.yellow3}} id="import-pool-link" to={hasV1Liquidity ? '/migrate/v1' : '/find'}>
                   {hasV1Liquidity ? 'Migrate now.' : t('importIt')}
                 </StyledInternalLink>
               </Text>

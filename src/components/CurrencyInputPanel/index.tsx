@@ -25,7 +25,7 @@ const CurrencySelect = styled.button<{ selected: boolean }>`
   height: 2.2rem;
   font-size: 20px;
   font-weight: 500;
-  background-color: ${({ selected, theme }) => (selected ? 'white' : theme.primary1)};
+  background-color: ${({ selected, theme }) => (selected ? 'white' : theme.primary6)};
   color: ${({ selected, theme }) => (selected ? 'black' : theme.white)};
   border-radius:10px;
   box-shadow: ${({ selected }) => (selected ? 'none' : '0px 6px 10px rgba(0, 0, 0, 0.075)')};
@@ -37,7 +37,7 @@ const CurrencySelect = styled.button<{ selected: boolean }>`
 
   :focus,
   :hover {
-    background-color: ${({ selected, theme }) => (selected ? darken(0.05, 'white') : darken(0.05, theme.primary1))};
+    background-color: ${({ selected, theme }) => (selected ? 'white' : theme.primary6)};
   }
 `
 
@@ -74,8 +74,8 @@ const StyledDropDown = styled(DropDown)<{ selected: boolean }>`
 const InputPanel = styled.div<{ hideInput?: boolean }>`
   ${({ theme }) => theme.flexColumnNoWrap}
   position: relative;
-  border-radius:10px;
-  background-color: ${({ theme }) => theme.bg2};
+  border-radius: 16px;
+  border: 1px solid ${({ theme }) => theme.bg7};
   z-index: 1;
 `
 
@@ -102,13 +102,13 @@ const StyledBalanceMax = styled.button`
   font-size: 1rem;
   font-family: Inter-Bold, Inter;
   font-weight: bold;
-  color: #FFE600;
+  color: ${({ theme }) => theme.primary6};
 
   :hover {
-    border: 1px solid ${({ theme }) => theme.primary1};
+    border: 1px solid ${({ theme }) => theme.primary6};
   }
   :focus {
-    border: 1px solid ${({ theme }) => theme.primary1};
+    border: 1px solid ${({ theme }) => theme.primary6};
     outline: none;
   }
 

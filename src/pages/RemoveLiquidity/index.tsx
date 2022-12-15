@@ -9,7 +9,7 @@ import { RouteComponentProps } from 'react-router'
 import { Text } from 'rebass'
 import { ThemeContext } from 'styled-components'
 import { ButtonPrimary, ButtonLight, ButtonError, ButtonConfirmed } from '../../components/Button'
-import { LightCard } from '../../components/Card'
+import { LightCard, NoBgCard } from '../../components/Card'
 import { AutoColumn, ColumnCenter } from '../../components/Column'
 import TransactionConfirmationModal, { ConfirmationModalContent } from '../../components/TransactionConfirmationModal'
 import CurrencyInputPanel from '../../components/CurrencyInputPanel'
@@ -418,9 +418,7 @@ export default function RemoveLiquidity({
     )
   }
 
-  const pendingText = `Removing ${parsedAmounts[Field.CURRENCY_A]?.toSignificant(6)} ${
-    currencyA?.symbol
-  } and ${parsedAmounts[Field.CURRENCY_B]?.toSignificant(6)} ${currencyB?.symbol}`
+  const pendingText = ['Removing', `${parsedAmounts[Field.CURRENCY_A]?.toSignificant(6)} ${currencyA?.symbol}`, 'and', `${parsedAmounts[Field.CURRENCY_B]?.toSignificant(6)} ${currencyB?.symbol}`];
 
   const liquidityPercentChangeCallback = useCallback(
     (value: number) => {
@@ -493,12 +491,13 @@ export default function RemoveLiquidity({
             pendingText={pendingText}
           />
           <AutoColumn gap="md">
-            <LightCard>
+            <NoBgCard style={{borderColor: theme.yellow3}}>
               <AutoColumn gap="20px">
                 <RowBetween>
                   <Text fontWeight={500}>{t('amount')}</Text>
                   <ClickableText
                     fontWeight={500}
+                    style={{color: '#fff'}}
                     onClick={() => {
                       setShowDetailed(!showDetailed)
                     }}
@@ -531,13 +530,13 @@ export default function RemoveLiquidity({
                   </>
                 )}
               </AutoColumn>
-            </LightCard>
+            </NoBgCard>
             {!showDetailed && (
               <>
                 <ColumnCenter>
                   <ArrowDown size="16" color={theme.text2} />
                 </ColumnCenter>
-                <LightCard>
+                <div style={{ padding: '10px 20px', borderBottom: `1px solid ${theme.bg6}` }}>
                   <AutoColumn gap="10px">
                     <RowBetween>
                       <Text fontSize={24} fontWeight={500}>
@@ -568,6 +567,7 @@ export default function RemoveLiquidity({
                             to={`/remove/${currencyA === ETHER ? WETH[chainId].address : currencyIdA}/${
                               currencyB === ETHER ? WETH[chainId].address : currencyIdB
                             }`}
+                            style={{color: '#fff'}}
                           >
                             {t('receive')} WWAN
                           </StyledInternalLink>
@@ -576,6 +576,7 @@ export default function RemoveLiquidity({
                             to={`/remove/${
                               currencyA && currencyEquals(currencyA, WETH[chainId]) ? 'WAN' : currencyIdA
                             }/${currencyB && currencyEquals(currencyB, WETH[chainId]) ? 'WAN' : currencyIdB}`}
+                            style={{color: '#fff'}}
                           >
                             {t('receive')} WAN
                           </StyledInternalLink>
@@ -583,7 +584,7 @@ export default function RemoveLiquidity({
                       </RowBetween>
                     ) : null}
                   </AutoColumn>
-                </LightCard>
+                </div>
               </>
             )}
 
@@ -634,16 +635,16 @@ export default function RemoveLiquidity({
             {pair && (
               <div style={{ padding: '10px 20px' }}>
                 <RowBetween>
-                  Price:
-                  <div>
+                  <TYPE.yellow3>Price:</TYPE.yellow3>
+                  <TYPE.yellow3>
                     1 {currencyA?.symbol} = {tokenA ? pair.priceOf(tokenA).toSignificant(6) : '-'} {currencyB?.symbol}
-                  </div>
+                  </TYPE.yellow3>
                 </RowBetween>
                 <RowBetween>
                   <div />
-                  <div>
+                  <TYPE.yellow3>
                     1 {currencyB?.symbol} = {tokenB ? pair.priceOf(tokenB).toSignificant(6) : '-'} {currencyA?.symbol}
-                  </div>
+                  </TYPE.yellow3>
                 </RowBetween>
               </div>
             )}
@@ -656,6 +657,7 @@ export default function RemoveLiquidity({
                     onClick={onAttemptToApprove}
                     confirmed={approval === ApprovalState.APPROVED || signatureData !== null}
                     disabled={approval !== ApprovalState.NOT_APPROVED || signatureData !== null}
+                    style={{background: !(approval !== ApprovalState.NOT_APPROVED || signatureData !== null) ? theme.green2 : '', color: !(approval !== ApprovalState.NOT_APPROVED || signatureData !== null) ? '#fff' : ''}}
                     mr="0.5rem"
                     fontWeight={500}
                     fontSize={16}
@@ -673,6 +675,7 @@ export default function RemoveLiquidity({
                       setShowConfirm(true)
                     }}
                     disabled={!isValid || (signatureData === null && approval !== ApprovalState.APPROVED)}
+                    style={{background: !(!isValid || (signatureData === null && approval !== ApprovalState.APPROVED)) ? theme.green2 : '', color: !(!isValid || (signatureData === null && approval !== ApprovalState.APPROVED)) ? '#fff' : ''}}
                     error={!isValid && !!parsedAmounts[Field.CURRENCY_A] && !!parsedAmounts[Field.CURRENCY_B]}
                   >
                     <Text fontSize={16} fontWeight={500}>

@@ -22,6 +22,24 @@ export const GreyCard = styled(Card)`
   background-color: rgba(1,1,1,0.5);
 `
 
+export const GreyLightCard = styled(Card)`
+  background-color: rgba(255, 255, 255, 0.1);
+`
+
+export const NoBgCard = styled(Card)`
+  background-color: none;
+  border-radius: 16px;
+  border: 1px solid ${({theme}) => theme.bg7};
+`
+
+export const BlackCard = styled(Card)`
+  background-color: ${({theme}) => theme.bg6};
+`
+
+export const Black1Card = styled(Card)`
+  background-color: ${({theme}) => theme.black1};
+`
+
 export const OutlineCard = styled(Card)`
   border: 1px solid ${({ theme }) => theme.bg3};
 `

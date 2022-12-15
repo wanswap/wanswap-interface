@@ -2,14 +2,14 @@ import { ChainId } from '@wanswap/sdk'
 import React, { useContext } from 'react'
 import styled, { ThemeContext } from 'styled-components'
 import Modal from '../Modal'
-import { ExternalLink } from '../../theme'
+import { ExternalLink, TYPE } from '../../theme'
 import { Text } from 'rebass'
-import { CloseIcon, CustomLightSpinner } from '../../theme/components'
+import { CloseIcon } from '../../theme/components'
 import { RowBetween } from '../Row'
 import { AlertTriangle, ArrowUpCircle } from 'react-feather'
-import { ButtonPrimary } from '../Button'
+import { ButtonPrimary, ButtonGreen } from '../Button'
 import { AutoColumn, ColumnCenter } from '../Column'
-import Circle from '../../assets/images/blue-loader.svg'
+import LoadingLogoIcon from '../../assets/images/png/loading_logo.png';
 
 import { getEtherscanLink } from '../../utils'
 import { useActiveWeb3React } from '../../hooks'
@@ -28,11 +28,24 @@ const BottomSection = styled(Section)`
   border-bottom-right-radius: 20px;
 `
 
+const BottomSectionGapS = styled(BottomSection)`
+  grid-row-gap: 0.5rem;
+  background: none;
+  padding-top: 0;
+`;
+
 const ConfirmedIcon = styled(ColumnCenter)`
   padding: 60px 0;
 `
 
-function ConfirmationPendingContent({ onDismiss, pendingText }: { onDismiss: () => void; pendingText: string }) {
+const LogoIcon = styled.img`
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background: ${({theme}) => theme.bg6};
+`;
+
+function ConfirmationPendingContent({ onDismiss, pendingText }: { onDismiss: () => void; pendingText: Array<string> }) {
   const {t} = useTranslation()
   return (
     <Wrapper>
@@ -42,16 +55,23 @@ function ConfirmationPendingContent({ onDismiss, pendingText }: { onDismiss: () 
           <CloseIcon onClick={onDismiss} />
         </RowBetween>
         <ConfirmedIcon>
-          <CustomLightSpinner src={Circle} alt="loader" size={'150px'} />
+          <LogoIcon src={LoadingLogoIcon} alt="loader" />
         </ConfirmedIcon>
         <AutoColumn gap="12px" justify={'center'}>
           <Text fontWeight={500} fontSize={20}>
             {t('waitingForConfirmation')}
           </Text>
           <AutoColumn gap="12px" justify={'center'}>
-            <Text fontWeight={600} fontSize={14} color="" textAlign="center">
-              {pendingText}
-            </Text>
+            <TYPE.white fontWeight={600} fontSize={14} style={{display: 'flex'}}>
+              {pendingText[0]}&nbsp;
+              <TYPE.yellow3 fontWeight={600} fontSize={14}>
+                {pendingText[1]}&nbsp;
+              </TYPE.yellow3>
+              {pendingText[2]}&nbsp;
+              <TYPE.yellow3 fontWeight={600} fontSize={14}>
+                {pendingText[3]}
+              </TYPE.yellow3>
+            </TYPE.white>
           </AutoColumn>
           <Text fontSize={12} color="#565A69" textAlign="center">
             {t('confirmThisTransaction')}
@@ -73,6 +93,7 @@ function TransactionSubmittedContent({
 }) {
   
   const { t } = useTranslation()
+  const theme = useContext(ThemeContext);
   return (
     <Wrapper>
       <Section>
@@ -81,24 +102,21 @@ function TransactionSubmittedContent({
           <CloseIcon onClick={onDismiss} />
         </RowBetween>
         <ConfirmedIcon>
-          <ArrowUpCircle strokeWidth={0.5} size={150} color="#FFE600" />
+          <ArrowUpCircle strokeWidth={0.5} size={150} color={theme.green2} />
         </ConfirmedIcon>
         <AutoColumn gap="12px" justify={'center'}>
-          <Text fontWeight={500} fontSize={20}>
+          <Text fontWeight={500} fontSize={20} color={theme.green2}>
             {t('transactionSubmitted')}
           </Text>
           {chainId && hash && (
-            <ExternalLink href={getEtherscanLink(chainId, hash, 'transaction')}>
-              <Text fontWeight={500} fontSize={14} color="#FFE600">
-                {t('viewOn')}
-              </Text>
+            <ExternalLink href={getEtherscanLink(chainId, hash, 'transaction')} style={{width: '100%', textDecoration: 'none'}}>
+              <ButtonGreen onClick={onDismiss} style={{ margin: '20px 0 0 0' }}>
+                <Text fontWeight={500} fontSize={20} color="">
+                  {t('viewOn')}
+                </Text>
+              </ButtonGreen>
             </ExternalLink>
           )}
-          <ButtonPrimary onClick={onDismiss} style={{ margin: '20px 0 0 0' }}>
-            <Text fontWeight={500} fontSize={20}>
-              {t('close')}
-            </Text>
-          </ButtonPrimary>
         </AutoColumn>
       </Section>
     </Wrapper>
@@ -127,7 +145,7 @@ export function ConfirmationModalContent({
         </RowBetween>
         {topContent()}
       </Section>
-      <BottomSection gap="20px">{bottomContent()}</BottomSection>
+      <BottomSectionGapS gap="20px">{bottomContent()}</BottomSectionGapS>
     </Wrapper>
   )
 }
@@ -163,7 +181,7 @@ interface ConfirmationModalProps {
   hash: string | undefined
   content: () => React.ReactNode
   attemptingTxn: boolean
-  pendingText: string
+  pendingText: Array<string>
 }
 
 export default function TransactionConfirmationModal({

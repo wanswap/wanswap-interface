@@ -1,10 +1,10 @@
 import { JSBI, Pair, Percent } from '@wanswap/sdk'
 import { darken } from 'polished'
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { ChevronDown, ChevronUp } from 'react-feather'
 import { Link } from 'react-router-dom'
 import { Text } from 'rebass'
-import styled from 'styled-components'
+import styled, { ThemeContext } from 'styled-components';
 import { useTotalSupply } from '../../data/TotalSupply'
 
 import { useActiveWeb3React } from '../../hooks'
@@ -22,7 +22,7 @@ import { CardNoise } from '../earn/styled'
 
 import { useColor } from '../../hooks/useColor'
 
-import Card, { GreyCard, LightCard } from '../Card'
+import Card, { BlackCard, LightCard } from '../Card'
 import { AutoColumn } from '../Column'
 import CurrencyLogo from '../CurrencyLogo'
 import DoubleCurrencyLogo from '../DoubleLogo'
@@ -87,7 +87,7 @@ export function MinimalPositionCard({ pair, showUnwrapped = false, border }: Pos
   return (
     <>
       {userPoolBalance && JSBI.greaterThan(userPoolBalance.raw, JSBI.BigInt(0)) ? (
-        <GreyCard style={{background:'rgb(26,61,119)'}} border={border}>
+        <BlackCard border={border}>
           <AutoColumn gap="12px">
             <FixedHeightRow>
               <RowFixed>
@@ -148,9 +148,9 @@ export function MinimalPositionCard({ pair, showUnwrapped = false, border }: Pos
               </FixedHeightRow>
             </AutoColumn>
           </AutoColumn>
-        </GreyCard>
+        </BlackCard>
       ) : (
-        <LightCard>
+        <BlackCard>
           <TYPE.subHeader style={{ textAlign: 'center' }}>
             <span role="img" aria-label="wizard-icon">
               ⭐️
@@ -158,13 +158,14 @@ export function MinimalPositionCard({ pair, showUnwrapped = false, border }: Pos
             By adding liquidity you&apos;ll earn 0.3% of all trades on this pair proportional to your share of the pool.
             Fees are added to the pool, accrue in real time and can be claimed by withdrawing your liquidity.
           </TYPE.subHeader>
-        </LightCard>
+        </BlackCard>
       )}
     </>
   )
 }
 
 export default function FullPositionCard({ pair, border }: PositionCardProps) {
+  const theme = useContext(ThemeContext);
   const { account } = useActiveWeb3React()
   const { t } = useTranslation()
 
@@ -196,7 +197,7 @@ export default function FullPositionCard({ pair, border }: PositionCardProps) {
   const backgroundColor = useColor(pair?.token0)
 
   return (
-    <StyledPositionCard border={border} bgColor={backgroundColor} style={{background:'#123471'}}>
+    <StyledPositionCard border={border} bgColor={backgroundColor} style={{background: theme.bg6}}>
       <CardNoise />
       <AutoColumn gap="12px">
         <FixedHeightRow>
@@ -212,18 +213,19 @@ export default function FullPositionCard({ pair, border }: PositionCardProps) {
               padding="6px 8px"
               borderRadius="12px"
               width="fit-content"
+              style={{color: '#fff'}}
               onClick={() => setShowMore(!showMore)}
             >
               {showMore ? (
                 <>
                   {' '}
                   {t('manage')}
-                  <ChevronUp size="20" style={{ marginLeft: '10px' }} />
+                  <ChevronUp color='#fff' size="20" style={{ marginLeft: '10px' }} />
                 </>
               ) : (
                 <>
                   {t('manage')}
-                  <ChevronDown size="20" style={{ marginLeft: '10px' }} />
+                  <ChevronDown color='#fff' size="20" style={{ marginLeft: '10px' }} />
                 </>
               )}
             </ButtonEmpty>
@@ -233,24 +235,24 @@ export default function FullPositionCard({ pair, border }: PositionCardProps) {
         {showMore && (
           <AutoColumn gap="8px">
             <FixedHeightRow>
-              <Text fontSize={16} fontWeight={500}>
+              <TYPE.green fontSize={16}>
                 {t('yourPoolTokens')}
-              </Text>
-              <Text fontSize={16} fontWeight={500}>
+              </TYPE.green>
+              <TYPE.green fontSize={16}>
                 {userPoolBalance ? userPoolBalance.toSignificant(4) : '-'}
-              </Text>
+              </TYPE.green>
             </FixedHeightRow>
             <FixedHeightRow>
               <RowFixed>
-                <Text fontSize={16} fontWeight={500}>
+                <TYPE.yellow3 fontSize={16}>
                   {t('pooled')} {currency0.symbol}:
-                </Text>
+                </TYPE.yellow3>
               </RowFixed>
               {token0Deposited ? (
                 <RowFixed>
-                  <Text fontSize={16} fontWeight={500} marginLeft={'6px'}>
+                  <TYPE.yellow3 fontSize={16} marginLeft={'6px'}>
                     {token0Deposited?.toSignificant(6)}
-                  </Text>
+                  </TYPE.yellow3>
                   <CurrencyLogo size="20px" style={{ marginLeft: '8px' }} currency={currency0} />
                 </RowFixed>
               ) : (
@@ -260,15 +262,15 @@ export default function FullPositionCard({ pair, border }: PositionCardProps) {
 
             <FixedHeightRow>
               <RowFixed>
-                <Text fontSize={16} fontWeight={500}>
+                <TYPE.yellow3 fontSize={16}>
                 {t('pooled')} {currency1.symbol}:
-                </Text>
+                </TYPE.yellow3>
               </RowFixed>
               {token1Deposited ? (
                 <RowFixed>
-                  <Text fontSize={16} fontWeight={500} marginLeft={'6px'}>
+                  <TYPE.yellow3 fontSize={16} marginLeft={'6px'}>
                     {token1Deposited?.toSignificant(6)}
-                  </Text>
+                  </TYPE.yellow3>
                   <CurrencyLogo size="20px" style={{ marginLeft: '8px' }} currency={currency1} />
                 </RowFixed>
               ) : (
@@ -296,7 +298,7 @@ export default function FullPositionCard({ pair, border }: PositionCardProps) {
             <RowBetween marginTop="10px">
               <ButtonPrimary
                 padding="8px"
-                borderRadius="8px"
+                style={{borderRadius: '100px'}}
                 as={Link}
                 to={`/add/${currencyId(currency0)}/${currencyId(currency1)}`}
                 width="48%"
@@ -305,7 +307,8 @@ export default function FullPositionCard({ pair, border }: PositionCardProps) {
               </ButtonPrimary>
               <ButtonPrimary
                 padding="8px"
-                borderRadius="8px"
+                borderRadius="100px"
+                style={{border: `1px solid ${theme.yellow3}`, background: 'none', borderRadius: '100px', color: theme.yellow3}}
                 as={Link}
                 width="48%"
                 to={`/remove/${currencyId(currency0)}/${currencyId(currency1)}`}
