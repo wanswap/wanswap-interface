@@ -1,7 +1,7 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import Modal from '../Modal'
 import { AutoColumn } from '../Column'
-import styled from 'styled-components'
+import styled, { ThemeContext } from 'styled-components'
 import { RowBetween } from '../Row'
 import { TYPE, CloseIcon } from '../../theme'
 import { ButtonError } from '../Button'
@@ -27,6 +27,7 @@ interface StakingModalProps {
 }
 
 export default function ClaimRewardModal({ isOpen, onDismiss, stakingInfo }: StakingModalProps) {
+  const theme = useContext(ThemeContext);
   const { account } = useActiveWeb3React()
   const { t } = useTranslation()
   // monitor call to help UI loading state
@@ -87,7 +88,7 @@ export default function ClaimRewardModal({ isOpen, onDismiss, stakingInfo }: Sta
           <TYPE.subHeader style={{ textAlign: 'center' }}>
             {t("When you claim without withdrawing your liquidity remains in the mining pool.")}
           </TYPE.subHeader>
-          <ButtonError disabled={!!error} error={!!error && !!stakingInfo?.stakedAmount} onClick={onClaimReward}>
+          <ButtonError style={!!!error ? {background: theme.primary6, color: '#fff', border: 'none !important'} : {}} disabled={!!error} error={!!error && !!stakingInfo?.stakedAmount} onClick={onClaimReward}>
             {error ?? t('Claim')}
           </ButtonError>
         </ContentWrapper>

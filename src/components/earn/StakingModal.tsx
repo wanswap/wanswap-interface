@@ -1,9 +1,9 @@
-import React, { useState, useCallback } from 'react'
+import React, { useState, useCallback, useContext } from 'react'
 // import useIsArgentWallet from '../../hooks/useIsArgentWallet'
 import useTransactionDeadline from '../../hooks/useTransactionDeadline'
 import Modal from '../Modal'
 import { AutoColumn } from '../Column'
-import styled from 'styled-components'
+import styled, { ThemeContext } from 'styled-components'
 import { RowBetween } from '../Row'
 import { TYPE, CloseIcon } from '../../theme'
 import { ButtonConfirmed, ButtonError } from '../Button'
@@ -142,6 +142,8 @@ export default function StakingModal({ isOpen, onDismiss, stakingInfo, userLiqui
     maxAmountInput && onUserInput(maxAmountInput.toExact())
   }, [maxAmountInput, onUserInput])
 
+  const theme = useContext(ThemeContext);
+
   // async function onAttemptToApprove() {
   //   if (!pairContract || !library || !deadline) throw new Error('missing dependencies')
   //   const liquidityAmount = parsedAmount
@@ -249,6 +251,7 @@ export default function StakingModal({ isOpen, onDismiss, stakingInfo, userLiqui
               altDisabledStyle={true}
               confirmed={approval === ApprovalState.APPROVED || signatureData !== null}
               disabled={approval !== ApprovalState.NOT_APPROVED || signatureData !== null}
+              style={{background: !(approval !== ApprovalState.NOT_APPROVED || signatureData !== null) ? theme.green1 : '', color: !(approval !== ApprovalState.NOT_APPROVED || signatureData !== null) ? '#fff' : ''}}
             >
               {t("Approve")}
             </ButtonConfirmed>
@@ -257,6 +260,7 @@ export default function StakingModal({ isOpen, onDismiss, stakingInfo, userLiqui
               disabled={!!error || (signatureData === null && approval !== ApprovalState.APPROVED)}
               error={!!error && !!parsedAmount}
               onClick={onStake}
+              style={{background: !(!!error || (signatureData === null && approval !== ApprovalState.APPROVED)) ? theme.green1 : '', color: !(!!error || (signatureData === null && approval !== ApprovalState.APPROVED)) ? '#fff' : ''}}
             >
               {error ?? t('Deposit')}
             </ButtonError>
@@ -268,7 +272,7 @@ export default function StakingModal({ isOpen, onDismiss, stakingInfo, userLiqui
         <LoadingView onDismiss={wrappedOnDismiss}>
           <AutoColumn gap="12px" justify={'center'}>
             <TYPE.largeHeader>{t("Depositing Liquidity")}</TYPE.largeHeader>
-            <TYPE.body fontSize={20}>{parsedAmount?.toSignificant(4)} WSLP</TYPE.body>
+            <TYPE.yellow3 fontSize={20}>{parsedAmount?.toSignificant(4)} WSLP</TYPE.yellow3>
           </AutoColumn>
         </LoadingView>
       )}

@@ -140,9 +140,9 @@ export default function Earn() {
           <CardSection>
             <AutoColumn gap="md">
               <RowBetween>
-                <TYPE.white fontWeight={600}>
+                <TYPE.yellow3 fontWeight={600}>
                   {tvlValue}
-                </TYPE.white>
+                </TYPE.yellow3>
                 {account && (
                   <ButtonHarvestAll onClick={() => setShowClaimRewardModal(true)}>Harvest all</ButtonHarvestAll>
                 )}
@@ -169,7 +169,7 @@ export default function Earn() {
         <DataRow style={{ alignItems: 'baseline' }}>
           <TYPE.mediumHeader style={{ marginTop: '0.5rem' }}>{t('Participating pools')}</TYPE.mediumHeader>
           {/* <Countdown exactEnd={stakingInfos?.[0]?.periodFinish} exactStart={stakingInfos?.[0]?.periodStart} /> */}
-          <InputCom value={search} placeholder={'Search e.g. WAN / WASP'} onChange={e => setSearch(e.target.value)} />
+          <InputCom value={search} placeholder={'Search Token'} onChange={e => setSearch(e.target.value)} />
         </DataRow>
 
         <DataRow style={{ flexDirection: 'row' }}>
@@ -269,8 +269,8 @@ const InputCom = styled.input`
   outline: none;
   padding: 0 10px;
   color: #fff;
-  border-radius: 8px;
-  background: #1c304a;
+  border-radius: 100px;
+  background: none;
   border: 1px solid rgba(255, 255, 255, 0.2);
   background-image: url(${searchImg});
   background-repeat: no-repeat;

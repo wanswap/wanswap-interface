@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/ban-ts-ignore */
-import React, { useCallback, useMemo, useState } from 'react'
+import React, { useCallback, useContext, useMemo, useState } from 'react'
 import { AutoColumn } from '../../components/Column'
-import styled from 'styled-components'
+import styled, { ThemeConsumer, ThemeContext } from 'styled-components'
 import { Link } from 'react-router-dom'
 
 import { JSBI, TokenAmount, ETHER } from '@wanswap/sdk'
@@ -9,12 +9,12 @@ import { RouteComponentProps } from 'react-router-dom'
 import DoubleCurrencyLogo from '../../components/DoubleLogo'
 import { useCurrency } from '../../hooks/Tokens'
 import { useWalletModalToggle } from '../../state/application/hooks'
-import { TYPE } from '../../theme'
+import { theme, TYPE } from '../../theme'
 import CurrencyLogo from '../../components/CurrencyLogo'
 
 import { RowBetween } from '../../components/Row'
 import { CardSection, DataCard, CardNoise, CardBGImage } from '../../components/earn/styled'
-import { ButtonPrimary, ButtonEmpty } from '../../components/Button'
+import { ButtonPrimary, ButtonEmpty, ButtonGreen } from '../../components/Button'
 import StakingModal from '../../components/earn/StakingModal'
 import { useStakingInfo } from '../../state/stake/hooks'
 import UnstakingModal from '../../components/earn/UnstakingModal'
@@ -34,6 +34,8 @@ import { BIG_INT_ZERO } from '../../constants'
 import { useTranslation } from 'react-i18next'
 import { useMultipleContractSingleData } from '../../state/multicall/hooks'
 import ERC20_INTERFACE from '../../constants/abis/erc20'
+import ArrowIcon from '../../assets/images/png/arrow_icon.png';
+import { Black1Card } from '../../components/Card';
 
 const PageWrapper = styled(AutoColumn)`
   max-width: 640px;
@@ -54,14 +56,14 @@ const BottomSection = styled(AutoColumn)`
 `
 
 const StyledDataCard = styled(DataCard)<{ bgColor?: any; showBackground?: any }>`
-  background: #3d51a5;
+  background: ${({theme}) => theme.black1};
   z-index: 2;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 
 `
 
 const StyledBottomCard = styled(DataCard)<{ dim: any }>`
-  background: ${({ theme }) => theme.bg3};
+  background: ${({ theme }) => theme.bg6};
   opacity: ${({ dim }) => (dim ? 0.4 : 1)};
   margin-top: -40px;
   padding: 0 1.25rem 1rem 1.25rem;
@@ -69,9 +71,7 @@ const StyledBottomCard = styled(DataCard)<{ dim: any }>`
   z-index: 1;
 `
 
-const PoolData = styled(DataCard)`
-  background: none;
-  border: 1px solid ${({ theme }) => theme.bg4};
+const PoolData = styled(Black1Card)`
   padding: 1rem;
   z-index: 1;
 `
@@ -91,10 +91,18 @@ const DataRow = styled(RowBetween)`
   `};
 `
 
+const BackIcon = styled.img`
+  cursor: pointer;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+`;
+
 export default function Manage({
   match: {
     params: { currencyIdA, currencyIdB }
-  }
+  },
+  history
 }: RouteComponentProps<{ currencyIdA: string; currencyIdB: string }>) {
   const { account, chainId } = useActiveWeb3React()
 
@@ -129,6 +137,7 @@ export default function Manage({
   const token = currencyA === ETHER ? tokenB : tokenA
   const WETH = currencyA === ETHER ? tokenA : tokenB
   const backgroundColor = useColor(token)
+  const theme = useContext(ThemeContext);
 
   const selfTokensAmount = useMemo(() => {
     return lpBalanceOf.map(
@@ -188,7 +197,10 @@ export default function Manage({
 
   return (
     <PageWrapper gap="lg" justify="center">
-      <RowBetween style={{ gap: '24px' }}>
+      <RowBetween>
+        <BackIcon src={ArrowIcon} onClick={() => {history.go(-1)}} />
+      </RowBetween>
+      <RowBetween style={{ gap: '24px', marginTop: '-1.25rem' }}>
         <TYPE.mediumHeader style={{ margin: 0 }}>
           {currencyA?.symbol}-{currencyB?.symbol} {t("Liquidity Mining")}
         </TYPE.mediumHeader>
@@ -199,22 +211,22 @@ export default function Manage({
         <PoolData>
           <AutoColumn gap="sm">
             <TYPE.body style={{ margin: 0 }}>{t("Total deposits")}</TYPE.body>
-            <TYPE.body fontSize={24} fontWeight={500}>
+            <TYPE.green fontSize={24} fontWeight={500}>
               {valueOfTotalStakedAmountInUSDC
                 ? `$${valueOfTotalStakedAmountInUSDC.toSignificant(6, { groupSeparator: ',' })}`
                 : `${valueOfTotalStakedAmountInWLSP?.toSignificant(6, { groupSeparator: ',' }) ?? '-'} WSLP`}
-            </TYPE.body>
+            </TYPE.green>
           </AutoColumn>
         </PoolData>
         <PoolData>
           <AutoColumn gap="sm">
             <TYPE.body style={{ margin: 0 }}>{t("Pool Rate")}</TYPE.body>
-            <TYPE.body fontSize={24} fontWeight={500}>
+            <TYPE.green fontSize={24} fontWeight={500}>
               {stakingInfo?.totalRewardRate
                 ?.multiply((60 * 60 * 24 * 7).toString())
                 ?.toFixed(0, { groupSeparator: ',' }) ?? '-'}
               {t(' WASP / week')}
-            </TYPE.body>
+            </TYPE.green>
           </AutoColumn>
         </PoolData>
       </DataRow>
@@ -272,19 +284,19 @@ export default function Manage({
 
       <PositionInfo gap="lg" justify="center" dim={showAddLiquidityButton}>
         <BottomSection gap="lg" justify="center">
-          <StyledDataCard disabled={disableTop} bgColor={backgroundColor} showBackground={!showAddLiquidityButton}>
+          <StyledDataCard disabled={disableTop} showBackground={!showAddLiquidityButton}>
             <CardSection>
               <CardBGImage desaturate />
               <CardNoise />
               <AutoColumn gap="md">
                 <RowBetween>
-                  <TYPE.white fontWeight={600}>{t('Your liquidity deposits')}</TYPE.white>
+                  <TYPE.white color={theme.text6} fontWeight={600}>{t('Your liquidity deposits')}</TYPE.white>
                 </RowBetween>
                 <RowBetween style={{ alignItems: 'center', display: 'flex', flexWrap: 'wrap' }}>
                   <TYPE.white fontSize={36} fontWeight={600}>
                     {stakingInfo?.stakedAmount?.toSignificant(6) ?? '-'}
                   </TYPE.white>
-                  <TYPE.white>
+                  <TYPE.white color={theme.text6}>
                     WSLP {currencyA?.symbol}-{currencyB?.symbol}
                   </TYPE.white>
                 </RowBetween>
@@ -328,7 +340,7 @@ export default function Manage({
                 )}
               </RowBetween>
               <RowBetween style={{ alignItems: 'center', display:'flex',flexWrap:'wrap' }}>
-                <TYPE.largeHeader fontSize={36} fontWeight={600}>
+                <TYPE.yellow3 fontSize={36} fontWeight={600}>
                   <CountUp
                     key={countUpAmount}
                     isCounting
@@ -338,7 +350,7 @@ export default function Manage({
                     thousandsSeparator={','}
                     duration={1}
                   />
-                </TYPE.largeHeader>
+                </TYPE.yellow3>
                 <TYPE.black fontSize={20} fontWeight={500}>
                   <span id="animate-zoom" role="img" aria-label="wizard-icon" style={{ marginRight: '8px ' }}>
                   ⚡
@@ -361,21 +373,21 @@ export default function Manage({
 
         {!showAddLiquidityButton && (
           <DataRow style={{ marginBottom: '1rem', gap:0 }}>
-            <ButtonPrimary padding="8px" borderRadius="8px" width="160px" margin="6px" onClick={handleDepositClick}>
+            <ButtonGreen padding="8px" borderRadius="8px" width="160px" margin="6px" onClick={handleDepositClick}>
               {stakingInfo?.stakedAmount?.greaterThan(JSBI.BigInt(0)) ? t('Deposit') : t('Deposit WSLP Tokens')}
-            </ButtonPrimary>
+            </ButtonGreen>
 
             {stakingInfo?.stakedAmount?.greaterThan(JSBI.BigInt(0)) && (
               <>
-                <ButtonPrimary
-                   margin="6px"
+                <ButtonGreen
+                  margin="6px"
                   padding="8px"
                   borderRadius="8px"
                   width="160px"
                   onClick={() => setShowUnstakingModal(true)}
                 >
                   {t("Withdraw")}
-                </ButtonPrimary>
+                </ButtonGreen>
               </>
             )}
           </DataRow>

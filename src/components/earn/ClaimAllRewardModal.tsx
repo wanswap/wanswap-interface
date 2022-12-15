@@ -1,8 +1,8 @@
 /* eslint-disable react/jsx-pascal-case */
-import React, { Dispatch, SetStateAction, useMemo, useState, useEffect } from 'react'
+import React, { Dispatch, SetStateAction, useMemo, useState, useEffect, useContext } from 'react'
 import Modal from '../Modal'
 import { AutoColumn } from '../Column'
-import styled from 'styled-components'
+import styled, { ThemeContext } from 'styled-components'
 import { RowBetween } from '../Row'
 import { TYPE, CloseIcon } from '../../theme'
 import { ButtonError } from '../Button'
@@ -32,6 +32,7 @@ interface StakingModalProps {
 }
 
 export default function ClaimRewardModal({ isOpen, onDismiss, stakingInfos }: StakingModalProps) {
+  const theme = useContext(ThemeContext);
   const { account } = useActiveWeb3React()
   const { t } = useTranslation()
   // monitor call to help UI loading state
@@ -185,7 +186,7 @@ export default function ClaimRewardModal({ isOpen, onDismiss, stakingInfos }: St
               </RowBetween>
               <Gap />
               <RowBetween>
-                <TYPE.body>{unclaimedWASPChecked === '0' ? '0' : unclaimedWASPChecked.toSignificant(6)} WASP</TYPE.body>
+                <TYPE.green>{unclaimedWASPChecked === '0' ? '0' : unclaimedWASPChecked.toSignificant(6)} WASP</TYPE.green>
                 <TYPE.body color={'#999'}>Selected All</TYPE.body>
               </RowBetween>
             </RowBetweenCus>
@@ -218,6 +219,17 @@ export default function ClaimRewardModal({ isOpen, onDismiss, stakingInfos }: St
             }
             error={!!error && allStakedAmount}
             onClick={onClaimReward}
+            style={!(
+              !!error ||
+              unclaimedWASPChecked === '0' ||
+              unclaimedWASP === '0' ||
+              !unclaimedWASPChecked.greaterThan('0') ||
+              !unclaimedWASP.greaterThan('0')
+            ) ? {
+              background: theme.primary6,
+              color: '#fff',
+              border: 'none !important'
+            } : {}}
           >
             {error ?? 'Claim'}
           </ButtonError>
@@ -256,6 +268,7 @@ const ClaimPoolCard = function({
   claimObj: object[]
   setClaimObj: Dispatch<SetStateAction<{}[]>>
 }) {
+  const theme = useContext(ThemeContext);
   const token0 = stakingInfo.tokens[0]
   const token1 = stakingInfo.tokens[1]
 
@@ -288,7 +301,7 @@ const ClaimPoolCard = function({
   }, [claimObj, index, stakingInfo.name])
 
   return (
-    <ConWrap>
+    <ConWrap active={!!checkedValue}>
       <RowBetween>
         <DivText>
           <DoubleCurrencyLogo currency0={currency0} currency1={currency1} size={36} />
@@ -301,7 +314,7 @@ const ClaimPoolCard = function({
       <RowBetween>
         <TYPE.body color={'#999'}>Unclaimed WASP</TYPE.body>
         <div style={{ minHeight: '30px', display: 'flex' }}>
-          <span style={{ lineHeight: '30px' }}>{stakingInfo.earnedAmount.toSignificant(6)} WASP</span>
+          <span style={{ lineHeight: '30px', color: theme.primary6 }}>{stakingInfo.earnedAmount.toSignificant(6)} WASP</span>
           <span style={{ position: 'relative', top: '3px' }}>
             <Input type="checkbox" checked={checkedValue} onClick={e => handleClick(e)} />
           </span>
@@ -318,11 +331,11 @@ const RowBetweenCus = styled(RowBetween)`
   flex-direction: column;
 `
 
-const ConWrap = styled.div`
+const ConWrap = styled.div<{active:boolean}>`
   background: rgba(0, 0, 0, 0);
   border-radius: 16px;
   padding: 1rem;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid ${({active, theme}) => active ? theme.primary6 : 'rgba(255, 255, 255, 0.2)'};
   margin-bottom: 10px;
 `
 const Gap = styled.div`
@@ -334,7 +347,7 @@ const Input = styled.input`
   background-color: transparent;
   width: 17px;
   height: 17px;
-  border: 1px solid #ffe600;
+  border: 1px solid ${({theme}) => theme.primary6};
   outline: 0;
   border-radius: 50%;
   -webkit-appearance: none;
@@ -344,7 +357,7 @@ const Input = styled.input`
   cursor: pointer;
   &[type='checkbox']:checked {
     text-align: center;
-    border: 1px solid #ffe600;
+    border: 1px solid ${({theme}) => theme.primary6};
     background-clip: padding-box;
     color: #fff;
     cursor: pointer;
@@ -356,7 +369,7 @@ const Input = styled.input`
     top: -2.5px;
     position: relative;
     border-radius: 50%;
-    color: #ffe600;
+    color: ${({theme}) => theme.primary6};
   }
 `
 const Contai = styled.div`

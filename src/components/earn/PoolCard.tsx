@@ -1,15 +1,14 @@
-import React, { useEffect } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { AutoColumn } from '../Column'
 import { RowBetween } from '../Row'
-import styled from 'styled-components'
+import styled, { ThemeContext } from 'styled-components'
 import { TYPE, StyledInternalLink } from '../../theme'
 import DoubleCurrencyLogo from '../DoubleLogo'
 import { ETHER, JSBI, TokenAmount } from '@wanswap/sdk'
-import { ButtonPrimary } from '../Button'
+import { ButtonGreen } from '../Button'
 import { StakingInfo } from '../../state/stake/hooks'
 import { useColor } from '../../hooks/useColor'
 import { currencyId } from '../../utils/currencyId'
-import { CardNoise, CardBGImage } from './styled'
 import { unwrappedToken } from '../../utils/wrappedCurrency'
 import { useTotalSupply } from '../../data/TotalSupply'
 import { usePair } from '../../data/Reserves'
@@ -29,19 +28,14 @@ const StatContainer = styled.div`
   
 `
 
-const Wrapper = styled(AutoColumn)<{ showBackground: boolean; bgColor: any }>`
-border-radius:10px;
+const Wrapper = styled(AutoColumn)<{ showBackground: boolean; }>`
+  border-radius:10px;
   width: 100%;
   overflow: hidden;
   position: relative;
   opacity: ${({ showBackground }) => (showBackground ? '1' : '1')};
-  background: radial-gradient(100% 90% at 20% 0%,#41beec 0%,#123471 100%);
+  background: ${({theme}) => theme.bg6};
   color: ${({ theme, showBackground }) => (showBackground ? theme.white : theme.text1)} !important;
-
-  ${({ showBackground }) =>
-    showBackground &&
-    `  box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.01), 0px 4px 8px rgba(0, 0, 0, 0.04), 0px 16px 24px rgba(0, 0, 0, 0.04),
-    0px 24px 32px rgba(0, 0, 0, 0.01);`}
 `
 
 const TopSection = styled.div`
@@ -71,33 +65,28 @@ const DepositTitle = styled.span`
    display: none;
   `};
 `
-const BottomSection = styled.div<{ showBackground: boolean }>`
+const BottomSection = styled.div`
   padding: 12px 16px;
-  opacity: ${({ showBackground }) => (showBackground ? '1' : '0.4')};
-  border-radius: 0 0 10px 10px;
+  border-top: 1px solid ${({theme}) => theme.bg7};
   display: flex;
   flex-direction: row;
   align-items: baseline;
   justify-content: space-between;
   z-index: 1;
-  background: radial-gradient(100% 96% at -100% 100%, #41beec 0%, #123471 100%);
-  width: 94%;
-  left: 3%;
+  width: 100%;
   position: relative;
 `
 
 
 const Multiplier = styled.span`
-font-weight: 500;
+    font-weight: 500;
     text-align: center;
     border-radius: 5px;
-
     margin-left: 10px;
     padding: 0px 5px;
     font-size: 16px;
-    color: #2172E5;
-    border: 1px solid #FFE600;
-    color: #FFE600;
+    color: ${({theme}) => theme.green2};
+    border: 1px solid ${({theme}) => theme.green2};
     background: transparent;
     ${({ theme }) => theme.mediaWidth.upToSmall`
       position:absolute;
@@ -126,6 +115,7 @@ export default function PoolCard({ stakingInfo, index, hide, totalDeposit }: { s
   const token = currency0 === ETHER ? token1 : token0
   const WETH = currency0 === ETHER ? token0 : token1
   const backgroundColor = useColor(token)
+  const theme = useContext(ThemeContext);
 
   const totalSupplyOfStakingToken = useTotalSupply(stakingInfo.stakedAmount.token)
   const [, stakingTokenPair] = usePair(...stakingInfo.tokens)
@@ -223,9 +213,7 @@ export default function PoolCard({ stakingInfo, index, hide, totalDeposit }: { s
     <React.Fragment>
       {
         !hide &&   <div>
-        <Wrapper showBackground={isStaking} bgColor={backgroundColor}>
-        <CardBGImage desaturate />
-        <CardNoise />
+        <Wrapper showBackground={isStaking}>
   
         <TopSection>
           <DoubleCurrencyLogo currency0={currency0} currency1={currency1} size={24} />
@@ -242,59 +230,59 @@ export default function PoolCard({ stakingInfo, index, hide, totalDeposit }: { s
           </TYPE.white>
   
           <StyledInternalLink to={`/farm/${currencyId(currency0)}/${currencyId(currency1)}`} style={{ width: '100%',color:'transparent' }}>
-            <ButtonPrimary padding="8px" borderRadius="8px">
+            <ButtonGreen padding="8px" borderRadius="8px">
               {isStaking ? t('Manage') : t('Deposit')}
-            </ButtonPrimary>
+            </ButtonGreen>
           </StyledInternalLink>
         </TopSection>
   
         <StatContainer>
           <RowBetween>
             <TYPE.white><DepositTitle>{t('totalDeposited')}</DepositTitle></TYPE.white>
-            <TYPE.white>
+            <TYPE.yellow3>
               {valueOfTotalStakedAmountInUSDC
                 ? `$${valueOfTotalStakedAmountInUSDC.toFixed(0, { groupSeparator: ',' })} 🔥 APR: ${apy}%`
                 //  +
                 //   ' / ' +
                 //   `${valueOfTotalStakedAmountInWLSP?.toSignificant(6, { groupSeparator: ',' }) ?? '-'} WSLP`
                 : `${valueOfTotalStakedAmountInWLSP?.toSignificant(6, { groupSeparator: ',' }) ?? '-'} WSLP`}
-            </TYPE.white>
+            </TYPE.yellow3>
           </RowBetween>
           <PoolRate>
           <RowBetween>
             
             <TYPE.white> {t("Pool rate")} </TYPE.white>
-            <TYPE.white>{`${stakingInfo.totalRewardRate
+            <TYPE.green>{`${stakingInfo.totalRewardRate
               ?.multiply(`${60 * 60 * 24 * 7}`)
-              ?.toFixed(0, { groupSeparator: ',' })} WASP / week`}</TYPE.white>
+              ?.toFixed(0, { groupSeparator: ',' })} WASP / week`}</TYPE.green>
               
           </RowBetween>
           </PoolRate>
         </StatContainer>
-          </Wrapper>
           {isStaking && (
           <>
-            <BottomSection showBackground={true}>
-                  <TYPE.black fontWeight={500} color={'#909699'} marginBottom={''}>
-                    <span style={{ fontSize: '14px' }}>My Deposit ≈ </span>
-                    <span style={{ fontWeight: 'bold', fontSize: '18px', color: '#FFE600' }}>
-                      {valueOfSelfStakedAmountInUSDC
-                        ? `$${valueOfSelfStakedAmountInUSDC.toSignificant(6, { groupSeparator: ',' })}`
-                        : `${valueOfSelfStakedAmountInWLSP?.toSignificant(6, { groupSeparator: ',' }) ?? '-'} WSLP`}
-                    </span>
-                  </TYPE.black>
-                  <TYPE.black style={{ textAlign: 'right' }} color={'#909699'}>
-                    <span style={{ fontSize: '14px' }}>My Rate: </span>
-                    <span style={{ fontWeight: 'bold', fontSize: '18px', color: '#FFE600' }}>
-                      {`${stakingInfo.rewardRate
-                  ?.multiply(`${60 * 60 * 24 * 7}`)
-                  ?.toFixed(0, { groupSeparator: ',' })}`}
-                    </span>
-                    <span style={{ fontSize: '14px' }}> WASP / week</span>
-                  </TYPE.black>
-                </BottomSection>
-              </>
+            <BottomSection >
+              <TYPE.black fontWeight={500} color={'#909699'} marginBottom={''}>
+                <span style={{ fontSize: '14px' }}>My Deposit ≈ </span>
+                <span style={{ fontWeight: 'bold', fontSize: '18px', color: theme.green2 }}>
+                  {valueOfSelfStakedAmountInUSDC
+                    ? `$${valueOfSelfStakedAmountInUSDC.toSignificant(6, { groupSeparator: ',' })}`
+                    : `${valueOfSelfStakedAmountInWLSP?.toSignificant(6, { groupSeparator: ',' }) ?? '-'} WSLP`}
+                </span>
+              </TYPE.black>
+              <TYPE.black style={{ textAlign: 'right' }} color={'#909699'}>
+                <span style={{ fontSize: '14px' }}>My Rate: </span>
+                <span style={{ fontWeight: 'bold', fontSize: '18px', color: theme.green2 }}>
+                  {`${stakingInfo.rewardRate
+              ?.multiply(`${60 * 60 * 24 * 7}`)
+              ?.toFixed(0, { groupSeparator: ',' })}`}
+                </span>
+                <span style={{ fontSize: '14px' }}> WASP / week</span>
+              </TYPE.black>
+            </BottomSection>
+          </>
             )}
+          </Wrapper>
     </div>
     }
  </React.Fragment>

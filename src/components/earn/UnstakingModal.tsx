@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/ban-ts-ignore */
-import React, { useCallback, useMemo, useState } from 'react'
+import React, { useCallback, useContext, useMemo, useState } from 'react'
 import Modal from '../Modal/index_cus'
 import { AutoColumn } from '../Column'
-import styled from 'styled-components'
+import styled, { ThemeContext } from 'styled-components'
 import Row, { RowBetween, RowFixed } from '../Row'
 import { CloseIcon, TYPE } from '../../theme'
 import { ButtonError } from '../Button'
@@ -14,7 +14,7 @@ import { useTransactionAdder } from '../../state/transactions/hooks'
 import { useActiveWeb3React } from '../../hooks'
 import { useTranslation } from 'react-i18next'
 import { SUGGEST_GAS_PRICE } from '../../constants'
-import { AppBodyV1 } from '../../pages/AppBody'
+import { BodyWrapperV3 } from '../../pages/AppBody'
 import { Wrapper } from '../swap/styleds'
 import { Text } from 'rebass'
 import Slider from '../Slider'
@@ -35,6 +35,7 @@ import tokenLogo from '../../assets/images/wanswap-icon.png'
 const ContentWrapper = styled(AutoColumn)`
   width: 100%;
   grid-row-gap: 0;
+  background: ${({theme}) => theme.black1};
 `
 
 interface StakingModalProps {
@@ -151,11 +152,13 @@ export default function UnstakingModal({ isOpen, onDismiss, stakingInfo }: Staki
     return (!attempting && !hash) ? 'transparent' : undefined
   }, [attempting, hash])
 
+  const theme = useContext(ThemeContext);
+
   return (
-    <Modal bg={bg} isOpen={isOpen} onDismiss={wrappedOndismiss} maxHeight={90}>
+    <Modal borderRadius={'1.5rem'} border={'none'} bg={bg} isOpen={isOpen} onDismiss={wrappedOndismiss} maxHeight={90}>
       {/* <Bg /> */}
       {!attempting && !hash && (
-        <AppBodyV1>
+        <BodyWrapperV3>
           <ContentWrapper gap="lg">
             <RowBetweenCus1>
               <span style={{ display: 'inline-block', color: '#fff', width: '100%', textAlign: 'center', fontSize: '22px' }}>Withdraw</span>
@@ -232,10 +235,10 @@ export default function UnstakingModal({ isOpen, onDismiss, stakingInfo }: Staki
                     <RowBetweenCus>
                       <Text fontSize={18} color={"#fff"}>
                         <IconCon><CurrencyLogo currency={currencyA ?? undefined} size={"24px"} /></IconCon>
-                        <SpanSty color={'#FFE600'}>{currencyA?.symbol}</SpanSty>
+                        <SpanSty color={theme.primary6}>{currencyA?.symbol}</SpanSty>
                       </Text>
                       <RowFixed>
-                        <Text fontSize={18} fontWeight={400} id="remove-liquidity-tokena-symbol" color={"#FFE600"}>
+                        <Text fontSize={18} fontWeight={400} id="remove-liquidity-tokena-symbol" color={theme.primary6}>
                           {selfTokens0Amount?.toFixed(3) || 0}
                         </Text>
                       </RowFixed>
@@ -243,10 +246,10 @@ export default function UnstakingModal({ isOpen, onDismiss, stakingInfo }: Staki
                     <RowBetweenCus>
                       <Text fontSize={18} color={"#fff"}>
                         <IconCon><CurrencyLogo currency={currencyB ?? undefined} size={"24px"} /></IconCon>
-                        <SpanSty color={'#FFE600'}>{currencyB?.symbol}</SpanSty>
+                        <SpanSty color={theme.primary6}>{currencyB?.symbol}</SpanSty>
                       </Text>
                       <RowFixed>
-                        <Text fontSize={18} fontWeight={400} id="remove-liquidity-tokenb-symbol" color={"#FFE600"}>
+                        <Text fontSize={18} fontWeight={400} id="remove-liquidity-tokenb-symbol" color={theme.primary6}>
                           {selfTokens1Amount?.toFixed(3) || 0}
                         </Text>
                       </RowFixed>
@@ -255,7 +258,7 @@ export default function UnstakingModal({ isOpen, onDismiss, stakingInfo }: Staki
                 </LightCardCus1>
               </AutoColumn>
               <Con>
-                <ButtonError disabled={!!error} error={!!error && !!stakingInfo?.stakedAmount} onClick={onWithdraw}>
+                <ButtonError style={{background: `${!!!error ? theme.primary6 : ''}`, color: `${!!!error ? '#fff' : ''}`}} disabled={!!error} error={!!error && !!stakingInfo?.stakedAmount} onClick={onWithdraw}>
                   {error ?? 'Withdraw & Claim'}
                 </ButtonError>
               </Con>
@@ -266,7 +269,7 @@ export default function UnstakingModal({ isOpen, onDismiss, stakingInfo }: Staki
               </Con>
             </Wrapper>
           </ContentWrapper>
-        </AppBodyV1>
+        </BodyWrapperV3>
       )}
       {attempting && !hash && (
         <LoadingView onDismiss={wrappedOndismiss}>
@@ -293,9 +296,8 @@ export default function UnstakingModal({ isOpen, onDismiss, stakingInfo }: Staki
 
 const LightCardCus = styled(LightCard)`
   background: rgba(0, 0, 0, 0.05);
-  border-bottom: 1px solid #42B5D9;
-  border-top: 1px solid #42B5D9;
-  border-radius: 0;
+  border: 1px solid ${({theme}) => theme.yellow3};
+  border-radius: 1.5rem;
 `
 
 const LightCardCus1 = styled(LightCard)`
@@ -304,20 +306,20 @@ const LightCardCus1 = styled(LightCard)`
 `
 
 const MaxButtonCus = styled(MaxButton)`
-  background: #1A3D77;
+  background: rgba(236, 247, 251, 0.1);
   color: #fff;
   margin: 0;
   font-weight: bold;
   border-radius: 18px;
   :hover {
-    background-color: #FFE600;
+    background: rgba(236, 247, 251, 0.1);
     outline: none;
-    color: #313131;
+    color: #fff;
   }
   :focus {
-    background-color: #FFE600;
+    background: rgba(236, 247, 251, 0.1);
     outline: none;
-    color: #313131;
+    color: #fff;
   }
 
 `
@@ -361,8 +363,8 @@ const RowBetweenCus1 = styled(RowBetween)`
 `
 
 const RowBetweenCus2 = styled(RowBetween)`
-  background-color: #1A3D77;
-  border-radius: 10px;
+  // background-color: #1A3D77;
+  // border-radius: 10px;
 `
 
 // const Bg = styled.div`

@@ -26,7 +26,7 @@ const StyledDialogOverlay = styled(AnimatedDialogOverlay)`
 const AnimatedDialogContent = animated(DialogContent)
 // destructure to not pass custom props to Dialog DOM element
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-const StyledDialogContent = styled(({ bg, minHeight, maxHeight, mobile, isOpen, enlarge, border, ...rest }) => (
+const StyledDialogContent = styled(({ bg, minHeight, maxHeight, mobile, isOpen, enlarge, border, borderRadius, ...rest }) => (
   <AnimatedDialogContent {...rest} />
 )).attrs({
   'aria-label': 'dialog'
@@ -57,7 +57,7 @@ const StyledDialogContent = styled(({ bg, minHeight, maxHeight, mobile, isOpen, 
         min-height: ${minHeight}vh;
       `}
     display: flex;
-    border-radius:10px;
+    border-radius: ${({borderRadius}) => borderRadius ? borderRadius : '10px'};
     ${({ theme }) => theme.mediaWidth.upToMedium`
       width: 65vw;
       margin: 0;
@@ -85,6 +85,7 @@ interface ModalProps {
   bg?: string | false,
   enlarge?: boolean
   border?: string
+  borderRadius?: string
 }
 
 export default function Modal({
@@ -96,7 +97,8 @@ export default function Modal({
   children,
   bg,
   enlarge,
-  border
+  border,
+  borderRadius
 }: ModalProps) {
   const fadeTransition = useTransition(isOpen, null, {
     config: { duration: 200 },
@@ -137,6 +139,7 @@ export default function Modal({
                 bg={bg}
                 enlarge={enlarge}
                 border={border}
+                borderRadius={borderRadius}
               >
                 {/* prevents the automatic focusing of inputs on mobile by the reach dialog */}
                 {!initialFocusRef && isMobile ? <div tabIndex={1} /> : null}

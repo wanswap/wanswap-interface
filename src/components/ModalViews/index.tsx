@@ -1,16 +1,17 @@
-import React, {  } from 'react'
+import React, { useContext } from 'react'
 import { useActiveWeb3React } from '../../hooks'
 
 import { AutoColumn, ColumnCenter } from '../Column'
-import styled, {  } from 'styled-components'
+import styled, { ThemeContext } from 'styled-components'
 import { RowBetween } from '../Row'
-import { TYPE, CloseIcon, CustomLightSpinner } from '../../theme'
+import { TYPE, CloseIcon } from '../../theme'
 import { ArrowUpCircle } from 'react-feather'
 
-import Circle from '../../assets/images/blue-loader.svg'
 import { getEtherscanLink } from '../../utils'
 import { ExternalLink } from '../../theme/components'
 import { useTranslation } from 'react-i18next'
+import LoadingLogoIcon from '../../assets/images/png/loading_logo.png';
+import { ButtonGreen } from '../Button'
 
 const ConfirmOrLoadingWrapper = styled.div`
   width: 100%;
@@ -21,6 +22,13 @@ const ConfirmedIcon = styled(ColumnCenter)`
   padding: 60px 0;
 `
 
+const LogoIcon = styled.img`
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background: ${({theme}) => theme.bg6};
+`;
+
 export function LoadingView({ children, onDismiss }: { children: any; onDismiss: () => void }) {
   const { t } = useTranslation()
   return (
@@ -30,7 +38,7 @@ export function LoadingView({ children, onDismiss }: { children: any; onDismiss:
         <CloseIcon onClick={onDismiss} />
       </RowBetween>
       <ConfirmedIcon>
-        <CustomLightSpinner src={Circle} alt="loader" size={'150px'} />
+        <LogoIcon src={LoadingLogoIcon} alt="loader" />
       </ConfirmedIcon>
       <AutoColumn gap="100px" justify={'center'}>
         {children}
@@ -53,6 +61,7 @@ export function SubmittedView({
   const { chainId } = useActiveWeb3React()
 
   const { t } = useTranslation()
+  const theme = useContext(ThemeContext);
 
   return (
     <ConfirmOrLoadingWrapper>
@@ -61,13 +70,15 @@ export function SubmittedView({
         <CloseIcon onClick={onDismiss} />
       </RowBetween>
       <ConfirmedIcon>
-        <ArrowUpCircle strokeWidth={0.5} size={150} color={'#FFE600'} />
+        <ArrowUpCircle strokeWidth={0.5} size={150} color={theme.green2} />
       </ConfirmedIcon>
       <AutoColumn gap="100px" justify={'center'}>
         {children}
         {chainId && hash && (
           <ExternalLink href={getEtherscanLink(chainId, hash, 'transaction')} style={{ marginLeft: '4px' }}>
-            <TYPE.subHeader>{t("View transaction on wanscan.org")}</TYPE.subHeader>
+            <ButtonGreen>
+              {t("View transaction on wanscan.org")}
+            </ButtonGreen>
           </ExternalLink>
         )}
       </AutoColumn>
