@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/ban-ts-ignore */
 import React, { useCallback, useContext, useMemo, useState } from 'react'
 import { AutoColumn } from '../../components/Column'
-import styled, { ThemeConsumer, ThemeContext } from 'styled-components'
+import styled, { ThemeContext } from 'styled-components'
 import { Link } from 'react-router-dom'
 
 import { JSBI, TokenAmount, ETHER } from '@wanswap/sdk'
@@ -9,7 +9,7 @@ import { RouteComponentProps } from 'react-router-dom'
 import DoubleCurrencyLogo from '../../components/DoubleLogo'
 import { useCurrency } from '../../hooks/Tokens'
 import { useWalletModalToggle } from '../../state/application/hooks'
-import { theme, TYPE } from '../../theme'
+import { TYPE } from '../../theme'
 import CurrencyLogo from '../../components/CurrencyLogo'
 
 import { RowBetween } from '../../components/Row'
@@ -21,7 +21,6 @@ import UnstakingModal from '../../components/earn/UnstakingModal'
 import ClaimRewardModal from '../../components/earn/ClaimRewardModal'
 import { useTokenBalance } from '../../state/wallet/hooks'
 import { useActiveWeb3React } from '../../hooks'
-import { useColor } from '../../hooks/useColor'
 import { CountUp } from 'use-count-up'
 
 import { wrappedCurrency } from '../../utils/wrappedCurrency'
@@ -59,7 +58,6 @@ const StyledDataCard = styled(DataCard)<{ bgColor?: any; showBackground?: any }>
   background: ${({theme}) => theme.black1};
   z-index: 2;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-
 `
 
 const StyledBottomCard = styled(DataCard)<{ dim: any }>`
@@ -136,7 +134,6 @@ export default function Manage({
 
   const token = currencyA === ETHER ? tokenB : tokenA
   const WETH = currencyA === ETHER ? tokenA : tokenB
-  const backgroundColor = useColor(token)
   const theme = useContext(ThemeContext);
 
   const selfTokensAmount = useMemo(() => {

@@ -3,11 +3,9 @@ import { AutoColumn } from '../Column'
 import { RowBetween } from '../Row'
 import styled from 'styled-components'
 import { TYPE, StyledInternalLink } from '../../theme'
-import { ButtonPrimary } from '../Button'
+import { ButtonGreen } from '../Button'
 import { useStakeWaspEarnWaspInfo } from '../../state/hive/hooks'
-import { useColor } from '../../hooks/useColor'
 import { currencyId } from '../../utils/currencyId'
-import { CardNoise, CardBGImage } from './styled'
 import { unwrappedToken } from '../../utils/wrappedCurrency'
 import { useTranslation } from 'react-i18next'
 import CurrencyLogo from '../CurrencyLogo'
@@ -26,19 +24,14 @@ const StatContainer = styled.div`
   margin-left: 1rem;
 `
 
-const Wrapper = styled(AutoColumn)<{ showBackground: boolean; bgColor: any }>`
-border-radius:10px;
+const Wrapper = styled(AutoColumn)<{ showBackground: boolean; }>`
+  border-radius:10px;
   width: 100%;
   overflow: hidden;
   position: relative;
   opacity: ${({ showBackground }) => (showBackground ? '1' : '1')};
-  background: radial-gradient(100% 90% at 20% 0%,#41beec 0%,#123471 100%);
+  background: ${({theme}) => theme.bg6};
   color: ${({ theme, showBackground }) => (showBackground ? theme.white : theme.text1)} !important;
-
-  ${({ showBackground }) =>
-    showBackground &&
-    `  box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.01), 0px 4px 8px rgba(0, 0, 0, 0.04), 0px 16px 24px rgba(0, 0, 0, 0.04),
-    0px 24px 32px rgba(0, 0, 0, 0.01);`}
 `
 
 const TopSection = styled.div`
@@ -67,9 +60,7 @@ export default function AutoWaspCard({ hide }: { hide?: Boolean }) {
   const { t } = useTranslation()
   
   const isStaking = Boolean(stakingInfo.stakedAmount.greaterThan('0'))
-  
-  const backgroundColor = useColor(token0)
-  
+    
   // const { chainId } = useActiveWeb3React()
   
   // const uniPrice = useUSDCPrice(token0)
@@ -98,9 +89,7 @@ export default function AutoWaspCard({ hide }: { hide?: Boolean }) {
     <React.Fragment>
       {
         !hide && <div>
-        <Wrapper showBackground={isStaking} bgColor={backgroundColor}>
-        <CardBGImage desaturate />
-        <CardNoise />
+        <Wrapper showBackground={isStaking}>
   
         <TopSection>
           <CurrencyLogo currency={currency0} size={'24px'} />
@@ -110,16 +99,16 @@ export default function AutoWaspCard({ hide }: { hide?: Boolean }) {
           </TYPE.white>
           <StyledInternalLink to={`/autoWasp/${currencyId(currency0)}`} style={{ width: '100%',color:'transparent' }}>
             
-            <ButtonPrimary padding="8px" borderRadius="8px">
+            <ButtonGreen padding="8px" borderRadius="8px">
               {isStaking ? t('Manage') : t('Deposit')}
-            </ButtonPrimary>
+            </ButtonGreen>
           </StyledInternalLink>
         </TopSection>
   
         <StatContainer>
           <RowBetween>
             <TYPE.white>{t('totalDeposited')}</TYPE.white>
-            <TYPE.white>
+            <TYPE.yellow3>
               {`${stakingInfo?.totalStakedAmount.toFormat(0) ?? '-'} WASP`}
               {
                 apy && apy !== '--' && !isNaN(Number(apy)) && apy !== '0' ? ' 🔥 ' : null
@@ -127,7 +116,7 @@ export default function AutoWaspCard({ hide }: { hide?: Boolean }) {
               {
                 apy && apy !== '--' && !isNaN(Number(apy)) && apy !== '0' ? `APY: ${+apy > 100000 ? ' > 100,000' : new BN(apy).toFormat(0)}%` : null
               }
-            </TYPE.white>
+            </TYPE.yellow3>
           </RowBetween>
         </StatContainer>
       </Wrapper>

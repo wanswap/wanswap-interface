@@ -64,7 +64,7 @@ export default function Earn() {
           <CardSection>
             <AutoColumn gap="md">
               <RowBetween>
-                <TYPE.white fontWeight={600}>{t("Hive your WASP")}</TYPE.white>
+                <TYPE.yellow3 fontWeight={600}>{t("Hive your WASP")}</TYPE.yellow3>
               </RowBetween>
               <RowBetween>
                 <TYPE.white fontSize={14}>

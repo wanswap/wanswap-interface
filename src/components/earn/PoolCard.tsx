@@ -114,7 +114,6 @@ export default function PoolCard({ stakingInfo, index, hide, totalDeposit }: { s
   // get the color of the token
   const token = currency0 === ETHER ? token1 : token0
   const WETH = currency0 === ETHER ? token0 : token1
-  const backgroundColor = useColor(token)
   const theme = useContext(ThemeContext);
 
   const totalSupplyOfStakingToken = useTotalSupply(stakingInfo.stakedAmount.token)

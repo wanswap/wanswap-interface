@@ -11,7 +11,7 @@ import { TYPE } from '../../theme'
 
 import { RowBetween } from '../../components/Row'
 import { CardSection, DataCard, CardNoise, CardBGImage } from '../../components/earnHive/styled'
-import { ButtonPrimary, ButtonEmpty } from '../../components/Button'
+import { ButtonEmpty, ButtonGreen } from '../../components/Button'
 import StakingModal from '../../components/earnHive/StakingModal'
 import { useStakingInfo } from '../../state/hive/hooks'
 import UnstakingModal from '../../components/earnHive/UnstakingModal'
@@ -26,6 +26,8 @@ import { useTotalSupply } from '../../data/TotalSupply'
 import usePrevious from '../../hooks/usePrevious'
 import { BIG_INT_ZERO } from '../../constants'
 import { useTranslation } from 'react-i18next'
+import ArrowIcon from '../../assets/images/png/arrow_icon.png';
+import { Black1Card } from '../../components/Card';
 
 
 const PageWrapper = styled(AutoColumn)`
@@ -46,11 +48,10 @@ const BottomSection = styled(AutoColumn)`
   position: relative;
 `
 
-const StyledDataCard = styled(DataCard) <{ bgColor?: any; showBackground?: any }>`
-  background: #3d51a5;
+const StyledDataCard = styled(DataCard)<{ bgColor?: any; showBackground?: any }>`
+  background: ${({theme}) => theme.black1};
   z-index: 2;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-
 `
 
 const StyledBottomCard = styled(DataCard) <{ dim: any }>`
@@ -62,9 +63,7 @@ const StyledBottomCard = styled(DataCard) <{ dim: any }>`
   z-index: 1;
 `
 
-const PoolData = styled(DataCard)`
-  background: none;
-  border: 1px solid ${({ theme }) => theme.bg4};
+const PoolData = styled(Black1Card)`
   padding: 1rem;
   z-index: 1;
 `
@@ -79,10 +78,18 @@ const DataRow = styled(RowBetween)`
   `};
 `
 
+const BackIcon = styled.img`
+  cursor: pointer;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+`;
+
 export default function ManageHive({
   match: {
     params: { currencyIdA, pid }
-  }
+  },
+  history
 }: RouteComponentProps<{ currencyIdA: string; pid: string }>) {
   const { account, chainId } = useActiveWeb3React()
 
@@ -139,6 +146,9 @@ export default function ManageHive({
 
   return (
     <PageWrapper gap="lg" justify="center">
+      <RowBetween>
+        <BackIcon src={ArrowIcon} onClick={() => {history.go(-1)}} />
+      </RowBetween>
       <RowBetween style={{ gap: '24px' }}>
         <TYPE.mediumHeader style={{ margin: 0 }}>
           {currencyA?.symbol} {t("in Hive")}
@@ -150,20 +160,20 @@ export default function ManageHive({
         <PoolData>
           <AutoColumn gap="sm">
             <TYPE.body style={{ margin: 0 }}>{t("Total deposits")}</TYPE.body>
-            <TYPE.body fontSize={24} fontWeight={500}>
+            <TYPE.green fontSize={24} fontWeight={500}>
               {`${valueOfTotalStakedAmountInWLSP?.toSignificant(6, { groupSeparator: ',' }) ?? '-'} WASP`}
-            </TYPE.body>
+            </TYPE.green>
           </AutoColumn>
         </PoolData>
         <PoolData>
           <AutoColumn gap="sm">
             <TYPE.body style={{ margin: 0 }}>{t("Pool Rate")}</TYPE.body>
-            <TYPE.body fontSize={24} fontWeight={500}>
+            <TYPE.green fontSize={24} fontWeight={500}>
               {stakingInfo?.totalRewardRate
                 ?.multiply((60 * 60 * 24 * 7/5).toString())
                 ?.toFixed(0, { groupSeparator: ',' }) ?? '-'}
               {` ${rewardToken?.symbol} / week`}
-            </TYPE.body>
+            </TYPE.green>
           </AutoColumn>
         </PoolData>
       </DataRow>
@@ -190,10 +200,8 @@ export default function ManageHive({
 
       <PositionInfo gap="lg" justify="center" dim={showAddLiquidityButton}>
         <BottomSection gap="lg" justify="center">
-          <StyledDataCard disabled={disableTop} bgColor={backgroundColor} showBackground={!showAddLiquidityButton}>
+          <StyledDataCard disabled={disableTop} showBackground={!showAddLiquidityButton}>
             <CardSection>
-              <CardBGImage desaturate />
-              <CardNoise />
               <AutoColumn gap="md">
                 <RowBetween>
                   <TYPE.white fontWeight={600}>{t("Your WASP deposits")}</TYPE.white>
@@ -230,7 +238,7 @@ export default function ManageHive({
                 )}
               </RowBetween>
               <RowBetween style={{ alignItems: 'center', display:'flex',flexWrap:'wrap' }}>
-                <TYPE.largeHeader fontSize={36} fontWeight={600}>
+                <TYPE.yellow3 fontSize={36} fontWeight={600}>
                   <CountUp
                     key={countUpAmount}
                     isCounting
@@ -240,7 +248,7 @@ export default function ManageHive({
                     thousandsSeparator={','}
                     duration={1}
                   />
-                </TYPE.largeHeader>
+                </TYPE.yellow3>
                 <TYPE.black fontSize={20} fontWeight={500}>
                   <span id="animate-zoom" role="img" aria-label="wizard-icon" style={{ marginRight: '8px ' }}>
                     ⚡
@@ -263,13 +271,13 @@ export default function ManageHive({
 
         {!showAddLiquidityButton && (
           <DataRow style={{ marginBottom: '1rem',gap:0 }}>
-            <ButtonPrimary padding="8px" borderRadius="8px" width="260px"  margin="6px" onClick={handleDepositClick}>
+            <ButtonGreen padding="8px" borderRadius="8px" width="260px"  margin="6px" onClick={handleDepositClick}>
               {stakingInfo?.stakedAmount?.greaterThan(JSBI.BigInt(0)) ? t('Deposit') : t('Deposit WASP Tokens')}
-            </ButtonPrimary>
+            </ButtonGreen>
 
             {stakingInfo?.stakedAmount?.greaterThan(JSBI.BigInt(0)) && (
               <>
-                <ButtonPrimary
+                <ButtonGreen
                    margin="6px"
                   padding="8px"
                   borderRadius="8px"
@@ -277,7 +285,7 @@ export default function ManageHive({
                   onClick={() => setShowUnstakingModal(true)}
                 >
                   {t("Withdraw")}
-                </ButtonPrimary>
+                </ButtonGreen>
               </>
             )}
           </DataRow>

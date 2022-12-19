@@ -4,11 +4,10 @@ import { RowBetween } from '../Row'
 import styled from 'styled-components'
 import { TYPE, StyledInternalLink } from '../../theme'
 import { ETHER } from '@wanswap/sdk'
-import { ButtonPrimary } from '../Button'
+import { ButtonGreen } from '../Button'
 import { StakingInfo } from '../../state/stake/hooks'
-import { useColor } from '../../hooks/useColor'
 import { currencyId } from '../../utils/currencyId'
-import { Break, CardNoise, CardBGImage } from './styled'
+import { Break } from './styled'
 import { unwrappedToken } from '../../utils/wrappedCurrency'
 import { useTranslation } from 'react-i18next'
 import DoubleCurrencyLogo from '../DoubleLogo'
@@ -27,19 +26,14 @@ const StatContainer = styled.div`
   margin-left: 1rem;
 `
 
-const Wrapper = styled(AutoColumn)<{ showBackground: boolean; bgColor: any }>`
-border-radius:10px;
+const Wrapper = styled(AutoColumn)<{ showBackground: boolean; }>`
+  border-radius:10px;
   width: 100%;
   overflow: hidden;
   position: relative;
   opacity: ${({ showBackground }) => (showBackground ? '1' : '1')};
-  background: radial-gradient(100% 90% at 20% 0%,#41beec 0%,#123471 100%);
+  background: ${({theme}) => theme.bg6};
   color: ${({ theme, showBackground }) => (showBackground ? theme.white : theme.text1)} !important;
-
-  ${({ showBackground }) =>
-    showBackground &&
-    `  box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.01), 0px 4px 8px rgba(0, 0, 0, 0.04), 0px 16px 24px rgba(0, 0, 0, 0.04),
-    0px 24px 32px rgba(0, 0, 0, 0.01);`}
 `
 
 const TopSection = styled.div`
@@ -87,7 +81,6 @@ export default function HiveCard({ stakingInfo, i, hide }: { stakingInfo: Stakin
 
   // get the color of the token
   const token = currency0 === ETHER ? token1 : token0
-  const backgroundColor = useColor(token)
 
   const { chainId } = useActiveWeb3React()
   const uni = chainId ? WASP[chainId] : undefined
@@ -118,9 +111,7 @@ export default function HiveCard({ stakingInfo, i, hide }: { stakingInfo: Stakin
     <React.Fragment>
       {
         !hide && <div>
-        <Wrapper showBackground={isStaking} bgColor={backgroundColor}>
-        <CardBGImage desaturate />
-        <CardNoise />
+        <Wrapper showBackground={isStaking}>
   
         <TopSection>
           <DoubleCurrencyLogo currency0={currency0} currency1={ETHER} size={24} />
@@ -131,16 +122,16 @@ export default function HiveCard({ stakingInfo, i, hide }: { stakingInfo: Stakin
   
           <StyledInternalLink to={`/hive/${currencyId(currency0)}/${i}`} style={{ width: '100%',color:'transparent' }}>
             
-            <ButtonPrimary padding="8px" borderRadius="8px">
+            <ButtonGreen padding="8px" borderRadius="8px">
               {isStaking ? t('Manage') : t('Deposit')}
-            </ButtonPrimary>
+            </ButtonGreen>
           </StyledInternalLink>
         </TopSection>
   
         <StatContainer>
           <RowBetween>
             <TYPE.white>{t('totalDeposited')}</TYPE.white>
-            <TYPE.white>
+            <TYPE.yellow3>
               {`${stakingInfo?.totalStakedAmount.toFixed(0, { groupSeparator: ',' }) ?? '-'} WASP`}
               {
                 apy && apy !== '--' && !isNaN(Number(apy)) && apy !== '0' ? ' 🔥 ' : null
@@ -148,13 +139,13 @@ export default function HiveCard({ stakingInfo, i, hide }: { stakingInfo: Stakin
               {
                 apy && apy !== '--' && !isNaN(Number(apy)) && apy !== '0' ? 'APR: ' + apy + '%' : null
               }
-            </TYPE.white>
+            </TYPE.yellow3>
           </RowBetween>
           <RowBetween>
             <TYPE.white> {t("Pool rate")} </TYPE.white>
-            <TYPE.white>{`${stakingInfo.totalRewardRate
+            <TYPE.green>{`${stakingInfo.totalRewardRate
               ?.multiply(`${60 * 60 * 24 * 7 / 5}`)
-              ?.toFixed(0, { groupSeparator: ',' })} ${symbol} / week`}</TYPE.white>
+              ?.toFixed(0, { groupSeparator: ',' })} ${symbol} / week`}</TYPE.green>
           </RowBetween>
         </StatContainer>
   
@@ -166,14 +157,14 @@ export default function HiveCard({ stakingInfo, i, hide }: { stakingInfo: Stakin
                 <span>{t("Your rate")}</span>
               </TYPE.black>
   
-              <TYPE.black style={{ textAlign: 'right' }} color={'white'} fontWeight={500}>
+              <TYPE.green style={{ textAlign: 'right' }} fontWeight={500}>
                 <span  id="animate-zoom" role="img" aria-label="wizard-icon" style={{ marginRight: '0.5rem' }}>
                 ⚡
                 </span>
                 {`${stakingInfo.rewardRate
                   ?.multiply(`${60 * 60 * 24 * 7 / 5}`)
                   ?.toFixed(4, { groupSeparator: ',' })} ${symbol} / week`}
-              </TYPE.black>
+              </TYPE.green>
             </BottomSection>
           </>
         )}

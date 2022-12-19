@@ -10,8 +10,8 @@ import { useWalletModalToggle } from '../../state/application/hooks'
 import { TYPE } from '../../theme'
 
 import { RowBetween } from '../../components/Row'
-import { CardSection, DataCard, CardNoise, CardBGImage } from '../../components/earnHive/styled'
-import { ButtonPrimary } from '../../components/Button'
+import { CardSection, DataCard } from '../../components/earnHive/styled'
+import { ButtonGreen } from '../../components/Button'
 import StakingAutoWaspModal from '../../components/earnHive/StakingAutoWaspModal'
 import { useStakeWaspEarnWaspInfo } from '../../state/hive/hooks'
 import UnstakingAutoWaspModal from '../../components/earnHive/UnstakingAutoWaspModal'
@@ -24,6 +24,8 @@ import { useTranslation } from 'react-i18next'
 
 import { WASP } from '../../constants'
 import BN from 'bignumber.js'
+import ArrowIcon from '../../assets/images/png/arrow_icon.png';
+import { Black1Card } from '../../components/Card';
 
 
 const PageWrapper = styled(AutoColumn)`
@@ -44,16 +46,13 @@ const BottomSection = styled(AutoColumn)`
   position: relative;
 `
 
-const StyledDataCard = styled(DataCard) <{ bgColor?: any; showBackground?: any }>`
-  background: #3d51a5;
+const StyledDataCard = styled(DataCard)<{ bgColor?: any; showBackground?: any }>`
+  background: ${({theme}) => theme.black1};
   z-index: 2;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-
 `
 
-const PoolData = styled(DataCard)`
-  background: none;
-  border: 1px solid ${({ theme }) => theme.bg4};
+const PoolData = styled(Black1Card)`
   padding: 1rem;
   z-index: 1;
 `
@@ -68,10 +67,18 @@ const DataRow = styled(RowBetween)`
   `};
 `
 
+const BackIcon = styled.img`
+  cursor: pointer;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+`;
+
 export default function ManageAutoWasp({
   match: {
     params: { currencyIdA }
-  }
+  },
+  history
 }: RouteComponentProps<{ currencyIdA: string }>) {
   const { account, chainId } = useActiveWeb3React()
   const uni = WASP[chainId ? chainId : ChainId.MAINNET]
@@ -112,6 +119,9 @@ export default function ManageAutoWasp({
 
   return (
     <PageWrapper gap="lg" justify="center">
+      <RowBetween>
+        <BackIcon src={ArrowIcon} onClick={() => {history.go(-1)}} />
+      </RowBetween>
       <RowBetween style={{ gap: '24px' }}>
         <TYPE.mediumHeader style={{ margin: 0 }}>
           {t("Auto")} {currencyA?.symbol}
@@ -123,9 +133,9 @@ export default function ManageAutoWasp({
         <PoolData>
           <AutoColumn gap="sm">
             <TYPE.body style={{ margin: 0 }}>{t("Total deposits")}</TYPE.body>
-            <TYPE.body fontSize={24} fontWeight={500}>
+            <TYPE.green fontSize={24} fontWeight={500}>
               {`${stakingInfo?.totalStakedAmount.toFixed(6) ? stakingInfo?.totalStakedAmount.toFixed(0, BN.ROUND_UP) : '-'} WASP`}
-            </TYPE.body>
+            </TYPE.green>
           </AutoColumn>
         </PoolData>
       </DataRow>
@@ -147,21 +157,19 @@ export default function ManageAutoWasp({
 
       <PositionInfo gap="lg" justify="center" dim={showAddLiquidityButton}>
         <BottomSection gap="lg" justify="center">
-          <StyledDataCard disabled={disableTop} bgColor={backgroundColor} showBackground={!showAddLiquidityButton}>
+          <StyledDataCard disabled={disableTop} showBackground={!showAddLiquidityButton}>
             <CardSection>
-              <CardBGImage desaturate />
-              <CardNoise />
               <AutoColumn gap="md">
                 <RowBetween>
                   <TYPE.white fontWeight={600}>{t("Your WASP deposits")}</TYPE.white>
                 </RowBetween>
                 <RowBetween style={{ alignItems: 'center', display:'flex',flexWrap:'wrap' }}>
-                  <TYPE.white fontSize={36} fontWeight={600}>
+                  <TYPE.green fontSize={36} fontWeight={600}>
                     {stakingInfo?.stakedAmount?.toSignificant(6) ? new BN(stakingInfo?.stakedAmount?.toExact()).toFixed(6, BN.ROUND_UP) : '-'}
-                  </TYPE.white>
-                  <TYPE.white>
+                  </TYPE.green>
+                  <TYPE.green>
                     {currencyA?.symbol}
-                  </TYPE.white>
+                  </TYPE.green>
                 </RowBetween>
               </AutoColumn>
             </CardSection>
@@ -176,13 +184,13 @@ export default function ManageAutoWasp({
 
         {!showAddLiquidityButton && (
           <DataRow style={{ marginBottom: '1rem',gap:0 }}>
-            <ButtonPrimary padding="8px" borderRadius="8px" width="260px"  margin="6px" onClick={handleDepositClick}>
+            <ButtonGreen padding="8px" borderRadius="8px" width="260px"  margin="6px" onClick={handleDepositClick}>
               {stakingInfo?.stakedAmount?.greaterThan('0') ? t('Deposit') : t('Deposit WASP Tokens')}
-            </ButtonPrimary>
+            </ButtonGreen>
 
             {stakingInfo?.stakedAmount?.greaterThan('0') && (
               <>
-                <ButtonPrimary
+                <ButtonGreen
                   margin="6px"
                   padding="8px"
                   borderRadius="8px"
@@ -190,7 +198,7 @@ export default function ManageAutoWasp({
                   onClick={() => setShowUnstakingModal(true)}
                 >
                   {t("Withdraw")}
-                </ButtonPrimary>
+                </ButtonGreen>
               </>
             )}
           </DataRow>

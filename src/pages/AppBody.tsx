@@ -4,11 +4,11 @@ import { isMobile } from 'react-device-detect'
 
 export const BodyWrapper = styled.div`
   position: relative;
-  max-width: 600px;
+  max-width: 500px;
   width: 100%;
-  background: #123471;
-  box-shadow: 0 0 100px #01001de6;
-  border-radius: 10px;
+  background: ${({theme}) => theme.bg6};
+  box-shadow: 0 0 50px 0 #000;
+  border-radius: 16px;
   padding: 15px;
 `
 
@@ -34,6 +34,16 @@ export const BodyWrapperV2 = styled.div`
   padding: 15px;
 `
 
+export const BodyWrapperV3 = styled.div`
+  position: relative;
+  width: 100%;
+  background: ${({theme}) => theme.black1};
+  border-radius: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 15px 0;
+  backdrop-filter: blur(10px);
+`
+
 /**
  * The styled container element that wraps the content of most pages and the tabs.
  */
@@ -43,6 +53,10 @@ export default function AppBody({ children }: { children: React.ReactNode }) {
 
 export function AppBodyV1({ children }: { children: React.ReactNode }) {
   return <BodyWrapperV1 id="body-wrapper">{children}</BodyWrapperV1>
+}
+
+export function AppBodyV3({ children }: { children: React.ReactNode }) {
+  return <BodyWrapperV3 id="body-wrapper">{children}</BodyWrapperV3>
 }
 
 export function AppBodyV2({ children }: { children: React.ReactNode }) {
