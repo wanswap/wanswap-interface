@@ -9,6 +9,7 @@ import styled, {
 /*import { useIsDarkMode } from '../state/user/hooks'*/
 import { Text, TextProps } from 'rebass'
 import { Colors } from './styled'
+import bg from '../assets/images/svg/bg.svg';
 
 export * from './components'
 
@@ -40,6 +41,8 @@ export function colors(darkMode: boolean): Colors {
     white,
     black,
 
+    black1: darkMode ? '#2E2E2E' : '#2E2E2E',
+
     // text
     text1: darkMode ? '#FFFFFF' : '#313131',
     text2: darkMode ? '#C3C5CB' : '#565A69',
@@ -47,12 +50,17 @@ export function colors(darkMode: boolean): Colors {
     text4: darkMode ? '#565A69' : '#C3C5CB',
     text5: darkMode ? '#2C2F36' : '#EDEEF2',
 
+    text6: darkMode ? 'rgba(255, 255, 255, 0.6)' : 'rgba(255, 255, 255, 0.6)',
+
     // backgrounds / greys
     bg1: darkMode ? '#212429' : '#FFFFFF',
     bg2: darkMode ? '#2C2F36' : '#F7F8FA',
     bg3: darkMode ? '#40444F' : '#EDEEF2',
     bg4: darkMode ? '#565A69' : '#CED0D9',
     bg5: darkMode ? '#6C7284' : '#888D9B',
+
+    bg6: darkMode ? '#171717' : '#171717',
+    bg7: darkMode ? 'rgba(255, 255, 255, 0.1)' : 'rgba(255, 255, 255, 0.1)',
 
     //specialty colors
     modalBG: darkMode ? 'rgba(0,0,0,.425)' : 'rgba(0,0,0,0.3)',
@@ -64,6 +72,9 @@ export function colors(darkMode: boolean): Colors {
     primary3: darkMode ? '#4D8FEA' : '#FF99C9',
     primary4: darkMode ? '#376bad70' : '#F6DDE8',
     primary5: darkMode ? '#153d6f70' : '#FDEAF1',
+    
+    primary6: darkMode ? 'rgba(0, 160, 69, 1)' : 'rgba(0, 160, 69, 1)',
+    primary7: darkMode ? 'rgba(255, 255, 255, 0.3)' : 'rgba(255, 255, 255, 0.3)',
 
     // color text
     primaryText1: darkMode ? '#6da8ff' : '#ff007a',
@@ -77,8 +88,12 @@ export function colors(darkMode: boolean): Colors {
     red1: '#FF6871',
     red2: '#F82D3A',
     green1: '#27AE60',
+    green2: '#00A045',
     yellow1: '#FFE270',
     yellow2: '#F3841E',
+
+    yellow3: '#FFE600',
+
     blue1: '#2172E5'
 
     // dont wanna forget these blue yet
@@ -161,11 +176,17 @@ export const TYPE = {
   yellow(props: TextProps) {
     return <TextWrapper fontWeight={500} color={'yellow1'} {...props} />
   },
+  yellow3(props: TextProps) {
+    return <TextWrapper fontWeight={500} color={'yellow3'} {...props} />
+  },
   darkGray(props: TextProps) {
     return <TextWrapper fontWeight={500} color={'text3'} {...props} />
   },
   gray(props: TextProps) {
     return <TextWrapper fontWeight={500} color={'bg3'} {...props} />
+  },
+  green(props: TextProps) {
+    return <TextWrapper fontWeight={500} color={'green2'} {...props} />
   },
   italic(props: TextProps) {
     return <TextWrapper fontWeight={500} fontSize={12} fontStyle={'italic'} color={'text2'} {...props} />
@@ -320,12 +341,9 @@ html {
 
 body {
   min-height: 100vh;
-  background-position: 0 -30vh;
+  // background-position: 0 -30vh;
   background-repeat: no-repeat;
-  background-image: ${({ theme }) =>
-    `radial-gradient(50% 50% at 50% 50%, ${transparentize(0.9, theme.primary1)} 0%, ${transparentize(
-      1,
-      theme.bg1
-    )} 100%)`};
+  background-image: url(${bg});
+  background-size: cover;
 }
 `
