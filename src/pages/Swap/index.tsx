@@ -53,8 +53,9 @@ import { usePairData } from '../../contexts/PairData'
 import styled from 'styled-components'
 import { usePair } from '../../data/Reserves'
 import { isMobile } from 'react-device-detect'
-import { TOKEN_CONVERT_ADDRESS } from '../../constants/abis/token-convert'
+import { TOKEN_CONVERT_ADDRESS, TOKEN_CONVERT_ADDRESS_2 } from '../../constants/abis/token-convert'
 import useTokenConvertCallback, { ConvertType } from '../../hooks/useTokenConvertCallback'
+import useTokenConvertCallback2 from '../../hooks/useTokenConvertCallback2'
 
 export default function Swap() {
   const loadedUrlParams = useDefaultsFromURLSearch()
@@ -106,12 +107,25 @@ export default function Swap() {
     chainId && TOKEN_CONVERT_ADDRESS[chainId]
   )
 
+  const [approvalConvert2, approvalConvertCallback2] = useApproveCallback(
+    inputAmount,
+    chainId && TOKEN_CONVERT_ADDRESS_2[chainId]
+  )
+
   const { convertType, execute: onConvert, inputError: convertInputError } = useTokenConvertCallback(
     currencies[Field.INPUT],
     currencies[Field.OUTPUT],
     typedValue
   )
+
+  const { convertType: convertType2, execute: onConvert2, inputError: convertInputError2 } = useTokenConvertCallback2(
+    currencies[Field.INPUT],
+    currencies[Field.OUTPUT],
+    typedValue
+  )
   const showConvert: boolean = convertType !== ConvertType.NOT_CONVERTABLE
+  const showConvert2: boolean = convertType2 !== ConvertType.NOT_CONVERTABLE
+
 
   const { wrapType, execute: onWrap, inputError: wrapInputError } = useWrapCallback(
     currencies[Field.INPUT],
@@ -125,8 +139,8 @@ export default function Swap() {
     [Version.v1]: v1Trade,
     [Version.v2]: v2Trade
   }
-  const trade = showWrap || showConvert ? undefined : tradesByVersion[toggledVersion]
-  const defaultTrade = showWrap || showConvert ? undefined : tradesByVersion[DEFAULT_VERSION]
+  const trade = showWrap || showConvert || showConvert2 ? undefined : tradesByVersion[toggledVersion]
+  const defaultTrade = showWrap || showConvert || showConvert2 ? undefined : tradesByVersion[DEFAULT_VERSION]
 
   // TODO: remove
   const betterTradeLinkVersion: Version | undefined =
@@ -137,7 +151,7 @@ export default function Swap() {
       : undefined
 
   const parsedAmounts =
-    showWrap || showConvert
+    showWrap || showConvert || showConvert2
       ? {
           [Field.INPUT]: parsedAmount,
           [Field.OUTPUT]: parsedAmount
@@ -182,7 +196,7 @@ export default function Swap() {
   const formattedAmounts = {
     [independentField]: typedValue,
     [dependentField]:
-      showWrap || showConvert
+      showWrap || showConvert || showConvert2
         ? parsedAmounts[independentField]?.toExact() ?? ''
         : parsedAmounts[dependentField]?.toSignificant(6) ?? ''
   }
@@ -341,7 +355,7 @@ export default function Swap() {
               <AutoColumnCus gap={'md'}>
                 <CurrencyInputPanel
                   label={
-                    independentField === Field.OUTPUT && !showWrap && !showConvert && trade
+                    independentField === Field.OUTPUT && !showWrap && !showConvert && !showConvert2 && trade
                       ? t('fromEstimated')
                       : t('from')
                   }
@@ -387,7 +401,7 @@ export default function Swap() {
                   value={formattedAmounts[Field.OUTPUT]}
                   onUserInput={handleTypeOutput}
                   label={
-                    independentField === Field.INPUT && !showWrap && !showConvert && trade ? t('toEstimated') : t('to')
+                    independentField === Field.INPUT && !showWrap && !showConvert && !showConvert2 && trade ? t('toEstimated') : t('to')
                   }
                   showMaxButton={false}
                   currency={currencies[Field.OUTPUT]}
@@ -395,7 +409,7 @@ export default function Swap() {
                   otherCurrency={currencies[Field.INPUT]}
                   id="swap-currency-output-2"
                 />
-                {recipient === null && !showWrap && !showConvert && isExpertMode ? (
+                {recipient === null && !showWrap && !showConvert && !showConvert2 && isExpertMode ? (
                   <LinkStyledButton
                     style={{ color: '#C3C5CB' }}
                     id="add-recipient-button"
@@ -404,7 +418,7 @@ export default function Swap() {
                     {t('addRecipient')}
                   </LinkStyledButton>
                 ) : null}
-                {recipient !== null && !showWrap && !showConvert ? (
+                {recipient !== null && !showWrap && !showConvert && !showConvert2 ? (
                   <>
                     <AutoRow justify="space-between" style={{ padding: '0 1rem' }}>
                       <ArrowWrapper clickable={false}>
@@ -422,7 +436,7 @@ export default function Swap() {
                   </>
                 ) : null}
 
-                {showWrap || showConvert ? null : (
+                {showWrap || showConvert || showConvert2 ? null : (
                   <Card padding={'.25rem .75rem 0 .75rem'} borderRadius={'10px'}>
                     <AutoColumn gap="4px">
                       {Boolean(trade) && (
@@ -491,6 +505,38 @@ export default function Swap() {
                         (convertType === ConvertType.CONVERT
                           ? t('convert')
                           : convertType === ConvertType.REVERT
+                          ? t('revert')
+                          : null)}
+                    </ButtonError>
+                  </RowBetween>
+                ) : showConvert2 ? (
+                  <RowBetween>
+                    <ButtonConfirmed
+                      onClick={approvalConvertCallback2}
+                      disabled={approvalConvert2 !== ApprovalState.NOT_APPROVED || approvalSubmitted}
+                      width="48%"
+                      altDisabledStyle={approvalConvert2 === ApprovalState.PENDING} // show solid button while waiting
+                      confirmed={approvalConvert2 === ApprovalState.APPROVED}
+                    >
+                      {approvalConvert2 === ApprovalState.PENDING ? (
+                        <AutoRow gap="6px" justify="center">
+                          {t('approving')} <Loader stroke="white" />
+                        </AutoRow>
+                      ) : approvalSubmitted && approvalConvert2 === ApprovalState.APPROVED ? (
+                        t('approved')
+                      ) : (
+                        t('approve') + ' ' + currencies[Field.INPUT]?.symbol
+                      )}
+                    </ButtonConfirmed>
+                    <ButtonError
+                      disabled={approvalConvert2 !== ApprovalState.APPROVED || Boolean(wrapInputError)}
+                      onClick={onConvert2}
+                      width="48%"
+                    >
+                      {convertInputError2 ??
+                        (convertType2 === ConvertType.CONVERT
+                          ? t('convert')
+                          : convertType2 === ConvertType.REVERT
                           ? t('revert')
                           : null)}
                     </ButtonError>

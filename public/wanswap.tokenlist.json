@@ -300,10 +300,27 @@
       "symbol": "WWAN",
       "decimals": 18,
       "logoURI": "https://icons.wanswap.finance/icon/wanswap/WWAN.png"
+    },
+    {
+      "chainId": 999,
+      "address": "0x37FF554f765fb0b6e68DE9FDfb5cE3b5280Ee87B",
+      "name": "WASP_V2",
+      "symbol": "WASP",
+      "decimals": 18,
+      "logoURI": "https://icons.wanswap.finance/icon/wanswap/WASP_V2.svg"
+    },
+    {
+      "chainId": 999,
+      "address": "0x830053DABd78b4ef0aB0FeC936f8a1135B68da6f",
+      "name": "WASP_V1",
+      "symbol": "WASP",
+      "decimals": 18,
+      "logoURI": "https://icons.wanswap.finance/icon/wanswap/WASP.png"
     }
+
   ],
   "version": {
-    "major": 8,
+    "major": 10,
     "minor": 0,
     "patch": 0
   }
