@@ -2,7 +2,7 @@ import React, { useCallback, useState } from 'react'
 import { AutoColumn } from '../../components/Column'
 import styled from 'styled-components'
 
-import { ETHER, ChainId } from '@wanswap/sdk'
+import { ChainId } from '@wanswap/sdk'
 import { RouteComponentProps } from 'react-router-dom'
 import CurrencyLogo from '../../components/CurrencyLogo'
 import { useCurrency } from '../../hooks/Tokens'
@@ -17,9 +17,9 @@ import { useStakeWaspEarnWaspInfo } from '../../state/hive/hooks'
 import UnstakingAutoWaspModal from '../../components/earnHive/UnstakingAutoWaspModal'
 import { useTokenBalance } from '../../state/wallet/hooks'
 import { useActiveWeb3React } from '../../hooks'
-import { useColor } from '../../hooks/useColor'
+// import { useColor } from '../../hooks/useColor'
 
-import { wrappedCurrency } from '../../utils/wrappedCurrency'
+// import { wrappedCurrency } from '../../utils/wrappedCurrency'
 import { useTranslation } from 'react-i18next'
 
 import { WASP } from '../../constants'
@@ -84,9 +84,11 @@ export default function ManageAutoWasp({
   const uni = WASP[chainId ? chainId : ChainId.MAINNET]
 
   // get currencies and pair
-  const [currencyA, currencyB] = [useCurrency(currencyIdA), useCurrency(currencyIdA)]
-  const tokenA = wrappedCurrency(currencyA ?? undefined, chainId)
-  const tokenB = wrappedCurrency(currencyB ?? undefined, chainId)
+  const [currencyA, 
+    // currencyB
+  ] = [useCurrency(currencyIdA), useCurrency(currencyIdA)]
+  // const tokenA = wrappedCurrency(currencyA ?? undefined, chainId)
+  // const tokenB = wrappedCurrency(currencyB ?? undefined, chainId)
 
   const stakingInfo = useStakeWaspEarnWaspInfo()
   // console.log('stakingInfo-amount', stakingInfo?.stakedAmount?.toSignificant(6))
@@ -102,8 +104,8 @@ export default function ManageAutoWasp({
   // fade cards if nothing staked or nothing earned yet
   const disableTop = !stakingInfo?.stakedAmount || stakingInfo.stakedAmount.equalTo('0')
 
-  const token = currencyA === ETHER ? tokenB : tokenA
-  const backgroundColor = useColor(token)
+  // const token = currencyA === ETHER ? tokenB : tokenA
+  // const backgroundColor = useColor(token)
 
   const toggleWalletModal = useWalletModalToggle()
 

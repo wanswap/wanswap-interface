@@ -7,7 +7,7 @@ import DoubleCurrencyLogo from '../DoubleLogo'
 import { ETHER, JSBI, TokenAmount } from '@wanswap/sdk'
 import { ButtonGreen } from '../Button'
 import { StakingInfo } from '../../state/stake/hooks'
-import { useColor } from '../../hooks/useColor'
+// import { useColor } from '../../hooks/useColor'
 import { currencyId } from '../../utils/currencyId'
 import { unwrappedToken } from '../../utils/wrappedCurrency'
 import { useTotalSupply } from '../../data/TotalSupply'
@@ -112,7 +112,7 @@ export default function PoolCard({ stakingInfo, index, hide, totalDeposit }: { s
   const isStaking = Boolean(stakingInfo.stakedAmount.greaterThan('0'))
 
   // get the color of the token
-  const token = currency0 === ETHER ? token1 : token0
+  // const token = currency0 === ETHER ? token1 : token0
   const WETH = currency0 === ETHER ? token0 : token1
   const theme = useContext(ThemeContext);
 

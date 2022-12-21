@@ -221,7 +221,7 @@ function Web3StatusInner() {
   } else {
     return (
       <Web3StatusConnect id="connect-wallet" onClick={toggleWalletModal} faded={!account}>
-        <img src={walletImg} style={{ height: '22px'}} />
+        <img alt="icon" src={walletImg} style={{ height: '22px'}} />
         <TextAuto>{t('Connect wallet')}</TextAuto>
       </Web3StatusConnect>
     )

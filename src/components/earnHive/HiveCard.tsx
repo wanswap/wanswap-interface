@@ -80,7 +80,7 @@ export default function HiveCard({ stakingInfo, i, hide }: { stakingInfo: Stakin
   const isStaking = Boolean(stakingInfo.stakedAmount.greaterThan('0'))
 
   // get the color of the token
-  const token = currency0 === ETHER ? token1 : token0
+  // const token = currency0 === ETHER ? token1 : token0
 
   const { chainId } = useActiveWeb3React()
   const uni = chainId ? WASP[chainId] : undefined

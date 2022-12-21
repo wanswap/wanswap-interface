@@ -18,7 +18,7 @@ import UnstakingModal from '../../components/earnHive/UnstakingModal'
 import ClaimRewardModal from '../../components/earnHive/ClaimRewardModal'
 import { useTokenBalance } from '../../state/wallet/hooks'
 import { useActiveWeb3React } from '../../hooks'
-import { useColor } from '../../hooks/useColor'
+// import { useColor } from '../../hooks/useColor'
 import { CountUp } from 'use-count-up'
 
 import { wrappedCurrency } from '../../utils/wrappedCurrency'
@@ -113,9 +113,9 @@ export default function ManageHive({
   // fade cards if nothing staked or nothing earned yet
   const disableTop = !stakingInfo?.stakedAmount || stakingInfo.stakedAmount.equalTo(JSBI.BigInt(0))
 
-  const token = currencyA === ETHER ? tokenB : tokenA
+  // const token = currencyA === ETHER ? tokenB : tokenA
   const WETH = currencyA === ETHER ? tokenA : tokenB
-  const backgroundColor = useColor(token)
+  // const backgroundColor = useColor(token)
 
   // get WETH value of staked LP tokens
   const totalSupplyOfStakingToken = useTotalSupply(stakingInfo?.stakedAmount?.token)
