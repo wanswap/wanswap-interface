@@ -13,18 +13,18 @@ export const TOKEN_CONVERT_ADDRESS: { [chainId in ChainId]: string } = {
 }
 
 export const TOKEN_CONVERT_ADDRESS_2: { [chainId in ChainId]: string } = {
-  [ChainId.MAINNET]: '0x7D304891549506d8F6Ea6b1f25d740fBC2098E09',
-  [ChainId.ROPSTEN]: '0x7D304891549506d8F6Ea6b1f25d740fBC2098E09',
-  [ChainId.RINKEBY]: '0x7D304891549506d8F6Ea6b1f25d740fBC2098E09',
-  [ChainId.GÖRLI]: '0x7D304891549506d8F6Ea6b1f25d740fBC2098E09',
-  [ChainId.KOVAN]: '0x7D304891549506d8F6Ea6b1f25d740fBC2098E09'
+  [ChainId.MAINNET]: '0xBF492acE2cf9908D1D60eFa3Dbf0709e1d074Bd1',
+  [ChainId.ROPSTEN]: '0xBF492acE2cf9908D1D60eFa3Dbf0709e1d074Bd1',
+  [ChainId.RINKEBY]: '0xBF492acE2cf9908D1D60eFa3Dbf0709e1d074Bd1',
+  [ChainId.GÖRLI]: '0xBF492acE2cf9908D1D60eFa3Dbf0709e1d074Bd1',
+  [ChainId.KOVAN]: '0xBF492acE2cf9908D1D60eFa3Dbf0709e1d074Bd1'
 }
 
 const token0Testnet = "0x89a3e1494bc3db81dadc893ded7476d33d47dcbd";
 const token1Testnet = "0x07fdb4e8f8e420d021b9abeb2b1f6dce150ef77c";
 
 const token2Testnet = "0x830053DABd78b4ef0aB0FeC936f8a1135B68da6f";
-const token3Testnet = "0x37FF554f765fb0b6e68DE9FDfb5cE3b5280Ee87B";
+const token3Testnet = "0x6103BD5e1906095BB3Bb7109ed499c9C8C24A31A";
 
 
 const token0Mainnet = "0xd15e200060fc17ef90546ad93c1c61bfefdc89c7";
