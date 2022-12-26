@@ -68,6 +68,57 @@ const STAKE_WASP_EARN_WASP_PID: { [chainId in ChainId]: string } = {
   [ChainId.KOVAN]: '5'
 }
 
+
+
+const V1_FARM_PAIRS: { [chainId in ChainId]: {pid: number; lpAddress: string; name: string }[] } = {
+  [ChainId.MAINNET]: [],
+  [ChainId.ROPSTEN]: [
+    {
+      pid: 0,
+      lpAddress: '0x0a886Dc4d584d55E9A1FA7eB0821762296b4ec0E',
+      name: 'WAN/FNX',
+    },
+    {
+      pid: 1,
+      lpAddress: '0xb0f36B469DDA3917AbbC8520F4CF80A5D1e9e9E2',
+      name: 'wanOBTC/WAN',
+    },
+    // {
+    //   pid: 2,
+    //   lpAddress: '0x4bbBAaA14725D157Bf9dde1e13F73c3F96343f3d',
+    //   name: 'oldWASP/WAN',
+    // },
+    {
+      pid: 3,
+      lpAddress: '0xB1b5Dada5795F174F1f62edE70EdB4365fB07fb1',
+      name: 'wanETH/WAN',
+    },
+    {
+      pid: 4,
+      lpAddress: '0xeC79FfAB94db4F6AE7eE51B20f0E8cA1eCa93468',
+      name: 'wanUSDT/WAN',
+    },
+    {
+      pid: 5,
+      lpAddress: '0xAEECE738A9AFC0E2E28D43E6aA78F13589049D0b',
+      name: 'WWASP',
+    },
+    {
+      pid: 6,
+      lpAddress: '0xEe700Cd7C33DE6E86f2B35ef0D05dFF2A15Ccdd9',
+      name: 'WASPv1/WAN',
+    },
+  ],
+  [ChainId.RINKEBY]: [],
+  [ChainId.GÖRLI]: [],
+  [ChainId.KOVAN]: [],
+}
+
+
+
+
+
+
 export {
   BRIDGE_MINER_ABI,
   BRIDGE_MINER_ADDRESS,
@@ -85,4 +136,5 @@ export {
   WRAPPED_WASP_ADDRESS,
   AUTO_WASP_ADDRESS,
   STAKE_WASP_EARN_WASP_PID,
+  V1_FARM_PAIRS,
 }
