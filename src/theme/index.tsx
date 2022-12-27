@@ -39,6 +39,7 @@ export function colors(darkMode: boolean): Colors {
   return {
     // base
     white,
+    white1: darkMode ? '#999999' : '#999999',
     black,
 
     black1: darkMode ? '#2E2E2E' : '#2E2E2E',
@@ -154,6 +155,9 @@ export const TYPE = {
   },
   white(props: TextProps) {
     return <TextWrapper fontWeight={500} color={'white'} {...props} />
+  },
+  white1(props: TextProps) {
+    return <TextWrapper fontWeight={500} color={'white1'} {...props} />
   },
   body(props: TextProps) {
     return <TextWrapper fontWeight={400} fontSize={16} color={'text1'} {...props} />

@@ -10,6 +10,8 @@ import { ButtonLight } from '../../components/Button';
 import { LPSearch } from '../../components/SearchModal/LPSearch';
 import logoImg from '../../assets/images/png/logo.png';
 import downImg from '../../assets/images/png/down.png';
+import LpModal from './LPModal';
+import { Check } from 'react-feather';
 
 const PageWrapper = styled(AutoColumn)`
   max-width: 640px;
@@ -72,9 +74,65 @@ const Line = styled.div`
   margin: 0 16px;
 `;
 
+const Introduce = styled.div`
+  background: #00A045;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 26px 0;
+  position: relative;
+  margin-top: 36px;
+  margin-bottom: 34px;
+`;
+
+const IntroduceLine = styled.div`
+  display: flex;
+  margin-bottom: 30px;
+  justify-content: center;
+  align-items: center;
+  width: 390px;
+  margin: 0 auto;
+`;
+
+const Step = styled.div<{active: boolean}>`
+  background: ${({active}) => active ? '#00A045' : '#4D4D4D'};
+  color: ${({active}) => active ? '#ffffff' : 'rgba(255, 255, 255, 0.1)'};
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+
+  :before {
+    content: '';
+    width: 0px;
+    height: 0px;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-top: 10px solid #00A045;
+    position: absolute;
+    top: -34px;
+    left: 50%;
+    margin-left: -11px;
+    display: ${({active}) => active ? 'block' : 'none'};
+  }
+`;
+
+const StepLine = styled.div`
+  flex: 1;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.1);
+`;
+
 function MigrateLP() {
   const { t } = useTranslation();
   const [openModal, setOpenModal] = useState(false);
+  const [openLpModal, setLpOpenModal] = useState(false);
+  const [type, setType] = useState([0, 1, 2, 3, 4]);// true : withdraw
+  const [curStatus, setCurStatus] = useState(0);
   
   return (
     <PageWrapper gap="lg" justify="center">
@@ -131,7 +189,10 @@ function MigrateLP() {
           </AutoColumn>
         </CardSection>
       </DataCard2>
-      <ButtonLight>{t('Migrate to V2')}</ButtonLight>
+      <ButtonLight onClick={() => {
+        setCurStatus(curStatus + 1);
+        setLpOpenModal(!openLpModal);
+      }}>{t('Migrate to V2')}</ButtonLight>
       {
         openModal && <LPSearch
           isOpen={openModal}
@@ -140,6 +201,29 @@ function MigrateLP() {
           otherSelectedCurrency={null}
           onChangeList={ () => {} }
         />
+      }
+      {
+        openLpModal && <LpModal
+          isOpen={openLpModal}
+          onDismiss={() => setLpOpenModal(false)}
+          title={'Migrate LP from V1 to V2 for new farming'}
+        >
+          <>
+            <Introduce>
+              <TYPE.yellow3>Deposit</TYPE.yellow3>&nbsp;
+              <TYPE.white>LP from WanSwap V1</TYPE.white>
+            </Introduce>
+            <IntroduceLine>
+              {
+                type.map((v, k) => <>
+                  <Step active={curStatus === k}>{curStatus <= k ? k : <Check size={14} color={'#999999'} />}</Step>
+                  { k === type.length - 1 ? null : <StepLine /> }
+                </>)
+              }
+            </IntroduceLine>
+            {type && <TYPE.white1 style={{marginTop: '30px'}}>When you withdraw, your WASP is claimed and your liquidity is removed from the mining pool.</TYPE.white1>}
+          </>
+        </LpModal>
       }
     </PageWrapper>
   )
