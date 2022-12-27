@@ -383,7 +383,9 @@ export default function Header() {
             </UNIWrapper>
           )}
           <VersionBtnGroup>
-              <V1Btn>V1</V1Btn>
+              <V1Btn onClick={()=>{
+                window.location.href = 'https://v1.wanswap.finance';
+              }}>V1</V1Btn>
               <V2Btn>V2</V2Btn>
           </VersionBtnGroup>
           <Settings />
@@ -425,6 +427,7 @@ const VersionBtnGroup = styled.div`
   justify-content: space-between;
   align-items: center;
   padding: 4px;
+  margin-right: 8px;
 `;
 
 const PriceText = styled.div`
