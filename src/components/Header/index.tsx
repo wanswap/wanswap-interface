@@ -382,6 +382,10 @@ export default function Header() {
               <PriceText>${uniPrice?.toFixed(4) ?? '-'}</PriceText>
             </UNIWrapper>
           )}
+          <VersionBtnGroup>
+              <V1Btn>V1</V1Btn>
+              <V2Btn>V2</V2Btn>
+          </VersionBtnGroup>
           <Settings />
           <AccountElement active={!!account} style={{ pointerEvents: 'auto' }} >
             {account && userEthBalance ? (
@@ -396,6 +400,32 @@ export default function Header() {
     </HeaderFrame>
   )
 }
+
+const V1Btn = styled.button`
+  width: 28px;
+  height: 28px;
+  background: none;
+  border-radius: 6px;
+  color: #8F8D8B;
+  border: none;
+  cursor: pointer;
+  margin-right: 4px;
+`;
+
+const V2Btn = styled(V1Btn)`
+  background: #00A045;
+  color: #fff;
+  margin-right: 0;
+`;
+
+const VersionBtnGroup = styled.div`
+  background: #212121;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 4px;
+`;
 
 const PriceText = styled.div`
   position: relative;
