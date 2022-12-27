@@ -131,7 +131,7 @@ function MigrateLP() {
   const { t } = useTranslation();
   const [openModal, setOpenModal] = useState(false);
   const [openLpModal, setLpOpenModal] = useState(false);
-  const [type, setType] = useState([0, 1, 2, 3, 4]);// true : withdraw
+  const [type, setType] = useState<Array<number>>([]);
   const [curStatus, setCurStatus] = useState(0);
   
   return (
@@ -190,6 +190,7 @@ function MigrateLP() {
         </CardSection>
       </DataCard2>
       <ButtonLight onClick={() => {
+        setType([0, 1, 2, 3, 4]);
         setCurStatus(curStatus + 1);
         setLpOpenModal(!openLpModal);
       }}>{t('Migrate to V2')}</ButtonLight>
