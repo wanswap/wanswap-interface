@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from 'react';
-import { Currency } from '@wanswap/sdk'
+import { Currency, Token, TokenAmount } from '@wanswap/sdk'
 import { AutoColumn } from '../../components/Column';
 import { CardSection, DataCard } from '../../components/earn/styled';
 import { RowBetween } from '../../components/Row';
@@ -14,9 +14,11 @@ import LpModal from './LPModal';
 import { Check } from 'react-feather';
 import { useActiveWeb3React } from '../../hooks';
 import { useV1UserInfo } from '../../state/stake/hooks';
-import { V1_FARM_PAIRS } from '../../constants/abis/bridge';
+import { BRIDGE_MINER_ADDRESS, V1_FARM_PAIRS } from '../../constants/abis/bridge';
 import { useWalletModalToggle } from '../../state/application/hooks';
 import { ethers } from 'ethers';
+import { useBridgeMinerContract, useV1MinerContract } from '../../hooks/useContract';
+import { useApproveCallback, ApprovalState } from '../../hooks/useApproveCallback';
 
 const PageWrapper = styled(AutoColumn)`
   max-width: 640px;
@@ -159,9 +161,23 @@ function MigrateLP() {
       token1: user1,
     }
   }, [info])
+  const v1MinerContract = useV1MinerContract()
+  const v2MinerContract = useBridgeMinerContract()
+
+  const userAmount = new TokenAmount(new Token(chainId || 999, pair.lpAddress, 18), info?.userInfo.amount?.toString() || '0');
+
+  const [approval, approveCallback] = useApproveCallback(
+    userAmount,
+    chainId ? BRIDGE_MINER_ADDRESS[chainId] : undefined
+  )
+
+  const [message0, setMessage0] = useState('');
+  const [message1, setMessage1] = useState('');
+  const [message2, setMessage2] = useState('');
 
   console.log('!!! token0', token0?.toSignificant(8), token1?.toSignificant(8))
-  
+  console.log('!!! userAmount', userAmount.raw.toString(16))
+
   return (
     <PageWrapper gap="lg" justify="center">
       <DataCard>
@@ -221,10 +237,38 @@ function MigrateLP() {
         !account && <ButtonLight onClick={toggleWalletModal}>{t('connectWallet')}</ButtonLight>
       }
       {
-        account && <ButtonLight onClick={() => {
-          setType([0, 1, 2, 3, 4]);
-          setCurStatus(curStatus + 1);
-          setLpOpenModal(!openLpModal);
+        account && <ButtonLight onClick={async () => {
+          if (pair.type === 0) {
+            setMessage0('Withdraw');
+            setMessage1('LP from V1 Farming');
+            setMessage2('Please confirm transaction in your wallet...');
+            setType([0, 1, 2, 3]);
+            setCurStatus(0);
+            setLpOpenModal(!openLpModal);
+            let amount = '0x' + userAmount.raw.toString(16);
+            const tx0 = await v1MinerContract?.withdraw(pair.pid, amount);
+            await tx0.wait();
+            if (approval === ApprovalState.NOT_APPROVED || approval === ApprovalState.PENDING) {
+              setMessage0('Approve');
+              setMessage1('LP to V2 Farming');
+              setCurStatus(1);
+              await approveCallback()
+            }
+
+            setMessage0('Deposit');
+            setMessage1('LP to V2 Farming');
+            setCurStatus(2);
+            const tx2 = await v2MinerContract?.deposit(pair.v2Pid, amount, { gasLimit: 500000 });
+            await tx2.wait();
+            setMessage0('Success!');
+            setMessage1('You can close this window now.');
+            setCurStatus(3);
+            setMessage2('');
+          } else {
+            setType([0, 1, 2, 3, 4]);
+            setCurStatus(curStatus + 1);
+            setLpOpenModal(!openLpModal);
+          }
         }} disabled={!info}>{t('Migrate to V2')}</ButtonLight>
       }
       {
@@ -244,18 +288,18 @@ function MigrateLP() {
         >
           <>
             <Introduce>
-              <TYPE.yellow3>Deposit</TYPE.yellow3>&nbsp;
-              <TYPE.white>LP from WanSwap V1</TYPE.white>
+              <TYPE.yellow3>{message0}</TYPE.yellow3>&nbsp;
+              <TYPE.white>{message1}</TYPE.white>
             </Introduce>
             <IntroduceLine>
               {
                 type.map((v, k) => <>
-                  <Step active={curStatus === k}>{curStatus <= k ? k : <Check size={14} color={'#999999'} />}</Step>
+                  <Step active={curStatus === k}>{curStatus <= k ? k + 1 : <Check size={14} color={'#999999'} />}</Step>
                   { k === type.length - 1 ? null : <StepLine /> }
                 </>)
               }
             </IntroduceLine>
-            {type && <TYPE.white1 style={{marginTop: '30px'}}>When you withdraw, your WASP is claimed and your liquidity is removed from the mining pool.</TYPE.white1>}
+            {type && <TYPE.white1 style={{marginTop: '30px', textAlign: 'center'}}>{message2}</TYPE.white1>}
           </>
         </LpModal>
       }
