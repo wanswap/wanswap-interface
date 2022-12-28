@@ -303,7 +303,7 @@
     },
     {
       "chainId": 999,
-      "address": "0x6103BD5e1906095BB3Bb7109ed499c9C8C24A31A",
+      "address": "0x54A20457a1b1F926C7779245C7f15A9c567fFe01",
       "name": "WASP_V2",
       "symbol": "WASP",
       "decimals": 18,
@@ -320,7 +320,7 @@
 
   ],
   "version": {
-    "major": 11,
+    "major": 12,
     "minor": 0,
     "patch": 0
   }
