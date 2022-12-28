@@ -46,7 +46,7 @@ const activeClassName = 'ACTIVE';
 const WaspItem = styled(NavLink).attrs({
   activeClassName
 })`
-  height: 60px;
+  height: 40px;
   display: flex;
   align-items: center;
   font-size: 16px;
@@ -93,7 +93,7 @@ const WaspItem = styled(NavLink).attrs({
 const WaspItemLink = styled(ExternalLink).attrs({
   activeClassName
 }) <{ isActive?: boolean }>`
-  height: 60px;
+  height: 40px;
   display: flex;
   align-items: center;
   font-size: 16px;
@@ -140,7 +140,7 @@ const WaspItemLink = styled(ExternalLink).attrs({
 const WaspItemLightLink = styled(ExternalLink).attrs({
   activeClassName
 }) <{ isActive?: boolean }>`
-  height: 60px;
+  height: 40px;
   display: flex;
   align-items: center;
   font-size: 16px;
@@ -255,8 +255,8 @@ function SideBar() {
       <WaspLinkCon>
         <WaspItemLightLink id={`stake-nav-link`} href={'https://bridge.wanchain.org/'}><BridgeSvg />{t('crossChain')}</WaspItemLightLink>
         <WaspItemLightLink id={`stake-nav-link`} href={'https://wanlend.finance/'}><WanLendSvg />{t('wanLend')} </WaspItemLightLink>
-        <WaspItemLightLink id={`stake-nav-link`} href={'https://bridge.wanchain.org/'}><ZooSvg />ZooKeeper</WaspItemLightLink>
-        <WaspItemLightLink id={`stake-nav-link`} href={'https://bridge.wanchain.org/'}><AutoFarmSvg />Autofarm</WaspItemLightLink>
+        <WaspItemLightLink id={`stake-nav-link`} href={'https://zookeeper.finance/'}><ZooSvg />ZooKeeper</WaspItemLightLink>
+        <WaspItemLightLink id={`stake-nav-link`} href={'https://fifa.wanswap.finance/'}><AutoFarmSvg />FIFA</WaspItemLightLink>
         <WaspItemLightLink id={`stake-nav-link`} href={'https://streamtrade.wanlend.finance/'}><StreamTradeSvg />{'StreamTrade'} </WaspItemLightLink>
       </WaspLinkCon>
     </Con>
