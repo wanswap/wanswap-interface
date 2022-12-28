@@ -6,10 +6,12 @@ import { useBlockNumber } from '../application/hooks'
 
 import { useActiveWeb3React } from '../../hooks'
 import { useTrackedTokenPairs } from '../user/hooks'
-import { WANV2_PAIR_INTERFACE, BRIDGE_MINER_ADDRESS, WRAPPED_WASP_ADDRESS } from '../../constants/abis/bridge'
+import { WANV2_PAIR_INTERFACE, BRIDGE_MINER_ADDRESS, WRAPPED_WASP_ADDRESS, V1FarmPairInfo, V1_MINER_ADDRESS } from '../../constants/abis/bridge'
 import { useMultipleContractSingleData, useSingleCallResult, useSingleContractMultipleData } from '../multicall/hooks'
 import { tryParseAmount } from '../swap/hooks'
-import { useBridgeMinerContract } from '../../hooks/useContract'
+import { useBridgeMinerContract, useV1MinerContract } from '../../hooks/useContract'
+import { useTokenBalance } from '../wallet/hooks'
+import { Contract } from 'ethers'
 
 
 export const STAKING_GENESIS = 1606976660
@@ -71,6 +73,34 @@ export function usePoolInfo() {
     poolLength ? new Array(Number(poolLength)).fill(poolLength).map((_v, _i) => [_i]) : []
   )
 }
+
+export function useV1UserInfo(chainId: ChainId, account: string | undefined, pair: V1FarmPairInfo) {
+  const bridgeMinerContract = useV1MinerContract()
+  console.log('!!!debug', pair);
+  const userInfo = useSingleCallResult(bridgeMinerContract, 'userInfo', [pair.pid, account])
+  const poolInfo = useSingleCallResult(bridgeMinerContract, 'poolInfo', [pair.pid])
+  const token0 = new Token(chainId, pair.token0.address, pair.token0.decimal, pair.token0.symbol, pair.token0.symbol)
+  const token1 = new Token(chainId, pair.token1.address, pair.token1.decimal, pair.token1.symbol, pair.token1.symbol)
+ 
+  
+  const token0Balance = useTokenBalance(pair.lpAddress, token0)
+  const token1Balance = useTokenBalance(pair.lpAddress, token1)
+  const totalSupply = useSingleCallResult(new Contract(pair.lpAddress, WANV2_PAIR_INTERFACE), 'balanceOf', [
+    chainId ? V1_MINER_ADDRESS[chainId] : undefined
+  ])
+
+  return useMemo(() => {
+    if (!account || !userInfo.result || !poolInfo.result || !token0Balance || !token1Balance || !totalSupply.result) return undefined
+    return {
+      userInfo: userInfo.result,
+      poolInfo: poolInfo.result,
+      token0Balance,
+      token1Balance,
+      totalSupply: totalSupply.result,
+    };
+  }, [account, userInfo, poolInfo, token0Balance, token1Balance, totalSupply])
+}
+
 export function useAllStakingRewardsInfo() {
   const { chainId } = useActiveWeb3React()
   const poolInfo = usePoolInfo()

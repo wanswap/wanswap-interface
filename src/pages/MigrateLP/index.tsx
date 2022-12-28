@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { Currency } from '@wanswap/sdk'
 import { AutoColumn } from '../../components/Column';
 import { CardSection, DataCard } from '../../components/earn/styled';
@@ -12,6 +12,11 @@ import logoImg from '../../assets/images/png/logo.png';
 import downImg from '../../assets/images/png/down.png';
 import LpModal from './LPModal';
 import { Check } from 'react-feather';
+import { useActiveWeb3React } from '../../hooks';
+import { useV1UserInfo } from '../../state/stake/hooks';
+import { V1_FARM_PAIRS } from '../../constants/abis/bridge';
+import { useWalletModalToggle } from '../../state/application/hooks';
+import { ethers } from 'ethers';
 
 const PageWrapper = styled(AutoColumn)`
   max-width: 640px;
@@ -128,11 +133,34 @@ const StepLine = styled.div`
 `;
 
 function MigrateLP() {
+  const { chainId, account } = useActiveWeb3React()
+  console.log('!!! chainId', chainId)
+  console.log('account', account)
+  const selectIndex = 0;
+  // console.log('!!! V1_FARM_PAIRS', V1_FARM_PAIRS[chainId || 999])
+  const pair = V1_FARM_PAIRS[chainId || 999][selectIndex];
+  const info = useV1UserInfo(chainId || 999, account ? account : undefined, pair)
+  console.log('!!! info', info)
   const { t } = useTranslation();
   const [openModal, setOpenModal] = useState(false);
   const [openLpModal, setLpOpenModal] = useState(false);
   const [type, setType] = useState<Array<number>>([]);
   const [curStatus, setCurStatus] = useState(0);
+  const toggleWalletModal = useWalletModalToggle()
+  const {token0, token1} = useMemo(() => {
+    const t0 = info?.token0Balance;
+    const t1 = info?.token1Balance;
+    const total = info?.totalSupply[0];
+    const user = info?.userInfo.amount;
+    const user0 = t0 && user && total ? t0.multiply(user).divide(total) : undefined;
+    const user1 = t1 && user && total ? t1.multiply(user).divide(total) : undefined;
+    return {
+      token0: user0,
+      token1: user1,
+    }
+  }, [info])
+
+  console.log('!!! token0', token0?.toSignificant(8), token1?.toSignificant(8))
   
   return (
     <PageWrapper gap="lg" justify="center">
@@ -171,29 +199,34 @@ function MigrateLP() {
         <CardSection>
           <AutoColumn gap="md">
             <RowBetween>
-              <TYPE.white fontWeight={400} fontSize={'16px'}>{t('Select WanSwap V1 LP token')}</TYPE.white>
+              <TYPE.white fontWeight={400} fontSize={'16px'}>{t('V1 LP Token Balance')}</TYPE.white>
             </RowBetween>
             <LiquidityCon>
-              <TYPE.yellow3 fontWeight={400} fontSize={'24px'}>{t('0.00000000682')}</TYPE.yellow3>
+              <TYPE.yellow3 fontWeight={400} fontSize={'24px'}>{info ? ethers.utils.formatEther(info.userInfo.amount.toString()).toString() : 'Loading...'}</TYPE.yellow3>
               <TYPE.white fontWeight={400} fontSize={'24px'}>{t('WSLP WASP-WAN')}</TYPE.white>
             </LiquidityCon>
             <PairContent>
               <Logo3 src={logoImg} />
-              <TYPE.white fontWeight={400} fontSize={'16px'} marginLeft={'8px'}>{t('1.68785')}</TYPE.white>&nbsp;
-              <TYPE.white fontWeight={400} fontSize={'16px'}>{t('WASP')}</TYPE.white>
+              <TYPE.white fontWeight={400} fontSize={'16px'} marginLeft={'8px'}>{token0 ? token0?.toSignificant(8) : 'Loading...'}</TYPE.white>&nbsp;
+              <TYPE.white fontWeight={400} fontSize={'16px'}>{pair.token0.symbol}</TYPE.white>
               <Line />
               <Logo3 src={logoImg} />
-              <TYPE.white fontWeight={400} fontSize={'16px'} marginLeft={'8px'}>{t('80.68785')}</TYPE.white>&nbsp;
-              <TYPE.white fontWeight={400} fontSize={'16px'}>{t('WAN')}</TYPE.white>
+              <TYPE.white fontWeight={400} fontSize={'16px'} marginLeft={'8px'}>{token1 ? token1?.toSignificant(8) : 'Loading...'}</TYPE.white>&nbsp;
+              <TYPE.white fontWeight={400} fontSize={'16px'}>{pair.token1.symbol}</TYPE.white>
             </PairContent>
           </AutoColumn>
         </CardSection>
       </DataCard2>
-      <ButtonLight onClick={() => {
-        setType([0, 1, 2, 3, 4]);
-        setCurStatus(curStatus + 1);
-        setLpOpenModal(!openLpModal);
-      }}>{t('Migrate to V2')}</ButtonLight>
+      {
+        !account && <ButtonLight onClick={toggleWalletModal}>{t('connectWallet')}</ButtonLight>
+      }
+      {
+        account && <ButtonLight onClick={() => {
+          setType([0, 1, 2, 3, 4]);
+          setCurStatus(curStatus + 1);
+          setLpOpenModal(!openLpModal);
+        }} disabled={!info}>{t('Migrate to V2')}</ButtonLight>
+      }
       {
         openModal && <LPSearch
           isOpen={openModal}

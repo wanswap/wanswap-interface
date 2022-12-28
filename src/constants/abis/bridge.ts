@@ -13,6 +13,14 @@ const ERC20_INTERFACE = new Interface(ERC20_ABI)
 const WANV2BRIDGE_TOKEN_INTERFACE = new Interface(BRIDGE_TOKEN_ABI)
 const HIVE_INTERFACE = new Interface(HIVE_ABI);
 
+const V1_MINER_ADDRESS: { [chainId in ChainId]: string } = {
+  [ChainId.MAINNET]: '0x7E5fE1e587A5c38B4A4A9ba38a35096F8EA35aaC',
+  [ChainId.ROPSTEN]: '0x01EcaA58733A9232Ae5F1D2f74c643f2f8b3Bb91',
+  [ChainId.RINKEBY]: '0xAfa6C39FDf16446078aEeEE53E4c4843811570A1',
+  [ChainId.GÖRLI]: '0xAfa6C39FDf16446078aEeEE53E4c4843811570A1',
+  [ChainId.KOVAN]: '0xAfa6C39FDf16446078aEeEE53E4c4843811570A1'
+}
+
 const BRIDGE_MINER_ADDRESS: { [chainId in ChainId]: string } = {
   [ChainId.MAINNET]: '0x7E5fE1e587A5c38B4A4A9ba38a35096F8EA35aaC',
   [ChainId.ROPSTEN]: '0xe78396135CA0aF3839AD3bD0545A9Bba9e44e42e',
@@ -69,43 +77,197 @@ const STAKE_WASP_EARN_WASP_PID: { [chainId in ChainId]: string } = {
   [ChainId.KOVAN]: '5'
 }
 
-const V1_FARM_PAIRS: { [chainId in ChainId]: {pid: number; lpAddress: string; name: string }[] } = {
-  [ChainId.MAINNET]: [],
-  [ChainId.ROPSTEN]: [
+export declare type V1FarmPairInfo = {
+  pid: number
+  lpAddress: string
+  name: string
+  type: number
+  v2Pid: number
+  token0: {
+    symbol: string
+    decimal: number
+    address: string
+  }
+  token1: {
+    symbol: string
+    decimal: number
+    address: string
+  }
+}
+
+const V1_FARM_PAIRS: { [chainId in ChainId]: V1FarmPairInfo[] } = {
+  [ChainId.MAINNET]: [
     {
       pid: 0,
       lpAddress: '0x0a886Dc4d584d55E9A1FA7eB0821762296b4ec0E',
       name: 'WAN/FNX',
+      type: 0,
+      v2Pid: 0,
+      token0: {
+        symbol: 'WWAN',
+        decimal: 18,
+        address: '0x916283CC60FDAF05069796466Af164876E35D21F',
+      },
+      token1: {
+        symbol: 'FNX',
+        decimal: 18,
+        address: '0x974AB46969D3D9a4569546051a797729E301d6Eb',
+      },
     },
     {
       pid: 1,
       lpAddress: '0xb0f36B469DDA3917AbbC8520F4CF80A5D1e9e9E2',
       name: 'wanOBTC/WAN',
+      type: 0,
+      v2Pid: 1,
+      token0: {
+        symbol: 'wanOBTC',
+        decimal: 8,
+        address: '0x89a3E1494bC3dB81DaDc893deD7476D33d47Dcbd',
+      },
+      token1: {
+        symbol: 'WWAN',
+        decimal: 18,
+        address: '0x916283CC60FDAF05069796466Af164876E35D21F',
+      },
     },
-    // {
-    //   pid: 2,
-    //   lpAddress: '0x4bbBAaA14725D157Bf9dde1e13F73c3F96343f3d',
-    //   name: 'oldWASP/WAN',
-    // },
     {
       pid: 3,
       lpAddress: '0xB1b5Dada5795F174F1f62edE70EdB4365fB07fb1',
       name: 'wanETH/WAN',
+      type: 0,
+      v2Pid: 2,
+      token0: {
+        symbol: 'wanETH',
+        decimal: 18,
+        address: '0x48344649B9611a891987b2Db33fAada3AC1d05eC',
+      },
+      token1: {
+        symbol: 'WWAN',
+        decimal: 18,
+        address: '0x916283CC60FDAF05069796466Af164876E35D21F',
+      },
     },
     {
       pid: 4,
       lpAddress: '0xeC79FfAB94db4F6AE7eE51B20f0E8cA1eCa93468',
       name: 'wanUSDT/WAN',
-    },
-    {
-      pid: 5,
-      lpAddress: '0xAEECE738A9AFC0E2E28D43E6aA78F13589049D0b',
-      name: 'WWASP',
+      type: 0,
+      v2Pid: 3,
+      token0: {
+        symbol: 'wanUSDT',
+        decimal: 6,
+        address: '0x3D5950287b45F361774E5fB6e50d70eEA06Bc167',
+      },
+      token1: {
+        symbol: 'WWAN',
+        decimal: 18,
+        address: '0x916283CC60FDAF05069796466Af164876E35D21F',
+      },
     },
     {
       pid: 6,
       lpAddress: '0xEe700Cd7C33DE6E86f2B35ef0D05dFF2A15Ccdd9',
       name: 'WASPv1/WAN',
+      type: 1,
+      v2Pid: 5,
+      token0: {
+        symbol: 'WASPv1',
+        decimal: 18,
+        address: '0x830053DABd78b4ef0aB0FeC936f8a1135B68da6f',
+      },
+      token1: {
+        symbol: 'WWAN',
+        decimal: 18,
+        address: '0x916283CC60FDAF05069796466Af164876E35D21F',
+      },
+    },
+  ],
+  [ChainId.ROPSTEN]: [
+    {
+      pid: 0,
+      lpAddress: '0x0a886Dc4d584d55E9A1FA7eB0821762296b4ec0E',
+      name: 'WAN/FNX',
+      type: 0,
+      v2Pid: 0,
+      token0: {
+        symbol: 'WWAN',
+        decimal: 18,
+        address: '0x916283CC60FDAF05069796466Af164876E35D21F',
+      },
+      token1: {
+        symbol: 'FNX',
+        decimal: 18,
+        address: '0x974AB46969D3D9a4569546051a797729E301d6Eb',
+      },
+    },
+    {
+      pid: 1,
+      lpAddress: '0xb0f36B469DDA3917AbbC8520F4CF80A5D1e9e9E2',
+      name: 'wanOBTC/WAN',
+      type: 0,
+      v2Pid: 1,
+      token0: {
+        symbol: 'wanOBTC',
+        decimal: 8,
+        address: '0x89a3E1494bC3dB81DaDc893deD7476D33d47Dcbd',
+      },
+      token1: {
+        symbol: 'WWAN',
+        decimal: 18,
+        address: '0x916283CC60FDAF05069796466Af164876E35D21F',
+      },
+    },
+    {
+      pid: 3,
+      lpAddress: '0xB1b5Dada5795F174F1f62edE70EdB4365fB07fb1',
+      name: 'wanETH/WAN',
+      type: 0,
+      v2Pid: 2,
+      token0: {
+        symbol: 'wanETH',
+        decimal: 18,
+        address: '0x48344649B9611a891987b2Db33fAada3AC1d05eC',
+      },
+      token1: {
+        symbol: 'WWAN',
+        decimal: 18,
+        address: '0x916283CC60FDAF05069796466Af164876E35D21F',
+      },
+    },
+    {
+      pid: 4,
+      lpAddress: '0xeC79FfAB94db4F6AE7eE51B20f0E8cA1eCa93468',
+      name: 'wanUSDT/WAN',
+      type: 0,
+      v2Pid: 3,
+      token0: {
+        symbol: 'wanUSDT',
+        decimal: 6,
+        address: '0x3D5950287b45F361774E5fB6e50d70eEA06Bc167',
+      },
+      token1: {
+        symbol: 'WWAN',
+        decimal: 18,
+        address: '0x916283CC60FDAF05069796466Af164876E35D21F',
+      },
+    },
+    {
+      pid: 6,
+      lpAddress: '0xEe700Cd7C33DE6E86f2B35ef0D05dFF2A15Ccdd9',
+      name: 'WASPv1/WAN',
+      type: 1,
+      v2Pid: 5,
+      token0: {
+        symbol: 'WASPv1',
+        decimal: 18,
+        address: '0x830053DABd78b4ef0aB0FeC936f8a1135B68da6f',
+      },
+      token1: {
+        symbol: 'WWAN',
+        decimal: 18,
+        address: '0x916283CC60FDAF05069796466Af164876E35D21F',
+      },
     },
   ],
   [ChainId.RINKEBY]: [],
@@ -136,4 +298,5 @@ export {
   AUTO_WASP_ADDRESS,
   STAKE_WASP_EARN_WASP_PID,
   V1_FARM_PAIRS,
+  V1_MINER_ADDRESS,
 }

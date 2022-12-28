@@ -27,6 +27,7 @@ import {
   HIVE_ABI,
   AUTO_WASP_ABI,
   AUTO_WASP_ADDRESS,
+  V1_MINER_ADDRESS,
 } from '../constants/abis/bridge'
 import UNISOCKS_ABI from '../constants/abis/unisocks.json'
 import WETH_ABI from '../constants/abis/weth.json'
@@ -63,6 +64,11 @@ export function useV2MigratorContract(): Contract | null {
 export function useBridgeMinerContract(): Contract | null {
   const { chainId } = useActiveWeb3React()
   return useContract(chainId && BRIDGE_MINER_ADDRESS[chainId], BRIDGE_MINER_ABI, true)
+}
+
+export function useV1MinerContract(): Contract | null {
+  const { chainId } = useActiveWeb3React()
+  return useContract(chainId && V1_MINER_ADDRESS[chainId], BRIDGE_MINER_ABI, true)
 }
 
 export function useHiveContract(): Contract | null {
