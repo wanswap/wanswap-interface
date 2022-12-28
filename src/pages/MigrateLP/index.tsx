@@ -172,7 +172,7 @@ function MigrateLP() {
             </RowBetween>
             <RowBetween>
               <TYPE.white fontSize={14} fontWeight={400} lineHeight={'22px'}>
-                {t('This one-click migration is only applicable to non-WASP related LP tokens, such as WAN-wanBTC LP tokens, wanUSDT-wanUSDC LP tokens, etc.')}
+                {t('This one-click migration is used for move LPs from V1 Farming to V2 Farming.')}
               </TYPE.white>
             </RowBetween>
           </AutoColumn>
