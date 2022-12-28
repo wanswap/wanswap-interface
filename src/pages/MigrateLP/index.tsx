@@ -203,7 +203,7 @@ function MigrateLP() {
             </RowBetween>
             <LiquidityCon>
               <TYPE.yellow3 fontWeight={400} fontSize={'24px'}>{info ? ethers.utils.formatEther(info.userInfo.amount.toString()).toString() : 'Loading...'}</TYPE.yellow3>
-              <TYPE.white fontWeight={400} fontSize={'24px'}>{t('WSLP WASP-WAN')}</TYPE.white>
+              <TYPE.white fontWeight={400} fontSize={'24px'}>{t('WSLP (' + pair.name + ')')}</TYPE.white>
             </LiquidityCon>
             <PairContent>
               <Logo3 src={logoImg} />
