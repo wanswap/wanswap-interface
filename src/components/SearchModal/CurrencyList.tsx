@@ -98,6 +98,7 @@ function CurrencyRow({
   const { t } = useTranslation()
   const key = currencyKey(currency)
   const selectedTokenList = useSelectedTokenList()
+  console.log('selectedTokenList', selectedTokenList)
   const isOnSelectedList = isTokenOnList(selectedTokenList, currency)
   const customAdded = useIsUserAddedToken(currency)
   const balance = useCurrencyBalance(account ?? undefined, currency)

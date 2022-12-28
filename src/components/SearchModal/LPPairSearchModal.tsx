@@ -15,7 +15,7 @@ import Column from '../Column'
 import ListLogo from '../ListLogo'
 import Modal from '../Modal';
 import Row, { RowBetween } from '../Row'
-import CurrencyList from './CurrencyList'
+import PairList from './PairList'
 import { filterTokens } from './filtering'
 import SortButton from './SortButton'
 import { useTokenComparator } from './sorting'
@@ -164,11 +164,11 @@ export function LPPairSearchModal({
         <div style={{ flex: '1' }}>
           <AutoSizer disableWidth>
             {({ height }) => (
-              <CurrencyList
+              <PairList
                 height={height}
                 showETH={showETH}
                 currencies={filteredSortedTokens}
-                onCurrencySelect={handleCurrencySelect}
+                // onCurrencySelect={handleCurrencySelect}
                 otherCurrency={otherSelectedCurrency}
                 fixedListRef={fixedList}
               />

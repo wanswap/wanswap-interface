@@ -7,7 +7,7 @@ import { TYPE } from '../../theme';
 import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
 import { ButtonLight } from '../../components/Button';
-import { LPSearch } from '../../components/SearchModal/LPSearch';
+import { LPPairSearchModal } from '../../components/SearchModal/LPPairSearchModal';
 import logoImg from '../../assets/images/png/logo.png';
 import downImg from '../../assets/images/png/down.png';
 import LpModal from './LPModal';
@@ -195,7 +195,7 @@ function MigrateLP() {
         setLpOpenModal(!openLpModal);
       }}>{t('Migrate to V2')}</ButtonLight>
       {
-        openModal && <LPSearch
+        openModal && <LPPairSearchModal
           isOpen={openModal}
           onDismiss={() => setOpenModal(false)}
           onCurrencySelect={ (currency: Currency) => {} }
