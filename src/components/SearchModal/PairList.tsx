@@ -30,12 +30,14 @@ function currencyKey(currency: Currency): string {
 
 function CurrencyRow({
   pairName,
+  index,
   // onSelect,
   // isSelected,
   // otherSelected,
   style
 }: {
   pairName: string
+  index: number
   // onSelect: () => void
   // isSelected: boolean
   // otherSelected: boolean
@@ -46,8 +48,10 @@ function CurrencyRow({
   const { chainId } = useActiveWeb3React()
   const networkId = chainId ? chainId : 999;
   const selectedTokenList = Object.values(useSelectedTokenList()[networkId])
-  const [currency1Info, currency2Info]:[WrappedTokenInfo | undefined, WrappedTokenInfo | undefined] = [selectedTokenList.find(v => v.symbol === currency1Name), selectedTokenList.find(v => v.symbol === currency2Name)]
-  console.log('currency1Info', currency1Info, currency2Info)
+  const pair = V1_FARM_PAIRS[networkId][index];
+  
+  const [currency1Info, currency2Info]:[WrappedTokenInfo | undefined, WrappedTokenInfo | undefined] = [selectedTokenList.find(v => v.address === pair.token0.address), selectedTokenList.find(v => v.address === pair.token1.address)]
+  console.log('!!! currency1Info', currency1Info, currency2Info, selectedTokenList)
   return (
     <MenuItem
       // onClick={() => (isSelected ? null : onSelect())}
@@ -96,6 +100,7 @@ export default function PairList({
         <CurrencyRow
           style={style}
           pairName={data[index].name}
+          index={index}
           // isSelected={isSelected}
           // onSelect={handleSelect}
           // otherSelected={otherSelected}
