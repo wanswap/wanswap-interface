@@ -5,7 +5,7 @@ import { Text } from 'rebass'
 import { useActiveWeb3React } from '../../hooks'
 import Column from '../Column'
 import styled from 'styled-components'
-import { V1_FARM_PAIRS } from '../../constants/abis/bridge'
+import { V1_FARM_PAIRS, V1FarmPairInfo } from '../../constants/abis/bridge'
 import { useSelectedTokenList } from '../../state/lists/hooks'
 import { WrappedTokenInfo } from '../../state/lists/hooks'
 
@@ -29,22 +29,22 @@ function currencyKey(currency: Currency): string {
 }
 
 function CurrencyRow({
-  pairName,
+  pairInfo,
   index,
-  // onSelect,
+  onSelect,
   // isSelected,
   // otherSelected,
   style
 }: {
-  pairName: string
+  pairInfo: V1FarmPairInfo
   index: number
-  // onSelect: () => void
+  onSelect: () => void
   // isSelected: boolean
   // otherSelected: boolean
   style: CSSProperties
 }) {
   // only show add or remove buttons if not on selected list
-  const [currency1Name, currency2Name] = pairName.split('/');
+  const [currency1Name, currency2Name] = pairInfo.name.split('/');
   const { chainId } = useActiveWeb3React()
   const networkId = chainId ? chainId : 999;
   const selectedTokenList = Object.values(useSelectedTokenList()[networkId])
@@ -55,14 +55,14 @@ function CurrencyRow({
   return (
     <MenuItem
       // onClick={() => (isSelected ? null : onSelect())}
-      // onClick={() => onSelect()}
+      onClick={() => onSelect()}
       // disabled={isSelected}
       // selected={otherSelected}
     >
       <CurrencyLogo src={currency1Info?.tokenInfo.logoURI} style={{zIndex: 2}} alt="" />
       <CurrencyLogo src={currency2Info?.tokenInfo.logoURI} style={{marginLeft: '-6px'}} alt="" />
       <Column>
-        <Text title={pairName} fontWeight={500} fontSize={'22px'} marginLeft={'10px'}>
+        <Text title={pairInfo.name} fontWeight={500} fontSize={'22px'} marginLeft={'10px'}>
           {currency1Name}&nbsp;/&nbsp;{currency2Name}
         </Text>
       </Column>
@@ -74,7 +74,7 @@ export default function PairList({
   height,
   currencies,
   selectedCurrency,
-  // onCurrencySelect,
+  onCurrencySelect,
   otherCurrency,
   fixedListRef,
   showETH
@@ -82,7 +82,7 @@ export default function PairList({
   height: number
   currencies: Currency[]
   selectedCurrency?: Currency | null
-  // onCurrencySelect: (lpAddr: string) => void
+  onCurrencySelect: (index: number) => void
   otherCurrency?: Currency | null
   fixedListRef?: MutableRefObject<FixedSizeList | undefined>
   showETH: boolean
@@ -95,14 +95,14 @@ export default function PairList({
       // const currency: Currency = data[index]
       // const isSelected = Boolean(selectedCurrency && currencyEquals(selectedCurrency, currency))
       // const otherSelected = Boolean(otherCurrency && currencyEquals(otherCurrency, currency))
-      // const handleSelect = () => onCurrencySelect(data[index].lpAddress)
+      const handleSelect = () => onCurrencySelect(index)
       return (
         <CurrencyRow
           style={style}
-          pairName={data[index].name}
+          pairInfo={data[index]}
           index={index}
           // isSelected={isSelected}
-          // onSelect={handleSelect}
+          onSelect={handleSelect}
           // otherSelected={otherSelected}
         />
       )

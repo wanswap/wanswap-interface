@@ -1,4 +1,4 @@
-import { Currency, ETHER, Token } from '@wanswap/sdk'
+import { Currency, Token } from '@wanswap/sdk'
 import React, { KeyboardEvent, RefObject, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react'
 import ReactGA from 'react-ga'
 import { useTranslation } from 'react-i18next'
@@ -25,7 +25,7 @@ import AutoSizer from 'react-virtualized-auto-sizer'
 interface CurrencySearchProps {
   isOpen: boolean
   onDismiss: () => void
-  onCurrencySelect: (currency: Currency) => void
+  onCurrencySelect: (index: number) => void
   otherSelectedCurrency?: Currency | null
   onChangeList: () => void
 }
@@ -90,8 +90,8 @@ export function LPPairSearchModal({
   }, [filteredTokens, searchQuery, searchToken, tokenComparator])
 
   const handleCurrencySelect = useCallback(
-    (currency: Currency) => {
-      onCurrencySelect(currency)
+    (index:number) => {
+      onCurrencySelect(index)
       onDismiss()
     },
     [onDismiss, onCurrencySelect]
@@ -114,17 +114,17 @@ export function LPPairSearchModal({
   const handleEnter = useCallback(
     (e: KeyboardEvent<HTMLInputElement>) => {
       if (e.key === 'Enter') {
-        const s = searchQuery.toLowerCase().trim()
-        if (s === 'wan') {
-          handleCurrencySelect(ETHER)
-        } else if (filteredSortedTokens.length > 0) {
-          if (
-            filteredSortedTokens[0].symbol?.toLowerCase() === searchQuery.trim().toLowerCase() ||
-            filteredSortedTokens.length === 1
-          ) {
-            handleCurrencySelect(filteredSortedTokens[0])
-          }
-        }
+        // const s = searchQuery.toLowerCase().trim()
+        // if (s === 'wan') {
+        //   handleCurrencySelect(ETHER)
+        // } else if (filteredSortedTokens.length > 0) {
+        //   if (
+        //     filteredSortedTokens[0].symbol?.toLowerCase() === searchQuery.trim().toLowerCase() ||
+        //     filteredSortedTokens.length === 1
+        //   ) {
+        //     handleCurrencySelect(filteredSortedTokens[0])
+        //   }
+        // }
       }
     },
     [filteredSortedTokens, handleCurrencySelect, searchQuery]
@@ -168,7 +168,7 @@ export function LPPairSearchModal({
                 height={height}
                 showETH={showETH}
                 currencies={filteredSortedTokens}
-                // onCurrencySelect={handleCurrencySelect}
+                onCurrencySelect={handleCurrencySelect}
                 otherCurrency={otherSelectedCurrency}
                 fixedListRef={fixedList}
               />

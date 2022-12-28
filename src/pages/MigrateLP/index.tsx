@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from 'react';
-import { Currency, Token, TokenAmount } from '@wanswap/sdk'
+import { Token, TokenAmount } from '@wanswap/sdk'
 import { AutoColumn } from '../../components/Column';
 import { CardSection, DataCard } from '../../components/earn/styled';
 import { RowBetween } from '../../components/Row';
@@ -19,6 +19,7 @@ import { useWalletModalToggle } from '../../state/application/hooks';
 import { ethers } from 'ethers';
 import { useBridgeMinerContract, useV1MinerContract } from '../../hooks/useContract';
 import { useApproveCallback, ApprovalState } from '../../hooks/useApproveCallback';
+import { useSelectedTokenList } from '../../state/lists/hooks';
 
 const PageWrapper = styled(AutoColumn)`
   max-width: 640px;
@@ -138,11 +139,12 @@ function MigrateLP() {
   const { chainId, account } = useActiveWeb3React()
   console.log('!!! chainId', chainId)
   console.log('account', account)
-  const selectIndex = 0;
+  const [selectIndex, setSelectIndex] = useState(0);
   // console.log('!!! V1_FARM_PAIRS', V1_FARM_PAIRS[chainId || 999])
   const pair = V1_FARM_PAIRS[chainId || 999][selectIndex];
   const info = useV1UserInfo(chainId || 999, account ? account : undefined, pair)
   console.log('!!! info', info)
+  const selectedTokenList = Object.values(useSelectedTokenList()[chainId || 999])
   const { t } = useTranslation();
   const [openModal, setOpenModal] = useState(false);
   const [openLpModal, setLpOpenModal] = useState(false);
@@ -202,9 +204,9 @@ function MigrateLP() {
             </RowBetween>
             <SelectCard onClick={() => setOpenModal(!openModal)}>
               <PairContent>
-                <Logo src={logoImg} />
-                <Logo2 src={logoImg} />
-                <TYPE.white fontWeight={400} fontSize={'16px'} marginLeft={'8px'}>{t('WASP / WAN')}</TYPE.white>
+                <Logo src={selectedTokenList.find(v => v.address === pair.token0.address)?.tokenInfo.logoURI} />
+                <Logo2 src={selectedTokenList.find(v => v.address === pair.token1.address)?.tokenInfo.logoURI} />
+                <TYPE.white fontWeight={400} fontSize={'16px'} marginLeft={'8px'}>{t(`${pair.token0.symbol} / ${pair.token1.symbol}`)}</TYPE.white>
               </PairContent>
               <Arrow src={downImg} />
             </SelectCard>
@@ -275,7 +277,9 @@ function MigrateLP() {
         openModal && <LPPairSearchModal
           isOpen={openModal}
           onDismiss={() => setOpenModal(false)}
-          onCurrencySelect={ (currency: Currency) => {} }
+          onCurrencySelect={(index: number) => {
+            setSelectIndex(index);
+          }}
           otherSelectedCurrency={null}
           onChangeList={ () => {} }
         />
