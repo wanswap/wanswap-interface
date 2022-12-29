@@ -8,12 +8,19 @@ import styled from 'styled-components'
 import { V1_FARM_PAIRS, V1FarmPairInfo } from '../../constants/abis/bridge'
 import { useSelectedTokenList } from '../../state/lists/hooks'
 import { WrappedTokenInfo } from '../../state/lists/hooks'
+import { Check } from 'react-feather'
 
 const MenuItem = styled.div`
   display: flex;
   margin: 0 20px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   padding: 16px 0;
+  align-items: center;
+  justify-content: space-between;
+`;
+
+const MenuItemLeft = styled.div`
+  display: flex;
   align-items: center;
 `;
 
@@ -32,15 +39,13 @@ function CurrencyRow({
   pairInfo,
   index,
   onSelect,
-  // isSelected,
-  // otherSelected,
+  curSelectedIndex,
   style
 }: {
   pairInfo: V1FarmPairInfo
   index: number
   onSelect: () => void
-  // isSelected: boolean
-  // otherSelected: boolean
+  curSelectedIndex: number
   style: CSSProperties
 }) {
   // only show add or remove buttons if not on selected list
@@ -54,38 +59,32 @@ function CurrencyRow({
   console.log('!!! currency1Info', currency1Info, currency2Info, selectedTokenList)
   return (
     <MenuItem
-      // onClick={() => (isSelected ? null : onSelect())}
-      onClick={() => onSelect()}
-      // disabled={isSelected}
-      // selected={otherSelected}
+      onClick={() => curSelectedIndex === index ? null : onSelect()}
     >
-      <CurrencyLogo src={currency1Info?.tokenInfo.logoURI} style={{zIndex: 2}} alt="" />
-      <CurrencyLogo src={currency2Info?.tokenInfo.logoURI} style={{marginLeft: '-6px'}} alt="" />
-      <Column>
-        <Text title={pairInfo.name} fontWeight={500} fontSize={'22px'} marginLeft={'10px'}>
-          {currency1Name}&nbsp;/&nbsp;{currency2Name}
-        </Text>
-      </Column>
+      <MenuItemLeft>
+        <CurrencyLogo src={currency1Info?.tokenInfo.logoURI} style={{zIndex: 2}} alt="" />
+        <CurrencyLogo src={currency2Info?.tokenInfo.logoURI} style={{marginLeft: '-6px'}} alt="" />
+        <Column>
+          <Text title={pairInfo.name} fontWeight={500} fontSize={'22px'} marginLeft={'10px'}>
+            {currency1Name}&nbsp;/&nbsp;{currency2Name}
+          </Text>
+        </Column>
+      </MenuItemLeft>
+      { curSelectedIndex === index ? <Check size={'30px'} color={'#00A045'} /> : null }
     </MenuItem>
   )
 }
 
 export default function PairList({
   height,
-  currencies,
-  selectedCurrency,
   onCurrencySelect,
-  otherCurrency,
   fixedListRef,
-  showETH
+  curSelectedIndex
 }: {
   height: number
-  currencies: Currency[]
-  selectedCurrency?: Currency | null
   onCurrencySelect: (index: number) => void
-  otherCurrency?: Currency | null
   fixedListRef?: MutableRefObject<FixedSizeList | undefined>
-  showETH: boolean
+  curSelectedIndex: number
 }) {
   const { chainId } = useActiveWeb3React()
   const itemData = useMemo(() => chainId ? V1_FARM_PAIRS[chainId] : [], [chainId])
@@ -101,7 +100,7 @@ export default function PairList({
           style={style}
           pairInfo={data[index]}
           index={index}
-          // isSelected={isSelected}
+          curSelectedIndex={curSelectedIndex}
           onSelect={handleSelect}
           // otherSelected={otherSelected}
         />

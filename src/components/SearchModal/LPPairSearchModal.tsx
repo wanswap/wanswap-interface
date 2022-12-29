@@ -1,4 +1,4 @@
-import { Currency, Token } from '@wanswap/sdk'
+import { Token } from '@wanswap/sdk'
 import React, { KeyboardEvent, RefObject, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react'
 import ReactGA from 'react-ga'
 import { useTranslation } from 'react-i18next'
@@ -26,13 +26,13 @@ interface CurrencySearchProps {
   isOpen: boolean
   onDismiss: () => void
   onCurrencySelect: (index: number) => void
-  otherSelectedCurrency?: Currency | null
+  curSelectedIndex: number
   onChangeList: () => void
 }
 
 export function LPPairSearchModal({
   onCurrencySelect,
-  otherSelectedCurrency,
+  curSelectedIndex,
   onDismiss,
   isOpen,
   onChangeList
@@ -59,11 +59,6 @@ export function LPPairSearchModal({
       })
     }
   }, [isAddressSearch])
-
-  const showETH: boolean = useMemo(() => {
-    const s = searchQuery.toLowerCase().trim()
-    return s === '' || s === 'e' || s === 'et' || s === 'wan'
-  }, [searchQuery])
 
   const tokenComparator = useTokenComparator(invertSearchOrder)
 
@@ -166,11 +161,9 @@ export function LPPairSearchModal({
             {({ height }) => (
               <PairList
                 height={height}
-                showETH={showETH}
-                currencies={filteredSortedTokens}
                 onCurrencySelect={handleCurrencySelect}
-                otherCurrency={otherSelectedCurrency}
                 fixedListRef={fixedList}
+                curSelectedIndex={curSelectedIndex}
               />
             )}
           </AutoSizer>

@@ -280,7 +280,7 @@ function MigrateLP() {
           onCurrencySelect={(index: number) => {
             setSelectIndex(index);
           }}
-          otherSelectedCurrency={null}
+          curSelectedIndex={selectIndex}
           onChangeList={ () => {} }
         />
       }
