@@ -322,12 +322,8 @@ export function useDefaultsFromConvertURLSearch():
 
   useEffect(() => {
     if (!chainId) return
-    if (!parsedQs.inputCurrency) {
-      parsedQs.inputCurrency = '0x830053DABd78b4ef0aB0FeC936f8a1135B68da6f' // wanUSDT
-    }
-    if (!parsedQs.outputCurrency) {
-      parsedQs.outputCurrency = '0x37FF554f765fb0b6e68DE9FDfb5cE3b5280Ee87B' // wanUSDT
-    }
+    parsedQs.inputCurrency = '0x830053DABd78b4ef0aB0FeC936f8a1135B68da6f' // wasp v1
+    parsedQs.outputCurrency = '0x37FF554f765fb0b6e68DE9FDfb5cE3b5280Ee87B' // wasp v2
     
     const parsed = queryParametersToSwapState(parsedQs)
 
