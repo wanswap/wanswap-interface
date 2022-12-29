@@ -135,7 +135,7 @@ const StepLine = styled.div`
 `;
 
 function MigrateLP() {
-  const { chainId, account } = useActiveWeb3React()
+  const { chainId, account, library } = useActiveWeb3React()
   console.log('!!! chainId', chainId)
   console.log('account', account)
   const [selectIndex, setSelectIndex] = useState(0);
@@ -189,7 +189,7 @@ function MigrateLP() {
             </RowBetween>
             <RowBetween>
               <TYPE.white fontSize={14} fontWeight={400} lineHeight={'22px'}>
-                {t('This one-click migration is used for move LPs from V1 Farming to V2 Farming.')}
+                {t('This one-click migration is only applicable to non-WASP related LP tokens, such as WAN-wanBTC LP tokens, wanUSDT-wanUSDC LP tokens, etc.')}
               </TYPE.white>
             </RowBetween>
           </AutoColumn>
@@ -239,6 +239,7 @@ function MigrateLP() {
       }
       {
         account && <ButtonLight onClick={async () => {
+          if (!chainId || !v1MinerContract || !v2MinerContract || !library) return;
           if (pair.type === 0) {
             setMessage0('Withdraw');
             setMessage1('LP from V1 Farming');
@@ -266,8 +267,11 @@ function MigrateLP() {
             setCurStatus(3);
             setMessage2('');
           } else {
-            setType([0, 1, 2, 3, 4]);
-            setCurStatus(curStatus + 1);
+            setMessage0('Pool with WASP');
+            setMessage1('is not supported by auto migration.');
+            setMessage2('Please migrate manually.');
+            setType([0]); // withdraw, approve, remove lp, approve, convert wasp, approve, mint lp, approve, deposit
+            setCurStatus(0);
             setLpOpenModal(!openLpModal);
           }
         }} disabled={!info}>{t('Migrate to V2')}</ButtonLight>
