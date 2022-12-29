@@ -376,6 +376,17 @@ export default function Manage({
                 >
                   {t("Withdraw")}
                 </ButtonPrimary>
+                <ButtonPrimary
+                   margin="6px"
+                  padding="8px"
+                  borderRadius="8px"
+                  width="160px"
+                  onClick={() => {
+                    window.location.href = 'https://wanswap.finance/#/migratelp'
+                  }}
+                >
+                  {t("Migrate To V2")}
+                </ButtonPrimary>
               </>
             )}
           </DataRow>

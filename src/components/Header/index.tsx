@@ -539,6 +539,12 @@ export default function Header() {
           </AccountElement>
         </HeaderElement>
         <HeaderElementWrap>
+          <VersionBtnGroup>
+              <V2Btn>V1</V2Btn>
+              <V1Btn onClick={()=>{
+                window.location.href = 'https://wanswap.finance';
+              }}>V2</V1Btn>
+          </VersionBtnGroup>
           <Settings />
           <Menu />
         </HeaderElementWrap>
@@ -562,3 +568,30 @@ const PriceText = styled.div`
   justify-content: center;
   border-radius: 8px;
 `
+
+
+const V1Btn = styled.button`
+  width: 28px;
+  height: 28px;
+  background: none;
+  border-radius: 6px;
+  color: #8F8D8B;
+  border: none;
+  cursor: pointer;
+`;
+
+const V2Btn = styled(V1Btn)`
+  background: #00A045;
+  color: #fff;
+  margin-right: 0;
+`;
+
+const VersionBtnGroup = styled.div`
+  background: #212121;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 4px;
+  margin-left: 8px;
+`;
