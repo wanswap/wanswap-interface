@@ -34,7 +34,7 @@ import { useToggleSettingsMenu, useWalletModalToggle } from '../../state/applica
 import { Field } from '../../state/swap/actions'
 import {
   tryParseAmount,
-  useDefaultsFromURLSearch,
+  useDefaultsFromConvertURLSearch,
   useDerivedSwapInfo,
   useSwapActionHandlers,
   useSwapState
@@ -58,7 +58,7 @@ import useTokenConvertCallback, { ConvertType } from '../../hooks/useTokenConver
 import useTokenConvertCallback2 from '../../hooks/useTokenConvertCallback2'
 
 export default function ConvertWasp() {
-  const loadedUrlParams = useDefaultsFromURLSearch()
+  const loadedUrlParams = useDefaultsFromConvertURLSearch()
 
   // token warning stuff
   const [loadedInputCurrency, loadedOutputCurrency] = [

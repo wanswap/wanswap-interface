@@ -308,3 +308,42 @@ export function useDefaultsFromURLSearch():
 
   return result
 }
+
+// updates the swap state to use the defaults for a given network
+export function useDefaultsFromConvertURLSearch():
+  | { inputCurrencyId: string | undefined; outputCurrencyId: string | undefined }
+  | undefined {
+  const { chainId } = useActiveWeb3React()
+  const dispatch = useDispatch<AppDispatch>()
+  const parsedQs = useParsedQueryString()
+  const [result, setResult] = useState<
+    { inputCurrencyId: string | undefined; outputCurrencyId: string | undefined } | undefined
+  >()
+
+  useEffect(() => {
+    if (!chainId) return
+    if (!parsedQs.inputCurrency) {
+      parsedQs.inputCurrency = '0x830053DABd78b4ef0aB0FeC936f8a1135B68da6f' // wanUSDT
+    }
+    if (!parsedQs.outputCurrency) {
+      parsedQs.outputCurrency = '0x37FF554f765fb0b6e68DE9FDfb5cE3b5280Ee87B' // wanUSDT
+    }
+    
+    const parsed = queryParametersToSwapState(parsedQs)
+
+    dispatch(
+      replaceSwapState({
+        typedValue: parsed.typedValue,
+        field: parsed.independentField,
+        inputCurrencyId: parsed[Field.INPUT].currencyId,
+        outputCurrencyId: parsed[Field.OUTPUT].currencyId,
+        recipient: parsed.recipient
+      })
+    )
+
+    setResult({ inputCurrencyId: parsed[Field.INPUT].currencyId, outputCurrencyId: parsed[Field.OUTPUT].currencyId })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dispatch, chainId])
+
+  return result
+}
