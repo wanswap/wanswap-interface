@@ -8,7 +8,6 @@ import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
 import { ButtonLight } from '../../components/Button';
 import { LPPairSearchModal } from '../../components/SearchModal/LPPairSearchModal';
-import logoImg from '../../assets/images/png/logo.png';
 import downImg from '../../assets/images/png/down.png';
 import LpModal from './LPModal';
 import { Check } from 'react-feather';
@@ -224,11 +223,11 @@ function MigrateLP() {
               <TYPE.white fontWeight={400} fontSize={'24px'}>{t('WSLP (' + pair.name + ')')}</TYPE.white>
             </LiquidityCon>
             <PairContent>
-              <Logo3 src={logoImg} />
+              <Logo3 src={selectedTokenList.find(v => v.address === pair.token0.address)?.tokenInfo.logoURI} />
               <TYPE.white fontWeight={400} fontSize={'16px'} marginLeft={'8px'}>{token0 ? token0?.toSignificant(8) : 'Loading...'}</TYPE.white>&nbsp;
               <TYPE.white fontWeight={400} fontSize={'16px'}>{pair.token0.symbol}</TYPE.white>
               <Line />
-              <Logo3 src={logoImg} />
+              <Logo3 src={selectedTokenList.find(v => v.address === pair.token1.address)?.tokenInfo.logoURI} />
               <TYPE.white fontWeight={400} fontSize={'16px'} marginLeft={'8px'}>{token1 ? token1?.toSignificant(8) : 'Loading...'}</TYPE.white>&nbsp;
               <TYPE.white fontWeight={400} fontSize={'16px'}>{pair.token1.symbol}</TYPE.white>
             </PairContent>

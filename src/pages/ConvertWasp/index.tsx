@@ -57,7 +57,7 @@ import { TOKEN_CONVERT_ADDRESS, TOKEN_CONVERT_ADDRESS_2 } from '../../constants/
 import useTokenConvertCallback, { ConvertType } from '../../hooks/useTokenConvertCallback'
 import useTokenConvertCallback2 from '../../hooks/useTokenConvertCallback2'
 
-export default function Swap() {
+export default function ConvertWasp() {
   const loadedUrlParams = useDefaultsFromURLSearch()
 
   // token warning stuff
