@@ -107,7 +107,7 @@ export default function PairList({
       )
     },
     // [ otherCurrency, selectedCurrency]
-    []
+    [curSelectedIndex, onCurrencySelect]
   )
 
   const itemKey = useCallback((index: number, data: any) => currencyKey(data[index]), [])

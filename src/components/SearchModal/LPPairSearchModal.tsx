@@ -109,6 +109,7 @@ export function LPPairSearchModal({
   const handleEnter = useCallback(
     (e: KeyboardEvent<HTMLInputElement>) => {
       if (e.key === 'Enter') {
+        console.log('filteredSortedTokens', filteredSortedTokens, handleCurrencySelect, searchQuery);
         // const s = searchQuery.toLowerCase().trim()
         // if (s === 'wan') {
         //   handleCurrencySelect(ETHER)
