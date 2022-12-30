@@ -485,7 +485,7 @@ export default function ConvertWasp() {
                       onClick={onConvert}
                       width="48%"
                     >
-                      {convertInputError ??
+                      {swapInputError ? swapInputError : convertInputError ? convertInputError :
                         (convertType === ConvertType.CONVERT
                           ? t('convert')
                           : convertType === ConvertType.REVERT
@@ -517,7 +517,7 @@ export default function ConvertWasp() {
                       onClick={onConvert2}
                       width="48%"
                     >
-                      {convertInputError2 ??
+                      {swapInputError ? swapInputError : convertInputError2 ? convertInputError2 :
                         (convertType2 === ConvertType.CONVERT
                           ? t('convert')
                           : convertType2 === ConvertType.REVERT
