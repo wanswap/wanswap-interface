@@ -323,7 +323,6 @@ export function useDefaultsFromConvertURLSearch():
 
   useEffect(() => {
     if (!chainId) return
-    console.log('dfdfdfdf-=-=chainId', chainId)
     parsedQs.inputCurrency = chainId === 888 ? token2Mainnet : token2Testnet  // wasp v1
     parsedQs.outputCurrency = chainId === 888 ? token3Mainnet : token3Testnet // wasp v2
     

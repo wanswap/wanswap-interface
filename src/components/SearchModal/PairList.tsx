@@ -76,20 +76,24 @@ function CurrencyRow({
 export default function PairList({
   height,
   onCurrencySelect,
-  curSelectedIndex
+  curSelectedIndex,
+  searchQuery
 }: {
   height: number
   onCurrencySelect: (index: number) => void
   curSelectedIndex: number
+  searchQuery: string
 }) {
   const { chainId } = useActiveWeb3React()
   const itemData = useMemo(() => chainId ? V1_FARM_PAIRS[chainId] : [], [chainId]);
+  const filterList = useMemo(() => {
+    return itemData.filter(v => {
+      return v.name.toLocaleLowerCase().includes(searchQuery.toLocaleLowerCase());
+    })
+  }, [searchQuery]);
 
   const Row = useCallback(
     ({ data, index }) => {
-      // const currency: Currency = data[index]
-      // const isSelected = Boolean(selectedCurrency && currencyEquals(selectedCurrency, currency))
-      // const otherSelected = Boolean(otherCurrency && currencyEquals(otherCurrency, currency))
       const handleSelect = () => onCurrencySelect(index)
       return (
         <CurrencyRow
@@ -97,7 +101,6 @@ export default function PairList({
           index={index}
           curSelectedIndex={curSelectedIndex}
           onSelect={handleSelect}
-          // otherSelected={otherSelected}
         />
       )
     },
@@ -107,7 +110,7 @@ export default function PairList({
   return (
     <Menu height={height}>
       {
-        itemData.map((data:V1FarmPairInfo, index:number) => Row({data, index}))
+        filterList.map((data:V1FarmPairInfo, index:number) => Row({data, index}))
       }
     </Menu>
   )
