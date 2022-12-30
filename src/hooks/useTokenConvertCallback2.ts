@@ -64,7 +64,7 @@ export default function useTokenConvertCallback2(
             ? async () => {
                 try {
                   const txReceipt = await convertContract.withdraw(`0x${inputAmount.raw.toString(16)}`)
-                  addTransaction(txReceipt, { summary: `Revert ${inputAmount.toSignificant(6)} WASPv1 to WASPv2` })
+                  addTransaction(txReceipt, { summary: `Revert ${inputAmount.toSignificant(6)} WASPv2 to WASPv1` })
                 } catch (error) {
                   console.error('Could not revert', error)
                 }
