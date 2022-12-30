@@ -2,7 +2,6 @@ import { Token } from '@wanswap/sdk'
 import React, { KeyboardEvent, RefObject, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react'
 import ReactGA from 'react-ga'
 import { useTranslation } from 'react-i18next'
-import { FixedSizeList } from 'react-window'
 import { Text } from 'rebass'
 import { ThemeContext } from 'styled-components'
 // import { useActiveWeb3React } from '../../hooks'
@@ -41,7 +40,6 @@ export function LPPairSearchModal({
   // const { chainId } = useActiveWeb3React()
   const theme = useContext(ThemeContext)
 
-  const fixedList = useRef<FixedSizeList>()
   const [searchQuery, setSearchQuery] = useState<string>('')
   const [invertSearchOrder, setInvertSearchOrder] = useState<boolean>(false)
   const allTokens = useAllTokens()
@@ -103,7 +101,7 @@ export function LPPairSearchModal({
     const input = event.target.value.toLowerCase().trim()
     const checksummedInput = isAddress(input)
     setSearchQuery(checksummedInput || input)
-    fixedList.current?.scrollTo(0)
+    // fixedList.current?.scrollTo(0)
   }, [])
 
   const handleEnter = useCallback(
@@ -163,7 +161,6 @@ export function LPPairSearchModal({
               <PairList
                 height={height}
                 onCurrencySelect={handleCurrencySelect}
-                fixedListRef={fixedList}
                 curSelectedIndex={curSelectedIndex}
               />
             )}

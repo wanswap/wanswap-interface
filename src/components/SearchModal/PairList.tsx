@@ -1,6 +1,4 @@
-import { Currency, ETHER, Token } from '@wanswap/sdk'
-import React, { CSSProperties, MutableRefObject, useCallback, useMemo } from 'react'
-import { FixedSizeList } from 'react-window'
+import React, { useCallback, useMemo } from 'react'
 import { Text } from 'rebass'
 import { useActiveWeb3React } from '../../hooks'
 import Column from '../Column'
@@ -9,6 +7,12 @@ import { V1_FARM_PAIRS, V1FarmPairInfo } from '../../constants/abis/bridge'
 import { useSelectedTokenList } from '../../state/lists/hooks'
 import { WrappedTokenInfo } from '../../state/lists/hooks'
 import { Check } from 'react-feather'
+
+const Menu = styled.div<{height:number}>`
+  width: 100%;
+  height: ${({height}) => height}px;
+  overflow-y: auto
+`
 
 const MenuItem = styled.div`
   display: flex;
@@ -31,22 +35,16 @@ const CurrencyLogo = styled.img`
   z-index: 1;
 `;
 
-function currencyKey(currency: Currency): string {
-  return currency instanceof Token ? currency.address : currency === ETHER ? 'ETHER' : ''
-}
-
 function CurrencyRow({
   pairInfo,
   index,
   onSelect,
   curSelectedIndex,
-  style
 }: {
   pairInfo: V1FarmPairInfo
   index: number
   onSelect: () => void
   curSelectedIndex: number
-  style: CSSProperties
 }) {
   // only show add or remove buttons if not on selected list
   const [currency1Name, currency2Name] = pairInfo.name.split('/');
@@ -78,27 +76,24 @@ function CurrencyRow({
 export default function PairList({
   height,
   onCurrencySelect,
-  fixedListRef,
   curSelectedIndex
 }: {
   height: number
   onCurrencySelect: (index: number) => void
-  fixedListRef?: MutableRefObject<FixedSizeList | undefined>
   curSelectedIndex: number
 }) {
   const { chainId } = useActiveWeb3React()
-  const itemData = useMemo(() => chainId ? V1_FARM_PAIRS[chainId] : [], [chainId])
+  const itemData = useMemo(() => chainId ? V1_FARM_PAIRS[chainId] : [], [chainId]);
 
   const Row = useCallback(
-    ({ data, index, style }) => {
+    ({ data, index }) => {
       // const currency: Currency = data[index]
       // const isSelected = Boolean(selectedCurrency && currencyEquals(selectedCurrency, currency))
       // const otherSelected = Boolean(otherCurrency && currencyEquals(otherCurrency, currency))
       const handleSelect = () => onCurrencySelect(index)
       return (
         <CurrencyRow
-          style={style}
-          pairInfo={data[index]}
+          pairInfo={data}
           index={index}
           curSelectedIndex={curSelectedIndex}
           onSelect={handleSelect}
@@ -106,23 +101,14 @@ export default function PairList({
         />
       )
     },
-    // [ otherCurrency, selectedCurrency]
     [curSelectedIndex, onCurrencySelect]
   )
 
-  const itemKey = useCallback((index: number, data: any) => currencyKey(data[index]), [])
-
   return (
-    <FixedSizeList
-      height={height}
-      ref={fixedListRef as any}
-      width="100%"
-      itemData={itemData}
-      itemCount={itemData.length}
-      itemSize={56}
-      itemKey={itemKey}
-    >
-      {Row}
-    </FixedSizeList>
+    <Menu height={height}>
+      {
+        itemData.map((data:V1FarmPairInfo, index:number) => Row({data, index}))
+      }
+    </Menu>
   )
 }
