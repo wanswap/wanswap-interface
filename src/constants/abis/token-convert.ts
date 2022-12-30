@@ -23,15 +23,15 @@ export const TOKEN_CONVERT_ADDRESS_2: { [chainId in ChainId]: string } = {
 const token0Testnet = "0x89a3e1494bc3db81dadc893ded7476d33d47dcbd";
 const token1Testnet = "0x07fdb4e8f8e420d021b9abeb2b1f6dce150ef77c";
 
-const token2Testnet = "0x830053DABd78b4ef0aB0FeC936f8a1135B68da6f";
-const token3Testnet = "0x54A20457a1b1F926C7779245C7f15A9c567fFe01";
+export const token2Testnet = "0x830053DABd78b4ef0aB0FeC936f8a1135B68da6f";
+export const token3Testnet = "0x54A20457a1b1F926C7779245C7f15A9c567fFe01";
 
 
 const token0Mainnet = "0xd15e200060fc17ef90546ad93c1c61bfefdc89c7";
 const token1Mainnet = "0x50c439b6d602297252505a6799d84ea5928bcfb6";
 
-const token2Mainnet = "0xd15e200060fc17ef90546ad93c1c61bfefdc89c7";
-const token3Mainnet = "0x50c439b6d602297252505a6799d84ea5928bcfb6";
+export const token2Mainnet = "0xd15e200060fc17ef90546ad93c1c61bfefdc89c7";
+export const token3Mainnet = "0x50c439b6d602297252505a6799d84ea5928bcfb6";
 
 export const CONVERT_TOKEN0 : { [chainId in ChainId]: Token } = {
   [ChainId.MAINNET]: new Token(ChainId.MAINNET, token0Mainnet, 18, 'wanOBTC', 'wanOBTC'),

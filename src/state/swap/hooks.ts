@@ -19,6 +19,7 @@ import useToggledVersion from '../../hooks/useToggledVersion'
 import { useUserSlippageTolerance } from '../user/hooks'
 import { computeSlippageAdjustedAmounts } from '../../utils/prices'
 import { useTranslation } from 'react-i18next'
+import { token2Testnet, token3Testnet, token2Mainnet, token3Mainnet } from '../../constants/abis/token-convert'
 
 export function useSwapState(): AppState['swap'] {
   return useSelector<AppState, AppState['swap']>(state => state.swap)
@@ -322,8 +323,9 @@ export function useDefaultsFromConvertURLSearch():
 
   useEffect(() => {
     if (!chainId) return
-    parsedQs.inputCurrency = '0x830053DABd78b4ef0aB0FeC936f8a1135B68da6f' // wasp v1
-    parsedQs.outputCurrency = '0x54A20457a1b1F926C7779245C7f15A9c567fFe01' // wasp v2
+    console.log('dfdfdfdf-=-=chainId', chainId)
+    parsedQs.inputCurrency = chainId === 888 ? token2Mainnet : token2Testnet  // wasp v1
+    parsedQs.outputCurrency = chainId === 888 ? token3Mainnet : token3Testnet // wasp v2
     
     const parsed = queryParametersToSwapState(parsedQs)
 
