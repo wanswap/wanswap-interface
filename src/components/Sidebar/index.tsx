@@ -23,6 +23,8 @@ const Con = styled.div`
   width: 300px;
   height: 100%;
   background: rgba(31, 27, 24, 0.5);
+  display: flex;
+  flex-direction: column;
 `;
 
 const Logo = styled.div`
@@ -35,6 +37,11 @@ const Logo = styled.div`
   > img {
     width: 216px;
   }
+`;
+
+const WaspScrollCon = styled.div`
+  flex: 1;
+  overflow-y: auto;
 `;
 
 const WaspCon = styled.div`
@@ -186,6 +193,7 @@ const WaspItemLightLink = styled(ExternalLink).attrs({
 `;
 
 const WaspLinkCon = styled.div`
+  padding-bottom: 20px;
 `;
 
 function SideBar() {
@@ -196,69 +204,71 @@ function SideBar() {
       <Logo>
         <img src={logoImg} alt='' />
       </Logo>
-      <WaspCon>
-        <WaspItem
-          id={`stake-nav-link`}
-          to={'/convertwasp'}
-          isActive={(match, { pathname }) =>
-            Boolean(match) ||
-            pathname.startsWith('/convertwasp')
-          }
-        ><ConvertWaspSvg />Convert WASP</WaspItem>
-        <WaspItem
-          id={`stake-nav-link`}
-          to={'/migratelp'}
-          isActive={(match, { pathname }) =>
-            Boolean(match) ||
-            pathname.startsWith('/migratelp')
-          }
-        ><MigrateLpSvg />Migrate LP</WaspItem>
-      </WaspCon>
-      <WaspCon>
-        <WaspItem
-          id={`swap-nav-link`}
-          to={'/swap'}
-          isActive={(match, { pathname }) =>
-            Boolean(match) ||
-            pathname.startsWith('/swap')
-          }
-        ><SwapSvg />{t('swap')}</WaspItem>
-        <WaspItem id={`pool-nav-link`}
-          to={'/pool'}
-          isActive={(match, { pathname }) =>
-            Boolean(match) ||
-            pathname.startsWith('/add') ||
-            pathname.startsWith('/remove') ||
-            pathname.startsWith('/create') ||
-            pathname.startsWith('/find')
-          }><PoolSvg />{t('pool')}</WaspItem>
-        <WaspItem
-          id={`stake-nav-link`}
-          to={'/farm'}
-          isActive={(match, { pathname }) =>
-            Boolean(match) ||
-            pathname.startsWith('/farm')
-          }
-        ><FarmingSvg />{t('miningPool')}</WaspItem>
-        <WaspItem
-          id={`stake-nav-link`}
-          to={'/hive'}
-          isActive={(match, { pathname }) =>
-            Boolean(match) ||
-            pathname.startsWith('/hive')
-          }
-        ><HiveSvg />{t('hive')}</WaspItem>
-        <WaspItemLink id={`stake-nav-link`} href={'https://info.wanswap.finance'}><AnalyticsSvg />{t('statistics')}</WaspItemLink>
-        <WaspItemLink id={`stake-nav-link`} href={'https://vote.wandevs.org/#/wanswap'}><VoteSvg />{t('vote')} </WaspItemLink>
-        <WaspItemLink id={`stake-nav-link`} href={'https://vote.wandevs.org/#/wanswap'}><DocsSvg />Docs</WaspItemLink>
-      </WaspCon>
-      <WaspLinkCon>
-        <WaspItemLightLink id={`stake-nav-link`} href={'https://bridge.wanchain.org/'}><BridgeSvg />{t('crossChain')}</WaspItemLightLink>
-        <WaspItemLightLink id={`stake-nav-link`} href={'https://wanlend.finance/'}><WanLendSvg />{t('wanLend')} </WaspItemLightLink>
-        <WaspItemLightLink id={`stake-nav-link`} href={'https://zookeeper.finance/'}><ZooSvg />ZooKeeper</WaspItemLightLink>
-        <WaspItemLightLink id={`stake-nav-link`} href={'https://fifa.wanswap.finance/'}><AutoFarmSvg />FIFA</WaspItemLightLink>
-        <WaspItemLightLink id={`stake-nav-link`} href={'https://streamtrade.wanlend.finance/'}><StreamTradeSvg />{'StreamTrade'} </WaspItemLightLink>
-      </WaspLinkCon>
+      <WaspScrollCon>
+        <WaspCon>
+          <WaspItem
+            id={`stake-nav-link`}
+            to={'/convertwasp'}
+            isActive={(match, { pathname }) =>
+              Boolean(match) ||
+              pathname.startsWith('/convertwasp')
+            }
+          ><ConvertWaspSvg />Convert WASP</WaspItem>
+          <WaspItem
+            id={`stake-nav-link`}
+            to={'/migratelp'}
+            isActive={(match, { pathname }) =>
+              Boolean(match) ||
+              pathname.startsWith('/migratelp')
+            }
+          ><MigrateLpSvg />Migrate LP</WaspItem>
+        </WaspCon>
+        <WaspCon>
+          <WaspItem
+            id={`swap-nav-link`}
+            to={'/swap'}
+            isActive={(match, { pathname }) =>
+              Boolean(match) ||
+              pathname.startsWith('/swap')
+            }
+          ><SwapSvg />{t('swap')}</WaspItem>
+          <WaspItem id={`pool-nav-link`}
+            to={'/pool'}
+            isActive={(match, { pathname }) =>
+              Boolean(match) ||
+              pathname.startsWith('/add') ||
+              pathname.startsWith('/remove') ||
+              pathname.startsWith('/create') ||
+              pathname.startsWith('/find')
+            }><PoolSvg />{t('pool')}</WaspItem>
+          <WaspItem
+            id={`stake-nav-link`}
+            to={'/farm'}
+            isActive={(match, { pathname }) =>
+              Boolean(match) ||
+              pathname.startsWith('/farm')
+            }
+          ><FarmingSvg />{t('miningPool')}</WaspItem>
+          <WaspItem
+            id={`stake-nav-link`}
+            to={'/hive'}
+            isActive={(match, { pathname }) =>
+              Boolean(match) ||
+              pathname.startsWith('/hive')
+            }
+          ><HiveSvg />{t('hive')}</WaspItem>
+          <WaspItemLink id={`stake-nav-link`} href={'https://info.wanswap.finance'}><AnalyticsSvg />{t('statistics')}</WaspItemLink>
+          <WaspItemLink id={`stake-nav-link`} href={'https://vote.wandevs.org/#/wanswap'}><VoteSvg />{t('vote')} </WaspItemLink>
+          <WaspItemLink id={`stake-nav-link`} href={'https://vote.wandevs.org/#/wanswap'}><DocsSvg />Docs</WaspItemLink>
+        </WaspCon>
+        <WaspLinkCon>
+          <WaspItemLightLink id={`stake-nav-link`} href={'https://bridge.wanchain.org/'}><BridgeSvg />{t('crossChain')}</WaspItemLightLink>
+          <WaspItemLightLink id={`stake-nav-link`} href={'https://wanlend.finance/'}><WanLendSvg />{t('wanLend')} </WaspItemLightLink>
+          <WaspItemLightLink id={`stake-nav-link`} href={'https://zookeeper.finance/'}><ZooSvg />ZooKeeper</WaspItemLightLink>
+          <WaspItemLightLink id={`stake-nav-link`} href={'https://fifa.wanswap.finance/'}><AutoFarmSvg />FIFA</WaspItemLightLink>
+          <WaspItemLightLink id={`stake-nav-link`} href={'https://streamtrade.wanlend.finance/'}><StreamTradeSvg />{'StreamTrade'} </WaspItemLightLink>
+        </WaspLinkCon>
+      </WaspScrollCon>
     </Con>
   )
 };
