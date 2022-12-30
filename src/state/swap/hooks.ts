@@ -323,7 +323,7 @@ export function useDefaultsFromConvertURLSearch():
   useEffect(() => {
     if (!chainId) return
     parsedQs.inputCurrency = '0x830053DABd78b4ef0aB0FeC936f8a1135B68da6f' // wasp v1
-    parsedQs.outputCurrency = '0x37FF554f765fb0b6e68DE9FDfb5cE3b5280Ee87B' // wasp v2
+    parsedQs.outputCurrency = '0x54A20457a1b1F926C7779245C7f15A9c567fFe01' // wasp v2
     
     const parsed = queryParametersToSwapState(parsedQs)
 
