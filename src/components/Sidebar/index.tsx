@@ -42,6 +42,11 @@ const Logo = styled.div`
 const WaspScrollCon = styled.div`
   flex: 1;
   overflow-y: auto;
+  scrollbar-width: none;
+
+  ::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 const WaspCon = styled.div`
