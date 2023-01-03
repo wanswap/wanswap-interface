@@ -185,11 +185,11 @@ function MigrateLP() {
         <CardSection>
           <AutoColumn gap="md">
             <RowBetween>
-              <TYPE.yellow3 fontWeight={400} fontSize={20}>{t('Wanswap liquidity mining')}</TYPE.yellow3>
+              <TYPE.yellow3 fontWeight={400} fontSize={20}>{t('WanSwap V1 to V2 LP token migration')}</TYPE.yellow3>
             </RowBetween>
             <RowBetween>
               <TYPE.white fontSize={14} fontWeight={400} lineHeight={'22px'}>
-                {t('This one-click migration is only applicable to non-WASP related LP tokens, such as WAN-wanBTC LP tokens, wanUSDT-wanUSDC LP tokens, etc.')}
+                {t('This one-click migration is only available for LP tokens representing liquidity pools that do not contain WASP, such as WAN/wanBTC, wanUSDT/wanUSDC, etc.')}
               </TYPE.white>
             </RowBetween>
           </AutoColumn>
