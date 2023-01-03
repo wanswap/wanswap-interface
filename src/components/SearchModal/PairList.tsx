@@ -11,7 +11,10 @@ import { Check } from 'react-feather'
 const Menu = styled.div<{height:number}>`
   width: 100%;
   height: ${({height}) => height}px;
-  overflow-y: auto
+  overflow-y: auto;
+  ::-webkit-scrollbar {
+    display: none;
+  }
 `
 
 const MenuItem = styled.div`
