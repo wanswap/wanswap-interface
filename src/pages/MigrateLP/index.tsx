@@ -179,6 +179,12 @@ function MigrateLP() {
   console.log('!!! token0', token0?.toSignificant(8), token1?.toSignificant(8))
   console.log('!!! userAmount', userAmount.raw.toString(16))
 
+  const isBtnDisabled = useMemo(() => {
+    if (!info) return true;
+    if (!Boolean(Number(ethers.utils.formatEther(info.userInfo.amount.toString()).toString()))) return true;
+    return false;
+  }, [info]);
+
   return (
     <PageWrapper gap="lg" justify="center">
       <DataCard>
@@ -274,7 +280,7 @@ function MigrateLP() {
             setCurStatus(0);
             setLpOpenModal(!openLpModal);
           }
-        }} disabled={!info}>{t('Migrate to V2')}</ButtonLight>
+        }} disabled={isBtnDisabled}>{t('Migrate to V2')}</ButtonLight>
       }
       {
         openModal && <LPPairSearchModal
