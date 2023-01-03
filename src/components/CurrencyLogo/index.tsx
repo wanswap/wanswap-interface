@@ -38,6 +38,9 @@ export default function CurrencyLogo({
     if (currency === ETHER) return []
 
     if (currency?.symbol === 'WASP') {
+      if (currency?.name === 'WASP_V2') {
+        return [require('../../assets/images/wanswapv2-icon.png')]
+      }
       return [require('../../assets/images/wanswap-icon.png')]
     }
 
