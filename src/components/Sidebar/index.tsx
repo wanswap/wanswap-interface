@@ -287,7 +287,7 @@ function SideBar() {
           <WaspItemLightLink id={`stake-nav-link`} href={'https://zookeeper.finance/'}><ZooSvg />ZooKeeper</WaspItemLightLink>
           <WaspItemLightLink id={`stake-nav-link`} href={'https://autofarm.network/'}><AutoFarmSvg />Autofarm</WaspItemLightLink>
           <WaspItemLightLink id={`stake-nav-link`} href={'https://streamtrade.wanlend.finance/'}><StreamTradeSvg />{'StreamTrade'}</WaspItemLightLink>
-          <WaspItemLightLink id={`stake-nav-link`} href={'https://fifa.wanswap.finance/'}><FifaSvg />FIFA</WaspItemLightLink>
+          <WaspItemLightLink id={`stake-nav-link`} href={'https://fifa.wanswap.finance/'}><FifaSvg />Football Forecast</WaspItemLightLink>
         </WaspLinkCon>
       </WaspScrollCon>
       <LinkLine>
