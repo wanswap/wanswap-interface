@@ -20,6 +20,7 @@ import QuestionHelper from '../QuestionHelper'
 import { RowBetween, RowFixed } from '../Row'
 import Toggle from '../Toggle'
 import TransactionSettings from '../TransactionSettings'
+import { isMobile } from 'react-device-detect'
 
 const StyledMenuIcon = styled(Settings)`
   height: 20px;
@@ -107,6 +108,7 @@ const MenuFlyout = styled.span`
   ${({ theme }) => theme.mediaWidth.upToMedium`
     min-width: 18.125rem;
     top: -22rem;
+    right: ${isMobile ? '0' : ''};
   `};
 `
 

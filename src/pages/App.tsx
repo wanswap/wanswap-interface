@@ -1,9 +1,11 @@
-import React, { Suspense } from 'react'
+import React, { Suspense, useState } from 'react'
 import { Route, Switch } from 'react-router-dom'
 import styled from 'styled-components'
 import GoogleAnalyticsReporter from '../components/analytics/GoogleAnalyticsReporter'
 import AddressClaimModal from '../components/claim/AddressClaimModal'
 import Header from '../components/Header'
+import Top from '../components/Header/Top'
+import Bottom from '../components/Header/Bottom'
 import Polling from '../components/Header/Polling'
 import URLWarning from '../components/Header/URLWarning'
 import Popups from '../components/Popups'
@@ -33,7 +35,7 @@ import Swap from './Swap'
 import ConvertWasp from './ConvertWasp'
 import MigrateLP from './MigrateLP';
 import { OpenClaimAddressModalAndRedirectToSwap, RedirectPathToSwapOnly, RedirectToSwap } from './Swap/redirects'
-
+import { isMobile } from 'react-device-detect'
 import SideBar from '../components/Sidebar';
 
 import Vote from './Vote'
@@ -54,6 +56,7 @@ const AppWrapper = styled.div`
   align-items: flex-start;
   overflow-x: hidden;
   height: 100vh;
+  padding-top: ${ isMobile ? '60px' : '' };
 `
 
 const HeaderWrapper = styled.div`
@@ -114,6 +117,7 @@ function TopLevelModals() {
 }
 
 export default function App() {
+  const [openSlidebar, setOpenSlidebar] = useState(false);
   return (
     <Suspense fallback={null}>
       <Route component={GoogleAnalyticsReporter} />
@@ -123,12 +127,17 @@ export default function App() {
         <a target="_blank" rel="noopener noreferrer" href="https://github.com/wanswap/wanswap-contracts/blob/master/[HAECHI%20AUDIT]%20WanSwap%20Smart%20Contract%20Audit%20Report%20ver%202.0.pdf"><img alt="audit" src="haechiaudit.png"/></a>
       </HaechiAudit>
       <View>
-        <SideBar></SideBar>
+        <SideBar active={openSlidebar} handleSlideBar={() => setOpenSlidebar(!openSlidebar)}></SideBar>
         <AppWrapper>
           <URLWarning />
-          <HeaderWrapper>
-            <Header />
-          </HeaderWrapper>
+          {
+            isMobile ?
+              <Top handleSlideBar={() => setOpenSlidebar(!openSlidebar)} />
+            :
+              <HeaderWrapper>
+                <Header />
+              </HeaderWrapper>
+          }
           <BodyWrapper>
             <Popups />
             <Polling />
@@ -167,6 +176,9 @@ export default function App() {
             </Web3ReactManager>
             <Marginer />
           </BodyWrapper>
+          {
+            isMobile && <Bottom />
+          }
         </AppWrapper>
       </View>
     </Suspense>

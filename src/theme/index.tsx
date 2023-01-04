@@ -287,7 +287,10 @@ div[data-reach-dialog-content] a
 			bottom:0;
 			z-index:-1;
     }
-    
+
+#logo-full  {
+  display: none;
+}
 @media only screen and (max-width: 960px) {
   #shadow_bottom
 		{
@@ -304,7 +307,7 @@ div[data-reach-dialog-content] a
     }
     #logo-full
     {
-      display:block !important;
+      display: block;
       margin:0 auto;
       margin-top:20px;
     }
