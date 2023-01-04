@@ -208,7 +208,6 @@ export default function PoolCard({ stakingInfo, index, hide, totalDeposit }: { s
 
   const isActive = Boolean(stakingInfo.totalRewardRate.greaterThan('0'));
   const notStart = stakingInfo.periodStart && (new Date(stakingInfo.periodStart)).getTime() > Date.now() / 1000;
-  console.log('!!! periodStart', notStart, stakingInfo.periodStart);
 
   return (
     <React.Fragment>
@@ -224,7 +223,7 @@ export default function PoolCard({ stakingInfo, index, hide, totalDeposit }: { s
               !isActive && !notStart && <SpanFinished>{t("Inactive")}</SpanFinished>
             }
             {
-              notStart && <NotStarted>{t("Not Started")}</NotStarted>
+              notStart && <NotStarted>{t("Coming Soon")}</NotStarted>
             }
             <Multiplier>
             {
