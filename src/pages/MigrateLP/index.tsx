@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { Token, TokenAmount } from '@wanswap/sdk'
 import { AutoColumn } from '../../components/Column';
 import { CardSection, DataCard } from '../../components/earn/styled';
@@ -134,7 +134,8 @@ const StepLine = styled.div`
   background: rgba(255, 255, 255, 0.1);
 `;
 
-function MigrateLP() {
+function MigrateLP(props: any) {
+  console.log('props', props.location.search);
   const { chainId, account, library } = useActiveWeb3React()
   console.log('!!! chainId', chainId)
   console.log('account', account)
@@ -164,6 +165,17 @@ function MigrateLP() {
   }, [info])
   const v1MinerContract = useV1MinerContract()
   const v2MinerContract = useBridgeMinerContract()
+
+  useEffect(()=>{
+    if (!props.location.search || props.location.search === '') {
+      return;
+    }
+    let pairName0 = props.location.search.split('=')[1].split('-').join('/').replace('WWAN', 'WAN');
+    let pairName1 = props.location.search.split('=')[1].split('-').reverse().join('/').replace('WWAN', 'WAN');
+    let _index = V1_FARM_PAIRS[ chainId || 888 ].findIndex(v=>v.name === pairName0 || v.name === pairName1);
+    console.log('!!! pairName', pairName0, pairName1, _index);
+    setSelectIndex(_index);
+  }, [chainId, props]);
 
   const userAmount = new TokenAmount(new Token(chainId || 888, pair.lpAddress, 18), info?.userInfo.amount?.toString() || '0');
 
