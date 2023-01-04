@@ -76,10 +76,8 @@ function CurrencyRow({
   const pair = V1_FARM_PAIRS[networkId][index];
 
   const info = useV1UserInfo(chainId || 888, account ? account : undefined, pair)
-  console.log('!!! info0', info, account, pair);
   
   const [currency1Info, currency2Info]:[WrappedTokenInfo | undefined, WrappedTokenInfo | undefined] = [selectedTokenList.find(v => v.address === pair.token0.address), selectedTokenList.find(v => v.address === pair.token1.address)]
-  console.log('!!! currency1Info', currency1Info, currency2Info, selectedTokenList)
   return (
     <MenuItem
       onClick={() => curSelectedIndex === index ? null : onSelect()}

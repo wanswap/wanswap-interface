@@ -76,7 +76,6 @@ export function usePoolInfo() {
 
 export function useV1UserInfo(chainId: ChainId, account: string | undefined, pair: V1FarmPairInfo) {
   const bridgeMinerContract = useV1MinerContract()
-  console.log('!!!debug', pair);
   const userInfo = useSingleCallResult(bridgeMinerContract, 'userInfo', [pair.pid, account])
   const poolInfo = useSingleCallResult(bridgeMinerContract, 'poolInfo', [pair.pid])
   const token0 = new Token(chainId, pair.token0.address, pair.token0.decimal, pair.token0.symbol, pair.token0.symbol)
