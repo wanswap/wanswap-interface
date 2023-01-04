@@ -274,7 +274,7 @@ function MigrateLP() {
               setCurStatus(3);
               setMessage2('');
             } catch (err) {
-              setLpOpenModal(!openLpModal);
+              setLpOpenModal(false);
               console.error(err);
             }
           } else {
