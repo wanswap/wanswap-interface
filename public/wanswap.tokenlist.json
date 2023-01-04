@@ -150,14 +150,6 @@
     },
     {
       "chainId": 888,
-      "address": "0xf17c59bf0f6326da7a8cc2ce417e4f53a26707bd",
-      "name": "PHX",
-      "symbol": "PHX",
-      "decimals": 18,
-      "logoURI": "https://icons.wanswap.finance/icon/wanswap/PHX.png"
-    },
-    {
-      "chainId": 888,
       "address": "0xd8e7bd03920ba407d764789b11dd2b5eaee0961e",
       "name": "wanLTC",
       "symbol": "wanLTC",
@@ -328,7 +320,7 @@
 
   ],
   "version": {
-    "major": 14,
+    "major": 15,
     "minor": 0,
     "patch": 0
   }
