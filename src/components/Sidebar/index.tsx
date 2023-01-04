@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { NavLink } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { ExternalLink } from '../../theme';
@@ -23,13 +23,29 @@ import { ReactComponent as TwitterSvg } from '../../assets/images/svg/twitter_lo
 import { ReactComponent as MirrorSvg } from '../../assets/images/svg/mirror_logo.svg';
 import { ReactComponent as GithubSvg } from '../../assets/images/svg/github_logo.svg';
 import { ReactComponent as TelegramLogo } from '../../assets/images/svg/telegram_logo.svg';
+import { isMobile } from 'react-device-detect';
+import { X } from 'react-feather';
 
-const Con = styled.div`
+
+const Con = styled.div<{show: boolean}>`
   width: 300px;
   height: 100%;
   background: rgba(31, 27, 24, 0.5);
   display: flex;
   flex-direction: column;
+  transform: ${({show}) => isMobile ? show ? 'translateX(0)' : 'translateX(-100%)' : ''};
+
+  ${
+    isMobile && css`
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 11;
+      width: 100vw;
+      transition: 0.3s all ease;
+      background: ${({theme}) => theme.bg6 };
+    `
+  }
 `;
 
 const Logo = styled.div`
@@ -44,6 +60,14 @@ const Logo = styled.div`
   }
 `;
 
+const MobileTop = styled.div`
+  height: 70px;
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+`;
+
 const WaspScrollCon = styled.div`
   flex: 1;
   overflow-y: auto;
@@ -56,6 +80,12 @@ const WaspScrollCon = styled.div`
 
 const WaspCon = styled.div`
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+
+  ${
+    isMobile && css`
+      padding: 2rem 1.25rem 1.375rem;
+    `
+  }
 `;
 
 const activeClassName = 'ACTIVE';
@@ -76,6 +106,17 @@ const WaspItem = styled(NavLink).attrs({
   padding-left: 2.5rem;
   position: relative;
 
+  ${
+    isMobile && css`
+      padding: 0 1.25rem;
+      height: 3.75rem;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      margin-bottom: 0.625rem;
+    `
+  }
+
   svg {
     width: 24px;
     height: 24px;
@@ -95,6 +136,14 @@ const WaspItem = styled(NavLink).attrs({
     border-radius:10px;
     font-weight: 600;
     color: ${({ theme }) => theme.yellow3};
+
+    ${
+      isMobile && css`
+        background: rgba(255, 230, 0, 0.1);
+        border-radius: 12px;
+        border-color: #FFE600;
+      `
+    }
 
     svg {
       fill: #FFE600;
@@ -123,6 +172,17 @@ const WaspItemLink = styled(ExternalLink).attrs({
   padding-left: 2.5rem;
   position: relative;
 
+  ${
+    isMobile && css`
+      padding: 0 1.25rem;
+      height: 3.75rem;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      margin-bottom: 0.625rem;
+    `
+  }
+
   svg {
     width: 24px;
     height: 24px;
@@ -140,6 +200,14 @@ const WaspItemLink = styled(ExternalLink).attrs({
 
   :hover {
     color: ${({ theme }) => theme.yellow3};
+
+    ${
+      isMobile && css`
+        background: rgba(255, 230, 0, 0.1);
+        border-radius: 12px;
+        border-color: #FFE600;
+      `
+    }
 
     svg {
       fill: #FFE600;
@@ -170,6 +238,17 @@ const WaspItemLightLink = styled(ExternalLink).attrs({
   padding-left: 2.5rem;
   position: relative;
 
+  ${
+    isMobile && css`
+      padding: 0 1.25rem;
+      height: 3.75rem;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      margin-bottom: 0.625rem;
+    `
+  }
+
   svg {
     width: 24px;
     height: 24px;
@@ -188,6 +267,14 @@ const WaspItemLightLink = styled(ExternalLink).attrs({
   :hover {
     color: ${({ theme }) => theme.yellow3};
 
+    ${
+      isMobile && css`
+        background: rgba(255, 230, 0, 0.1);
+        border-radius: 12px;
+        border-color: #FFE600;
+      `
+    }
+
     svg {
       fill: #FFE600;
     }
@@ -204,6 +291,12 @@ const WaspItemLightLink = styled(ExternalLink).attrs({
 
 const WaspLinkCon = styled.div`
   padding-bottom: 20px;
+
+  ${
+    isMobile && css`
+      padding: 2rem 1.25rem 1.375rem;
+    `
+  }
 `;
 
 const LinkLine = styled.div`
@@ -214,16 +307,37 @@ const LinkLine = styled.div`
 
 const WaspLogoLink = styled(WaspItemLightLink)`
   padding-left: 0;
+
+  ${
+    isMobile && css`
+      background: none;
+      border: none;
+      justify-content: center;
+    `
+  }
 `;
 
-function SideBar() {
+function SideBar({
+  active,
+  handleSlideBar
+}:{
+  active: boolean
+  handleSlideBar: () => void
+}) {
   const { t } = useTranslation();
 
   return (
-    <Con>
-      <Logo>
-        <img src={logoImg} alt='' />
-      </Logo>
+    <Con show={active} onClick={handleSlideBar}>
+      {
+        isMobile ?
+          <MobileTop>
+            <X onClick={handleSlideBar} />
+          </MobileTop>
+        :
+          <Logo>
+            <img src={logoImg} alt='' />
+          </Logo>
+      }
       <WaspScrollCon>
         <WaspCon>
           <WaspItem

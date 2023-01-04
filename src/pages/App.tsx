@@ -127,12 +127,12 @@ export default function App() {
         <a target="_blank" rel="noopener noreferrer" href="https://github.com/wanswap/wanswap-contracts/blob/master/[HAECHI%20AUDIT]%20WanSwap%20Smart%20Contract%20Audit%20Report%20ver%202.0.pdf"><img alt="audit" src="haechiaudit.png"/></a>
       </HaechiAudit>
       <View>
-        <SideBar active={openSlidebar} handleSlideBar={() => setOpenSlidebar(!openSlidebar)}></SideBar>
+        <SideBar active={openSlidebar} handleSlideBar={() => setOpenSlidebar(false)}></SideBar>
         <AppWrapper>
           <URLWarning />
           {
             isMobile ?
-              <Top handleSlideBar={() => setOpenSlidebar(!openSlidebar)} />
+              <Top handleSlideBar={() => setOpenSlidebar(true)} />
             :
               <HeaderWrapper>
                 <Header />
