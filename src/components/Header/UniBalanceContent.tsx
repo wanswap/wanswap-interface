@@ -129,14 +129,14 @@ export default function UniBalanceContent({ setShowUniBalanceModal }: { setShowU
             </RowBetween> */}
             <RowBetween>
               <TYPE.white color="white">WASP Token Address(WRC20):</TYPE.white>
-              <TYPE.white color="white"><a href="https://www.wanscan.org/token/0x8b9f9f4aa70b1b0d586be8adfb19c1ac38e05e9a">0x8b9f...5e9a</a></TYPE.white>
+              <TYPE.white color="white"><a href="https://www.wanscan.org/token/0x924fd608bf30db9b099927492fda5997d7cfcb02">0x8b9f...5e9a</a></TYPE.white>
             </RowBetween>
             <RowBetween>
               <TYPE.white color="white">WASP Token Address(ERC20 on Moonriver):</TYPE.white>
               <TYPE.white color="white"><a href="https://moonriver.moonscan.io/token/0xffef2639b2ee39f9c284d0107e567dd2f7b20613">0xffef...0613</a></TYPE.white>
             </RowBetween>
             {uni && uni.chainId === ChainId.MAINNET ? (
-              <ExternalLink href={`https://info.wanswap.finance/token/0x8b9f9f4aa70b1b0d586be8adfb19c1ac38e05e9a`}>View WASP Statistics</ExternalLink>
+              <ExternalLink href={`https://info.wanswap.finance/token/0x924fd608bf30db9b099927492fda5997d7cfcb02`}>View WASP Statistics</ExternalLink>
             ) : null}
           </AutoColumn>
         </CardSection>

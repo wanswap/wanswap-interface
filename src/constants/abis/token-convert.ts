@@ -13,7 +13,7 @@ export const TOKEN_CONVERT_ADDRESS: { [chainId in ChainId]: string } = {
 }
 
 export const TOKEN_CONVERT_ADDRESS_2: { [chainId in ChainId]: string } = {
-  [ChainId.MAINNET]: '0x7115136c57aFCf3A12aB77D51cE301F608591277',
+  [ChainId.MAINNET]: '0xcC032FA44Ff98bb5BBA50D8fEFC8340f78D4AfE0',
   [ChainId.ROPSTEN]: '0x7115136c57aFCf3A12aB77D51cE301F608591277',
   [ChainId.RINKEBY]: '0x7115136c57aFCf3A12aB77D51cE301F608591277',
   [ChainId.GÖRLI]: '0x7115136c57aFCf3A12aB77D51cE301F608591277',
@@ -26,12 +26,11 @@ const token1Testnet = "0x07fdb4e8f8e420d021b9abeb2b1f6dce150ef77c";
 export const token2Testnet = "0x830053DABd78b4ef0aB0FeC936f8a1135B68da6f";
 export const token3Testnet = "0x54A20457a1b1F926C7779245C7f15A9c567fFe01";
 
-
 const token0Mainnet = "0xd15e200060fc17ef90546ad93c1c61bfefdc89c7";
 const token1Mainnet = "0x50c439b6d602297252505a6799d84ea5928bcfb6";
 
-export const token2Mainnet = "0xd15e200060fc17ef90546ad93c1c61bfefdc89c7";
-export const token3Mainnet = "0x50c439b6d602297252505a6799d84ea5928bcfb6";
+export const token2Mainnet = "0x8B9F9f4aA70B1B0d586BE8aDFb19c1Ac38e05E9a";
+export const token3Mainnet = "0x924fd608bf30dB9B099927492FDA5997d7CFcb02";
 
 export const CONVERT_TOKEN0 : { [chainId in ChainId]: Token } = {
   [ChainId.MAINNET]: new Token(ChainId.MAINNET, token0Mainnet, 18, 'wanOBTC', 'wanOBTC'),

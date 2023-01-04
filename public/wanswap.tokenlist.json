@@ -7,7 +7,7 @@
     {
       "chainId": 888,
       "address": "0x8b9f9f4aa70b1b0d586be8adfb19c1ac38e05e9a",
-      "name": "WASP",
+      "name": "WASP_V1",
       "symbol": "WASP",
       "decimals": 18,
       "logoURI": "https://icons.wanswap.finance/icon/wanswap/WASP.png"
@@ -236,6 +236,14 @@
       "decimals": 18,
       "logoURI": "https://icons.wanswap.finance/icon/wanswap/wanFTM.png"
     },
+    {
+      "chainId": 888,
+      "address": "0x924fd608bf30dB9B099927492FDA5997d7CFcb02",
+      "name": "WASP_V2",
+      "symbol": "WASP",
+      "decimals": 18,
+      "logoURI": "https://icons.wanswap.finance/icon/wanswap/WASP_V2.svg"
+    },
     
     {
       "chainId": 999,
@@ -320,7 +328,7 @@
 
   ],
   "version": {
-    "major": 12,
+    "major": 14,
     "minor": 0,
     "patch": 0
   }
