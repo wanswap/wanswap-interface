@@ -138,13 +138,10 @@ const StepLine = styled.div`
 function MigrateLP(props: any) {
   console.log('props', props.location.search);
   const { chainId, account, library } = useActiveWeb3React()
-  console.log('!!! chainId', chainId)
-  console.log('account', account)
   const [selectIndex, setSelectIndex] = useState(0);
   // console.log('!!! V1_FARM_PAIRS', V1_FARM_PAIRS[chainId || 999])
   const pair = V1_FARM_PAIRS[chainId || 888][selectIndex];
   const info = useV1UserInfo(chainId || 888, account ? account : undefined, pair)
-  console.log('!!! info', info)
   const selectedTokenList = Object.values(useSelectedTokenList()[chainId || 888])
   const { t } = useTranslation();
   const [openModal, setOpenModal] = useState(false);
@@ -174,7 +171,6 @@ function MigrateLP(props: any) {
     let pairName0 = props.location.search.split('=')[1].split('-').join('/').replace('WWAN', 'WAN');
     let pairName1 = props.location.search.split('=')[1].split('-').reverse().join('/').replace('WWAN', 'WAN');
     let _index = V1_FARM_PAIRS[ chainId || 888 ].findIndex(v=>v.name === pairName0 || v.name === pairName1);
-    console.log('!!! pairName', pairName0, pairName1, _index);
     setSelectIndex(_index);
   }, [chainId, props]);
 
@@ -188,9 +184,6 @@ function MigrateLP(props: any) {
   const [message0, setMessage0] = useState('');
   const [message1, setMessage1] = useState('');
   const [message2, setMessage2] = useState('');
-
-  console.log('!!! token0', token0?.toSignificant(8), token1?.toSignificant(8))
-  console.log('!!! userAmount', userAmount.raw.toString(16))
 
   const isBtnDisabled = useMemo(() => {
     if (!info) return true;

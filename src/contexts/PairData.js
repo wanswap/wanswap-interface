@@ -631,7 +631,6 @@ export function useHourlyRateData(pairAddress, timeWindow) {
             .subtract(1, windowSize)
             .startOf('hour')
             .unix()
-    console.log('windowSize', timeWindow, windowSize, startTime);
     async function fetch() {
       const data = await getHourlyRateData(pairAddress, startTime, latestBlock)
       updateHourlyData(pairAddress, data, timeWindow)
