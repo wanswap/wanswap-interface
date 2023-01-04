@@ -6,7 +6,10 @@ import styled from 'styled-components'
 import { V1_FARM_PAIRS, V1FarmPairInfo } from '../../constants/abis/bridge'
 import { useSelectedTokenList } from '../../state/lists/hooks'
 import { WrappedTokenInfo } from '../../state/lists/hooks'
-import { Check } from 'react-feather'
+import { useV1UserInfo } from '../../state/stake/hooks'
+import Row from '../Row'
+import Loader from '../Loader'
+import { ethers } from 'ethers'
 
 const Menu = styled.div<{height:number}>`
   width: 100%;
@@ -38,6 +41,22 @@ const CurrencyLogo = styled.img`
   z-index: 1;
 `;
 
+const StyledBalanceText = styled(Text)`
+  white-space: nowrap;
+  overflow: hidden;
+  max-width: 5rem;
+  text-overflow: ellipsis;
+`
+
+function Balance({ balance }: { balance: string }) {
+  return <StyledBalanceText title={ethers.utils.formatEther(balance)}>{ethers.utils.formatEther(balance)}</StyledBalanceText>
+}
+
+const RowFixed = styled(Row)<{ gap?: string; justify?: string }>`
+  width: fit-content;
+  margin: ${({ gap }) => gap && `-${gap}`};
+`
+
 function CurrencyRow({
   pairInfo,
   index,
@@ -51,10 +70,13 @@ function CurrencyRow({
 }) {
   // only show add or remove buttons if not on selected list
   const [currency1Name, currency2Name] = pairInfo.name.split('/');
-  const { chainId } = useActiveWeb3React()
+  const { chainId, account } = useActiveWeb3React()
   const networkId = chainId ? chainId : 888;
   const selectedTokenList = Object.values(useSelectedTokenList()[networkId])
   const pair = V1_FARM_PAIRS[networkId][index];
+
+  const info = useV1UserInfo(chainId || 888, account ? account : undefined, pair)
+  console.log('!!! info0', info, account, pair);
   
   const [currency1Info, currency2Info]:[WrappedTokenInfo | undefined, WrappedTokenInfo | undefined] = [selectedTokenList.find(v => v.address === pair.token0.address), selectedTokenList.find(v => v.address === pair.token1.address)]
   console.log('!!! currency1Info', currency1Info, currency2Info, selectedTokenList)
@@ -71,7 +93,10 @@ function CurrencyRow({
           </Text>
         </Column>
       </MenuItemLeft>
-      { curSelectedIndex === index ? <Check size={'30px'} color={'#00A045'} /> : null }
+      {/* { curSelectedIndex === index ? <Check size={'30px'} color={'#00A045'} /> : null } */}
+      <RowFixed style={{ justifySelf: 'flex-end' }}>
+        {info ? <Balance balance={info.userInfo.amount.toString()} /> : account ? <Loader /> : null}
+      </RowFixed>
     </MenuItem>
   )
 }
