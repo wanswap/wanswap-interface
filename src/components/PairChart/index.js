@@ -12,6 +12,7 @@ import CurrencyLogo from '../CurrencyLogo'
 import { isMobile } from 'react-device-detect'
 
 const timeframeOptions = {
+  DAY: '1 day',
   WEEK: '1 week',
   MONTH: '1 month',
   // THREE_MONTHS: '3 months',
@@ -261,6 +262,12 @@ const PairChart = ({ address, base0, base1, positive, currencyIn, currencyOut })
             <Text>{currencyOut ? currencyOut.symbol : '-'}</Text>
           </PairInfo>
           <AutoRow justify={isMobile ? 'flex-start' : 'flex-end'} gap="6px">
+            <OptionButton
+              active={timeWindow === timeframeOptions.DAY}
+              onClick={() => setTimeWindow(timeframeOptions.DAY)}
+            >
+              1D
+            </OptionButton>
             <OptionButton
               active={timeWindow === timeframeOptions.WEEK}
               onClick={() => setTimeWindow(timeframeOptions.WEEK)}
