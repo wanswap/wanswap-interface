@@ -72,7 +72,7 @@ export default function PoolFinder() {
   }, [setShowSearch])
 
   const prerequisiteMessage = (
-    <LightCard padding="45px 10px">
+    <LightCard padding="45px 10px" style={{backgroundColor: 'rgba(255, 255, 255, 0.1)'}}>
       <Text textAlign="center">
         {!account ? t('connectFind') : t('selectFind')}
       </Text>
@@ -84,6 +84,7 @@ export default function PoolFinder() {
       <FindPoolTabs />
       <AutoColumn gap="md">
         <ButtonDropdownLight
+          style={{backgroundColor: 'rgba(255, 255, 255, 0.1)'}}
           onClick={() => {
             setShowSearch(true)
             setActiveField(Fields.TOKEN0)
@@ -108,6 +109,7 @@ export default function PoolFinder() {
         </ColumnCenter>
 
         <ButtonDropdownLight
+          style={{backgroundColor: 'rgba(255, 255, 255, 0.1)'}}
           onClick={() => {
             setShowSearch(true)
             setActiveField(Fields.TOKEN1)

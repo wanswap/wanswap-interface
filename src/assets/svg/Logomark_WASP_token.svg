@@ -1,43 +1,12 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- Generator: Adobe Illustrator 23.0.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
-<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	 viewBox="0 0 391 450" style="enable-background:new 0 0 391 450;" xml:space="preserve">
-<style type="text/css">
-	.st0{fill:#002868;}
-	.st1{fill:#002551;}
-	.st2{fill:#FFE600;}
-	.st3{fill:#CCAA00;}
-	.st4{fill:#FFFFFF;}
-	.st5{fill:#CCCCCC;}
-</style>
-<g>
-	<g>
-		<polygon class="st0" points="0,112.5 0,337.5 195.4,449.9 195.4,0.1 		"/>
-		<polygon class="st1" points="391,337.5 391,112.5 195.5,0 195.4,0.1 195.4,449.9 195.5,450 		"/>
-	</g>
-	<g>
-		<g>
-			<polygon class="st2" points="167.9,245.1 147.6,225.2 147.6,265 195.5,311.8 195.5,272 			"/>
-			<polygon class="st3" points="223.1,245.1 243.4,225.2 243.4,265 195.5,311.8 195.5,272 			"/>
-		</g>
-		<g>
-			<polygon class="st4" points="167.9,90.9 147.6,71 147.6,110.8 195.5,157.6 195.5,117.8 			"/>
-			<polygon class="st5" points="223.1,90.9 243.4,71 243.4,110.8 195.5,157.6 195.5,117.8 			"/>
-		</g>
-		<g>
-			<polygon class="st5" points="223.1,185.4 349.4,311.1 349.4,231.3 195.5,118.7 195.5,158.5 			"/>
-		</g>
-		<g>
-			<polygon class="st4" points="167.9,185.4 41.6,311.1 41.6,231.3 195.5,118.7 195.5,158.5 			"/>
-		</g>
-		<g>
-			<polygon class="st4" points="195.5,246.9 195.5,207.1 167.9,180.1 166.7,179 166.7,218.8 			"/>
-			<polygon class="st5" points="195.5,246.9 195.5,207.1 223.1,180.1 224.3,179 224.3,218.8 			"/>
-		</g>
-		<g>
-			<polygon class="st4" points="195.5,379 195.5,339.2 167.9,312.3 166.7,311.1 166.7,350.9 			"/>
-			<polygon class="st5" points="195.5,379 195.5,339.2 223.1,312.3 224.3,311.1 224.3,350.9 			"/>
-		</g>
-	</g>
+<svg width="126" height="126" viewBox="0 0 126 126" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="183">
+<circle id="Ellipse 5" cx="63" cy="63" r="63" fill="#212121"/>
+<g id="WASP">
+<path id="Vector" d="M70.5178 68.4739L62.9998 75.8099L55.4818 68.4739L49.9238 63.0419V73.8919L62.9998 86.6599L76.0758 73.8919V63.0419L70.5178 68.4739Z" fill="#00A045"/>
+<g id="Group">
+<path id="Vector_2" d="M105 86.492V64.96L68.852 38.906L76.076 31.864V21L70.518 26.432L63 33.768L55.482 26.432L49.924 21V31.85L57.148 38.892L21 64.96V86.492L55.16 52.542V61.32L63 68.978L70.84 61.32V52.542L105 86.492ZM56.21 51.492L63 44.87L69.79 51.492L63 58.114L56.21 51.492Z" fill="#FFE600"/>
+<path id="Vector_3" d="M62.9997 94.1498L55.4817 86.7998L55.1597 86.4918V97.3418L62.9997 105L70.8397 97.3418V86.4918L70.5177 86.7998L62.9997 94.1498Z" fill="#00A045"/>
+</g>
+</g>
 </g>
 </svg>

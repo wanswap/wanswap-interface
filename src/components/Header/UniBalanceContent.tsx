@@ -15,7 +15,7 @@ import { ExternalLink, TYPE, UniTokenAnimated } from '../../theme'
 import useUSDCPrice from '../../utils/useUSDCPrice'
 import { AutoColumn } from '../Column'
 import { RowBetween } from '../Row'
-import { Break, CardBGImage, CardNoise, CardSection, DataCard } from '../earn/styled'
+import { Break, CardSection, DataCard } from '../earn/styled'
 import { useTranslation } from 'react-i18next'
 
 const ContentWrapper = styled(AutoColumn)`
@@ -23,9 +23,8 @@ const ContentWrapper = styled(AutoColumn)`
 `
 
 const ModalUpper = styled(DataCard)`
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-  background: radial-gradient(90% 90% at 0% 0%,#41beec 0%,#123471 100%);
-  padding: 0.5rem;
+  background: ${({theme}) => theme.bg6};
+  padding: 0.5rem 0;
 `
 
 const StyledClose = styled(X)`
@@ -75,11 +74,9 @@ export default function UniBalanceContent({ setShowUniBalanceModal }: { setShowU
   return (
     <ContentWrapper gap="lg">
       <ModalUpper>
-        <CardBGImage />
-        <CardNoise />
         <CardSection gap="md">
           <RowBetween>
-            <TYPE.white color="white">{t('breakdown')}</TYPE.white>
+            <TYPE.white color="white" fontSize={'24px'}>{t('breakdown')}</TYPE.white>
             <StyledClose stroke="white" onClick={() => setShowUniBalanceModal(false)} />
           </RowBetween>
         </CardSection>
@@ -88,21 +85,21 @@ export default function UniBalanceContent({ setShowUniBalanceModal }: { setShowU
           <>
             <CardSection gap="sm">
               <AutoColumn gap="md" justify="center">
-                <UniTokenAnimated width="120px" src={tokenLogo} />{' '}
-                <TYPE.white fontSize={48} fontWeight={600} color="white">
+                <UniTokenAnimated width="126px" src={tokenLogo} />{' '}
+                <TYPE.yellow3 fontSize={48} fontWeight={600}>
                   {total?.toFixed(2, { groupSeparator: ',' })}
-                </TYPE.white>
+                </TYPE.yellow3>
               </AutoColumn>
               <AutoColumn gap="md">
                 <RowBetween>
-                  <TYPE.white color="white">{t('balance2')}</TYPE.white>
-                  <TYPE.white color="white">{uniBalance?.toFixed(2, { groupSeparator: ',' })}</TYPE.white>
+                  <TYPE.white1>{t('balance2')}</TYPE.white1>
+                  <TYPE.white1>{uniBalance?.toFixed(2, { groupSeparator: ',' })}</TYPE.white1>
                 </RowBetween>
                 <RowBetween>
-                  <TYPE.white color="white">{t('unclaimed')}:</TYPE.white>
-                  <TYPE.white color="white">
+                  <TYPE.white1>{t('unclaimed')}:</TYPE.white1>
+                  <TYPE.white1>
                     {uniToClaim?.toFixed(2, { groupSeparator: ',' })}{' '}
-                  </TYPE.white>
+                  </TYPE.white1>
                 </RowBetween>
               </AutoColumn>
             </CardSection>
@@ -112,28 +109,28 @@ export default function UniBalanceContent({ setShowUniBalanceModal }: { setShowU
         <CardSection gap="sm">
           <AutoColumn gap="md">
             <RowBetween>
-              <TYPE.white color="white">{t('waspPrice')}</TYPE.white>
-              <TYPE.white color="white">${uniPrice?.toFixed(4) ?? '-'}</TYPE.white>
+              <TYPE.white1>{t('waspPrice')}</TYPE.white1>
+              <TYPE.white1>${uniPrice?.toFixed(4) ?? '-'}</TYPE.white1>
             </RowBetween>
             <RowBetween>
-              <TYPE.white color="white">{t('waspInCirculation')}</TYPE.white>
-              <TYPE.white color="white">{circulation?.toFixed(0, { groupSeparator: ',' })}</TYPE.white>
+              <TYPE.white1>{t('waspInCirculation')}</TYPE.white1>
+              <TYPE.white1>{circulation?.toFixed(0, { groupSeparator: ',' })}</TYPE.white1>
             </RowBetween>
             <RowBetween>
-              <TYPE.white color="white">{t('waspBurned')}</TYPE.white>
-              <TYPE.white color="white">{burned?.toFixed(0, { groupSeparator: ',' })}</TYPE.white>
+              <TYPE.white1>{t('waspBurned')}</TYPE.white1>
+              <TYPE.white1>{burned?.toFixed(0, { groupSeparator: ',' })}</TYPE.white1>
             </RowBetween>
             {/* <RowBetween>
-              <TYPE.white color="white">{t('totalSupply')}</TYPE.white>
-              <TYPE.white color="white">{totalSupply?.toFixed(0, { groupSeparator: ',' })}</TYPE.white>
+              <TYPE.white1>{t('totalSupply')}</TYPE.white1>
+              <TYPE.white1>{totalSupply?.toFixed(0, { groupSeparator: ',' })}</TYPE.white1>
             </RowBetween> */}
             <RowBetween>
-              <TYPE.white color="white">WASP Token Address(WRC20):</TYPE.white>
-              <TYPE.white color="white"><a href="https://www.wanscan.org/token/0x924fd608bf30db9b099927492fda5997d7cfcb02">0x8b9f...5e9a</a></TYPE.white>
+              <TYPE.white1>WASP Token Address(WRC20):</TYPE.white1>
+              <TYPE.yellow3><a href="https://www.wanscan.org/token/0x924fd608bf30db9b099927492fda5997d7cfcb02">0x8b9f...5e9a</a></TYPE.yellow3>
             </RowBetween>
             <RowBetween>
-              <TYPE.white color="white">WASP Token Address(ERC20 on Moonriver):</TYPE.white>
-              <TYPE.white color="white"><a href="https://moonriver.moonscan.io/token/0xffef2639b2ee39f9c284d0107e567dd2f7b20613">0xffef...0613</a></TYPE.white>
+              <TYPE.white1>WASP Token Address(ERC20 on Moonriver):</TYPE.white1>
+              <TYPE.yellow3><a href="https://moonriver.moonscan.io/token/0xffef2639b2ee39f9c284d0107e567dd2f7b20613">0xffef...0613</a></TYPE.yellow3>
             </RowBetween>
             {uni && uni.chainId === ChainId.MAINNET ? (
               <ExternalLink href={`https://info.wanswap.finance/token/0x924fd608bf30db9b099927492fda5997d7cfcb02`}>View WASP Statistics</ExternalLink>

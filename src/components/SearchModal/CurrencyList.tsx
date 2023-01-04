@@ -52,6 +52,14 @@ const TagContainer = styled.div`
   justify-content: flex-end;
 `
 
+const FixedSizeListScroll = styled(FixedSizeList)`
+  scrollbar-width: none;
+
+  ::-webkit-scrollbar {
+    display: none;
+  }
+`;
+
 function TokenTags({ currency }: { currency: Currency }) {
   if (!(currency instanceof WrappedTokenInfo)) {
     return <span />
@@ -198,7 +206,7 @@ export default function CurrencyList({
   const itemKey = useCallback((index: number, data: any) => currencyKey(data[index]), [])
 
   return (
-    <FixedSizeList
+    <FixedSizeListScroll
       height={height}
       ref={fixedListRef as any}
       width="100%"
@@ -208,6 +216,6 @@ export default function CurrencyList({
       itemKey={itemKey}
     >
       {Row}
-    </FixedSizeList>
+    </FixedSizeListScroll>
   )
 }

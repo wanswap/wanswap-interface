@@ -179,6 +179,12 @@ function MigrateLP() {
   console.log('!!! token0', token0?.toSignificant(8), token1?.toSignificant(8))
   console.log('!!! userAmount', userAmount.raw.toString(16))
 
+  const isBtnDisabled = useMemo(() => {
+    if (!info) return true;
+    if (!Boolean(Number(ethers.utils.formatEther(info.userInfo.amount.toString()).toString()))) return true;
+    return false;
+  }, [info]);
+
   return (
     <PageWrapper gap="lg" justify="center">
       <DataCard>
@@ -248,24 +254,29 @@ function MigrateLP() {
             setCurStatus(0);
             setLpOpenModal(!openLpModal);
             let amount = '0x' + userAmount.raw.toString(16);
-            const tx0 = await v1MinerContract?.withdraw(pair.pid, amount);
-            await tx0.wait();
-            if (approval === ApprovalState.NOT_APPROVED || approval === ApprovalState.PENDING) {
-              setMessage0('Approve');
+            try {
+              const tx0 = await v1MinerContract?.withdraw(pair.pid, amount);
+              await tx0.wait();
+              if (approval === ApprovalState.NOT_APPROVED || approval === ApprovalState.PENDING) {
+                setMessage0('Approve');
+                setMessage1('LP to V2 Farming');
+                setCurStatus(1);
+                await approveCallback()
+              }
+  
+              setMessage0('Deposit');
               setMessage1('LP to V2 Farming');
-              setCurStatus(1);
-              await approveCallback()
+              setCurStatus(2);
+              const tx2 = await v2MinerContract?.deposit(pair.v2Pid, amount, { gasLimit: 500000 });
+              await tx2.wait();
+              setMessage0('Success!');
+              setMessage1('You can close this window now.');
+              setCurStatus(3);
+              setMessage2('');
+            } catch (err) {
+              setLpOpenModal(false);
+              console.error(err);
             }
-
-            setMessage0('Deposit');
-            setMessage1('LP to V2 Farming');
-            setCurStatus(2);
-            const tx2 = await v2MinerContract?.deposit(pair.v2Pid, amount, { gasLimit: 500000 });
-            await tx2.wait();
-            setMessage0('Success!');
-            setMessage1('You can close this window now.');
-            setCurStatus(3);
-            setMessage2('');
           } else {
             setMessage0('Pool with WASP');
             setMessage1('is not supported by auto migration.');
@@ -274,7 +285,7 @@ function MigrateLP() {
             setCurStatus(0);
             setLpOpenModal(!openLpModal);
           }
-        }} disabled={!info}>{t('Migrate to V2')}</ButtonLight>
+        }} disabled={isBtnDisabled}>{t('Migrate to V2')}</ButtonLight>
       }
       {
         openModal && <LPPairSearchModal
