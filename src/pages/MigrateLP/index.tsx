@@ -19,6 +19,7 @@ import { ethers } from 'ethers';
 import { useBridgeMinerContract, useV1MinerContract } from '../../hooks/useContract';
 import { useApproveCallback, ApprovalState } from '../../hooks/useApproveCallback';
 import { useSelectedTokenList } from '../../state/lists/hooks';
+import { useTransactionAdder } from '../../state/transactions/hooks';
 
 const PageWrapper = styled(AutoColumn)`
   max-width: 640px;
@@ -177,7 +178,7 @@ function MigrateLP(props: any) {
     setSelectIndex(_index);
   }, [chainId, props]);
 
-  const userAmount = new TokenAmount(new Token(chainId || 888, pair.lpAddress, 18), info?.userInfo.amount?.toString() || '0');
+  const userAmount = new TokenAmount(new Token(chainId || 888, pair.lpAddress, 18, 'WSLP'), info?.userInfo.amount?.toString() || '0');
 
   const [approval, approveCallback] = useApproveCallback(
     userAmount,
@@ -196,6 +197,8 @@ function MigrateLP(props: any) {
     if (!Boolean(Number(ethers.utils.formatEther(info.userInfo.amount.toString()).toString()))) return true;
     return false;
   }, [info]);
+
+  const addTransaction = useTransactionAdder()
 
   return (
     <PageWrapper gap="lg" justify="center">
@@ -269,6 +272,8 @@ function MigrateLP(props: any) {
             try {
               const tx0 = await v1MinerContract?.withdraw(pair.pid, amount);
               await tx0.wait();
+              addTransaction(tx0, { summary: `Withdraw ${userAmount.toSignificant(6)} ${pair.name} LP token from V1 Farming.` })
+
               if (approval === ApprovalState.NOT_APPROVED || approval === ApprovalState.PENDING) {
                 setMessage0('Approve');
                 setMessage1('LP to V2 Farming');
@@ -281,6 +286,7 @@ function MigrateLP(props: any) {
               setCurStatus(2);
               const tx2 = await v2MinerContract?.deposit(pair.v2Pid, amount, { gasLimit: 500000 });
               await tx2.wait();
+              addTransaction(tx2, { summary: `Deposit ${userAmount.toSignificant(6)} ${pair.name} LP token to V2 Farming.` })
               setMessage0('Success!');
               setMessage1('You can close this window now.');
               setCurStatus(3);
