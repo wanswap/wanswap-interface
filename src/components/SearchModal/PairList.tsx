@@ -52,7 +52,7 @@ function CurrencyRow({
   // only show add or remove buttons if not on selected list
   const [currency1Name, currency2Name] = pairInfo.name.split('/');
   const { chainId } = useActiveWeb3React()
-  const networkId = chainId ? chainId : 999;
+  const networkId = chainId ? chainId : 888;
   const selectedTokenList = Object.values(useSelectedTokenList()[networkId])
   const pair = V1_FARM_PAIRS[networkId][index];
   
@@ -93,7 +93,7 @@ export default function PairList({
     return itemData.filter(v => {
       return v.name.toLocaleLowerCase().includes(searchQuery.toLocaleLowerCase());
     })
-  }, [searchQuery]);
+  }, [searchQuery, itemData]);
 
   const Row = useCallback(
     ({ data, index }) => {

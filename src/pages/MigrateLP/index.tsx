@@ -140,10 +140,10 @@ function MigrateLP() {
   console.log('account', account)
   const [selectIndex, setSelectIndex] = useState(0);
   // console.log('!!! V1_FARM_PAIRS', V1_FARM_PAIRS[chainId || 999])
-  const pair = V1_FARM_PAIRS[chainId || 999][selectIndex];
-  const info = useV1UserInfo(chainId || 999, account ? account : undefined, pair)
+  const pair = V1_FARM_PAIRS[chainId || 888][selectIndex];
+  const info = useV1UserInfo(chainId || 888, account ? account : undefined, pair)
   console.log('!!! info', info)
-  const selectedTokenList = Object.values(useSelectedTokenList()[chainId || 999])
+  const selectedTokenList = Object.values(useSelectedTokenList()[chainId || 888])
   const { t } = useTranslation();
   const [openModal, setOpenModal] = useState(false);
   const [openLpModal, setLpOpenModal] = useState(false);
@@ -165,7 +165,7 @@ function MigrateLP() {
   const v1MinerContract = useV1MinerContract()
   const v2MinerContract = useBridgeMinerContract()
 
-  const userAmount = new TokenAmount(new Token(chainId || 999, pair.lpAddress, 18), info?.userInfo.amount?.toString() || '0');
+  const userAmount = new TokenAmount(new Token(chainId || 888, pair.lpAddress, 18), info?.userInfo.amount?.toString() || '0');
 
   const [approval, approveCallback] = useApproveCallback(
     userAmount,

@@ -207,6 +207,7 @@ export default function PoolCard({ stakingInfo, index, hide, totalDeposit }: { s
   }, [index, totalDeposit, valueOfSelfStakedAmountInUSDC])
 
   const isActive = Boolean(stakingInfo.totalRewardRate.greaterThan('0'));
+  const notStart = stakingInfo.periodStart && (new Date(stakingInfo.periodStart)).getTime() > Date.now() / 1000;
 
   return (
     <React.Fragment>
@@ -219,7 +220,10 @@ export default function PoolCard({ stakingInfo, index, hide, totalDeposit }: { s
           <TYPE.white fontWeight={600} fontSize={18} style={{ marginLeft: '8px' }}>
             {currency0.symbol} / {currency1.symbol} 
             {
-              !isActive && <SpanFinished>{t("Inactive")}</SpanFinished>
+              !isActive && !notStart && <SpanFinished>{t("Inactive")}</SpanFinished>
+            }
+            {
+              notStart && <NotStarted>{t("Coming Soon")}</NotStarted>
             }
             <Multiplier>
             {
@@ -290,6 +294,14 @@ export default function PoolCard({ stakingInfo, index, hide, totalDeposit }: { s
 
 const SpanFinished = styled.span`
   background: #d15458;
+  padding: 5px 10px;
+  border-radius: 15px;
+  font-size: 10px;
+  margin-left: 10px;
+`;
+
+const NotStarted = styled.span`
+  background: #2c74c1;
   padding: 5px 10px;
   border-radius: 15px;
   font-size: 10px;
