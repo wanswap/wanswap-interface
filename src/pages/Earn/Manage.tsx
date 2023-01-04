@@ -382,7 +382,7 @@ export default function Manage({
                   borderRadius="8px"
                   width="160px"
                   onClick={() => {
-                    window.location.href = 'https://wanswap.finance/#/migratelp'
+                    window.location.href = `https://wanswap.finance/#/migratelp?${currencyA?.symbol}-${currencyB?.symbol}`
                   }}
                 >
                   {t("Migrate To V2")}
