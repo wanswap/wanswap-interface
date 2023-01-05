@@ -40,6 +40,7 @@ import { currencyId } from '../../utils/currencyId'
 import { PoolPriceBar } from './PoolPriceBar'
 import { useTranslation } from 'react-i18next'
 import { Black1Card } from '../../components/Card';
+import { isMobile } from 'react-device-detect'
 
 export default function AddLiquidity({
   match: {
@@ -228,27 +229,41 @@ export default function AddLiquidity({
       </AutoColumn>
     ) : (
       <Black1Card style={{ marginTop: '20px' }}>
-        <AutoColumn gap="0px">
-          <RowFlat>
-            <Text fontSize="30px" fontWeight={500} lineHeight="26px" marginRight={10}>
-              {liquidityMinted?.toSignificant(6)}
-            </Text>
+        {
+          isMobile ?
+          <RowBetween>
             <DoubleCurrencyLogo
               currency0={currencies[Field.CURRENCY_A]}
               currency1={currencies[Field.CURRENCY_B]}
-              size={30}
+              size={54}
             />
-          </RowFlat>
-          <Row>
             <Text fontSize="24px">
-              {currencies[Field.CURRENCY_A]?.symbol + '/' + currencies[Field.CURRENCY_B]?.symbol + ' Pool Tokens'}
+              {currencies[Field.CURRENCY_A]?.symbol + '/' + currencies[Field.CURRENCY_B]?.symbol }
             </Text>
-          </Row>
-          <TYPE.italic fontSize={12} textAlign="left" padding={'8px 0 0 0 '}>
-            {t('outputIsEstimated2') + `${allowedSlippage /
-              100}`+t('outputIsEstimated3')}
-          </TYPE.italic>
-        </AutoColumn>
+          </RowBetween>
+          :
+          <AutoColumn gap="0px">
+            <RowFlat>
+              <Text fontSize="30px" fontWeight={500} lineHeight="26px" marginRight={10}>
+                {liquidityMinted?.toSignificant(6)}
+              </Text>
+              <DoubleCurrencyLogo
+                currency0={currencies[Field.CURRENCY_A]}
+                currency1={currencies[Field.CURRENCY_B]}
+                size={30}
+              />
+            </RowFlat>
+            <Row>
+              <Text fontSize="24px">
+                {currencies[Field.CURRENCY_A]?.symbol + '/' + currencies[Field.CURRENCY_B]?.symbol + ' Pool Tokens'}
+              </Text>
+            </Row>
+            <TYPE.italic fontSize={12} textAlign="left" padding={'8px 0 0 0 '}>
+              {t('outputIsEstimated2') + `${allowedSlippage /
+                100}`+t('outputIsEstimated3')}
+            </TYPE.italic>
+          </AutoColumn>
+        }
       </Black1Card>
     )
   }
