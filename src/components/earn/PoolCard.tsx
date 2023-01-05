@@ -207,7 +207,7 @@ export default function PoolCard({ stakingInfo, index, hide, totalDeposit }: { s
   }, [index, totalDeposit, valueOfSelfStakedAmountInUSDC])
 
   const isActive = Boolean(stakingInfo.totalRewardRate.greaterThan('0'));
-  const notStart = stakingInfo.periodStart && (new Date(stakingInfo.periodStart)).getTime() > Date.now() / 1000;
+  const notStart = stakingInfo.periodStart && (new Date(stakingInfo.periodStart)).getTime() > Date.now();
 
   return (
     <React.Fragment>
