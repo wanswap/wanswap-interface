@@ -10,7 +10,6 @@ import { RowBetween } from '../Row'
 import { TYPE } from '../../theme'
 import { Input as NumericalInput } from '../NumericalInput'
 import { ReactComponent as DropDown } from '../../assets/images/dropdown.svg'
-import { isMobile } from 'react-device-detect'
 import { useActiveWeb3React } from '../../hooks'
 import { useTranslation } from 'react-i18next'
 
@@ -25,8 +24,8 @@ const CurrencySelect = styled.button<{ selected: boolean }>`
   height: 2.2rem;
   font-size: 20px;
   font-weight: 500;
-  background-color: ${({ selected, theme }) => (selected ? 'white' : isMobile ? theme.yellow3 : theme.primary6)};
-  color: ${({ selected, theme }) => (selected ? 'black' : isMobile ? 'black' : theme.white)};
+  background-color: ${({ selected, theme }) => (selected ? 'white' : theme.primary6)};
+  color: ${({ selected, theme }) => (selected ? 'black' : theme.white)};
   border-radius:10px;
   box-shadow: ${({ selected }) => (selected ? 'none' : '0px 6px 10px rgba(0, 0, 0, 0.075)')};
   outline: none;
@@ -88,7 +87,7 @@ border-radius:10px;
 const StyledTokenName = styled.span<{ active?: boolean }>`
   ${({ active }) => (active ? '  margin: 0 0.25rem 0 0.75rem;' : '  margin: 0 0.25rem 0 0.25rem;')}
   font-size:  ${({ active }) => (active ? '20px' : '16px')};
-  color:  ${({ active }) => (active ? '#313131' : isMobile ? '#313131' : '#fff')};
+  color:  ${({ active }) => (active ? '#313131' : '#fff')};
   margin-left:5px;
 `
 
@@ -102,13 +101,13 @@ const StyledBalanceMax = styled.button`
   font-size: 1rem;
   font-family: Inter-Bold, Inter;
   font-weight: bold;
-  color: ${({ theme }) => isMobile ? theme.yellow3 : theme.primary6};
+  color: ${({ theme }) => theme.primary6};
 
   :hover {
-    border: 1px solid ${({ theme }) => isMobile ? theme.yellow3 : theme.primary6};
+    border: 1px solid ${({ theme }) => theme.primary6};
   }
   :focus {
-    border: 1px solid ${({ theme }) => isMobile ? theme.yellow3 : theme.primary6};
+    border: 1px solid ${({ theme }) => theme.primary6};
     outline: none;
   }
 

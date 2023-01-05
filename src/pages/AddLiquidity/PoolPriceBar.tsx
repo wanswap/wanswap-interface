@@ -8,6 +8,37 @@ import { AutoRow } from '../../components/Row'
 import { ONE_BIPS } from '../../constants'
 import { Field } from '../../state/mint/actions'
 import { TYPE } from '../../theme'
+import { isMobile } from 'react-device-detect'
+import styled, { css } from 'styled-components'
+
+const AutoRowMobile = styled(AutoRow)`
+  ${
+    isMobile && css`
+      display: flex;
+      flex-direction: column;
+    `
+  }
+`;
+
+const AutoColumnMobile = styled(AutoColumn)`
+  justify-content: center;
+
+  ${
+    isMobile && css`
+      display: flex;
+      justify-content: space-between;
+      padding: 0 1rem;
+      width: 100%;
+      flex-direction: row-reverse;
+    `
+  }
+`;
+
+const TextMobile = styled(Text)`
+  font-weight: 500;
+  font-size: 14px;
+  color: ${({ theme }) => isMobile ? theme.white1 : theme.text2 };
+`;
 
 export function PoolPriceBar({
   currencies,
@@ -24,31 +55,31 @@ export function PoolPriceBar({
   const { t } = useTranslation()
   return (
     <AutoColumn gap="md">
-      <AutoRow justify="space-around" gap="4px">
-        <AutoColumn justify="center">
-          <TYPE.yellow3>{price?.toSignificant(6) ?? '-'}</TYPE.yellow3>
-          <Text fontWeight={500} fontSize={14} color={theme.text2} pt={1}>
+      <AutoRowMobile justify="space-around" gap="4px">
+        <AutoColumnMobile>
+          <TYPE.yellow3 color={isMobile ? theme.primary6 : theme.yellow3}>{price?.toSignificant(6) ?? '-'}</TYPE.yellow3>
+          <TextMobile pt={1}>
             {currencies[Field.CURRENCY_B]?.symbol} per {currencies[Field.CURRENCY_A]?.symbol}
-          </Text>
-        </AutoColumn>
-        <AutoColumn justify="center">
-          <TYPE.yellow3>{price?.invert()?.toSignificant(6) ?? '-'}</TYPE.yellow3>
-          <Text fontWeight={500} fontSize={14} color={theme.text2} pt={1}>
+          </TextMobile>
+        </AutoColumnMobile>
+        <AutoColumnMobile>
+          <TYPE.yellow3 color={isMobile ? theme.primary6 : theme.yellow3}>{price?.invert()?.toSignificant(6) ?? '-'}</TYPE.yellow3>
+          <TextMobile pt={1}>
             {currencies[Field.CURRENCY_A]?.symbol} per {currencies[Field.CURRENCY_B]?.symbol}
-          </Text>
-        </AutoColumn>
-        <AutoColumn justify="center">
-          <TYPE.yellow3>
+          </TextMobile>
+        </AutoColumnMobile>
+        <AutoColumnMobile>
+          <TYPE.yellow3 color={isMobile ? theme.primary6 : theme.yellow3}>
             {noLiquidity && price
               ? '100'
               : (poolTokenPercentage?.lessThan(ONE_BIPS) ? '<0.01' : poolTokenPercentage?.toFixed(2)) ?? '0'}
             %
           </TYPE.yellow3>
-          <Text fontWeight={500} fontSize={14} color={theme.text2} pt={1}>
+          <TextMobile pt={1}>
             {t('shareOfPool')}
-          </Text>
-        </AutoColumn>
-      </AutoRow>
+          </TextMobile>
+        </AutoColumnMobile>
+      </AutoRowMobile>
     </AutoColumn>
   )
 }

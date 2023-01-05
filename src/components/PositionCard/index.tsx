@@ -4,7 +4,7 @@ import React, { useState, useContext } from 'react'
 import { ChevronDown, ChevronUp } from 'react-feather'
 import { Link } from 'react-router-dom'
 import { Text } from 'rebass'
-import styled, { ThemeContext } from 'styled-components';
+import styled, { ThemeContext, css } from 'styled-components';
 import { useTotalSupply } from '../../data/TotalSupply'
 
 import { useActiveWeb3React } from '../../hooks'
@@ -29,6 +29,7 @@ import DoubleCurrencyLogo from '../DoubleLogo'
 import { RowBetween, RowFixed } from '../Row'
 import { Dots } from '../swap/styleds'
 import { useTranslation } from 'react-i18next'
+import { isMobile } from 'react-device-detect'
 
 export const FixedHeightRow = styled(RowBetween)`
   height: 24px;
@@ -47,6 +48,17 @@ const StyledPositionCard = styled(LightCard)<{ bgColor: any }>`
   position: relative;
   overflow: hidden;
 `
+
+const BlackCardMobile = styled(BlackCard)`
+  ${
+    isMobile && css`
+      width: 90%;
+      background: ${({ theme }) => theme.bg6};
+      margin: 0 auto;
+      color: ${({ theme }) => theme.primary7};
+    `
+  }
+`;
 
 interface PositionCardProps {
   pair: Pair
@@ -150,7 +162,7 @@ export function MinimalPositionCard({ pair, showUnwrapped = false, border }: Pos
           </AutoColumn>
         </BlackCard>
       ) : (
-        <BlackCard>
+        <BlackCardMobile>
           <TYPE.subHeader style={{ textAlign: 'center' }}>
             <span role="img" aria-label="wizard-icon">
               ⭐️
@@ -158,7 +170,7 @@ export function MinimalPositionCard({ pair, showUnwrapped = false, border }: Pos
             By adding liquidity you&apos;ll earn 0.3% of all trades on this pair proportional to your share of the pool.
             Fees are added to the pool, accrue in real time and can be claimed by withdrawing your liquidity.
           </TYPE.subHeader>
-        </BlackCard>
+        </BlackCardMobile>
       )}
     </>
   )
