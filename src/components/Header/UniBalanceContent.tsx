@@ -126,7 +126,7 @@ export default function UniBalanceContent({ setShowUniBalanceModal }: { setShowU
             </RowBetween> */}
             <RowBetween>
               <TYPE.white1>WASP Token Address(WRC20):</TYPE.white1>
-              <TYPE.yellow3><a href="https://www.wanscan.org/token/0x924fd608bf30db9b099927492fda5997d7cfcb02">0x8b9f...5e9a</a></TYPE.yellow3>
+              <TYPE.yellow3><a href="https://www.wanscan.org/token/0x924fd608bf30db9b099927492fda5997d7cfcb02">0x924f...cb02</a></TYPE.yellow3>
             </RowBetween>
             <RowBetween>
               <TYPE.white1>WASP Token Address(ERC20 on Moonriver):</TYPE.white1>
