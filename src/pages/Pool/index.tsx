@@ -44,7 +44,6 @@ const ButtonRow = styled(RowFixed)`
   grid-gap: 8px;
   ${({ theme }) => theme.mediaWidth.upToSmall`
     width: 100%;
-    flex-direction: row-reverse;
     justify-content: space-between;
   `};
 `
@@ -60,7 +59,11 @@ const ResponsiveButtonPrimary = styled(ButtonPrimary)`
     color: #fff;
   }
   ${({ theme }) => theme.mediaWidth.upToSmall`
+    border-radius: 100px;
     width: 48%;
+    border-color: ${({ theme }) => theme.yellow3};
+    background-color: ${({ theme }) => theme.yellow3};
+    color: #333333;
   `};
 `
 
@@ -74,6 +77,9 @@ const ResponsiveButtonSecondary = styled(ButtonSecondary)`
   }
   ${({ theme }) => theme.mediaWidth.upToSmall`
     width: 48%;
+    border-radius: 100px;
+    border-color: ${({ theme }) => theme.yellow3};
+    color: ${({ theme }) => theme.yellow3};
   `};
 `
 
@@ -143,7 +149,7 @@ export default function Pool() {
           <CardSection>
             <AutoColumn gap="md">
               <RowBetween>
-                <TYPE.yellow3 fontWeight={600}>{t('liquidityProviderRewards')}</TYPE.yellow3>
+                <TYPE.yellow3 fontWeight={600} fontSize={'20px'}>{t('liquidityProviderRewards')}</TYPE.yellow3>
               </RowBetween>
               <RowBetween>
                 <TYPE.white color={theme.text6} fontSize={14}>
