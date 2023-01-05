@@ -111,7 +111,7 @@ export default function PairList({
   searchQuery: string
 }) {
   const { chainId } = useActiveWeb3React()
-  const itemData = useMemo(() => chainId ? V1_FARM_PAIRS[chainId].filter(v=>v.type === 0) : [], [chainId]);
+  const itemData = useMemo(() => chainId ? V1_FARM_PAIRS[chainId]/*.filter(v=>v.type === 0)*/ : [], [chainId]);
   const filterList = useMemo(() => {
     return itemData.filter(v => {
       return v.name.toLocaleLowerCase().includes(searchQuery.toLocaleLowerCase());
