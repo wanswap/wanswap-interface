@@ -5,7 +5,7 @@ import { CardSection, DataCard } from '../../components/earn/styled';
 import { RowBetween } from '../../components/Row';
 import { TYPE } from '../../theme';
 import { useTranslation } from 'react-i18next';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { ButtonLight } from '../../components/Button';
 import { LPPairSearchModal } from '../../components/SearchModal/LPPairSearchModal';
 import downImg from '../../assets/images/png/down.png';
@@ -20,6 +20,7 @@ import { useBridgeMinerContract, useV1MinerContract } from '../../hooks/useContr
 import { useApproveCallback, ApprovalState } from '../../hooks/useApproveCallback';
 import { useSelectedTokenList } from '../../state/lists/hooks';
 import { useTransactionAdder } from '../../state/transactions/hooks';
+import { isMobile } from 'react-device-detect';
 
 const PageWrapper = styled(AutoColumn)`
   max-width: 640px;
@@ -60,6 +61,24 @@ const PairContent = styled.div`
   align-items: center;
 `;
 
+const PairContentMobile = styled(PairContent)`
+  ${
+    isMobile && css`
+      flex-direction: column;
+    `
+  }
+`;
+
+const PairContentMobile2 = styled(PairContent)`
+  ${
+    isMobile && css`
+      align-items: flex-start;
+      width: 100%;
+    `
+  }
+`;
+
+
 const Arrow = styled.img`
   width: 24px;
   height: 24px;
@@ -73,6 +92,12 @@ const DataCard2 = styled(DataCard)`
 const LiquidityCon = styled(RowBetween)`
   padding: 10px 0;
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  ${
+    isMobile && css`
+      flex-direction: column;
+      align-items: flex-start;
+    `
+  }
 `;
 
 const Line = styled.div`
@@ -233,18 +258,22 @@ function MigrateLP(props: any) {
               <TYPE.white fontWeight={400} fontSize={'16px'}>{t('V1 LP Token Balance')}</TYPE.white>
             </RowBetween>
             <LiquidityCon>
-              <TYPE.yellow3 fontWeight={400} fontSize={'24px'}>{info ? ethers.utils.formatEther(info.userInfo.amount.toString()).toString() : 'Loading...'}</TYPE.yellow3>
+              <TYPE.yellow3 style={{textOverflow: 'ellipsis', width: '100%', overflow: 'hidden'}} fontWeight={400} fontSize={'24px'}>{info ? ethers.utils.formatEther(info.userInfo.amount.toString()).toString() : 'Loading...'}</TYPE.yellow3>
               <TYPE.white fontWeight={400} fontSize={'24px'}>{t('WSLP (' + pair.name + ')')}</TYPE.white>
             </LiquidityCon>
-            <PairContent>
-              <Logo3 src={selectedTokenList.find(v => v.address === pair.token0.address)?.tokenInfo.logoURI} />
-              <TYPE.white fontWeight={400} fontSize={'16px'} marginLeft={'8px'}>{token0 ? token0?.toSignificant(8) : 'Loading...'}</TYPE.white>&nbsp;
-              <TYPE.white fontWeight={400} fontSize={'16px'}>{pair.token0.symbol}</TYPE.white>
-              <Line />
-              <Logo3 src={selectedTokenList.find(v => v.address === pair.token1.address)?.tokenInfo.logoURI} />
-              <TYPE.white fontWeight={400} fontSize={'16px'} marginLeft={'8px'}>{token1 ? token1?.toSignificant(8) : 'Loading...'}</TYPE.white>&nbsp;
-              <TYPE.white fontWeight={400} fontSize={'16px'}>{pair.token1.symbol}</TYPE.white>
-            </PairContent>
+            <PairContentMobile>
+              <PairContentMobile2>
+                <Logo3 src={selectedTokenList.find(v => v.address === pair.token0.address)?.tokenInfo.logoURI} />
+                <TYPE.white fontWeight={400} fontSize={'16px'} marginLeft={'8px'}>{token0 ? token0?.toSignificant(8) : 'Loading...'}</TYPE.white>&nbsp;
+                <TYPE.white fontWeight={400} fontSize={'16px'}>{pair.token0.symbol}</TYPE.white>
+              </PairContentMobile2>
+              { isMobile ? null : <Line /> }
+              <PairContentMobile2>
+                <Logo3 src={selectedTokenList.find(v => v.address === pair.token1.address)?.tokenInfo.logoURI} />
+                <TYPE.white fontWeight={400} fontSize={'16px'} marginLeft={'8px'}>{token1 ? token1?.toSignificant(8) : 'Loading...'}</TYPE.white>&nbsp;
+                <TYPE.white fontWeight={400} fontSize={'16px'}>{pair.token1.symbol}</TYPE.white>
+              </PairContentMobile2>
+            </PairContentMobile>
           </AutoColumn>
         </CardSection>
       </DataCard2>
