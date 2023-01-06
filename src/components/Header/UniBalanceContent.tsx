@@ -17,6 +17,7 @@ import { AutoColumn } from '../Column'
 import { RowBetween } from '../Row'
 import { Break, CardSection, DataCard } from '../earn/styled'
 import { useTranslation } from 'react-i18next'
+import { isMobile } from 'react-device-detect'
 
 const ContentWrapper = styled(AutoColumn)`
   width: 100%;
@@ -36,6 +37,16 @@ const StyledClose = styled(X)`
     cursor: pointer;
   }
 `
+const View = styled.div`
+  width: 100%;
+  max-height: calc(90vh - 3.75rem);
+  overflow-y: auto;
+
+  ::-webkit-scrollbar {
+    display: none;
+  }
+`;
+
 
 /**
  * Content for balance stats modal
@@ -81,62 +92,64 @@ export default function UniBalanceContent({ setShowUniBalanceModal }: { setShowU
           </RowBetween>
         </CardSection>
         <Break />
-        {account && (
-          <>
-            <CardSection gap="sm">
-              <AutoColumn gap="md" justify="center">
-                <UniTokenAnimated width="126px" src={tokenLogo} />{' '}
-                <TYPE.yellow3 fontSize={48} fontWeight={600}>
-                  {total?.toFixed(2, { groupSeparator: ',' })}
-                </TYPE.yellow3>
-              </AutoColumn>
-              <AutoColumn gap="md">
-                <RowBetween>
-                  <TYPE.white1>{t('balance2')}</TYPE.white1>
-                  <TYPE.white1>{uniBalance?.toFixed(2, { groupSeparator: ',' })}</TYPE.white1>
-                </RowBetween>
-                <RowBetween>
-                  <TYPE.white1>{t('unclaimed')}:</TYPE.white1>
-                  <TYPE.white1>
-                    {uniToClaim?.toFixed(2, { groupSeparator: ',' })}{' '}
-                  </TYPE.white1>
-                </RowBetween>
-              </AutoColumn>
-            </CardSection>
-            <Break />
-          </>
-        )}
-        <CardSection gap="sm">
-          <AutoColumn gap="md">
-            <RowBetween>
-              <TYPE.white1>{t('waspPrice')}</TYPE.white1>
-              <TYPE.white1>${uniPrice?.toFixed(4) ?? '-'}</TYPE.white1>
-            </RowBetween>
-            <RowBetween>
-              <TYPE.white1>{t('waspInCirculation')}</TYPE.white1>
-              <TYPE.white1>{circulation?.toFixed(0, { groupSeparator: ',' })}</TYPE.white1>
-            </RowBetween>
-            <RowBetween>
-              <TYPE.white1>{t('waspBurned')}</TYPE.white1>
-              <TYPE.white1>{burned?.toFixed(0, { groupSeparator: ',' })}</TYPE.white1>
-            </RowBetween>
-            {/* <RowBetween>
-              <TYPE.white1>{t('totalSupply')}</TYPE.white1>
-              <TYPE.white1>{totalSupply?.toFixed(0, { groupSeparator: ',' })}</TYPE.white1>
-            </RowBetween> */}
-            <RowBetween>
-              <TYPE.white1>WASP Token Address(WRC20):</TYPE.white1>
-              <TYPE.yellow3><a href="https://www.wanscan.org/token/0x924fd608bf30db9b099927492fda5997d7cfcb02">0x924f...cb02</a></TYPE.yellow3>
-            </RowBetween>
-            <RowBetween>
-              <TYPE.white1>WASP Token Address(ERC20 on Moonriver):</TYPE.white1>
-              <TYPE.yellow3><a href="https://moonriver.moonscan.io/token/0xffef2639b2ee39f9c284d0107e567dd2f7b20613">0xffef...0613</a></TYPE.yellow3>
-            </RowBetween>
-            {uni && uni.chainId === ChainId.MAINNET ? (
-              <ExternalLink href={`https://info.wanswap.finance/token/0x924fd608bf30db9b099927492fda5997d7cfcb02`}>View WASP Statistics</ExternalLink>
-            ) : null}
-          </AutoColumn>
-        </CardSection>
+        <View>
+          {account && (
+            <>
+              <CardSection gap="sm">
+                <AutoColumn gap="md" justify="center">
+                  <UniTokenAnimated width="126px" src={tokenLogo} />{' '}
+                  <TYPE.yellow3 fontSize={48} fontWeight={600}>
+                    {total?.toFixed(2, { groupSeparator: ',' })}
+                  </TYPE.yellow3>
+                </AutoColumn>
+                <AutoColumn gap="md">
+                  <RowBetween>
+                    <TYPE.white1>{t('balance2')}</TYPE.white1>
+                    <TYPE.white1>{uniBalance?.toFixed(2, { groupSeparator: ',' })}</TYPE.white1>
+                  </RowBetween>
+                  <RowBetween>
+                    <TYPE.white1>{t('unclaimed')}:</TYPE.white1>
+                    <TYPE.white1>
+                      {uniToClaim?.toFixed(2, { groupSeparator: ',' })}{' '}
+                    </TYPE.white1>
+                  </RowBetween>
+                </AutoColumn>
+              </CardSection>
+              <Break />
+            </>
+          )}
+          <CardSection gap="sm" style={{paddingBottom: isMobile ? '1rem' : ''}}>
+            <AutoColumn gap="md">
+              <RowBetween>
+                <TYPE.white1>{t('waspPrice')}</TYPE.white1>
+                <TYPE.white1>${uniPrice?.toFixed(4) ?? '-'}</TYPE.white1>
+              </RowBetween>
+              <RowBetween>
+                <TYPE.white1>{t('waspInCirculation')}</TYPE.white1>
+                <TYPE.white1>{circulation?.toFixed(0, { groupSeparator: ',' })}</TYPE.white1>
+              </RowBetween>
+              <RowBetween>
+                <TYPE.white1>{t('waspBurned')}</TYPE.white1>
+                <TYPE.white1>{burned?.toFixed(0, { groupSeparator: ',' })}</TYPE.white1>
+              </RowBetween>
+              {/* <RowBetween>
+                <TYPE.white1>{t('totalSupply')}</TYPE.white1>
+                <TYPE.white1>{totalSupply?.toFixed(0, { groupSeparator: ',' })}</TYPE.white1>
+              </RowBetween> */}
+              <RowBetween>
+                <TYPE.white1>WASP Token Address(WRC20):</TYPE.white1>
+                <TYPE.yellow3><a href="https://www.wanscan.org/token/0x924fd608bf30db9b099927492fda5997d7cfcb02">0x924f...cb02</a></TYPE.yellow3>
+              </RowBetween>
+              <RowBetween>
+                <TYPE.white1>WASP Token Address(ERC20 on Moonriver):</TYPE.white1>
+                <TYPE.yellow3><a href="https://moonriver.moonscan.io/token/0xffef2639b2ee39f9c284d0107e567dd2f7b20613">0xffef...0613</a></TYPE.yellow3>
+              </RowBetween>
+              {uni && uni.chainId === ChainId.MAINNET ? (
+                <ExternalLink href={`https://info.wanswap.finance/token/0x924fd608bf30db9b099927492fda5997d7cfcb02`}>View WASP Statistics</ExternalLink>
+              ) : null}
+            </AutoColumn>
+          </CardSection>
+        </View>
       </ModalUpper>
     </ContentWrapper>
   )
