@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react'
 import { AutoColumn } from '../Column'
 import { RowBetween } from '../Row'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 import { TYPE, StyledInternalLink } from '../../theme'
 import { ETHER } from '@wanswap/sdk'
 import { ButtonGreen } from '../Button'
@@ -15,6 +15,7 @@ import { Countdown } from '../../pages/Hive/Countdown'
 import useUSDCPrice from '../../utils/useUSDCPrice'
 import { useActiveWeb3React } from '../../hooks'
 import { WASP } from '../../constants'
+import { isMobile } from 'react-device-detect'
 
 const StatContainer = styled.div`
   display: flex;
@@ -63,6 +64,14 @@ const BottomSection = styled.div<{ showBackground: boolean }>`
   justify-content: space-between;
   z-index: 1;
 `
+
+const RowBetweenMobile = styled(RowBetween)`
+  ${
+    isMobile && css`
+      flex-wrap: wrap;
+    `
+  }
+`;
 
 declare global {
   interface Window {
@@ -129,18 +138,35 @@ export default function HiveCard({ stakingInfo, i, hide }: { stakingInfo: Stakin
         </TopSection>
   
         <StatContainer>
-          <RowBetween>
+          <RowBetweenMobile>
             <TYPE.white>{t('totalDeposited')}</TYPE.white>
-            <TYPE.yellow3>
-              {`${stakingInfo?.totalStakedAmount.toFixed(0, { groupSeparator: ',' }) ?? '-'} WASP`}
-              {
-                apy && apy !== '--' && !isNaN(Number(apy)) && apy !== '0' ? ' 🔥 ' : null
-              }
-              {
-                apy && apy !== '--' && !isNaN(Number(apy)) && apy !== '0' ? 'APR: ' + apy + '%' : null
-              }
-            </TYPE.yellow3>
-          </RowBetween>
+            {
+              isMobile ?
+                <>
+                  <TYPE.yellow3>
+                    {`${stakingInfo?.totalStakedAmount.toFixed(0, { groupSeparator: ',' }) ?? '-'} WASP`}
+                  </TYPE.yellow3>
+                  <TYPE.yellow3>
+                    {
+                      apy && apy !== '--' && !isNaN(Number(apy)) && apy !== '0' ? ' 🔥 ' : null
+                    }
+                    {
+                      apy && apy !== '--' && !isNaN(Number(apy)) && apy !== '0' ? 'APR: ' + apy + '%' : null
+                    }
+                  </TYPE.yellow3>
+                </>
+              :
+              <TYPE.yellow3>
+                {`${stakingInfo?.totalStakedAmount.toFixed(0, { groupSeparator: ',' }) ?? '-'} WASP`}
+                {
+                  apy && apy !== '--' && !isNaN(Number(apy)) && apy !== '0' ? ' 🔥 ' : null
+                }
+                {
+                  apy && apy !== '--' && !isNaN(Number(apy)) && apy !== '0' ? 'APR: ' + apy + '%' : null
+                }
+              </TYPE.yellow3>
+            }
+          </RowBetweenMobile>
           <RowBetween>
             <TYPE.white> {t("Pool rate")} </TYPE.white>
             <TYPE.green>{`${stakingInfo.totalRewardRate

@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react'
 import { AutoColumn } from '../Column'
 import { RowBetween } from '../Row'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 import { TYPE, StyledInternalLink } from '../../theme'
 import { ButtonGreen } from '../Button'
 import { useStakeWaspEarnWaspInfo } from '../../state/hive/hooks'
@@ -13,6 +13,7 @@ import CurrencyLogo from '../CurrencyLogo'
 // import { useActiveWeb3React } from '../../hooks'
 // import { WASP } from '../../constants'
 import BN from 'bignumber.js'
+import { isMobile } from 'react-device-detect'
 
 const StatContainer = styled.div`
   display: flex;
@@ -45,6 +46,14 @@ const TopSection = styled.div`
     grid-template-columns: 48px 1fr 96px;
   `};
 `
+
+const RowBetweenMobile = styled(RowBetween)`
+  ${
+    isMobile && css`
+      flex-wrap: wrap;
+    `
+  }
+`;
 
 declare global {
   interface Window {
@@ -106,18 +115,35 @@ export default function AutoWaspCard({ hide }: { hide?: Boolean }) {
         </TopSection>
   
         <StatContainer>
-          <RowBetween>
+          <RowBetweenMobile>
             <TYPE.white>{t('totalDeposited')}</TYPE.white>
-            <TYPE.yellow3>
-              {`${stakingInfo?.totalStakedAmount.toFormat(0) ?? '-'} WASP`}
-              {
-                apy && apy !== '--' && !isNaN(Number(apy)) && apy !== '0' ? ' 🔥 ' : null
-              }
-              {
-                apy && apy !== '--' && !isNaN(Number(apy)) && apy !== '0' ? `APY: ${+apy > 100000 ? ' > 100,000' : new BN(apy).toFormat(0)}%` : null
-              }
-            </TYPE.yellow3>
-          </RowBetween>
+            {
+              isMobile ?
+              <>
+                <TYPE.yellow3>
+                  {`${stakingInfo?.totalStakedAmount.toFormat(0) ?? '-'} WASP`}
+                </TYPE.yellow3>
+                <TYPE.yellow3>
+                  {
+                    apy && apy !== '--' && !isNaN(Number(apy)) && apy !== '0' ? ' 🔥 ' : null
+                  }
+                  {
+                    apy && apy !== '--' && !isNaN(Number(apy)) && apy !== '0' ? `APY: ${+apy > 100000 ? ' > 100,000' : new BN(apy).toFormat(0)}%` : null
+                  }
+                </TYPE.yellow3>
+              </>
+                :
+              <TYPE.yellow3>
+                {`${stakingInfo?.totalStakedAmount.toFormat(0) ?? '-'} WASP`}
+                {
+                  apy && apy !== '--' && !isNaN(Number(apy)) && apy !== '0' ? ' 🔥 ' : null
+                }
+                {
+                  apy && apy !== '--' && !isNaN(Number(apy)) && apy !== '0' ? `APY: ${+apy > 100000 ? ' > 100,000' : new BN(apy).toFormat(0)}%` : null
+                }
+              </TYPE.yellow3>
+            }
+          </RowBetweenMobile>
         </StatContainer>
       </Wrapper>
 
