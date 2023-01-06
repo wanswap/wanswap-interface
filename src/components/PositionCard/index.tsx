@@ -55,6 +55,13 @@ const BlackCardMobile = styled(BlackCard)`
       width: 90%;
       background: ${({ theme }) => theme.bg6};
       margin: 0 auto;
+    `
+  }
+`;
+
+const BlackCard1Mobile = styled(BlackCardMobile)`
+  ${
+    isMobile && css`
       color: ${({ theme }) => theme.primary7};
     `
   }
@@ -99,7 +106,7 @@ export function MinimalPositionCard({ pair, showUnwrapped = false, border }: Pos
   return (
     <>
       {userPoolBalance && JSBI.greaterThan(userPoolBalance.raw, JSBI.BigInt(0)) ? (
-        <BlackCard border={border}>
+        <BlackCardMobile border={border}>
           <AutoColumn gap="12px">
             <FixedHeightRow>
               <RowFixed>
@@ -160,9 +167,9 @@ export function MinimalPositionCard({ pair, showUnwrapped = false, border }: Pos
               </FixedHeightRow>
             </AutoColumn>
           </AutoColumn>
-        </BlackCard>
+        </BlackCardMobile>
       ) : (
-        <BlackCardMobile>
+        <BlackCard1Mobile>
           <TYPE.subHeader style={{ textAlign: 'center' }}>
             <span role="img" aria-label="wizard-icon">
               ⭐️
@@ -170,7 +177,7 @@ export function MinimalPositionCard({ pair, showUnwrapped = false, border }: Pos
             By adding liquidity you&apos;ll earn 0.3% of all trades on this pair proportional to your share of the pool.
             Fees are added to the pool, accrue in real time and can be claimed by withdrawing your liquidity.
           </TYPE.subHeader>
-        </BlackCardMobile>
+        </BlackCard1Mobile>
       )}
     </>
   )
