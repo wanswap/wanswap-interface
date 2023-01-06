@@ -56,7 +56,7 @@ const AppWrapper = styled.div`
   align-items: flex-start;
   overflow-x: hidden;
   height: 100vh;
-  padding-top: ${ isMobile ? '60px' : '' };
+  padding-top: ${ isMobile ? '4.5rem' : '' };
 `
 
 const HeaderWrapper = styled.div`
