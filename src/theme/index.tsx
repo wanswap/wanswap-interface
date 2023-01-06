@@ -10,6 +10,8 @@ import styled, {
 import { Text, TextProps } from 'rebass'
 import { Colors } from './styled'
 import bg from '../assets/images/svg/bg.svg';
+import bgMobile from '../assets/images/svg/bg_mobile.svg';
+import { isMobile } from 'react-device-detect';
 
 export * from './components'
 
@@ -351,7 +353,7 @@ body {
   min-height: 100vh;
   // background-position: 0 -30vh;
   background-repeat: no-repeat;
-  background-image: url(${bg});
+  background-image: url(${isMobile ? bgMobile : bg});
   background-size: cover;
 }
 `
