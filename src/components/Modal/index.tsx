@@ -9,7 +9,7 @@ import { useGesture } from 'react-use-gesture'
 
 const AnimatedDialogOverlay = animated(DialogOverlay)
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-const StyledDialogOverlay = styled(AnimatedDialogOverlay)`
+const StyledDialogOverlay = styled(AnimatedDialogOverlay)<{mobileCenter:boolean}>`
   &[data-reach-dialog-overlay] {
     z-index: 2;
     background-color: transparent;
@@ -20,13 +20,14 @@ const StyledDialogOverlay = styled(AnimatedDialogOverlay)`
     justify-content: center;
 
     background-color: ${({ theme }) => theme.modalBG};
+    flex-direction: ${({ mobileCenter }) => mobileCenter ? 'column' : 'inherit'};
   }
 `
 
 const AnimatedDialogContent = animated(DialogContent)
 // destructure to not pass custom props to Dialog DOM element
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-const StyledDialogContent = styled(({ bg, minHeight, maxHeight, mobile, isOpen, enlarge, border, ...rest }) => (
+const StyledDialogContent = styled(({ mobileCenter, bg, minHeight, maxHeight, mobile, isOpen, enlarge, border, ...rest }) => (
   <AnimatedDialogContent {...rest} />
 )).attrs({
   'aria-label': 'dialog'
@@ -68,14 +69,14 @@ const StyledDialogContent = styled(({ bg, minHeight, maxHeight, mobile, isOpen, 
         background-color: ${enlarge ? "black" : bg} !important;
       `
     }
-    ${({ theme, mobile }) => theme.mediaWidth.upToSmall`
+    ${({ theme, mobile, mobileCenter }) => theme.mediaWidth.upToSmall`
       width:  85vw;
       ${mobile &&
         css`
           width: 100vw;
-          border-radius:10px;
-          border-bottom-left-radius: 0;
-          border-bottom-right-radius: 0;
+          border-radius: ${mobileCenter ? '24px' : '10px'};
+          border-bottom-left-radius: ${mobileCenter ? '24px' : '0'};
+          border-bottom-right-radius: ${mobileCenter ? '24px' : '0'};
         `}
     `}
   }
@@ -91,6 +92,7 @@ interface ModalProps {
   bg?: string | false,
   enlarge?: boolean
   border?: string
+  mobileCenter?: boolean
 }
 
 export default function Modal({
@@ -102,7 +104,8 @@ export default function Modal({
   children,
   bg,
   enlarge,
-  border
+  border,
+  mobileCenter = false
 }: ModalProps) {
   const fadeTransition = useTransition(isOpen, null, {
     config: { duration: 200 },
@@ -128,7 +131,7 @@ export default function Modal({
       {fadeTransition.map(
         ({ item, key, props }) =>
           item && (
-            <StyledDialogOverlay key={key} style={props} onDismiss={onDismiss} initialFocusRef={initialFocusRef}>
+            <StyledDialogOverlay mobileCenter={mobileCenter} key={key} style={props} onDismiss={onDismiss} initialFocusRef={initialFocusRef}>
               <StyledDialogContent
                 {...(isMobile
                   ? {
@@ -143,6 +146,7 @@ export default function Modal({
                 bg={bg}
                 enlarge={enlarge}
                 border={border}
+                mobileCenter={mobileCenter}
               >
                 {/* prevents the automatic focusing of inputs on mobile by the reach dialog */}
                 {!initialFocusRef && isMobile ? <div tabIndex={1} /> : null}
