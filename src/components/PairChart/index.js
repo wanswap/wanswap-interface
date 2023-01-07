@@ -142,7 +142,7 @@ const OptionButton = styled.div`
   font-weight: 500;
   width: fit-content;
   white-space: nowrap;
-  padding: 6px;
+  padding: 3px;
   border-radius: 6px;
   border: ${({ active, theme }) => (active ? 'none' : '1px solid ' + theme.primary7)};
   background-color: ${({ active, theme }) => active && theme.yellow3 };
@@ -253,15 +253,15 @@ const PairChart = ({ address, base0, base1, positive, currencyIn, currencyOut })
   return (
     <ChartWrapper>
       <OptionsRow>
-        <AutoColumn gap={isMobile ? '0' : '6px'} style={{ flexWrap: 'nowrap' }}>
+        <AutoColumn gap={isMobile ? '0' : '12px'} style={{ flexWrap: 'nowrap' }}>
           <PairInfo>
-            <CurrencyLogo currency={currencyIn} size={'30px'} />
+            <CurrencyLogo currency={currencyIn} size={'24px'} />
             <Text>{currencyIn ? currencyIn.symbol : '-'}</Text>
             <Gap>/</Gap>
-            <CurrencyLogo currency={currencyOut} size={'30px'} />
+            <CurrencyLogo currency={currencyOut} size={'24px'} />
             <Text>{currencyOut ? currencyOut.symbol : '-'}</Text>
           </PairInfo>
-          <AutoRow justify={isMobile ? 'flex-start' : 'flex-end'} gap="6px">
+          <AutoRow justify={isMobile ? 'flex-start' : 'flex-end'} gap="2px">
             <OptionButton
               active={timeWindow === timeframeOptions.DAY}
               onClick={() => setTimeWindow(timeframeOptions.DAY)}
@@ -324,7 +324,7 @@ const Text = styled.span`
   display: inline-block;
   height: 42px;
   line-height: 42px;
-  margin-left: 10px;
+  margin-left: 6px;
   font-size: 18px;
 `
 

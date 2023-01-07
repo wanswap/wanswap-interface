@@ -28,7 +28,7 @@ import { X } from 'react-feather';
 
 
 const Con = styled.div<{show: boolean}>`
-  width: 300px;
+  width: 260px;
   height: 100%;
   background: rgba(31, 27, 24, 0.5);
   display: flex;
