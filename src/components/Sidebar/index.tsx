@@ -393,7 +393,7 @@ function SideBar({
           ><HiveSvg />{t('hive')}</WaspItem>
           <WaspItemLink id={`stake-nav-link`} href={'https://info.wanswap.finance'}><AnalyticsSvg />{t('statistics')}</WaspItemLink>
           <WaspItemLink id={`stake-nav-link`} href={'https://vote.wandevs.org/#/wanswap'}><VoteSvg />{t('vote')} </WaspItemLink>
-          <WaspItemLink id={`stake-nav-link`} href={'https://docs.wanswap.finance/'}><DocsSvg />Docs</WaspItemLink>
+          <WaspItemLink id={`stake-nav-link`} href={'https://mirror.xyz/0x8e6591E3278Ce4739954354D8BD9C140dd427525/VkfqXTUaPinm9hhDvh_pfp5lrcdt1OKT4wfT2h0hGMI'}><DocsSvg />Docs</WaspItemLink>
         </WaspCon>
         <WaspLinkCon>
           <WaspItemLightLink id={`stake-nav-link`} href={'https://bridge.wanchain.org/'}><BridgeSvg />{t('crossChain')}</WaspItemLightLink>
