@@ -117,6 +117,7 @@ const Introduce = styled.div`
   position: relative;
   margin-top: 36px;
   margin-bottom: 34px;
+  flex-wrap: wrap;
 `;
 
 const IntroduceLine = styled.div`
@@ -124,8 +125,14 @@ const IntroduceLine = styled.div`
   margin-bottom: 30px;
   justify-content: center;
   align-items: center;
-  width: 390px;
+  max-width: 390px;
+  width: 100%;
   margin: 0 auto;
+  ${
+    isMobile && css`
+      padding: 0 20px;
+    `
+  }
 `;
 
 const Step = styled.div<{active: boolean}>`
