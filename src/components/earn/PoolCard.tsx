@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from 'react'
 import { AutoColumn } from '../Column'
 import { RowBetween } from '../Row'
-import styled, { ThemeContext } from 'styled-components'
+import styled, { ThemeContext, css } from 'styled-components'
 import { TYPE, StyledInternalLink } from '../../theme'
 import DoubleCurrencyLogo from '../DoubleLogo'
 import { ETHER, JSBI, TokenAmount } from '@wanswap/sdk'
@@ -16,6 +16,7 @@ import useUSDCPrice from '../../utils/useUSDCPrice'
 import { useTranslation } from 'react-i18next'
 import { WASP } from '../../constants'
 import { useActiveWeb3React } from '../../hooks'
+import { isMobile } from 'react-device-detect'
 
 const StatContainer = styled.div`
   display: flex;
@@ -75,6 +76,13 @@ const BottomSection = styled.div`
   z-index: 1;
   width: 100%;
   position: relative;
+
+  ${
+    isMobile && css`
+      flex-direction: column;
+      align-items: flex-start;
+    `
+  }
 `
 
 
@@ -222,9 +230,11 @@ export default function PoolCard({ stakingInfo, index, hide, totalDeposit }: { s
             {
               !isActive && !notStart && <SpanFinished>{t("Inactive")}</SpanFinished>
             }
-            {
-              notStart && <NotStarted>{t("Coming Soon")}</NotStarted>
-            }
+            <TYPE.white fontWeight={600} fontSize={18}>
+              {
+                notStart && <NotStarted>{t("Coming Soon")}</NotStarted>
+              }
+            </TYPE.white>
             <Multiplier>
             {
               multiplier+'x'

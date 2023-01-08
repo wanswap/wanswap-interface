@@ -17,6 +17,7 @@ import { useTranslation } from 'react-i18next'
 import { unwrappedToken } from '../../utils/wrappedCurrency'
 import ClaimAllRewardModal from '../../components/earn/ClaimAllRewardModal'
 import searchImg from '../../assets/images/search.png'
+import { isMobile } from 'react-device-detect'
 
 const PageWrapper = styled(AutoColumn)`
   max-width: 640px;
@@ -36,10 +37,12 @@ const PoolSection = styled.div`
   width: 100%;
   justify-self: center;
 `
-const DataRow = styled(RowBetween)`
+
+const RowBetweenMobile = styled(RowBetween)`
   ${({ theme }) => theme.mediaWidth.upToSmall`
-  flex-direction: column;
-`};
+    flex-direction: column;
+    align-items: flex-start;
+  `};
 `
 
 declare global {
@@ -139,16 +142,16 @@ export default function Earn() {
           <CardNoise />
           <CardSection>
             <AutoColumn gap="md">
-              <RowBetween>
+              <RowBetweenMobile>
                 <TYPE.yellow3 fontWeight={600}>
                   {tvlValue}
                 </TYPE.yellow3>
-                {account && (
+                { ( account && !isMobile ) ? (
                   <ButtonHarvestAll onClick={() => setShowClaimRewardModal(true)}>Harvest all</ButtonHarvestAll>
-                )}
-              </RowBetween>
-              <Break />
-              <RowBetween style={{ color: 'rgba(255, 255, 255, 0.5)' }}>
+                ) : null }
+              </RowBetweenMobile>
+              { !isMobile && <Break /> }
+              <RowBetweenMobile style={{ color: 'rgba(255, 255, 255, 0.5)' }}>
                 <span>
                   My Deposit :{' '}
                   {Numeral(
@@ -156,7 +159,12 @@ export default function Earn() {
                   ).format('$0,0')}
                 </span>
                 <span>My Rate : {Numeral(totalRate).format('0,0')} WASP / week</span>
-              </RowBetween>
+              </RowBetweenMobile>
+              {
+                ( account && isMobile ) ? (
+                  <ButtonHarvestAll onClick={() => setShowClaimRewardModal(true)}>Harvest all</ButtonHarvestAll>
+                ) : null
+              }
             </AutoColumn>
           </CardSection>
           <CardBGImage />
@@ -166,13 +174,13 @@ export default function Earn() {
       </TopSection>
 
       <AutoColumn gap="lg" style={{ width: '100%', maxWidth: '720px' }}>
-        <DataRow style={{ alignItems: 'baseline' }}>
+        <RowBetween style={{ alignItems: 'baseline' }}>
           <TYPE.mediumHeader style={{ marginTop: '0.5rem' }}>{t('Participating pools')}</TYPE.mediumHeader>
           {/* <Countdown exactEnd={stakingInfos?.[0]?.periodFinish} exactStart={stakingInfos?.[0]?.periodStart} /> */}
           <InputCom value={search} placeholder={'Search Token'} onChange={e => setSearch(e.target.value)} />
-        </DataRow>
+        </RowBetween>
 
-        <DataRow style={{ flexDirection: 'row' }}>
+        <RowBetween style={{ flexDirection: 'row' }}>
           <div style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap' }}>
             <TYPE.subHeader style={{ marginTop: '0.5rem', marginRight: 5, paddingBottom: 5 }}>
               {t('Show Only Staked')}
@@ -215,7 +223,7 @@ export default function Earn() {
                 }
               />
               </div>
-        </DataRow>
+        </RowBetween>
 
         <PoolSection>
           {stakingRewardsExist && stakingInfos?.length === 0 ? (
