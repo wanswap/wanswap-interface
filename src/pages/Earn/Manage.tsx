@@ -75,7 +75,7 @@ const PoolData = styled(Black1Card)`
 `
 
 const VoteCard = styled(DataCard)`
-  background: radial-gradient(90% 90% at 0% 0%, #41beec 0%, #123471 100%);
+  background: ${({ theme }) => theme.bg6};
   overflow: hidden;
 `
 
@@ -230,17 +230,15 @@ export default function Manage({
 
       {showAddLiquidityButton && (
         <VoteCard>
-          <CardBGImage />
-          <CardNoise />
           <CardSection>
             <AutoColumn gap="md">
               <RowBetween>
                 <TYPE.white fontWeight={600}>{t("Step 1. Get WanSwap Liquidity Pool token WSLP")}</TYPE.white>
               </RowBetween>
               <RowBetween style={{ marginBottom: '1rem' }}>
-                <TYPE.white fontSize={14}>
+                <TYPE.white1 fontSize={14}>
                   {`WSLP tokens are required. Once you've added liquidity to the ${currencyA?.symbol}-${currencyB?.symbol} pool you can stake your liquidity tokens on this page.`}
-                </TYPE.white>
+                </TYPE.white1>
               </RowBetween>
               <ButtonPrimary
                 padding="8px"
