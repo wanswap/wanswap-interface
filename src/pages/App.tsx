@@ -88,6 +88,7 @@ const HaechiAudit = styled.div`
   position:fixed;
   bottom:-5px;
   right:100px;
+  z-index: 2;
 
   ${({ theme }) => theme.mediaWidth.upToLarge`
   z-index:99;
