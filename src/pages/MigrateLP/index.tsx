@@ -210,7 +210,7 @@ function MigrateLP(props: any) {
     let pairName1 = props.location.search.split('=')[1].split('-').reverse().join('/').replace('WWAN', 'WAN');
     let _index = pairList.find(v=>v.name === pairName0 || v.name === pairName1)?.lpAddress;
     setSelectIndex(_index);
-  }, [chainId, props]);
+  }, [chainId, props, pairList]);
 
   const userAmount = new TokenAmount(new Token(chainId || 888, pair.lpAddress, 18, 'WSLP'), info?.userInfo.amount?.toString() || '0');
 
