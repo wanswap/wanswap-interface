@@ -170,9 +170,15 @@ const StepLine = styled.div`
 function MigrateLP(props: any) {
   console.log('props', props.location.search);
   const { chainId, account, library } = useActiveWeb3React()
-  const [selectIndex, setSelectIndex] = useState(0);
+  const pairList = useMemo(() => {
+    return V1_FARM_PAIRS[chainId || 888];
+  }, [chainId]);
+  const [selectIndex, setSelectIndex] = useState<string | null | undefined>(pairList[0].lpAddress);
   // console.log('!!! V1_FARM_PAIRS', V1_FARM_PAIRS[chainId || 999])
-  const pair = V1_FARM_PAIRS[chainId || 888][selectIndex];
+  const pair = useMemo(() => {
+    const i = selectIndex ? selectIndex : pairList[0].lpAddress
+    return pairList.find(v => v.lpAddress.toLocaleLowerCase() === i.toLocaleLowerCase()) || pairList[0];
+  }, [pairList, selectIndex]);
   const info = useV1UserInfo(chainId || 888, account ? account : undefined, pair)
   const selectedTokenList = Object.values(useSelectedTokenList()[chainId || 888])
   const { t } = useTranslation();
@@ -202,7 +208,7 @@ function MigrateLP(props: any) {
     }
     let pairName0 = props.location.search.split('=')[1].split('-').join('/').replace('WWAN', 'WAN');
     let pairName1 = props.location.search.split('=')[1].split('-').reverse().join('/').replace('WWAN', 'WAN');
-    let _index = V1_FARM_PAIRS[ chainId || 888 ].findIndex(v=>v.name === pairName0 || v.name === pairName1);
+    let _index = pairList.find(v=>v.name === pairName0 || v.name === pairName1)?.lpAddress;
     setSelectIndex(_index);
   }, [chainId, props]);
 
@@ -338,8 +344,8 @@ function MigrateLP(props: any) {
         openModal && <LPPairSearchModal
           isOpen={openModal}
           onDismiss={() => setOpenModal(false)}
-          onCurrencySelect={(index: number) => {
-            setSelectIndex(index);
+          onCurrencySelect={(addr: string) => {
+            setSelectIndex(addr);
           }}
           curSelectedIndex={selectIndex}
           onChangeList={ () => {} }

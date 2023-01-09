@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo } from 'react'
+import React, { useMemo } from 'react'
 import { Text } from 'rebass'
 import { useActiveWeb3React } from '../../hooks'
 import Column from '../Column'
@@ -59,28 +59,25 @@ const RowFixed = styled(Row)<{ gap?: string; justify?: string }>`
 
 function CurrencyRow({
   pairInfo,
-  index,
   onSelect,
   curSelectedIndex,
 }: {
   pairInfo: V1FarmPairInfo
-  index: number
   onSelect: () => void
-  curSelectedIndex: number
+  curSelectedIndex: string | undefined | null
 }) {
   // only show add or remove buttons if not on selected list
   const [currency1Name, currency2Name] = pairInfo.name.split('/');
   const { chainId, account } = useActiveWeb3React()
   const networkId = chainId ? chainId : 888;
   const selectedTokenList = Object.values(useSelectedTokenList()[networkId])
-  const pair = V1_FARM_PAIRS[networkId][index];
 
-  const info = useV1UserInfo(chainId || 888, account ? account : undefined, pair)
+  const info = useV1UserInfo(chainId || 888, account ? account : undefined, pairInfo)
   
-  const [currency1Info, currency2Info]:[WrappedTokenInfo | undefined, WrappedTokenInfo | undefined] = [selectedTokenList.find(v => v.address === pair.token0.address), selectedTokenList.find(v => v.address === pair.token1.address)]
+  const [currency1Info, currency2Info]:[WrappedTokenInfo | undefined, WrappedTokenInfo | undefined] = [selectedTokenList.find(v => v.address === pairInfo.token0.address), selectedTokenList.find(v => v.address === pairInfo.token1.address)]
   return (
     <MenuItem
-      onClick={() => curSelectedIndex === index ? null : onSelect()}
+      onClick={() => curSelectedIndex === pairInfo.lpAddress ? null : onSelect() }
     >
       <MenuItemLeft>
         <CurrencyLogo src={currency1Info?.tokenInfo.logoURI} style={{zIndex: 2}} alt="" />
@@ -106,8 +103,8 @@ export default function PairList({
   searchQuery
 }: {
   height: number
-  onCurrencySelect: (index: number) => void
-  curSelectedIndex: number
+  onCurrencySelect: (addr: string) => void
+  curSelectedIndex: string | undefined | null
   searchQuery: string
 }) {
   const { chainId } = useActiveWeb3React()
@@ -118,25 +115,17 @@ export default function PairList({
     })
   }, [searchQuery, itemData]);
 
-  const Row = useCallback(
-    ({ data, index }) => {
-      const handleSelect = () => onCurrencySelect(index)
-      return (
-        <CurrencyRow
-          pairInfo={data}
-          index={index}
-          curSelectedIndex={curSelectedIndex}
-          onSelect={handleSelect}
-        />
-      )
-    },
-    [curSelectedIndex, onCurrencySelect]
-  )
-
   return (
     <Menu height={height}>
       {
-        filterList.map((data:V1FarmPairInfo, index:number) => Row({data, index}))
+        filterList.map((data:V1FarmPairInfo) => (
+          <CurrencyRow
+            key={data.name}
+            pairInfo={data}
+            curSelectedIndex={curSelectedIndex}
+            onSelect={() => onCurrencySelect(data.lpAddress)}
+          />
+        ))
       }
     </Menu>
   )

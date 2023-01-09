@@ -18,8 +18,8 @@ import AutoSizer from 'react-virtualized-auto-sizer'
 interface CurrencySearchProps {
   isOpen: boolean
   onDismiss: () => void
-  onCurrencySelect: (index: number) => void
-  curSelectedIndex: number
+  onCurrencySelect: (addr: string) => void
+  curSelectedIndex: string | undefined | null
   onChangeList: () => void
 }
 
@@ -38,8 +38,8 @@ export function LPPairSearchModal({
   const [invertSearchOrder, setInvertSearchOrder] = useState<boolean>(false)
 
   const handleCurrencySelect = useCallback(
-    (index:number) => {
-      onCurrencySelect(index)
+    (addr:string) => {
+      onCurrencySelect(addr)
       onDismiss()
     },
     [onDismiss, onCurrencySelect]
