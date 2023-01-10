@@ -402,6 +402,7 @@ function SideBar({
           <WaspItemLightLink id={`stake-nav-link`} href={'https://autofarm.network/'}><AutoFarmSvg />Autofarm</WaspItemLightLink>
           <WaspItemLightLink id={`stake-nav-link`} href={'https://streamtrade.wanlend.finance/'}><StreamTradeSvg />{'StreamTrade'}</WaspItemLightLink>
           <WaspItemLightLink id={`stake-nav-link`} href={'https://fifa.wanswap.finance/'}><FifaSvg />Football Forecast</WaspItemLightLink>
+          <WaspItemLightLink id={`stake-nav-link`} href={'https://jackspot.wanlend.finance/'}><FifaSvg />Jack's Pot</WaspItemLightLink>
         </WaspLinkCon>
       </WaspScrollCon>
       <LinkLine>
