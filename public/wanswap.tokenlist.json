@@ -236,6 +236,14 @@
       "decimals": 18,
       "logoURI": "https://icons.wanswap.finance/icon/wanswap/WASP_V2.svg"
     },
+    {
+      "chainId": 888,
+      "address": "0x990825c5D894385f1C5BD36B6427c5336d984E07",
+      "name": "wanTRX",
+      "symbol": "wanTRX",
+      "decimals": 6,
+      "logoURI": "https://www.wanscan.org/img/tokens/TRX_20_wrapped.png"
+    },
     
     {
       "chainId": 999,
@@ -320,7 +328,7 @@
 
   ],
   "version": {
-    "major": 15,
+    "major": 16,
     "minor": 0,
     "patch": 0
   }
