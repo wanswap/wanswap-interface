@@ -242,7 +242,7 @@
       "name": "wanTRX",
       "symbol": "wanTRX",
       "decimals": 6,
-      "logoURI": "https://www.wanscan.org/img/tokens/TRX_20_wrapped.png"
+      "logoURI": "https://icons.wanswap.finance/icon/wanswap/wanTRX.png"
     },
     
     {
@@ -328,7 +328,7 @@
 
   ],
   "version": {
-    "major": 16,
+    "major": 17,
     "minor": 0,
     "patch": 0
   }
