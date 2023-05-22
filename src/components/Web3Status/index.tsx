@@ -177,7 +177,7 @@ function Web3StatusInner() {
           symbol: 'WAN', // 2-6 characters long
           decimals: 18
         },
-        rpcUrls: ['https://gwan-ssl.wandevs.org:56891/'],
+        rpcUrls: ['https://gwan-ssl.wandevs.org:56891'],
         blockExplorerUrls: ['https://www.wanscan.org']
       } as AddEthereumChainParameter
 
