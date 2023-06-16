@@ -244,7 +244,7 @@ export default function WalletModal({
                 color={'#E8831D'}
                 header={'Install WanMask'}
                 subheader={null}
-                link={'https://wanmask.io/'}
+                link={'https://docs.wanchain.org/wallet-and-tools/wanmask'}
                 icon={WanMaskIcon}
               />
             )
