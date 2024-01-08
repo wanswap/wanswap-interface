@@ -124,6 +124,7 @@ export default function Option({
             ''
           )}
           {header}
+          {header === 'MetaMask' && " (Recommended)"}
         </HeaderText>
         {subheader && <SubHeader>{subheader}</SubHeader>}
       </OptionCardLeft>

@@ -116,14 +116,6 @@ export interface WalletInfo {
 }
 
 const SUPPORTED_WALLETS_CHROME: { [key: string]: WalletInfo } = {
-  WANMASK: {
-    connector: injected,
-    name: 'WanMask',
-    iconName: 'wanmask.png',
-    description: 'Easy-to-use browser extension.',
-    href: null,
-    color: '#E8831D'
-  },
   METAMASK: {
     connector: metamask,
     name: 'MetaMask',
@@ -140,6 +132,14 @@ const SUPPORTED_WALLETS_CHROME: { [key: string]: WalletInfo } = {
     description: 'Connect to Trust Wallet, Rainbow Wallet and more...',
     href: null,
     color: '#4196FC',
+  },
+  WANMASK: {
+    connector: injected,
+    name: 'WanMask',
+    iconName: 'wanmask.png',
+    description: 'Easy-to-use browser extension.',
+    href: null,
+    color: '#E8831D'
   },
 }
 

@@ -242,7 +242,7 @@ export default function WalletModal({
                 id={`connect-${key}`}
                 key={key}
                 color={'#E8831D'}
-                header={'Install WanMask'}
+                header={'WanMask'}
                 subheader={null}
                 link={'https://docs.wanchain.org/wallet-and-tools/wanmask'}
                 icon={WanMaskIcon}
