@@ -15,8 +15,6 @@ import { ReactComponent as VoteSvg } from '../../assets/images/svg/vote.svg';
 import { ReactComponent as DocsSvg } from '../../assets/images/svg/docs.svg';
 import { ReactComponent as BridgeSvg } from '../../assets/images/svg/bridge.svg';
 import { ReactComponent as WanLendSvg } from '../../assets/images/svg/wan_lend.svg';
-import { ReactComponent as ZooSvg } from '../../assets/images/svg/zoo.svg';
-import { ReactComponent as AutoFarmSvg } from '../../assets/images/svg/auto_farm.svg';
 import { ReactComponent as StreamTradeSvg } from '../../assets/images/svg/stream_trade.svg';
 import { ReactComponent as FifaSvg } from '../../assets/images/svg/fifa.svg';
 import { ReactComponent as TwitterSvg } from '../../assets/images/svg/twitter_logo.svg';
@@ -398,10 +396,7 @@ function SideBar({
         <WaspLinkCon>
           <WaspItemLightLink id={`stake-nav-link`} href={'https://bridge.wanchain.org/'}><BridgeSvg />{t('crossChain')}</WaspItemLightLink>
           <WaspItemLightLink id={`stake-nav-link`} href={'https://wanlend.finance/'}><WanLendSvg />{t('wanLend')} </WaspItemLightLink>
-          <WaspItemLightLink id={`stake-nav-link`} href={'https://zookeeper.finance/'}><ZooSvg />ZooKeeper</WaspItemLightLink>
-          <WaspItemLightLink id={`stake-nav-link`} href={'https://autofarm.network/'}><AutoFarmSvg />Autofarm</WaspItemLightLink>
           <WaspItemLightLink id={`stake-nav-link`} href={'https://streamtrade.wanlend.finance/'}><StreamTradeSvg />{'StreamTrade'}</WaspItemLightLink>
-          <WaspItemLightLink id={`stake-nav-link`} href={'https://fifa.wanswap.finance/'}><FifaSvg />Football Forecast</WaspItemLightLink>
           <WaspItemLightLink id={`stake-nav-link`} href={'https://jackspot.wanlend.finance/'}><FifaSvg />Jack's Pot</WaspItemLightLink>
         </WaspLinkCon>
       </WaspScrollCon>
